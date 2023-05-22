@@ -8,7 +8,7 @@ Trabajo Práctico número 2 de la materia Algoritmos y Programación III de FIUB
 
 * **Integrante 1** - [Giacobbe, Juan Ignacio](https://github.com/juanignaciogiacobbe)
 * **Integrante 2** - [Fernandez Boch, Valeria](https://github.com/valeriafb)
-* **Integrante 3** - [integrante3](https://github.com/integrante3)
+* **Integrante 3** - [Olaran, Sebastian](https://github.com/sebastianolaran)
 * **Integrante 4** - [integrante4](https://github.com/integrante4)
 
 Corrector: **{Corrector}**
