@@ -25,7 +25,7 @@ jobs:
       - name: Package
         run: docker-compose -f docker/docker-compose.yaml exec -T app bash scripts/package.sh
       - name: Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v1
         with:
           files: target/tp2-*.jar
         env:
