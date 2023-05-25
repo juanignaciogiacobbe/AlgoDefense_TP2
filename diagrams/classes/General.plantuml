@@ -1,0 +1,84 @@
+@startuml
+Enemigo <|-- Hormiga
+Enemigo <|-- Araña
+
+Defensa <|-- TorreBlanca
+Defensa <|-- TorrePlateada
+
+Terreno <|-- Pasarela
+Terreno <|-- Rocoso
+Terreno <|-- Tierra
+
+MenuPrincipal --> Partida
+
+Mapa *-- Terreno
+
+Mapa *-- Enemigo
+Mapa *-- Defensa
+
+TorreBlanca ..|> Atacante
+TorrePlateada ..|> Atacante
+
+
+Jugador ..|> Vida
+Enemigo ..|> Vida
+
+
+Partida *-- Jugador
+
+Partida *-- Mapa
+
+
+class Enemigo{
+ +Vida
+ +Velocidad
+ +Energia
+ +CreditosQueOtorga
+
+
+}
+
+class Jugador{
+ +Vida
+ +Creditos
+ +Nombre
+ +Defensas
+ +void construirdefensa()
+}
+
+
+class Defensa{
+ +TiempoCostruccion
+ +CostoConstruccion
+ +RangoAtaque
+ +Danio
+
+}
+ 
+class Mapa{
+
+}
+
+class MenuPrincipal{
++void iniciarPartida()
+}
+
+
+class TorrePlateada{
++void atacar()
+}
+
+class TorreBlanca{
++void atacar()
+}
+
+interface Vida{
+ +void {abstract} restarvida()
+}
+
+interface Atacante{
+ + void {abstract} atacar()
+}
+
+
+@enduml
