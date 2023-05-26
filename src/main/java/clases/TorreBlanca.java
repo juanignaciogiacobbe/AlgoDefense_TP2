@@ -16,6 +16,7 @@ public class TorreBlanca extends Defensa {
         this.turnosDeVida = 0;
 
     }
+    /**/
 
 
     public int getCostoConstruccion() {
