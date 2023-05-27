@@ -31,7 +31,9 @@ public class TorreBlanca extends Defensa {
         return turnosDeVida >= tiempoConstruccion;
     }
 
-
+    public boolean enemigoDentroDeRango(int distanciaAEnemigo) {
+        return (distanciaAEnemigo <= rangoAtaque);
+    }
 
 }
 

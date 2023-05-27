@@ -6,8 +6,8 @@ Defensa <|-- TorreBlanca
 Defensa <|-- TorrePlateada
 
 Terreno <|-- Pasarela
-Terreno <|-- Rocoso
-Terreno <|-- Tierra
+Terreno <|-- clases.Rocoso
+Terreno <|-- clases.Tierra
 
 MenuPrincipal --> Partida
 
