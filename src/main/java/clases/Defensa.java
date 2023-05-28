@@ -2,16 +2,16 @@ package clases;
 
 abstract class Defensa {
 
-    private int tiempoConstruccion;
-    private int costoConstruccion;
-    private int danio;
-    private int rangoAtaque;
+     protected int tiempoConstruccion;
+     protected int costoConstruccion;
+     protected int danio;
+     protected int rangoAtaque;
+    protected int turnosDeVida;
+
+
 
     public boolean puedoConstruirSobre(Terreno terreno) {
-        if (terreno.terrenoConstruible()) {
-            return true;
-        }
-        return false;
+        return terreno.terrenoConstruible();
     }
 
     abstract boolean enemigoDentroDeRango(int distanciaAEnemigo);

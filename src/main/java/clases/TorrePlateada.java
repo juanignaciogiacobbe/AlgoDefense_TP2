@@ -1,12 +1,11 @@
 package clases;
 
 public class TorrePlateada extends Defensa {
-    private int tiempoConstruccion;
-    private int costoConstruccion;
-    private int danio;
-    private int rangoAtaque;
-
-    private int turnosDeVida;
+    int tiempoConstruccion;
+    int costoConstruccion;
+    int danio;
+    int rangoAtaque;
+    int turnosDeVida;
 
     public TorrePlateada() {
         this.tiempoConstruccion = 2;

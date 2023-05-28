@@ -2,11 +2,11 @@ package clases;
 
 public class TorreBlanca extends Defensa {
 
-    private int turnosDeVida;
-    private int costoConstruccion;
-    private int danio;
-    private int rangoAtaque;
-    private int tiempoConstruccion;
+     int turnosDeVida;
+     int costoConstruccion;
+     int danio;
+     int rangoAtaque;
+     int tiempoConstruccion;
 
     public TorreBlanca() {
         this.tiempoConstruccion = 1;
