@@ -23,6 +23,10 @@ public class Jugador {
         return vida;
     }
 
+    public void agregarCreditos(int creditosRecibidos){
+        creditos += creditosRecibidos;
+    }
+
 
 }
 
