@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CasosDeUsoTest {
 
-
     @Test
     public void test01JugadorComienzaConVidaYCreditosCorrespondientes() {
         Jugador jugador = new Jugador();
@@ -18,52 +17,53 @@ public class CasosDeUsoTest {
         int creditosEsperados = 100;
         assertEquals(vidaEsperada, jugador.getVida());
         assertEquals(creditosEsperados, jugador.getCreditos());
-
     }
 
     @Test
     public void test02DefensaPuedeSerUtilizadaLuegoDeCrearse() {
-        TorrePlateada torre = new TorrePlateada();
-        assertFalse(torre.estaconstruida());
-        /* torre.sumarturno() -> Simula que pasa un turno en la partida*/
-        torre.sumarturno();
-        torre.sumarturno();
-        assertTrue(torre.estaconstruida());
+        TorrePlateada defensa = new TorrePlateada();
 
-
+        defensa.restarTurnoParaDespliegue();
+        assertFalse(defensa.estaDesplegada());
+        defensa.restarTurnoParaDespliegue();
+        assertTrue(defensa.estaDesplegada());
     }
 
     @Test
     public void test03VerificoQueJugadorPuedaConstruir() {
         Jugador jugador = new Jugador();
         TorrePlateada torre = new TorrePlateada();
-        assertTrue(jugador.puedeconstruir(torre.getCostoConstruccion()));
+        int costoConstruccion = torre.getCostoConstruccion();
+        boolean puedeConstruir = jugador.construir(costoConstruccion);
+        assertTrue(puedeConstruir);
     }
 
     @Test
     public void test04VerificoQueSePuedeConstruirDefensasSoloSobreTierra() {
-        TorrePlateada torre = new TorrePlateada();
-        Tierra tierra = new Tierra();
-        Rocoso rocoso = new Rocoso();
+        TorrePlateada defensa = new TorrePlateada();
+        ParcelaDeTierra tierra = new ParcelaDeTierra();
+        ParcelaRocosa rocoso = new ParcelaRocosa();
 
-        assertTrue(torre.puedoConstruirSobre(tierra));
-        assertFalse(torre.puedoConstruirSobre(rocoso));
+        assertTrue(tierra.puedoConstruir(defensa));
+        assertFalse(rocoso.puedoConstruir(defensa));
     }
 
     @Test
     public void test05VerificoQueLasDefensasAtaquenDentroDelRangoEsperado() {
         TorrePlateada torre = new TorrePlateada();
+        int distanciaEnemigoDentroDeRango = 1;
+        int distanciaEnemigoFueraDeRango = 7;
 
-        assertTrue(torre.enemigoDentroDeRango(1));
-        assertFalse(torre.enemigoDentroDeRango(7));
+
+        assertTrue(torre.enemigoDentroDeRango(distanciaEnemigoDentroDeRango));
+        assertFalse(torre.enemigoDentroDeRango(distanciaEnemigoFueraDeRango));
     }
 
     @Test
     public void test06VerificoQueLasUnidadesEnemigasSonDaniadasAcordeAlAtaqueRecibido() {
         Arania arania = new Arania();
-        Jugador jugador = new Jugador();
-        arania.recibirDanio(1, jugador);
-        assertEquals(arania.vida(), 1);
+        arania.recibirDanio(1);
+        assertEquals(arania.getVida(), 1);
     }
 
     @Test
@@ -78,8 +78,10 @@ public class CasosDeUsoTest {
     @Test
     public void test08JugadorObtieneCreditosAlDestruirEnemigo() {
         Jugador jugador = new Jugador();
+        TorrePlateada defensa = new TorrePlateada();
         Hormiga hormiga = new Hormiga();
-        hormiga.recibirDanio(2, jugador);
+        int creditosObtenidos = defensa.atacarA(hormiga);
+        jugador.agregarCreditos(creditosObtenidos);
         assertEquals(jugador.getCreditos(), 101);
     }
 

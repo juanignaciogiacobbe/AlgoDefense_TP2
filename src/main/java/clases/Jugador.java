@@ -1,30 +1,29 @@
 package clases;
 
 public class Jugador {
-    private int creditos;
-    private int vida;
+    private Creditos creditos;
+    private Vida vida;
 
 
     public Jugador() {
-        this.creditos = 100;
-        this.vida = 20;
-    }
-
-    public boolean puedeconstruir(int costoConstruccion){
-        return creditos >= costoConstruccion;
+        this.creditos = new Creditos(100);
+        this.vida = new Vida(20);
     }
 
     public int getCreditos() {
-        return creditos;
+        return this.creditos.getCreditos();
     }
 
-
     public int getVida() {
-        return vida;
+        return this.vida.getVida();
     }
 
     public void agregarCreditos(int creditosRecibidos){
-        creditos += creditosRecibidos;
+        this.creditos.agregarCreditos(creditosRecibidos);
+    }
+
+    public boolean construir(int creditosRequeridos) {
+        return (this.creditos.consumirPuntos(creditosRequeridos));
     }
 
 
