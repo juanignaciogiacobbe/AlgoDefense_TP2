@@ -1,3 +1,4 @@
+import clases.Arania;
 import clases.Jugador;
 
 import clases.Rocoso;
@@ -57,11 +58,12 @@ public class CasosDeUsoTest {
         assertFalse(torre.enemigoDentroDeRango(7));
     }
 
-    //@Test
-    //public void test06VerificoQueLasUnidadesEnemigasSonDaniadasAcordeAlAtaqueRecibido() {
-     //   Arania arania = new Arania();
+    @Test
+    public void test06VerificoQueLasUnidadesEnemigasSonDaniadasAcordeAlAtaqueRecibido() {
+        Arania arania = new Arania();
 
-   //     arania.recibirDanio(4);
-   // }
+        arania.recibirDanio(1);
+        assertEquals(arania.vida(), 1);
+    }
 
 }
