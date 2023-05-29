@@ -9,14 +9,9 @@ import java.util.List;
 public class AlgoDefense {
 
     private Jugador jugador1;
-    private int unidadesEnemigasVivas;
     private List<Enemigo> unidadesEnemigas;
-    
-    public AlgoDefense(int unidadesEnemigasTotales) {
-        this.unidadesEnemigasVivas = unidadesEnemigasTotales;
-    }
-    public AlgoDefense(int unidadesEnemigasVivas, List<Enemigo> unidadesEnemigas) {
-        this.unidadesEnemigasVivas = unidadesEnemigasVivas;
+
+    public AlgoDefense(List<Enemigo> unidadesEnemigas) {
         this.unidadesEnemigas = unidadesEnemigas;
     }
 
@@ -24,14 +19,14 @@ public class AlgoDefense {
         if (nombre.length() < 6) { throw new NombreInvalido();};
         jugador1 = new Jugador(nombre);
     }
-    
+
 
     public void destruirUnidadEnemiga() {
-        unidadesEnemigasVivas -= 1;
+        this.unidadesEnemigas.removeIf(Enemigo::estaMuerto);
     }
 
     public String finDelJuego() {
-        if (unidadesEnemigasVivas == 0) {
+        if (this.unidadesEnemigasVivas() == 0) {
             return jugador1.getNombre();
         } else {
             int danio = calcularDanioTotal();
@@ -40,6 +35,10 @@ public class AlgoDefense {
             }
         }
         return "Computadora";
+    }
+
+    private int unidadesEnemigasVivas() {
+        return (int) unidadesEnemigas.stream().filter(unidad -> !unidad.estaMuerto()).count();
     }
 
     private int calcularDanioTotal() {

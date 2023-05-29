@@ -1,5 +1,7 @@
 import Excepciones.NombreInvalido;
 import clases.*;
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -84,38 +86,41 @@ public class CasosDeUsoTest {
 
     }
 
-    /*@Test
+    @Test
     public void test08JugadorObtieneCreditosAlDestruirEnemigo() {
-        Jugador jugador = new Jugador();
+        Jugador jugador = new Jugador("pepito");
         TorrePlateada defensa = new TorrePlateada();
-        Hormiga hormiga = new Hormiga();
+        ParcelaRocosa parcela = new ParcelaRocosa(1, 1);
+        Hormiga hormiga = new Hormiga(parcela);
         int creditosObtenidos = defensa.atacarA(hormiga);
         jugador.agregarCreditos(creditosObtenidos);
         assertEquals(jugador.getCreditos(), 101);
     }
 
-    @Test
-    public void test09EnemigosSeMuevenPorMapa() {
-        Hormiga hormiga = new Hormiga();
-        Arania arania = new Arania();
-        Pasarela pasarela1 = new Pasarela();
-        pasarela1.agregarEnemigos(hormiga);
-        pasarela1.agregarEnemigos(arania);
-        Pasarela pasarela2 = new Pasarela();
-        Pasarela pasarela3 = new Pasarela();
-        //Se mueve 2 lugares debido a su velocidad
-        arania.mover(pasarela1, pasarela3);
-        //Se mueve 1 lugar debido a su velocidad
-        hormiga.mover(pasarela1, pasarela2);
-        assertEquals(pasarela1.getUnidadesEnemigas().size(), 0);
-        assertEquals(pasarela2.getUnidadesEnemigas().size(), 1);
-        assertEquals(pasarela3.getUnidadesEnemigas().size(), 1);
-    }*/
+//    @Test
+//    public void test09EnemigosSeMuevenPorMapa() {
+//        Hormiga hormiga = new Hormiga();
+//        Arania arania = new Arania();
+//        Pasarela pasarela1 = new Pasarela();
+//        pasarela1.agregarEnemigos(hormiga);
+//        pasarela1.agregarEnemigos(arania);
+//        Pasarela pasarela2 = new Pasarela();
+//        Pasarela pasarela3 = new Pasarela();
+//        //Se mueve 2 lugares debido a su velocidad
+//        arania.mover(pasarela1, pasarela3);
+//        //Se mueve 1 lugar debido a su velocidad
+//        hormiga.mover(pasarela1, pasarela2);
+//        assertEquals(pasarela1.getUnidadesEnemigas().size(), 0);
+//        assertEquals(pasarela2.getUnidadesEnemigas().size(), 1);
+//        assertEquals(pasarela3.getUnidadesEnemigas().size(), 1);
 
     @Test
-    public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() throws NombreInvalido {
-        AlgoDefense algoDefense = new AlgoDefense(1);
-        algoDefense.agregarJugador("Mariana");
+    public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() {
+        // instance an ArrayList with Hormiga inside
+        ParcelaRocosa parcela = new ParcelaRocosa(1, 1);
+        List<Enemigo> enemigos = Arrays.asList(new Hormiga(parcela), new Hormiga(parcela));
+        AlgoDefense algoDefense = new AlgoDefense(enemigos);
+        assertDoesNotThrow(() -> algoDefense.agregarJugador("Mariana"));
         algoDefense.destruirUnidadEnemiga();
         String ganador = algoDefense.finDelJuego();
         assertEquals(ganador, "Mariana");
@@ -128,7 +133,7 @@ public class CasosDeUsoTest {
         List<Enemigo> unidadesEnemigas = new ArrayList<Enemigo>();
         unidadesEnemigas.add(arania);
 
-        AlgoDefense algoDefense = new AlgoDefense(1, unidadesEnemigas);
+        AlgoDefense algoDefense = new AlgoDefense(unidadesEnemigas);
         algoDefense.agregarJugador("Mariana");
         String ganador = algoDefense.finDelJuego();
         assertEquals(ganador, "Mariana");
@@ -144,7 +149,7 @@ public class CasosDeUsoTest {
             unidadesEnemigas.add(arania);
         }
 
-        AlgoDefense algoDefense = new AlgoDefense(1, unidadesEnemigas);
+        AlgoDefense algoDefense = new AlgoDefense(unidadesEnemigas);
         algoDefense.agregarJugador("Mariana");
         String ganador = algoDefense.finDelJuego();
         assertEquals(ganador, "Computadora");
