@@ -114,13 +114,9 @@ public class CasosDeUsoTest {
 
     @Test
     public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() throws NombreInvalido {
-        AlgoDefense algoDefense = new AlgoDefense();
+        AlgoDefense algoDefense = new AlgoDefense(1);
         algoDefense.agregarJugador("Mariana");
-        PasarelaLargada parcela1 = new PasarelaLargada(1, 1);
-        Arania arania = new Arania(parcela1);
-
-        algoDefense.agregarUnidadEnemiga(arania);
-        algoDefense.destruirUnidadEnemiga(arania);
+        algoDefense.destruirUnidadEnemiga();
         String ganador = algoDefense.finDelJuego();
         assertEquals(ganador, "Mariana");
     }

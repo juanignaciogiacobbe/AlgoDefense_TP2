@@ -5,18 +5,19 @@ import Excepciones.NombreInvalido;
 public class AlgoDefense {
 
     private Jugador jugador1;
-    private int unidadesEnemigasVivas = 0;
+    private int unidadesEnemigasVivas;
+    
+    public AlgoDefense(int unidadesEnemigasTotales) {
+        this.unidadesEnemigasVivas = unidadesEnemigasTotales;
+    }
 
     public void agregarJugador(String nombre) throws NombreInvalido {
         if (nombre.length() < 6) { throw new NombreInvalido();};
         jugador1 = new Jugador(nombre);
     }
+    
 
-    public void agregarUnidadEnemiga(Enemigo enemigo) {
-        unidadesEnemigasVivas += 1;
-    }
-
-    public void destruirUnidadEnemiga(Enemigo enemigo) {
+    public void destruirUnidadEnemiga() {
         unidadesEnemigasVivas -= 1;
     }
 
