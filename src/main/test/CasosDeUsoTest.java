@@ -1,11 +1,11 @@
 import Excepciones.NombreInvalido;
 import clases.*;
+import java.util.List;
+import java.util.ArrayList;
+
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -119,5 +119,34 @@ public class CasosDeUsoTest {
         algoDefense.destruirUnidadEnemiga();
         String ganador = algoDefense.finDelJuego();
         assertEquals(ganador, "Mariana");
+    }
+
+    @Test
+    public void test11NoSeEliminanTodasLasUnidaesEnemigasPeroNoAlcanzaElDanioGanaElJugador() throws NombreInvalido {
+        PasarelaLargada parcela1 = new PasarelaLargada(1, 1);
+        Arania arania = new Arania(parcela1);
+        List<Enemigo> unidadesEnemigas = new ArrayList<Enemigo>();
+        unidadesEnemigas.add(arania);
+
+        AlgoDefense algoDefense = new AlgoDefense(1, unidadesEnemigas);
+        algoDefense.agregarJugador("Mariana");
+        String ganador = algoDefense.finDelJuego();
+        assertEquals(ganador, "Mariana");
+    }
+
+    @Test
+    public void test12NoSeEliminanTodasLasUnidaesEnemigasPeroAlcanzaElDanioGanaLaComputadora() throws NombreInvalido {
+
+        List<Enemigo> unidadesEnemigas = new ArrayList<Enemigo>();
+        for(int i=0; i<10; i++) {
+            PasarelaLargada parcela1 = new PasarelaLargada(1, 1);
+            Arania arania = new Arania(parcela1);
+            unidadesEnemigas.add(arania);
+        }
+
+        AlgoDefense algoDefense = new AlgoDefense(1, unidadesEnemigas);
+        algoDefense.agregarJugador("Mariana");
+        String ganador = algoDefense.finDelJuego();
+        assertEquals(ganador, "Computadora");
     }
 }

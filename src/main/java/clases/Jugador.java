@@ -31,6 +31,9 @@ public class Jugador {
     }
 
 
+    public boolean sobreviveConDanio(int danio) {
+        return (this.vida.getVida() - danio > 0);
+    }
 }
 
 

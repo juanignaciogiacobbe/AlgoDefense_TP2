@@ -1,12 +1,14 @@
 package clases;
 
-abstract class Enemigo {
+public abstract class Enemigo {
     protected int puntosEnergia;
     protected Vida energia;
 
     protected int creditos;
 
     protected int velocidad;
+
+    protected int danio;
 
     protected Parcela parcelaActual;
 
@@ -29,4 +31,5 @@ abstract class Enemigo {
         return (parcela.puedeMoverseAqui());
     }
 
+    public int getDanio() { return this.danio; }
 }
