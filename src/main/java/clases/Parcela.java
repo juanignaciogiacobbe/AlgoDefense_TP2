@@ -1,5 +1,10 @@
 package clases;
 
-public interface Parcela {
+abstract class Parcela {
+
+    protected Coordenada coordenada;
+
     abstract boolean puedoConstruir(Defensa defensa);
+
+    abstract boolean puedeMoverseAqui();
 }

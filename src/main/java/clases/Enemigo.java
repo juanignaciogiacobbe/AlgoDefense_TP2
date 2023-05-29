@@ -10,6 +10,8 @@ abstract class Enemigo {
 
     protected int velocidad;
 
+    protected Parcela parcelaActual;
+
     abstract int recibirDanio(int puntosARecibir);
 
     public int vida() {
@@ -20,15 +22,13 @@ abstract class Enemigo {
         return this.energia.getVida();
     }
 
-    public boolean puedeCaminarEn(Terreno terreno){return terreno.terrenoEsDesfilable();}
-
     public boolean estaMuerto(){
         return this.getVida() <=0;
     }
 
-    public void mover(Terreno terrenoActual,Terreno terrenoFuturo){
-        terrenoActual.eliminarEnemigo(this);
-        terrenoFuturo.agregarEnemigos(this);
+
+    public boolean puedeMoverseA(Parcela parcela) {
+        return (parcela.puedeMoverseAqui());
     }
 
 }

@@ -1,7 +1,12 @@
 package clases;
 
-public class ParcelaDePasarela implements Parcela{
+abstract class ParcelaDePasarela extends Parcela{
+
     public boolean puedoConstruir(Defensa defensa) {
         return false;
+    }
+
+    public boolean puedeMoverseAqui() {
+        return true;
     }
 }
