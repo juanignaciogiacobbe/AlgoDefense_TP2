@@ -118,7 +118,12 @@ public class CasosDeUsoTest {
     public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() {
         // instance an ArrayList with Hormiga inside
         ParcelaRocosa parcela = new ParcelaRocosa(1, 1);
-        List<Enemigo> enemigos = Arrays.asList(new Hormiga(parcela), new Hormiga(parcela));
+        Hormiga hormiga = new Hormiga(parcela);
+        List<Enemigo> enemigos = new ArrayList<>(Arrays.asList(hormiga, new Hormiga(parcela)));
+
+        TorrePlateada defensa = new TorrePlateada();
+        defensa.atacarA(hormiga);
+
         AlgoDefense algoDefense = new AlgoDefense(enemigos);
         assertDoesNotThrow(() -> algoDefense.agregarJugador("Mariana"));
         algoDefense.destruirUnidadEnemiga();
