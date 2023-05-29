@@ -4,10 +4,13 @@ public class Jugador {
     private Creditos creditos;
     private Vida vida;
 
+    private String nombre;
 
-    public Jugador() {
+
+    public Jugador(String nombre) {
         this.creditos = new Creditos(100);
         this.vida = new Vida(20);
+        this.nombre = nombre;
     }
 
     public int getCreditos() {
@@ -18,6 +21,7 @@ public class Jugador {
         return this.vida.getVida();
     }
 
+    public String getNombre() { return this.nombre;}
     public void agregarCreditos(int creditosRecibidos){
         this.creditos.agregarCreditos(creditosRecibidos);
     }

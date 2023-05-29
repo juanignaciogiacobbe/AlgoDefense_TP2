@@ -1,3 +1,4 @@
+import Excepciones.NombreInvalido;
 import clases.*;
 
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,7 @@ public class CasosDeUsoTest {
 
     @Test
     public void test01JugadorComienzaConVidaYCreditosCorrespondientes() {
-        Jugador jugador = new Jugador();
+        Jugador jugador = new Jugador("Mariana");
         int vidaEsperada = 20;
         int creditosEsperados = 100;
         assertEquals(vidaEsperada, jugador.getVida());
@@ -31,7 +32,7 @@ public class CasosDeUsoTest {
 
     @Test
     public void test03VerificoQueJugadorPuedaConstruir() {
-        Jugador jugador = new Jugador();
+        Jugador jugador = new Jugador("Mariana");
         TorrePlateada torre = new TorrePlateada();
         int costoConstruccion = torre.getCostoConstruccion();
         boolean puedeConstruir = jugador.construir(costoConstruccion);
@@ -109,9 +110,18 @@ public class CasosDeUsoTest {
         assertEquals(pasarela1.getUnidadesEnemigas().size(), 0);
         assertEquals(pasarela2.getUnidadesEnemigas().size(), 1);
         assertEquals(pasarela3.getUnidadesEnemigas().size(), 1);
-    }
+    }*/
 
     @Test
-    public void test10() {
-    }*/
+    public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() throws NombreInvalido {
+        AlgoDefense algoDefense = new AlgoDefense();
+        algoDefense.agregarJugador("Mariana");
+        PasarelaLargada parcela1 = new PasarelaLargada(1, 1);
+        Arania arania = new Arania(parcela1);
+
+        algoDefense.agregarUnidadEnemiga(arania);
+        algoDefense.destruirUnidadEnemiga(arania);
+        String ganador = algoDefense.finDelJuego();
+        assertEquals(ganador, "Mariana");
+    }
 }
