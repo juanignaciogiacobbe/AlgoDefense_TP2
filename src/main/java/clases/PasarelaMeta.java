@@ -1,7 +1,8 @@
 package clases;
 
 public class PasarelaMeta extends ParcelaDePasarela {
-    public PasarelaMeta(double abscisa, double ordenada) {
+    public PasarelaMeta(int abscisa, int ordenada) {
+        super();
         this.coordenada = new Coordenada(abscisa, ordenada);
     }
 

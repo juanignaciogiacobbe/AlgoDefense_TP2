@@ -5,47 +5,62 @@ import Excepciones.NombreInvalido;
 import java.util.List;
 
 
-
 public class AlgoDefense {
 
     private Jugador jugador1;
-    private List<Enemigo> unidadesEnemigas;
 
-    public AlgoDefense(List<Enemigo> unidadesEnemigas) {
-        this.unidadesEnemigas = unidadesEnemigas;
+    private Mapa mapa;
+
+    public AlgoDefense() {
+        this.mapa = new Mapa();
+    }
+
+    public Mapa getMapa() {
+        return mapa;
     }
 
     public void agregarJugador(String nombre) throws NombreInvalido {
-        if (nombre.length() < 6) { throw new NombreInvalido();};
+        if (nombre.length() < 6) {
+            throw new NombreInvalido();
+        }
+        ;
         jugador1 = new Jugador(nombre);
     }
 
 
-    public void destruirUnidadEnemiga() {
-        this.unidadesEnemigas.removeIf(Enemigo::estaMuerto);
-    }
-
     public String finDelJuego() {
-        if (this.unidadesEnemigasVivas() == 0) {
+        if (mapa.obtenerCantidadEnemigosVivos() == 0) {
             return jugador1.getNombre();
-        } else {
-            int danio = calcularDanioTotal();
-            if (this.jugador1.sobreviveConDanio(danio)) {
-                return jugador1.getNombre();
-            }
         }
+
+        int danio = calcularDanioTotal();
+        if (jugador1.sobreviveConDanio(danio)) {
+            return jugador1.getNombre();
+        }
+
         return "Computadora";
     }
 
-    private int unidadesEnemigasVivas() {
-        return (int) unidadesEnemigas.stream().filter(unidad -> !unidad.estaMuerto()).count();
-    }
+
 
     private int calcularDanioTotal() {
-        int danioTotal = 0;
-        for (Enemigo unidad: unidadesEnemigas) {
-            danioTotal += unidad.getDanio();
-        }
-        return danioTotal;
+        return mapa.obtenerDanioMeta();
     }
+
+    public void comenzarturno() {
+        Enemigo enemigo = new Hormiga();
+        agregarEnemigo(enemigo);
+        mapa.reiniciarEnemigosPasarelas();
+        mapa.moverEnemigos(mapa.getOrigen());
+    }
+
+
+    public void agregarEnemigo(Enemigo enemigo) {
+        mapa.getOrigen().agregarEnemigo(enemigo);
+    }
+
+    public int obtenersizeMeta() {
+        return (mapa.getMeta().getEnemigos().size());
+    }
+
 }

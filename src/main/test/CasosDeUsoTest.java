@@ -64,25 +64,19 @@ public class CasosDeUsoTest {
 
     @Test
     public void test06VerificoQueLasUnidadesEnemigasSonDaniadasAcordeAlAtaqueRecibido() {
-        PasarelaLargada parcela1 = new PasarelaLargada(1, 1);
-        Arania arania = new Arania(parcela1);
+        Arania arania = new Arania();
         arania.recibirDanio(1);
         assertEquals(arania.getVida(), 1);
     }
 
     @Test
     public void test07EnemigosCaminanPorTerrenoValido() {
-        PasarelaLargada parcela1 = new PasarelaLargada(1, 1);
-        PasarelaMeta parcela2 = new PasarelaMeta(1, 2);
+        PasarelaComun parcela2 = new PasarelaComun(1, 2);
         ParcelaRocosa parcela3 = new ParcelaRocosa(1, 0);
-        ParcelaRocosa parcela4 = new ParcelaRocosa(0, 1);
-        ParcelaRocosa parcela5 = new ParcelaRocosa(2, 1);
-        Arania arania = new Arania(parcela1);
-
+        Arania arania = new Arania();
         assertTrue(arania.puedeMoverseA(parcela2));
-        assertTrue(arania.puedeMoverseA(parcela3));
-        assertTrue(arania.puedeMoverseA(parcela4));
-        assertTrue(arania.puedeMoverseA(parcela5));
+        assertFalse(arania.puedeMoverseA(parcela3));
+
 
     }
 
@@ -90,71 +84,75 @@ public class CasosDeUsoTest {
     public void test08JugadorObtieneCreditosAlDestruirEnemigo() {
         Jugador jugador = new Jugador("pepito");
         TorrePlateada defensa = new TorrePlateada();
-        ParcelaRocosa parcela = new ParcelaRocosa(1, 1);
-        Hormiga hormiga = new Hormiga(parcela);
+        Hormiga hormiga = new Hormiga();
         int creditosObtenidos = defensa.atacarA(hormiga);
         jugador.agregarCreditos(creditosObtenidos);
         assertEquals(jugador.getCreditos(), 101);
     }
 
-//    @Test
-//    public void test09EnemigosSeMuevenPorMapa() {
-//        Hormiga hormiga = new Hormiga();
-//        Arania arania = new Arania();
-//        Pasarela pasarela1 = new Pasarela();
-//        pasarela1.agregarEnemigos(hormiga);
-//        pasarela1.agregarEnemigos(arania);
-//        Pasarela pasarela2 = new Pasarela();
-//        Pasarela pasarela3 = new Pasarela();
-//        //Se mueve 2 lugares debido a su velocidad
-//        arania.mover(pasarela1, pasarela3);
-//        //Se mueve 1 lugar debido a su velocidad
-//        hormiga.mover(pasarela1, pasarela2);
-//        assertEquals(pasarela1.getUnidadesEnemigas().size(), 0);
-//        assertEquals(pasarela2.getUnidadesEnemigas().size(), 1);
-//        assertEquals(pasarela3.getUnidadesEnemigas().size(), 1);
+    @Test
+    public void test09EnemigosSeMuevenPorMapa() {
+        AlgoDefense algodefense = new AlgoDefense();
+        Enemigo enemigo = new Hormiga();
+        Mapa mapa = algodefense.getMapa();
+        algodefense.agregarEnemigo(enemigo);
+        for (int i = 0; i < 4; i++) {
+            mapa.reiniciarEnemigosPasarelas();
+            mapa.moverEnemigos(mapa.getOrigen());
+        }
+        assertEquals(1, algodefense.obtenersizeMeta());
+    }
 
     @Test
     public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() {
-        // instance an ArrayList with Hormiga inside
-        ParcelaRocosa parcela = new ParcelaRocosa(1, 1);
-        Hormiga hormiga = new Hormiga(parcela);
-        List<Enemigo> enemigos = new ArrayList<>(Arrays.asList(hormiga, new Hormiga(parcela)));
 
-        TorrePlateada defensa = new TorrePlateada();
-        defensa.atacarA(hormiga);
-
-        AlgoDefense algoDefense = new AlgoDefense(enemigos);
+        AlgoDefense algoDefense = new AlgoDefense();
+        Enemigo enemigo = new Hormiga();
+        Mapa mapa = algoDefense.getMapa();
+        algoDefense.agregarEnemigo(enemigo);
+        TorrePlateada torre = new TorrePlateada();
+        torre.atacarA(enemigo);
+        mapa.reiniciarEnemigosPasarelas();
+        mapa.moverEnemigos(mapa.getOrigen());
         assertDoesNotThrow(() -> algoDefense.agregarJugador("Mariana"));
-        algoDefense.destruirUnidadEnemiga();
         String ganador = algoDefense.finDelJuego();
         assertEquals(ganador, "Mariana");
     }
 
     @Test
     public void test11NoSeEliminanTodasLasUnidaesEnemigasPeroNoAlcanzaElDanioGanaElJugador() throws NombreInvalido {
-        PasarelaLargada parcela1 = new PasarelaLargada(1, 1);
-        Arania arania = new Arania(parcela1);
-        List<Enemigo> unidadesEnemigas = new ArrayList<Enemigo>();
-        unidadesEnemigas.add(arania);
 
-        AlgoDefense algoDefense = new AlgoDefense(unidadesEnemigas);
+        AlgoDefense algoDefense = new AlgoDefense();
+        Enemigo enemigo = new Hormiga();
+        Enemigo enemigo2 = new Hormiga();
+        Mapa mapa = algoDefense.getMapa();
+        algoDefense.agregarEnemigo(enemigo);
+        algoDefense.agregarEnemigo(enemigo2);
+        TorrePlateada torre = new TorrePlateada();
+        torre.atacarA(enemigo);
+        for (int i = 0; i < 4; i++) {
+            mapa.reiniciarEnemigosPasarelas();
+            mapa.moverEnemigos(mapa.getOrigen());
+        }
+        assertDoesNotThrow(() -> algoDefense.agregarJugador("Mariana"));
         algoDefense.agregarJugador("Mariana");
         String ganador = algoDefense.finDelJuego();
         assertEquals(ganador, "Mariana");
     }
 
     @Test
-    public void test12NoSeEliminanTodasLasUnidaesEnemigasPeroAlcanzaElDanioGanaLaComputadora() throws NombreInvalido {
-
-        List<Enemigo> unidadesEnemigas = new ArrayList<Enemigo>();
-        for(int i=0; i<10; i++) {
-            PasarelaLargada parcela1 = new PasarelaLargada(1, 1);
-            Arania arania = new Arania(parcela1);
-            unidadesEnemigas.add(arania);
+    public void test12NoSeEliminanTodasLasUnidadesEnemigasPeroAlcanzaElDanioGanaLaComputadora() throws NombreInvalido {
+        AlgoDefense algoDefense = new AlgoDefense();
+        Mapa mapa = algoDefense.getMapa();
+        for (int i = 0; i < 30; i++) {
+            Arania arania = new Arania();
+            algoDefense.agregarEnemigo(arania);
+        }
+        for (int i = 0; i < 4; i++) {
+            mapa.reiniciarEnemigosPasarelas();
+            mapa.moverEnemigos(mapa.getOrigen());
         }
 
-        AlgoDefense algoDefense = new AlgoDefense(unidadesEnemigas);
         algoDefense.agregarJugador("Mariana");
         String ganador = algoDefense.finDelJuego();
         assertEquals(ganador, "Computadora");

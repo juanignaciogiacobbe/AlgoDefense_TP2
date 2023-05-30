@@ -10,7 +10,12 @@ public abstract class Enemigo {
 
     protected int danio;
 
-    protected Parcela parcelaActual;
+    protected boolean fueMovido;
+
+
+    public Enemigo() {
+        this.fueMovido = false;
+    }
 
     abstract int recibirDanio(int puntosARecibir);
 
@@ -32,4 +37,18 @@ public abstract class Enemigo {
     }
 
     public int getDanio() { return this.danio; }
+
+    public void mover(Parcela parcela){
+        parcela.agregarEnemigo(this);
+    }
+
+
+    public void setFueMovido(boolean fueMovido) {
+        this.fueMovido = fueMovido;
+    }
+
+    public boolean isFueMovido() {
+        return fueMovido;
+    }
+
 }

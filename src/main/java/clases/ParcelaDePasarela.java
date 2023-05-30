@@ -9,4 +9,8 @@ abstract class ParcelaDePasarela extends Parcela{
     public boolean puedeMoverseAqui() {
         return true;
     }
+
+    public boolean puedeDefender(){
+        return false;
+    }
 }
