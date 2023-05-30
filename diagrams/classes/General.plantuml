@@ -1,0 +1,170 @@
+@startuml
+class AlgoDefense {
+  - jugador1: Jugador
+  - mapa: Mapa
+
+  - calcularDanioTotal(): int
+  + finDelJuego(): String
+  + agregarJugador(String): void
+  + agregarEnemigo(Enemigo): void
+  + getMapa(): Mapa
+  + comenzarturno(): void
+  + obtenersizeMeta(): int
+}
+class Arania {
+  + recibirDanio(int): int
+  - obtenerCreditosRandom(): int
+}
+class Coordenada {
+  ~ abscisa: double
+  ~ ordenada: double
+  + getOrdenada(): double
+  + getAbscisa(): double
+}
+class Creditos {
+  - puntosActuales: int
+  + agregarCreditos(int): void
+  + consumirPuntos(int): boolean
+  + getCreditos(): int
+}
+class Defensa {
+  # costoConstruccion: int
+  # danio: int
+  # rangoAtaque: int
+  # turnosRestantesParaDespliegue: int
+  ~ enemigoDentroDeRango(int): boolean
+  + restarTurnoParaDespliegue(): void
+  + estaDesplegada(): boolean
+  + getCostoConstruccion(): int
+  + atacarA(Enemigo): int
+}
+class Enemigo {
+
+  # puntosEnergia: int
+  # creditos: int
+  # danio: int
+  # velocidad: int
+  # energia: Vida
+  # fueMovido: boolean
+
+  ~ recibirDanio(int): int
+  + getDanio(): int
+  + vida(): int
+  + estaMuerto(): boolean
+  + getVida(): int
+  + puedeMoverseA(Parcela): boolean
+  + mover(Parcela): void
+  + setFueMovido(boolean): void
+  + isFueMovido(): boolean
+}
+class Hormiga {
+  + recibirDanio(int): int
+}
+class Jugador {
+  - vida: Vida
+  - creditos: Creditos
+  - nombre: String
+
+  + sobreviveConDanio(int): boolean
+  + getNombre(): String
+  + getVida(): int
+  + construir(int): boolean
+  + agregarCreditos(int): void
+  + getCreditos(): int
+}
+class Mapa {
+  - parcelas: List<Parcela>
+  - origen: Parcela
+  - meta: Parcela
+
+  + getOrigen(): Parcela
+  + getMeta(): Parcela
+  - calcularDistancia(Coordenada, Coordenada): int
+  + reiniciarEnemigosPasarelas(): void
+  + hallarParcelaVecinaCorrecta(Parcela): Parcela
+  + moverEnemigos(Parcela): void
+  + obtenerCantidadEnemigosVivos(): int
+  + obtenerDanioMeta(): int
+}
+class Parcela {
+  # coordenada: Coordenada
+  # enemigos: List<Enemigo>
+  # visitantes: List<Enemigo>
+
+  ~ puedeMoverseAqui(): boolean
+  ~ puedoConstruir(Defensa): boolean
+  + agregarEnemigo(Enemigo): void
+  + eliminarEnemigo(Enemigo): void
+  + getCoordenada(): Coordenada
+  + esVecinaDe(Parcela): boolean
+  + fueVisitado(Enemigo): boolean
+  ~ puedeDefenderse(): boolean
+
+}
+class ParcelaDePasarela {
+  + puedeMoverseAqui(): boolean
+  + puedeDefender(): boolean
+  + puedoConstruir(Defensa): boolean
+}
+class ParcelaDeTierra {
+  - defensa: Defensa
+  - defendible: boolean
+  + puedeMoverseAqui(): boolean
+  + puedoConstruir(Defensa): boolean
+  + puedeDefender(): boolean
+  + isDefendible(): boolean
+}
+class ParcelaRocosa {
+  + puedoConstruir(Defensa): boolean
+  + puedeMoverseAqui(): boolean
+  + puedeDefender(): boolean
+}
+class Partida
+class PasarelaComun
+class PasarelaLargada
+class PasarelaMeta
+class TorreBlanca {
+  + enemigoDentroDeRango(int): boolean
+}
+class TorrePlateada {
+  + enemigoDentroDeRango(int): boolean
+}
+class Vida {
+  - puntosActuales: int
+  + consumirPuntos(int): void
+  + getVida(): int
+}
+' CAMBIAR 👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇
+Arania             -[#000082,plain]-^  Enemigo           
+Hormiga            -[#000082,plain]-^  Enemigo           
+ParcelaDePasarela  -[#000082,plain]-^  Parcela           
+ParcelaDeTierra    -[#000082,plain]-^  Parcela           
+ParcelaRocosa      -[#000082,plain]-^  Parcela           
+PasarelaComun      -[#000082,plain]-^  ParcelaDePasarela 
+PasarelaLargada    -[#000082,plain]-^  ParcelaDePasarela 
+PasarelaMeta       -[#000082,plain]-^  ParcelaDePasarela 
+TorreBlanca        -[#000082,plain]-^  Defensa           
+TorrePlateada      -[#000082,plain]-^  Defensa
+
+AlgoDefense --> Jugador
+AlgoDefense --> Mapa
+AlgoDefense ...> Enemigo
+
+Defensa ...> Enemigo
+
+Enemigo --> Vida
+Enemigo ..> Parcela
+
+Jugador --> Creditos
+Jugador --> Vida
+
+
+Mapa -->"*" Parcela
+Mapa ..> Coordenada
+
+Parcela --> Coordenada
+Parcela -->"*" Enemigo
+Parcela ..> Defensa
+
+ParcelaDeTierra --> Defensa
+@enduml
