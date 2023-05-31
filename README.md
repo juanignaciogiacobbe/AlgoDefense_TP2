@@ -4,7 +4,7 @@
 
 Trabajo Práctico número 2 de la materia Algoritmos y Programación III de FIUBA.
 
-## Grupo {N}
+## Grupo 2
 
 * **Integrante 1** - [Giacobbe, Juan Ignacio](https://github.com/juanignaciogiacobbe)
 * **Integrante 2** - [Fernandez Boch, Valeria](https://github.com/valeriafb)
@@ -12,7 +12,7 @@ Trabajo Práctico número 2 de la materia Algoritmos y Programación III de FIUB
 * **Integrante 4** - [Friedenberger, Tania](https://github.com/TaniaFrieden)
 * **Integrante 5** - [Cusihuaman Altagracia, Luis Eduardo](https://github.com/LuisCusihuaman)
 
-Corrector: **{Corrector}**
+Corrector: Villores, Alejo
 
 ## Aplicación
 

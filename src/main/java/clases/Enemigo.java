@@ -1,8 +1,6 @@
 package clases;
 
-
-
-abstract class Enemigo {
+public abstract class Enemigo {
     protected int puntosEnergia;
     protected Vida energia;
 
@@ -10,7 +8,14 @@ abstract class Enemigo {
 
     protected int velocidad;
 
-    protected Parcela parcelaActual;
+    protected int danio;
+
+    protected boolean fueMovido;
+
+
+    public Enemigo() {
+        this.fueMovido = false;
+    }
 
     abstract int recibirDanio(int puntosARecibir);
 
@@ -29,6 +34,21 @@ abstract class Enemigo {
 
     public boolean puedeMoverseA(Parcela parcela) {
         return (parcela.puedeMoverseAqui());
+    }
+
+    public int getDanio() { return this.danio; }
+
+    public void mover(Parcela parcela){
+        parcela.agregarEnemigo(this);
+    }
+
+
+    public void setFueMovido(boolean fueMovido) {
+        this.fueMovido = fueMovido;
+    }
+
+    public boolean isFueMovido() {
+        return fueMovido;
     }
 
 }
