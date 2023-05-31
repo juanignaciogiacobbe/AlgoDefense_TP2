@@ -1,0 +1,75 @@
+@startuml
+
+
+Mapa *-->"*" Parcela
+Mapa ..> Coordenada
+
+Parcela o--> Coordenada
+Parcela o-->"*" Enemigo
+Parcela ..> Defensa
+
+
+
+class Mapa {
+  - parcelas: List<Parcela>
+  - origen: Parcela
+  - meta: Parcela
+
+  - calcularDistancia(Coordenada, Coordenada): int
+  + reiniciarEnemigosPasarelas(): void
+  + hallarParcelaVecinaCorrecta(Parcela): Parcela
+  + moverEnemigos(Parcela): void
+  + obtenerCantidadEnemigosVivos(): int
+  + obtenerDanioMeta(): int
+}
+class Coordenada {
+  ~ abscisa: double
+  ~ ordenada: double
+  + getOrdenada(): double
+  + getAbscisa(): double
+}
+
+abstract Parcela {
+  # enemigos: List<Enemigo>
+  # visitantes: List<Enemigo>
+
+  ~ puedeMoverseAqui(): boolean
+  ~ puedoConstruir(Defensa): boolean
+  + agregarEnemigo(Enemigo): void
+  + eliminarEnemigo(Enemigo): void
+  + esVecinaDe(Parcela): boolean
+  + fueVisitado(Enemigo): boolean
+  ~ puedeDefenderse(): boolean
+
+}
+abstract Enemigo {
+
+  # puntosEnergia: int
+  # creditos: int
+  # danio: int
+  # velocidad: int
+  # energia: Vida
+  # fueMovido: boolean
+
+  ~ recibirDanio(int): int
+  + vida(): int
+  + estaMuerto(): boolean
+  + puedeMoverseA(Parcela): boolean
+  + mover(Parcela): void
+  + isFueMovido(): boolean
+}
+
+abstract Defensa {
+  # costoConstruccion: int
+  # danio: int
+  # rangoAtaque: int
+  # turnosRestantesParaDespliegue: int
+  ~ enemigoDentroDeRango(int): boolean
+  + restarTurnoParaDespliegue(): void
+  + estaDesplegada(): boolean
+  + getCostoConstruccion(): int
+  + atacarA(Enemigo): int
+}
+
+@enduml
+```

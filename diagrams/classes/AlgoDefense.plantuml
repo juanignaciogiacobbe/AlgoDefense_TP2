@@ -1,0 +1,74 @@
+@startuml
+AlgoDefense o--> Jugador
+AlgoDefense o--> Mapa
+AlgoDefense ...> Enemigo
+
+Jugador o--> Creditos
+Jugador o--> Vida
+
+Enemigo o--> Vida
+
+class AlgoDefense {
+
+  - calcularDanioTotal(): int
+  + finDelJuego(): String
+  + agregarJugador(String): void
+  + agregarEnemigo(Enemigo): void
+  + moverEnemigos(): void
+  + getMapa(): Mapa
+  + comenzarturno(): void
+  + obtenersizeMeta(): int
+}
+class Mapa {
+  - parcelas: List<Parcela>
+  - origen: Parcela
+  - meta: Parcela
+
+  + getOrigen(): Parcela
+  + getMeta(): Parcela
+  - calcularDistancia(Coordenada, Coordenada): int
+  + reiniciarEnemigosPasarelas(): void
+  + hallarParcelaVecinaCorrecta(Parcela): Parcela
+  + moverEnemigos(Parcela): void
+  + obtenerCantidadEnemigosVivos(): int
+  + obtenerDanioMeta(): int
+}
+abstract Enemigo {
+
+  # puntosEnergia: int
+  # creditos: int
+  # danio: int
+  # velocidad: int
+  # energia: Vida
+  # fueMovido: boolean
+
+  ~ recibirDanio(int): int
+  + getDanio(): int
+  + vida(): int
+  + estaMuerto(): boolean
+  + puedeMoverseA(Parcela): boolean
+  + mover(Parcela): void
+  + isFueMovido(): boolean
+}
+class Jugador {
+  - vida: Vida
+  - creditos: Creditos
+  - nombre: String
+
+  + sobreviveConDanio(int): boolean
+  + construir(int): boolean
+  + agregarCreditos(int): void
+  + getCreditos(): int
+}
+class Vida {
+  - puntosActuales: int
+  + consumirPuntos(int): void
+}
+class Creditos {
+  - puntosActuales: int
+  + agregarCreditos(int): void
+  + consumirPuntos(int): boolean
+}
+@enduml
+```
+

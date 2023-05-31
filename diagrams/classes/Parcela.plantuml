@@ -1,0 +1,67 @@
+@startuml
+
+Parcela ..> Defensa
+
+ParcelaDeTierra o--> Defensa
+
+ParcelaDePasarela --|> Parcela           
+ParcelaDeTierra --|>  Parcela           
+ParcelaRocosa --|> Parcela 
+         
+PasarelaComun --|>  ParcelaDePasarela 
+PasarelaLargada --|> ParcelaDePasarela 
+PasarelaMeta --|>  ParcelaDePasarela 
+TorreBlanca  --|>  Defensa           
+TorrePlateada --|>  Defensa
+
+abstract Parcela {
+  # enemigos: List<Enemigo>
+  # visitantes: List<Enemigo>
+
+  ~ puedeMoverseAqui(): boolean
+  ~ puedoConstruir(Defensa): boolean
+  + agregarEnemigo(Enemigo): void
+  + eliminarEnemigo(Enemigo): void
+  + esVecinaDe(Parcela): boolean
+  + fueVisitado(Enemigo): boolean
+  ~ puedeDefenderse(): boolean
+
+}
+abstract Defensa {
+  # costoConstruccion: int
+  # danio: int
+  # rangoAtaque: int
+  # turnosRestantesParaDespliegue: int
+  ~ enemigoDentroDeRango(int): boolean
+  + restarTurnoParaDespliegue(): void
+  + estaDesplegada(): boolean
+  + getCostoConstruccion(): int
+  + atacarA(Enemigo): int
+}
+
+class ParcelaDePasarela {
+  + puedeMoverseAqui(): boolean
+  + puedeDefender(): boolean
+  + puedoConstruir(Defensa): boolean
+}
+class ParcelaDeTierra {
+
+  - defendible: boolean
+  + puedeMoverseAqui(): boolean
+  + puedoConstruir(Defensa): boolean
+  + puedeDefender(): boolean
+  + isDefendible(): boolean
+}
+class ParcelaRocosa {
+  + puedoConstruir(Defensa): boolean
+  + puedeMoverseAqui(): boolean
+  + puedeDefender(): boolean
+}
+class TorreBlanca {
+  + enemigoDentroDeRango(int): boolean
+}
+class TorrePlateada {
+  + enemigoDentroDeRango(int): boolean
+}
+@enduml
+```
