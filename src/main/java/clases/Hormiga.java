@@ -14,6 +14,7 @@ public class Hormiga extends Enemigo{
         this.pasarelaActual = pasarela;
         }
 
+
     public int recibirDanio(int puntosARecibir) {
         energia.consumirPuntos(puntosARecibir);
 
@@ -23,8 +24,7 @@ public class Hormiga extends Enemigo{
         return 0;
     }
     public void mover(Mapa mapa) {
-        ParcelaDePasarela pasarelaNueva = this.pasarelaActual.mover(1, this, mapa);
-        this.pasarelaActual = pasarelaNueva;
+        this.pasarelaActual.mover(this.getVelocidad(), this, mapa);
 
     }
 

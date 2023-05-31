@@ -10,7 +10,6 @@ public class Jugador {
 
     private String nombre;
 
-
     public Jugador(String nombre) throws NombreInvalido {
         this.creditos = new Creditos(100);
         this.vida = new Vida(20);

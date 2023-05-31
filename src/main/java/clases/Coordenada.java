@@ -18,22 +18,5 @@ public class Coordenada {
     }
 
 
-    public Coordenada obtenerVecinoIzquierdo() {
-        return (new Coordenada(this.abscisa - 1, this.ordenada));
-    }
 
-    public Coordenada obtenerVecinoDerecho() {
-        return (new Coordenada(this.abscisa + 1, this.ordenada));
-
-    }
-
-    public Coordenada obtenerVecinoSuperior() {
-        return (new Coordenada(this.abscisa, this.ordenada + 1));
-
-    }
-
-    public Coordenada obtenerVecinoInferior() {
-        return (new Coordenada(this.abscisa, this.ordenada - 1));
-
-    }
 }

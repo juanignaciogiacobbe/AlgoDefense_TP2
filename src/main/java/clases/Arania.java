@@ -4,7 +4,6 @@ import java.util.Random;
 
 public class Arania extends Enemigo {
     public Arania(ParcelaDePasarela pasarela) {
-        //super();
         this.puntosEnergia = 2;
         this.creditos = obtenerCreditosRandom();
         this.velocidad = 2;
@@ -29,8 +28,7 @@ public class Arania extends Enemigo {
     }
 
     public void mover(Mapa mapa) {
-        ParcelaDePasarela pasarelaNueva = this.pasarelaActual.mover(2, this, mapa);
-        this.pasarelaActual = pasarelaNueva;
+      this.pasarelaActual.mover(2, this, mapa);
 
     }
 }

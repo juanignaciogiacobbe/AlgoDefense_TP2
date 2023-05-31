@@ -1,7 +1,6 @@
 package clases;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class Mapa {
@@ -30,8 +29,6 @@ public class Mapa {
 
     public ParcelaDePasarela darSiguientePasarela(ParcelaDePasarela pasarela) {
         int indexPasarela = parcelas.indexOf(pasarela);
-
-
         return pasarela;
     }
 
@@ -60,119 +57,35 @@ public class Mapa {
 
     }
 
-    public void reiniciarEnemigosPasarelas() {
-        for (Parcela parcela : parcelas) {
-            if (parcela.puedeMoverseAqui() && parcela.getEnemigos().size() > 0) {
-                List<Enemigo> enemigosPasarela = parcela.getEnemigos();
-                for (Enemigo enemigo : enemigosPasarela) {
-                    enemigo.setFueMovido(false);
-                }
+    public ParcelaDePasarela hallarParcelaVecinaCorrectaADistancia(Parcela parcela, int distancia) {
+        List<Parcela> vecinos = new ArrayList<>();
+        for (Parcela parcelaMapa : parcelas) {
+            if (parcelaMapa.estaADistancia(parcela.getCoordenada(), distancia) && parcelaMapa.puedeMoverseAqui()) {
+                vecinos.add(parcelaMapa);
             }
         }
+        return (this.calcularParcelaConDistanciaMinimaALaMeta(vecinos));
     }
 
-    public ParcelaDePasarela hallarParcelaVecinaCorrectaADistancia2(Parcela parcela) {
-        List<Parcela> vecinos = new ArrayList<>();
+    private ParcelaDePasarela calcularParcelaConDistanciaMinimaALaMeta(List<Parcela> vecinos)  {
         ParcelaDePasarela parcelaFinal = null;
-        for (Parcela terreno : parcelas) {
-            if (terreno.estaADistancia2(parcela.getCoordenada()) && terreno.puedeMoverseAqui()) {
-                vecinos.add(terreno);
-            }
-        }
-        parcelaFinal = this.calcularParcelaConDistanciaMinimaALaMeta(vecinos);
-        return parcelaFinal;
-    }
-
-    public ParcelaDePasarela hallarParcelaVecinaCorrectaADistancia1(Parcela parcela) {
-        List<Parcela> vecinos = new ArrayList<>();
-        ParcelaDePasarela parcelaFinal = null;
-        for (Parcela terreno : parcelas) {
-            if (terreno.estaADistancia1(parcela.getCoordenada()) && terreno.puedeMoverseAqui()) {
-                vecinos.add(terreno);
-            }
-        }
-        parcelaFinal = this.calcularParcelaConDistanciaMinimaALaMeta(vecinos);
-        return parcelaFinal;
-    }
-
-    private ParcelaDePasarela calcularParcelaConDistanciaMinimaALaMeta(List<Parcela> vecinos) {
-        Parcela parcelaFinal = null;
-        int distanciaMinima = 100000;
-        for (Parcela vecino : vecinos) {
-            int distancia = calcularDistancia(vecino.getCoordenada(), meta.getCoordenada());
-            if (distancia < distanciaMinima) {
-                distanciaMinima = distancia;
-                parcelaFinal = vecino;
-            }
-        }
-        return (ParcelaDePasarela) parcelaFinal;
-    }
-
-    public Parcela hallarParcelaVecinaCorrecta(Parcela parcela) {
-        List<Parcela> vecinos = new ArrayList<>();
-        Parcela parcelaFinal = null;
-        int distanciaMinima = 100000;
-
-        for (Parcela terreno : parcelas) {
-            if (terreno.esVecino(parcela.getCoordenada()) && terreno.puedeMoverseAqui()) {
-                vecinos.add(terreno);
-            }
-        }
+        int distanciaMinima = Integer.MAX_VALUE;
 
         for (Parcela vecino : vecinos) {
             int distancia = calcularDistancia(vecino.getCoordenada(), meta.getCoordenada());
             if (distancia < distanciaMinima) {
                 distanciaMinima = distancia;
-                parcelaFinal = vecino;
+                parcelaFinal = (ParcelaDePasarela) vecino;
             }
         }
+
         return parcelaFinal;
     }
 
-    public void moverEnemigos(Parcela parcela) {
-        if (parcela == meta) {
-            return;
-        }
-
-        List<Enemigo> enemigosParcela = new ArrayList<>(parcela.getEnemigos());
-        Parcela vecino = hallarParcelaVecinaCorrecta(parcela);
-
-        for (Enemigo enemigo : enemigosParcela) {
-            if (!enemigo.isFueMovido()) {
-                if (vecino != null) {
-                    enemigo.mover(vecino);
-                    enemigo.setFueMovido(true);
-                    parcela.eliminarEnemigo(enemigo);
-                }
-            }
-        }
-        moverEnemigos(vecino);
-    }
-
-    public int obtenerCantidadEnemigosVivos() {
-        int cantidadEnemigosVivos = 0;
-
-        for (Parcela parcela : parcelas) {
-            List<Enemigo> enemigosParcela = parcela.getEnemigos();
-
-            for (Enemigo enemigo : enemigosParcela) {
-                if (!enemigo.estaMuerto()) {
-                    cantidadEnemigosVivos++;
-                }
-            }
-        }
-
-        return cantidadEnemigosVivos;
-    }
-
-    public int obtenerDanioMeta() {
-        int danio = 0;
-        for (Enemigo enemigo : meta.getEnemigos()) {
-            danio += enemigo.getDanio();
-        }
-        return danio;
-    }
 }
+
+
+
 
 
 

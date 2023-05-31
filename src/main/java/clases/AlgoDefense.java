@@ -31,8 +31,12 @@ public class AlgoDefense {
     }
 
 
+    public int getEnemigosSize() {
+        return enemigos.size();
+    }
+
     public String finDelJuego() {
-        if (mapa.obtenerCantidadEnemigosVivos() == 0) {
+        if (getEnemigosSize() == 0) {
             return jugador1.getNombre();
         }
 
@@ -45,34 +49,36 @@ public class AlgoDefense {
     }
 
     public void moverEnemigos() {
-        for (Enemigo enemigo: enemigos) {
+        for (Enemigo enemigo : enemigos) {
             enemigo.mover(this.mapa);
         }
     }
 
 
-
     private int calcularDanioTotal() {
-        return mapa.obtenerDanioMeta();
+        int danio = 0;
+        for (Enemigo enemigo : enemigos) {
+            if (enemigo.getPasarelaActual() == mapa.getMeta()) {
+                danio += enemigo.getDanio();
+            }
+        }
+        return danio;
     }
 
-    public void comenzarturno() {
-        PasarelaLargada pasarelaLargada = new PasarelaLargada(0, 0);
-        Enemigo enemigo = new Hormiga(pasarelaLargada);
-        agregarEnemigo(enemigo);
-        mapa.reiniciarEnemigosPasarelas();
-        mapa.moverEnemigos(mapa.getOrigen());
+    public void agregarEnemigo(Enemigo enemigo){
+        enemigos.add(enemigo);
     }
-
-
-    public void agregarEnemigo(Enemigo enemigo) {
-
-        mapa.getOrigen().agregarEnemigo(enemigo);
-        this.enemigos.add(enemigo);
-    }
-
     public int obtenersizeMeta() {
-        return (mapa.getMeta().getEnemigos().size());
+        int cantidadMeta = 0;
+        for (Enemigo enemigo : enemigos) {
+            if (enemigo.getPasarelaActual() == (ParcelaDePasarela) mapa.getMeta()) {
+                cantidadMeta += 1;
+            }
+        }
+        return cantidadMeta;
     }
+
+
+
 
 }
