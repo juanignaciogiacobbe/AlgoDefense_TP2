@@ -51,7 +51,7 @@ public class Mapa {
         ParcelaDeTierra parcela = new ParcelaDeTierra(0, 1);
         parcela.setDefensa(new TorreBlanca());
         parcelas.add(parcela);
-        parcelas.add(new ParcelaRocosa(0, 2));
+        parcelas.add(new PasarelaComun(0, 2));
         parcelas.add(new ParcelaRocosa(2, 1));
         parcelas.add(new PasarelaComun(1, 0));
         parcelas.add(new PasarelaComun(1, 1));
@@ -69,6 +69,43 @@ public class Mapa {
                 }
             }
         }
+    }
+
+    public ParcelaDePasarela hallarParcelaVecinaCorrectaADistancia2(Parcela parcela) {
+        List<Parcela> vecinos = new ArrayList<>();
+        ParcelaDePasarela parcelaFinal = null;
+        for (Parcela terreno : parcelas) {
+            if (terreno.estaADistancia2(parcela.getCoordenada()) && terreno.puedeMoverseAqui()) {
+                vecinos.add(terreno);
+            }
+        }
+        parcelaFinal = this.calcularParcelaConDistanciaMinimaALaMeta(vecinos);
+        return parcelaFinal;
+    }
+
+    public ParcelaDePasarela hallarParcelaVecinaCorrectaADistancia1(Parcela parcela) {
+        List<Parcela> vecinos = new ArrayList<>();
+        ParcelaDePasarela parcelaFinal = null;
+        for (Parcela terreno : parcelas) {
+            if (terreno.estaADistancia1(parcela.getCoordenada()) && terreno.puedeMoverseAqui()) {
+                vecinos.add(terreno);
+            }
+        }
+        parcelaFinal = this.calcularParcelaConDistanciaMinimaALaMeta(vecinos);
+        return parcelaFinal;
+    }
+
+    private ParcelaDePasarela calcularParcelaConDistanciaMinimaALaMeta(List<Parcela> vecinos) {
+        Parcela parcelaFinal = null;
+        int distanciaMinima = 100000;
+        for (Parcela vecino : vecinos) {
+            int distancia = calcularDistancia(vecino.getCoordenada(), meta.getCoordenada());
+            if (distancia < distanciaMinima) {
+                distanciaMinima = distancia;
+                parcelaFinal = vecino;
+            }
+        }
+        return (ParcelaDePasarela) parcelaFinal;
     }
 
     public Parcela hallarParcelaVecinaCorrecta(Parcela parcela) {

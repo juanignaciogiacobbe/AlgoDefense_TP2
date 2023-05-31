@@ -59,4 +59,5 @@ public abstract class Enemigo {
         return fueMovido;
     }
 
+    public  abstract void mover(Mapa mapa);
 }

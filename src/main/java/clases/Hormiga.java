@@ -22,5 +22,10 @@ public class Hormiga extends Enemigo{
         }
         return 0;
     }
+    public void mover(Mapa mapa) {
+        ParcelaDePasarela pasarelaNueva = this.pasarelaActual.mover(1, this, mapa);
+        this.pasarelaActual = pasarelaNueva;
+
+    }
 
     }

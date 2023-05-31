@@ -27,4 +27,10 @@ public class Arania extends Enemigo {
         }
         return 0;
     }
+
+    public void mover(Mapa mapa) {
+        ParcelaDePasarela pasarelaNueva = this.pasarelaActual.mover(2, this, mapa);
+        this.pasarelaActual = pasarelaNueva;
+
+    }
 }

@@ -58,5 +58,17 @@ abstract class Parcela {
 
     abstract boolean puedeDefender();
 
+    public boolean estaADistancia2(Coordenada coordenada) {
+        double difrenciaAbsica = this.coordenada.getAbscisa() - coordenada.getAbscisa();
+        double difrenciaOrdenada = this.coordenada.getOrdenada() - coordenada.getOrdenada();
+        return  (difrenciaAbsica == 0 && Math.abs(difrenciaOrdenada) == 2) || (Math.abs(difrenciaAbsica) == 2 && difrenciaOrdenada == 0);
+    }
+
+    public boolean estaADistancia1(Coordenada coordenada) {
+        double difrenciaAbsica = this.coordenada.getAbscisa() - coordenada.getAbscisa();
+        double difrenciaOrdenada = this.coordenada.getOrdenada() - coordenada.getOrdenada();
+        return  (difrenciaAbsica == 0 && Math.abs(difrenciaOrdenada) == 1) || (Math.abs(difrenciaAbsica) == 1 && difrenciaOrdenada == 0);
+    }
+
 }
 

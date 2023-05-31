@@ -2,6 +2,7 @@ package clases;
 
 import Excepciones.NombreInvalido;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -11,8 +12,12 @@ public class AlgoDefense {
 
     private Mapa mapa;
 
+    private List<Enemigo> enemigos;
+
     public AlgoDefense() {
+
         this.mapa = new Mapa();
+        this.enemigos = new ArrayList<Enemigo>();
     }
 
     public Mapa getMapa() {
@@ -39,6 +44,12 @@ public class AlgoDefense {
         return "Computadora";
     }
 
+    public void moverEnemigos() {
+        for (Enemigo enemigo: enemigos) {
+            enemigo.mover(this.mapa);
+        }
+    }
+
 
 
     private int calcularDanioTotal() {
@@ -55,7 +66,9 @@ public class AlgoDefense {
 
 
     public void agregarEnemigo(Enemigo enemigo) {
+
         mapa.getOrigen().agregarEnemigo(enemigo);
+        this.enemigos.add(enemigo);
     }
 
     public int obtenersizeMeta() {
