@@ -28,6 +28,13 @@ public class Mapa {
         return meta;
     }
 
+    public ParcelaDePasarela darSiguientePasarela(ParcelaDePasarela pasarela) {
+        int indexPasarela = parcelas.indexOf(pasarela);
+
+
+        return pasarela;
+    }
+
 
     private int calcularDistancia(Coordenada coordenada1, Coordenada coordenada2) {
         int x1 = coordenada1.getAbscisa();

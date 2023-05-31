@@ -20,9 +20,7 @@ public class AlgoDefense {
     }
 
     public void agregarJugador(String nombre) throws NombreInvalido {
-        if (nombre.length() < 6) {
-            throw new NombreInvalido();
-        }
+        if (nombre.length() < 6) throw new NombreInvalido();
         ;
         jugador1 = new Jugador(nombre);
     }
@@ -48,7 +46,8 @@ public class AlgoDefense {
     }
 
     public void comenzarturno() {
-        Enemigo enemigo = new Hormiga();
+        PasarelaLargada pasarelaLargada = new PasarelaLargada(0, 0);
+        Enemigo enemigo = new Hormiga(pasarelaLargada);
         agregarEnemigo(enemigo);
         mapa.reiniciarEnemigosPasarelas();
         mapa.moverEnemigos(mapa.getOrigen());

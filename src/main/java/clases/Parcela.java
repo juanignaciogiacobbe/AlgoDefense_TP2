@@ -11,10 +11,13 @@ abstract class Parcela {
 
     protected List<Enemigo> visitantes;
 
+    protected Mapa mapa;
 
-    public Parcela() {
+
+    public Parcela(/*Mapa mapa*/) {
         this.enemigos = new ArrayList<>();
         this.visitantes =new ArrayList<>();
+        //this.mapa = mapa;
     }
 
 

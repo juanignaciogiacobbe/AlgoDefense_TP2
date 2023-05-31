@@ -12,15 +12,23 @@ public abstract class Enemigo {
 
     protected boolean fueMovido;
 
+    protected ParcelaDePasarela pasarelaActual;
 
-    public Enemigo() {
+
+    /*public Enemigo(ParcelaDePasarela pasarela) {
         this.fueMovido = false;
-    }
+    }*/
 
     abstract int recibirDanio(int puntosARecibir);
 
-    public int vida() {
-        return puntosEnergia;
+  /* public void mover() {
+       ParcelaDePasarela nuevaPasarela = pasarelaActual.darSiguientePasarela();
+
+       this.setPasarelaActual(nuevaPasarela);
+   }*/
+
+    public void setPasarelaActual(ParcelaDePasarela pasarela) {
+        this.pasarelaActual = pasarela;
     }
 
     public int getVida() {
