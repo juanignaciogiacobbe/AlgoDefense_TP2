@@ -1,5 +1,7 @@
 package clases;
 
+import Excepciones.TerrenoNoAptoParaConstruir;
+
 abstract class ParcelaDePasarela extends Parcela{
 
     public boolean puedoConstruir(Defensa defensa) {
@@ -28,5 +30,9 @@ abstract class ParcelaDePasarela extends Parcela{
         pasarelaNueva.agregarEnemigo(enemigo);
         this.eliminarEnemigo(enemigo);
         return pasarelaNueva;
+    }
+
+    public void construir(Defensa defensa) throws TerrenoNoAptoParaConstruir {
+        throw new TerrenoNoAptoParaConstruir();
     }
 }

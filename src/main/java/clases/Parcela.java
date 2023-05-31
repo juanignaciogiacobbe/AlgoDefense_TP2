@@ -1,5 +1,7 @@
 package clases;
 
+import Excepciones.TerrenoNoAptoParaConstruir;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,5 +72,6 @@ abstract class Parcela {
         return  (difrenciaAbsica == 0 && Math.abs(difrenciaOrdenada) == 1) || (Math.abs(difrenciaAbsica) == 1 && difrenciaOrdenada == 0);
     }
 
+    public abstract void construir(Defensa defensa) throws TerrenoNoAptoParaConstruir;
 }
 

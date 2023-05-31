@@ -1,4 +1,5 @@
 import Excepciones.NombreInvalido;
+import Excepciones.TerrenoNoAptoParaConstruir;
 import clases.*;
 
 import java.util.Arrays;
@@ -14,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CasosDeUsoTest {
 
     @Test
-    public void test01JugadorComienzaConVidaYCreditosCorrespondientes() {
+    public void test01JugadorComienzaConVidaYCreditosCorrespondientes() throws NombreInvalido{
         Jugador jugador = new Jugador("Mariana");
         int vidaEsperada = 20;
         int creditosEsperados = 100;
@@ -33,22 +34,22 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test03VerificoQueJugadorPuedaConstruir() {
+    public void test03VerificoQueJugadorPuedaConstruir() throws NombreInvalido {
         Jugador jugador = new Jugador("Mariana");
         TorrePlateada torre = new TorrePlateada();
-        int costoConstruccion = torre.getCostoConstruccion();
-        boolean puedeConstruir = jugador.construir(costoConstruccion);
-        assertTrue(puedeConstruir);
+        ParcelaDeTierra tierra = new ParcelaDeTierra(0,1);
+        assertDoesNotThrow(() -> {jugador.construir(torre, tierra);});
     }
 
     @Test
-    public void test04VerificoQueSePuedeConstruirDefensasSoloSobreTierra() {
+    public void test04VerificoQueSePuedeConstruirDefensasSoloSobreTierra()  {
         TorrePlateada defensa = new TorrePlateada();
         ParcelaDeTierra tierra = new ParcelaDeTierra(1, 0);
         ParcelaRocosa rocoso = new ParcelaRocosa(0, 1);
 
-        assertTrue(tierra.puedoConstruir(defensa));
-        assertFalse(rocoso.puedoConstruir(defensa));
+        assertDoesNotThrow( () -> {tierra.construir(defensa);});
+        assertThrows(TerrenoNoAptoParaConstruir.class, () -> {
+            rocoso.construir(defensa);});
     }
 
     @Test
@@ -83,7 +84,7 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test08JugadorObtieneCreditosAlDestruirEnemigo() {
+    public void test08JugadorObtieneCreditosAlDestruirEnemigo() throws NombreInvalido{
         Jugador jugador = new Jugador("pepito");
         TorrePlateada defensa = new TorrePlateada();
         PasarelaLargada pasarelaLargada = new PasarelaLargada(0, 0);
