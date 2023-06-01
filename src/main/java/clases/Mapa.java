@@ -1,5 +1,7 @@
 package clases;
 
+import Excepciones.TerrenoNoAptoParaConstruir;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +48,10 @@ public class Mapa {
         parcelas.add(origen);
         parcelas.add(new ParcelaRocosa(2, 0));
         ParcelaDeTierra parcela = new ParcelaDeTierra(0, 1);
-        parcela.setDefensa(new TorreBlanca());
+        try {parcela.construir(new TorreBlanca());} catch (
+                TerrenoNoAptoParaConstruir e) {
+            throw new RuntimeException(e);
+        }
         parcelas.add(parcela);
         parcelas.add(new ParcelaRocosa(0, 2));
         parcelas.add(new ParcelaRocosa(2, 1));

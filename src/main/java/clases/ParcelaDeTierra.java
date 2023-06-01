@@ -22,12 +22,6 @@ public class ParcelaDeTierra extends Parcela {
         return false;
     }
 
-    public void setDefensa(Defensa defensa) {
-        this.defensa = defensa;
-        defendible= true;
-
-    }
-
     public boolean puedeDefender(){
         return isDefendible();
     }
@@ -42,6 +36,8 @@ public class ParcelaDeTierra extends Parcela {
     }
 
     public void construir(Defensa defensa) throws TerrenoNoAptoParaConstruir {
+        this.defensa = defensa;
+        defendible= true;
     }
 
     public int obtenerRangoDefensa(){

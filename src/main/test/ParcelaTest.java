@@ -35,4 +35,17 @@ public class  ParcelaTest {
 
         assertThrows(TerrenoNoAptoParaConstruir.class, ()-> {pasarela.construir(defensa);});
     }
+    @Test
+    public void test05ConstruyoUnaDefensaEnUnaUbicacionEsaUbicacionAhoraEsDefendible() throws TerrenoNoAptoParaConstruir {
+        ParcelaDeTierra tierra = new ParcelaDeTierra(0,1);
+        TorrePlateada defensa = new TorrePlateada();
+        tierra.construir(defensa);
+        assertTrue(tierra.puedeDefender());
+    }
+    @Test
+    public void test06NoConstruyoUnaDefensaEnUnaUbicacionEsaNoEsDefendible() {
+        ParcelaDeTierra tierra = new ParcelaDeTierra(0,1);
+        assertFalse(tierra.puedeDefender());
+    }
+
 }
