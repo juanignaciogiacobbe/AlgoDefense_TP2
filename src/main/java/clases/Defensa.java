@@ -22,6 +22,11 @@ abstract class Defensa {
         return costoConstruccion;
     }
 
+
+    public int getRangoAtaque() {
+        return rangoAtaque;
+    }
+
     public int atacarA(Enemigo enemigo) {
        return enemigo.recibirDanio(danio);
     }

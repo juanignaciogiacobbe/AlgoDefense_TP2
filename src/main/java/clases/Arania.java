@@ -28,7 +28,7 @@ public class Arania extends Enemigo {
     }
 
     public void mover(Mapa mapa) {
-      this.pasarelaActual.mover(2, this, mapa);
+        this.setPasarelaActual(this.pasarelaActual.mover(this.getVelocidad(), mapa));
 
     }
 }

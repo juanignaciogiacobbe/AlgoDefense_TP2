@@ -65,18 +65,36 @@ public class AlgoDefense {
         return danio;
     }
 
-    public void agregarEnemigo(Enemigo enemigo){
+    public void agregarEnemigo(Enemigo enemigo) {
         enemigos.add(enemigo);
     }
+
     public int obtenersizeMeta() {
         int cantidadMeta = 0;
         for (Enemigo enemigo : enemigos) {
-            if (enemigo.getPasarelaActual() == (ParcelaDePasarela) mapa.getMeta()) {
+            if (enemigo.getPasarelaActual() == mapa.getMeta()) {
                 cantidadMeta += 1;
             }
         }
         return cantidadMeta;
     }
+
+    public void comenzarAtaqueJugador() {
+        List<ParcelaDeTierra> defensas = mapa.obtenerDefensas();
+        for (ParcelaDeTierra defensa : defensas) {
+            Parcela pasarela = mapa.obtenerPasarelasEnRango(defensa, defensa.obtenerRangoDefensa());
+            System.out.println(pasarela.getCoordenada().getAbscisa());
+            System.out.println(pasarela.getCoordenada().getOrdenada());
+            boolean atacado = false;
+            for (Enemigo enemigo : enemigos) {
+                if (enemigo.getPasarelaActual() == pasarela && !atacado) {
+                    defensa.getDefensa().atacarA(enemigo);
+                    atacado = true;
+                }
+            }
+        }
+    }
+
 
 
 

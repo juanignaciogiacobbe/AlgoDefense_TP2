@@ -20,10 +20,8 @@ abstract class ParcelaDePasarela extends Parcela{
         return mapa.darSiguientePasarela(this);
     }
 
-    public void mover(int distancia, Enemigo enemigo, Mapa mapa) {
-        ParcelaDePasarela pasarelaNueva = mapa.hallarParcelaVecinaCorrectaADistancia(this, distancia) ;
-        enemigo.setPasarelaActual(pasarelaNueva);
-
+    public ParcelaDePasarela mover(int distancia,Mapa mapa) {
+        return mapa.hallarParcelaVecinaCorrectaADistancia(this, distancia);
     }
 
     public void construir(Defensa defensa) throws TerrenoNoAptoParaConstruir {

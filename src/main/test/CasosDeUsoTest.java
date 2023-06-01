@@ -109,15 +109,12 @@ public class CasosDeUsoTest {
 
     @Test
     public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() {
-        PasarelaLargada pasarelaLargada = new PasarelaLargada(0, 0);
         AlgoDefense algoDefense = new AlgoDefense();
         Mapa mapa = algoDefense.getMapa();
         Enemigo enemigo = new Hormiga((PasarelaLargada) mapa.getOrigen());
         algoDefense.agregarEnemigo(enemigo);
         TorrePlateada torre = new TorrePlateada();
         torre.atacarA(enemigo);
-        /*mapa.reiniciarEnemigosPasarelas();
-        mapa.moverEnemigos(mapa.getOrigen());*/
         assertDoesNotThrow(() -> algoDefense.agregarJugador("Mariana"));
         algoDefense.moverEnemigos();
         String ganador = algoDefense.finDelJuego();
@@ -145,17 +142,18 @@ public class CasosDeUsoTest {
 
     @Test
     public void test12NoSeEliminanTodasLasUnidadesEnemigasPeroAlcanzaElDanioGanaLaComputadora() throws NombreInvalido {
-        PasarelaLargada pasarelaLargada = new PasarelaLargada(0, 0);
         AlgoDefense algoDefense = new AlgoDefense();
         Mapa mapa = algoDefense.getMapa();
         for (int i = 0; i < 30; i++) {
-            Arania arania = new Arania((PasarelaLargada) mapa.getOrigen());
-            algoDefense.agregarEnemigo(arania);
+            Hormiga hormiga = new Hormiga(mapa.getOrigen());
+            algoDefense.agregarEnemigo(hormiga);
         }
+        algoDefense.moverEnemigos();
+        algoDefense.moverEnemigos();
+        algoDefense.moverEnemigos();
+        algoDefense.moverEnemigos();
 
-        for (int i = 0; i < 2; i++) {
-            algoDefense.moverEnemigos();
-        }
+
 
 
         algoDefense.agregarJugador("Mariana");

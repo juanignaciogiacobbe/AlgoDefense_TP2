@@ -4,9 +4,8 @@ import java.util.Random;
 
 public class Hormiga extends Enemigo{
 
-    public Hormiga(PasarelaLargada pasarela) {
+    public Hormiga(ParcelaDePasarela pasarela) {
         //super();
-        this.puntosEnergia = 2;
         this.creditos= 1;
         this.velocidad = 1;
         this.danio = 1;
@@ -24,7 +23,7 @@ public class Hormiga extends Enemigo{
         return 0;
     }
     public void mover(Mapa mapa) {
-        this.pasarelaActual.mover(this.getVelocidad(), this, mapa);
+        this.setPasarelaActual(this.pasarelaActual.mover(this.getVelocidad(),mapa));
 
     }
 

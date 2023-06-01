@@ -43,4 +43,8 @@ public class ParcelaDeTierra extends Parcela {
 
     public void construir(Defensa defensa) throws TerrenoNoAptoParaConstruir {
     }
+
+    public int obtenerRangoDefensa(){
+         return defensa.getRangoAtaque();
+    }
 }
