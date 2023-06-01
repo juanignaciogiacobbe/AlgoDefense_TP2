@@ -22,9 +22,5 @@ public class Hormiga extends Enemigo{
         }
         return 0;
     }
-    public void mover(Mapa mapa) {
-        this.setPasarelaActual(this.pasarelaActual.mover(this.getVelocidad(),mapa));
 
-    }
-
-    }
+}

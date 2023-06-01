@@ -1,12 +1,12 @@
 @startuml
-AlgoDefense o--> Jugador
-AlgoDefense o--> Mapa
-AlgoDefense ...> Enemigo
+AlgoDefense *--> Jugador
+AlgoDefense *--> Mapa
+AlgoDefense "1" o--> "*" Enemigo
 
-Jugador o--> Creditos
-Jugador o--> Vida
+Jugador *--> Creditos
+Jugador *--> Vida
 
-Enemigo o--> Vida
+Enemigo *--> Vida
 
 class AlgoDefense {
 
@@ -16,56 +16,56 @@ class AlgoDefense {
   + agregarEnemigo(Enemigo): void
   + moverEnemigos(): void
   + getMapa(): Mapa
-  + comenzarturno(): void
+  + comenzarAtaqueJuagdor(): void
   + obtenersizeMeta(): int
 }
 class Mapa {
   - parcelas: List<Parcela>
-  - origen: Parcela
-  - meta: Parcela
+  - origen: ParcelaDePasarela
+  - meta: ParcelaDePasarela
 
-  + getOrigen(): Parcela
-  + getMeta(): Parcela
+  + getOrigen(): ParcelaDePasarela
+  + getMeta(): ParcelaDePasarela
   - calcularDistancia(Coordenada, Coordenada): int
   + reiniciarEnemigosPasarelas(): void
-  + hallarParcelaVecinaCorrecta(Parcela): Parcela
-  + moverEnemigos(Parcela): void
-  + obtenerCantidadEnemigosVivos(): int
-  + obtenerDanioMeta(): int
+  + hallarParcelaVecinaCorrectaADistancia(Parcela, int): ParcelaDePasarela
+  - calcularParcelaConDistanciaMinimaALaMeta(List<ParcelaDePasarela>): ParcelaDePasarela
+  + obtenerDefensas(): List<ParcelaDeTierra>
+
 }
 abstract Enemigo {
-
-  # puntosEnergia: int
   # creditos: int
   # danio: int
   # velocidad: int
-  # energia: Vida
-  # fueMovido: boolean
 
-  ~ recibirDanio(int): int
+  + {abstract} recibirDanio(int): int
+  + setPasarelaActual(ParcelaDePasarela): void
   + getDanio(): int
-  + vida(): int
+  + getVida(): int
+  + getVelocidad(): int
   + estaMuerto(): boolean
   + puedeMoverseA(Parcela): boolean
-  + mover(Parcela): void
-  + isFueMovido(): boolean
+  + mover(Mapa): void
 }
 class Jugador {
-  - vida: Vida
-  - creditos: Creditos
   - nombre: String
 
-  + sobreviveConDanio(int): boolean
-  + construir(int): boolean
-  + agregarCreditos(int): void
+  + Jugador(String)
   + getCreditos(): int
+  + getVida(): int
+  + getNombre(): String
+  + sobreviveConDanio(int): boolean
+  + construir(Defensa, Parcela): void
+  + agregarCreditos(int): void
 }
 class Vida {
   - puntosActuales: int
+  + Vida(int)
   + consumirPuntos(int): void
 }
 class Creditos {
   - puntosActuales: int
+  + Creditos(int)
   + agregarCreditos(int): void
   + consumirPuntos(int): boolean
 }
