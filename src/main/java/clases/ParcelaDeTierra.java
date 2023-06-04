@@ -1,5 +1,7 @@
 package clases;
 
+import Excepciones.TerrenoNoAptoParaConstruir;
+
 public class ParcelaDeTierra extends Parcela {
 
 
@@ -12,18 +14,13 @@ public class ParcelaDeTierra extends Parcela {
         this.defendible= false;
 
     }
+
     public boolean puedoConstruir(Defensa defensa) {
         return true;
     }
 
     public boolean puedeMoverseAqui() {
         return false;
-    }
-
-    public void setDefensa(Defensa defensa) {
-        this.defensa = defensa;
-        defendible= true;
-
     }
 
     public boolean puedeDefender(){
@@ -37,5 +34,14 @@ public class ParcelaDeTierra extends Parcela {
 
     public Defensa getDefensa() {
         return defensa;
+    }
+
+    public void construir(Defensa defensa) throws TerrenoNoAptoParaConstruir {
+        this.defensa = defensa;
+        defendible= true;
+    }
+
+    public int obtenerRangoDefensa(){
+         return defensa.getRangoAtaque();
     }
 }

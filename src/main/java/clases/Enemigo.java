@@ -1,7 +1,6 @@
 package clases;
 
 public abstract class Enemigo {
-    protected int puntosEnergia;
     protected Vida energia;
 
     protected int creditos;
@@ -10,22 +9,11 @@ public abstract class Enemigo {
 
     protected int danio;
 
-    protected boolean fueMovido;
-
     protected ParcelaDePasarela pasarelaActual;
 
 
-    /*public Enemigo(ParcelaDePasarela pasarela) {
-        this.fueMovido = false;
-    }*/
-
     abstract int recibirDanio(int puntosARecibir);
 
-  /* public void mover() {
-       ParcelaDePasarela nuevaPasarela = pasarelaActual.darSiguientePasarela();
-
-       this.setPasarelaActual(nuevaPasarela);
-   }*/
 
     public void setPasarelaActual(ParcelaDePasarela pasarela) {
         this.pasarelaActual = pasarela;
@@ -33,6 +21,10 @@ public abstract class Enemigo {
 
     public int getVida() {
         return this.energia.getVida();
+    }
+
+    public int getVelocidad() {
+        return velocidad;
     }
 
     public boolean estaMuerto(){
@@ -46,17 +38,17 @@ public abstract class Enemigo {
 
     public int getDanio() { return this.danio; }
 
-    public void mover(Parcela parcela){
-        parcela.agregarEnemigo(this);
+    public ParcelaDePasarela getPasarelaActual() {
+        return pasarelaActual;
     }
 
 
-    public void setFueMovido(boolean fueMovido) {
-        this.fueMovido = fueMovido;
-    }
 
-    public boolean isFueMovido() {
-        return fueMovido;
-    }
 
+
+
+    public void mover(Mapa mapa) {
+        this.setPasarelaActual(this.pasarelaActual.mover(this.getVelocidad(), mapa));
+
+    }
 }

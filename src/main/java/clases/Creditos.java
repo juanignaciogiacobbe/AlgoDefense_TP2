@@ -1,5 +1,7 @@
 package clases;
 
+import Excepciones.CreditosInsuficientes;
+
 public class Creditos {
     private int puntosActuales;
 
@@ -15,9 +17,11 @@ public class Creditos {
         puntosActuales = puntosActuales + creditosRecibidos;
     }
 
-    public boolean consumirPuntos(int puntosAConsumir) {
+    public void consumirPuntos(int puntosAConsumir) throws CreditosInsuficientes {
+        if (puntosAConsumir > puntosActuales) {
+            throw new CreditosInsuficientes();
+        }
         puntosActuales -= puntosAConsumir;
 
-        return (puntosActuales >= 0);
     }
 }

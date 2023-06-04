@@ -1,0 +1,58 @@
+@startuml
+
+
+Mapa *-->"*" Parcela
+Mapa ..> Coordenada
+
+Parcela *--> Coordenada
+Parcela o..> Defensa
+
+
+
+class Mapa {
+  - origen: ParcelaDePasarela
+  - meta: ParcelaDePasarela
+
+  + getOrigen(): ParcelaDePasarela
+  + getMeta(): ParcelaDePasarela
+  - calcularDistancia(Coordenada, Coordenada): int
+  + reiniciarEnemigosPasarelas(): void
+  + hallarParcelaVecinaCorrectaADistancia(Parcela, int): ParcelaDePasarela
+  - calcularParcelaConDistanciaMinimaALaMeta(List<ParcelaDePasarela>): ParcelaDePasarela
+  + obtenerDefensas(): List<ParcelaDeTierra>
+
+}
+class Coordenada {
+  - abscisa: int
+  - ordenada: int
+  + getOrdenada(): int
+  + getAbscisa(): int
+}
+
+abstract Parcela {
+  # enemigos: List<Enemigo>
+  # visitantes: List<Enemigo>
+
+  + {abstract} puedeMoverseAqui(): boolean
+  + getCoordenada(): Coordenada
+  + {abstract} puedeDefender(): boolean
+  + {abstract} construir(Defensa): void
+  + estaADistancia(Coordenada, int): boolean
+
+}
+
+
+abstract Defensa {
+  # costoConstruccion: int
+  # danio: int
+  # rangoAtaque: int
+  # turnosRestantesParaDespliegue: int
+  + restarTurnoParaDespliegue(): void
+  + estaDesplegada(): boolean
+  + getCostoConstruccion(): int
+  + getRangoAtaque(): int
+  + atacarA(Enemigo): int
+}
+
+@enduml
+```

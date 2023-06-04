@@ -1,5 +1,7 @@
 package clases;
 
+import Excepciones.TerrenoNoAptoParaConstruir;
+
 public class ParcelaRocosa extends Parcela {
     public ParcelaRocosa(int abscisa, int ordenada) {
 
@@ -16,5 +18,9 @@ public class ParcelaRocosa extends Parcela {
 
     public boolean puedeDefender(){
         return false;
+    }
+
+    public void construir(Defensa defensa) throws TerrenoNoAptoParaConstruir {
+        throw new TerrenoNoAptoParaConstruir();
     }
 }

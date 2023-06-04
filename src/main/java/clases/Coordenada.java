@@ -1,5 +1,7 @@
 package clases;
 
+import java.util.Objects;
+
 public class Coordenada {
     final int abscisa;
     final int ordenada;
@@ -18,22 +20,25 @@ public class Coordenada {
     }
 
 
-    public Coordenada obtenerVecinoIzquierdo() {
-        return (new Coordenada(this.abscisa - 1, this.ordenada));
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Coordenada that = (Coordenada) o;
+        return abscisa == that.abscisa && ordenada == that.ordenada;
     }
 
-    public Coordenada obtenerVecinoDerecho() {
-        return (new Coordenada(this.abscisa + 1, this.ordenada));
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(abscisa, ordenada);
     }
 
-    public Coordenada obtenerVecinoSuperior() {
-        return (new Coordenada(this.abscisa, this.ordenada + 1));
+    public int distanciaHacia(Coordenada coordenada) {
+        int x1 = this.getAbscisa();
+        int y1 = this.getOrdenada();
+        int x2 = coordenada.getAbscisa();
+        int y2 = coordenada.getOrdenada();
 
-    }
-
-    public Coordenada obtenerVecinoInferior() {
-        return (new Coordenada(this.abscisa, this.ordenada - 1));
-
+        return Math.abs(x1 - x2) + Math.abs(y1 - y2);
     }
 }

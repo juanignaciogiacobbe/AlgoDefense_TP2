@@ -1,9 +1,8 @@
 import Excepciones.NombreInvalido;
+import Excepciones.TerrenoNoAptoParaConstruir;
 import clases.*;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
 
 
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CasosDeUsoTest {
 
     @Test
-    public void test01JugadorComienzaConVidaYCreditosCorrespondientes() {
+    public void test01JugadorComienzaConVidaYCreditosCorrespondientes() throws NombreInvalido{
         Jugador jugador = new Jugador("Mariana");
         int vidaEsperada = 20;
         int creditosEsperados = 100;
@@ -33,22 +32,22 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test03VerificoQueJugadorPuedaConstruir() {
+    public void test03VerificoQueJugadorPuedaConstruir() throws NombreInvalido {
         Jugador jugador = new Jugador("Mariana");
         TorrePlateada torre = new TorrePlateada();
-        int costoConstruccion = torre.getCostoConstruccion();
-        boolean puedeConstruir = jugador.construir(costoConstruccion);
-        assertTrue(puedeConstruir);
+        ParcelaDeTierra tierra = new ParcelaDeTierra(0,1);
+        assertDoesNotThrow(() -> {jugador.construir(torre, tierra);});
     }
 
     @Test
-    public void test04VerificoQueSePuedeConstruirDefensasSoloSobreTierra() {
+    public void test04VerificoQueSePuedeConstruirDefensasSoloSobreTierra()  {
         TorrePlateada defensa = new TorrePlateada();
         ParcelaDeTierra tierra = new ParcelaDeTierra(1, 0);
         ParcelaRocosa rocoso = new ParcelaRocosa(0, 1);
 
-        assertTrue(tierra.puedoConstruir(defensa));
-        assertFalse(rocoso.puedoConstruir(defensa));
+        assertDoesNotThrow( () -> {tierra.construir(defensa);});
+        assertThrows(TerrenoNoAptoParaConstruir.class, () -> {
+            rocoso.construir(defensa);});
     }
 
     @Test
@@ -83,7 +82,7 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test08JugadorObtieneCreditosAlDestruirEnemigo() {
+    public void test08JugadorObtieneCreditosAlDestruirEnemigo() throws NombreInvalido{
         Jugador jugador = new Jugador("pepito");
         TorrePlateada defensa = new TorrePlateada();
         PasarelaLargada pasarelaLargada = new PasarelaLargada(0, 0);
@@ -94,49 +93,44 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test09EnemigosSeMuevenPorMapa() {
-        PasarelaLargada pasarelaLargada = new PasarelaLargada(0, 0);
+    public void test09EnemigosSeMuevenPorMapa() throws FileNotFoundException {
         AlgoDefense algodefense = new AlgoDefense();
-        Enemigo enemigo = new Hormiga(pasarelaLargada);
-        Mapa mapa = algodefense.getMapa();
+        Enemigo enemigo = new Hormiga(algodefense.getMapa().getOrigen());
         algodefense.agregarEnemigo(enemigo);
-        for (int i = 0; i < 4; i++) {
-            mapa.reiniciarEnemigosPasarelas();
-            mapa.moverEnemigos(mapa.getOrigen());
+        for (int i = 0; i < 23; i++) {
+            algodefense.moverEnemigos();
+
         }
-        assertEquals(1, algodefense.obtenersizeMeta());
+
+        assertEquals(1, algodefense.enemigosEnMeta());
     }
 
     @Test
-    public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() {
-        PasarelaLargada pasarelaLargada = new PasarelaLargada(0, 0);
+    public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() throws FileNotFoundException {
         AlgoDefense algoDefense = new AlgoDefense();
-        Enemigo enemigo = new Hormiga(pasarelaLargada);
         Mapa mapa = algoDefense.getMapa();
+        Enemigo enemigo = new Hormiga(mapa.getOrigen());
         algoDefense.agregarEnemigo(enemigo);
         TorrePlateada torre = new TorrePlateada();
         torre.atacarA(enemigo);
-        mapa.reiniciarEnemigosPasarelas();
-        mapa.moverEnemigos(mapa.getOrigen());
         assertDoesNotThrow(() -> algoDefense.agregarJugador("Mariana"));
+        algoDefense.moverEnemigos();
         String ganador = algoDefense.finDelJuego();
         assertEquals(ganador, "Mariana");
     }
 
     @Test
-    public void test11NoSeEliminanTodasLasUnidaesEnemigasPeroNoAlcanzaElDanioGanaElJugador() throws NombreInvalido {
-        PasarelaLargada pasarelaLargada = new PasarelaLargada(0, 0);
+    public void test11NoSeEliminanTodasLasUnidaesEnemigasPeroNoAlcanzaElDanioGanaElJugador() throws NombreInvalido, FileNotFoundException {
         AlgoDefense algoDefense = new AlgoDefense();
-        Enemigo enemigo = new Hormiga(pasarelaLargada);
-        Enemigo enemigo2 = new Hormiga(pasarelaLargada);
         Mapa mapa = algoDefense.getMapa();
+        Enemigo enemigo = new Hormiga( mapa.getOrigen());
+        Enemigo enemigo2 = new Hormiga(mapa.getOrigen());
         algoDefense.agregarEnemigo(enemigo);
         algoDefense.agregarEnemigo(enemigo2);
         TorrePlateada torre = new TorrePlateada();
         torre.atacarA(enemigo);
         for (int i = 0; i < 4; i++) {
-            mapa.reiniciarEnemigosPasarelas();
-            mapa.moverEnemigos(mapa.getOrigen());
+            algoDefense.moverEnemigos();
         }
         assertDoesNotThrow(() -> algoDefense.agregarJugador("Mariana"));
         algoDefense.agregarJugador("Mariana");
@@ -145,18 +139,17 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test12NoSeEliminanTodasLasUnidadesEnemigasPeroAlcanzaElDanioGanaLaComputadora() throws NombreInvalido {
-        PasarelaLargada pasarelaLargada = new PasarelaLargada(0, 0);
+    public void test12NoSeEliminanTodasLasUnidadesEnemigasPeroAlcanzaElDanioGanaLaComputadora() throws NombreInvalido, FileNotFoundException {
         AlgoDefense algoDefense = new AlgoDefense();
         Mapa mapa = algoDefense.getMapa();
-        for (int i = 0; i < 30; i++) {
-            Arania arania = new Arania(pasarelaLargada);
-            algoDefense.agregarEnemigo(arania);
+        for (int i = 0; i < 23; i++) {
+            Hormiga hormiga = new Hormiga(mapa.getOrigen());
+            algoDefense.agregarEnemigo(hormiga);
         }
-        for (int i = 0; i < 4; i++) {
-            mapa.reiniciarEnemigosPasarelas();
-            mapa.moverEnemigos(mapa.getOrigen());
+        for (int i = 0; i < 23; i++) {
+            algoDefense.moverEnemigos();
         }
+
 
         algoDefense.agregarJugador("Mariana");
         String ganador = algoDefense.finDelJuego();

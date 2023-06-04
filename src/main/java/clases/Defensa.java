@@ -3,6 +3,7 @@ package clases;
 abstract class Defensa {
 
      protected int costoConstruccion;
+
      protected int danio;
      protected int rangoAtaque;
     protected int turnosRestantesParaDespliegue;
@@ -16,8 +17,14 @@ abstract class Defensa {
     public boolean estaDesplegada() {
         return (turnosRestantesParaDespliegue <= 0);
     }
+
     public int getCostoConstruccion() {
         return costoConstruccion;
+    }
+
+
+    public int getRangoAtaque() {
+        return rangoAtaque;
     }
 
     public int atacarA(Enemigo enemigo) {

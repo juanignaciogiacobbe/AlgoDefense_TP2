@@ -2,64 +2,77 @@ package clases;
 
 import Excepciones.NombreInvalido;
 
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class AlgoDefense {
 
-    private Jugador jugador1;
+	private Jugador jugador1;
 
-    private Mapa mapa;
+	private Mapa mapa;
 
-    public AlgoDefense() {
-        this.mapa = new Mapa();
-    }
+	private List<Enemigo> enemigos;
 
-    public Mapa getMapa() {
-        return mapa;
-    }
+	public AlgoDefense() throws FileNotFoundException {
 
-    public void agregarJugador(String nombre) throws NombreInvalido {
-        if (nombre.length() < 6) throw new NombreInvalido();
-        ;
-        jugador1 = new Jugador(nombre);
-    }
+		this.mapa = new Mapa();
+		this.enemigos = new ArrayList<>();
+	}
 
+	public Mapa getMapa() {
+		return this.mapa;
+	}
 
-    public String finDelJuego() {
-        if (mapa.obtenerCantidadEnemigosVivos() == 0) {
-            return jugador1.getNombre();
-        }
-
-        int danio = calcularDanioTotal();
-        if (jugador1.sobreviveConDanio(danio)) {
-            return jugador1.getNombre();
-        }
-
-        return "Computadora";
-    }
+	public void agregarJugador(String nombre) throws NombreInvalido {
+		if (nombre.length() < 6) throw new NombreInvalido();
+		;
+		jugador1 = new Jugador(nombre);
+	}
 
 
+	public String finDelJuego() {
+		if (this.enemigos.isEmpty()) {
+			return jugador1.getNombre();
+		}
 
-    private int calcularDanioTotal() {
-        return mapa.obtenerDanioMeta();
-    }
+		int danio = calcularDanioTotal();
+		if (jugador1.sobreviveConDanio(danio)) {
+			return jugador1.getNombre();
+		}
 
-    public void comenzarturno() {
-        PasarelaLargada pasarelaLargada = new PasarelaLargada(0, 0);
-        Enemigo enemigo = new Hormiga(pasarelaLargada);
-        agregarEnemigo(enemigo);
-        mapa.reiniciarEnemigosPasarelas();
-        mapa.moverEnemigos(mapa.getOrigen());
-    }
+		return "Computadora";
+	}
+
+	public void moverEnemigos() {
+		for (Enemigo enemigo : enemigos) {
+			enemigo.mover(this.mapa);
+		}
+	}
 
 
-    public void agregarEnemigo(Enemigo enemigo) {
-        mapa.getOrigen().agregarEnemigo(enemigo);
-    }
+	private int calcularDanioTotal() {
+		int danio = 0;
+		for (Enemigo enemigo : enemigos) {
+			if (enemigo.getPasarelaActual().getCoordenada().equals(mapa.getMeta().getCoordenada())) {
+				danio += enemigo.getDanio();
+			}
+		}
+		return danio;
+	}
 
-    public int obtenersizeMeta() {
-        return (mapa.getMeta().getEnemigos().size());
-    }
+	public void agregarEnemigo(Enemigo enemigo) {
+		enemigos.add(enemigo);
+	}
 
+	public int enemigosEnMeta() {
+		int cantidadMeta = 0;
+		for (Enemigo enemigo : enemigos) {
+			if (enemigo.getPasarelaActual().getCoordenada().equals(mapa.getMeta().getCoordenada())) {
+				cantidadMeta += 1;
+			}
+		}
+		return cantidadMeta;
+	}
 }

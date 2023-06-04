@@ -1,0 +1,74 @@
+@startuml
+AlgoDefense *--> Jugador
+AlgoDefense *--> Mapa
+AlgoDefense "1" o--> "*" Enemigo
+
+Jugador *--> Creditos
+Jugador *--> Vida
+
+Enemigo *--> Vida
+
+class AlgoDefense {
+
+  - calcularDanioTotal(): int
+  + finDelJuego(): String
+  + agregarJugador(String): void
+  + agregarEnemigo(Enemigo): void
+  + moverEnemigos(): void
+  + getMapa(): Mapa
+  + comenzarAtaqueJuagdor(): void
+  + obtenersizeMeta(): int
+}
+class Mapa {
+  - parcelas: List<Parcela>
+  - origen: ParcelaDePasarela
+  - meta: ParcelaDePasarela
+
+  + getOrigen(): ParcelaDePasarela
+  + getMeta(): ParcelaDePasarela
+  - calcularDistancia(Coordenada, Coordenada): int
+  + reiniciarEnemigosPasarelas(): void
+  + hallarParcelaVecinaCorrectaADistancia(Parcela, int): ParcelaDePasarela
+  - calcularParcelaConDistanciaMinimaALaMeta(List<ParcelaDePasarela>): ParcelaDePasarela
+  + obtenerDefensas(): List<ParcelaDeTierra>
+
+}
+abstract Enemigo {
+  # creditos: int
+  # danio: int
+  # velocidad: int
+
+  + {abstract} recibirDanio(int): int
+  + setPasarelaActual(ParcelaDePasarela): void
+  + getDanio(): int
+  + getVida(): int
+  + getVelocidad(): int
+  + estaMuerto(): boolean
+  + puedeMoverseA(Parcela): boolean
+  + mover(Mapa): void
+}
+class Jugador {
+  - nombre: String
+
+  + Jugador(String)
+  + getCreditos(): int
+  + getVida(): int
+  + getNombre(): String
+  + sobreviveConDanio(int): boolean
+  + construir(Defensa, Parcela): void
+  + agregarCreditos(int): void
+}
+class Vida {
+  - puntosActuales: int
+  + Vida(int)
+  + consumirPuntos(int): void
+}
+class Creditos {
+  - puntosActuales: int
+  + Creditos(int)
+  + agregarCreditos(int): void
+  + consumirPuntos(int): boolean
+}
+@enduml
+```
+
