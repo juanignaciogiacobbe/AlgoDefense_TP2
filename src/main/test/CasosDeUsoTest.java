@@ -148,9 +148,6 @@ public class CasosDeUsoTest {
         for (int i = 0; i < 23; i++) {
             algoDefense.moverEnemigos();
         }
-        System.out.println(mapa.getOrigen().getCoordenada().getAbscisa());
-        System.out.println(mapa.getOrigen().getCoordenada().getOrdenada());
-
         algoDefense.agregarJugador("Mariana");
         String ganador = algoDefense.finDelJuego();
         assertEquals(ganador, "Computadora");
