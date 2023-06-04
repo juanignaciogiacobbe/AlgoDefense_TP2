@@ -1,7 +1,6 @@
 package clases;
 
 public abstract class Enemigo {
-    protected int puntosEnergia;
     protected Vida energia;
 
     protected int creditos;
