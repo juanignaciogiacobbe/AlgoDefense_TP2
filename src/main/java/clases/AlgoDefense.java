@@ -5,6 +5,7 @@ import Excepciones.NombreInvalido;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public class AlgoDefense {
@@ -15,9 +16,10 @@ public class AlgoDefense {
 
 	private List<Enemigo> enemigos;
 
-	public AlgoDefense() throws FileNotFoundException {
-
-		this.mapa = new Mapa();
+	public AlgoDefense() {
+        ConvertidorMapa convertidor = new ConvertidorMapaImplementacion();
+		ConvertidorEnemigos convertidorEnemigos = new ConvertidorEnemigosImplementacion();
+		this.mapa = convertidor.cargarMapa();
 		this.enemigos = new ArrayList<>();
 	}
 
