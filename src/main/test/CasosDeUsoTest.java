@@ -101,10 +101,6 @@ public class CasosDeUsoTest {
             algodefense.moverEnemigos();
 
         }
-        System.out.println("Las coordenas de la meta son");
-        System.out.println(algodefense.getMapa().getMeta().getCoordenada().getAbscisa());
-        System.out.println(algodefense.getMapa().getMeta().getCoordenada().getOrdenada());
-
 
         assertEquals(1, algodefense.enemigosEnMeta());
     }

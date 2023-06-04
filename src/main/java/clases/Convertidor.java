@@ -60,9 +60,6 @@ public class Convertidor {
 
                 if (origen == null) {
                     this.origen = new PasarelaLargada(fila, columna);
-                    System.out.println("Crea origen");
-                    System.out.println(origen.getCoordenada().getAbscisa());
-                    System.out.println(origen.getCoordenada().getOrdenada());
                 }
                 parcela = new PasarelaComun(fila, columna);
                 this.meta = new PasarelaMeta(fila, columna);

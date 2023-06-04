@@ -32,4 +32,13 @@ public class Coordenada {
     public int hashCode() {
         return Objects.hash(abscisa, ordenada);
     }
+
+    public int distanciaHacia(Coordenada coordenada) {
+        int x1 = this.getAbscisa();
+        int y1 = this.getOrdenada();
+        int x2 = coordenada.getAbscisa();
+        int y2 = coordenada.getOrdenada();
+
+        return Math.abs(x1 - x2) + Math.abs(y1 - y2);
+    }
 }

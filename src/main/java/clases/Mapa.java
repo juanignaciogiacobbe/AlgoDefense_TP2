@@ -47,16 +47,6 @@ public class Mapa {
     }
 
 
-    private int calcularDistancia(Coordenada coordenada1, Coordenada coordenada2) {
-        int x1 = coordenada1.getAbscisa();
-        int y1 = coordenada1.getOrdenada();
-        int x2 = coordenada2.getAbscisa();
-        int y2 = coordenada2.getOrdenada();
-
-        return Math.abs(x1 - x2) + Math.abs(y1 - y2);
-    }
-
-
     public ParcelaDePasarela hallarParcelaVecinaCorrectaADistancia(Parcela parcela, int distancia) {
         List<ParcelaDePasarela> vecinos = new ArrayList<>();
         for (Parcela parcelaMapa : parcelas) {
@@ -72,14 +62,13 @@ public class Mapa {
         int distanciaMinima = Integer.MAX_VALUE;
 
         for (ParcelaDePasarela vecino : vecinos) {
-            int distancia = calcularDistancia(vecino.getCoordenada(), meta.getCoordenada());
+            int distancia = (vecino.getCoordenada()).distanciaHacia(meta.getCoordenada());
             if (distancia < distanciaMinima) {
                 distanciaMinima = distancia;
                 parcelaFinal = vecino;
             }
         }
 
-        //System.out.println("La coordenada vecina es"+ parcelaFinal.getCoordenada().getAbscisa() +"," + parcelaFinal.getCoordenada().getOrdenada());
         return parcelaFinal;
 
     }
@@ -90,7 +79,7 @@ public class Mapa {
 
         for (Parcela parcela : parcelas) {
             if (parcela.puedeMoverseAqui()) {
-                int distancia = calcularDistancia(parcela.getCoordenada(), defensa.getCoordenada());
+                int distancia = (parcela.getCoordenada()).distanciaHacia(defensa.getCoordenada());
                 if (distancia <= rango) {
                     pasarelasEnRango.add((ParcelaDePasarela) parcela);
                 }
