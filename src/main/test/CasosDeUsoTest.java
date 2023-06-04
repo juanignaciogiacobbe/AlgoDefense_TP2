@@ -3,9 +3,6 @@ import Excepciones.TerrenoNoAptoParaConstruir;
 import clases.*;
 
 import java.io.FileNotFoundException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ArrayList;
 
 
 import org.junit.jupiter.api.Test;
@@ -109,7 +106,7 @@ public class CasosDeUsoTest {
         System.out.println(algodefense.getMapa().getMeta().getCoordenada().getOrdenada());
 
 
-        assertEquals(1, algodefense.obtenersizeMeta());
+        assertEquals(1, algodefense.enemigosEnMeta());
     }
 
     @Test

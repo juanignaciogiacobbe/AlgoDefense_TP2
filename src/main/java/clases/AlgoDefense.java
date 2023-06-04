@@ -55,7 +55,7 @@ public class AlgoDefense {
 	private int calcularDanioTotal() {
 		int danio = 0;
 		for (Enemigo enemigo : enemigos) {
-			if (enemigo.getPasarelaActual().getCoordenada().getAbscisa() == mapa.getMeta().getCoordenada().getAbscisa() && enemigo.getPasarelaActual().getCoordenada().getOrdenada() == mapa.getMeta().getCoordenada().getOrdenada()) {
+			if (enemigo.getPasarelaActual().getCoordenada().equals(mapa.getMeta().getCoordenada())) {
 				danio += enemigo.getDanio();
 			}
 		}
@@ -66,10 +66,10 @@ public class AlgoDefense {
 		enemigos.add(enemigo);
 	}
 
-	public int obtenersizeMeta() {
+	public int enemigosEnMeta() {
 		int cantidadMeta = 0;
 		for (Enemigo enemigo : enemigos) {
-			if (enemigo.getPasarelaActual().getCoordenada().getAbscisa() == mapa.getMeta().getCoordenada().getAbscisa() && enemigo.getPasarelaActual().getCoordenada().getOrdenada() == mapa.getMeta().getCoordenada().getOrdenada()) {
+			if (enemigo.getPasarelaActual().getCoordenada().equals(mapa.getMeta().getCoordenada())) {
 				cantidadMeta += 1;
 			}
 		}
