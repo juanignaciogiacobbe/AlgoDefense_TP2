@@ -2,6 +2,7 @@ import Excepciones.NombreInvalido;
 import Excepciones.TerrenoNoAptoParaConstruir;
 import clases.*;
 
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
@@ -95,23 +96,27 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test09EnemigosSeMuevenPorMapa() {
-        PasarelaLargada pasarelaLargada = new PasarelaLargada(0, 0);
+    public void test09EnemigosSeMuevenPorMapa() throws FileNotFoundException {
         AlgoDefense algodefense = new AlgoDefense();
-        Enemigo enemigo = new Hormiga(pasarelaLargada);
-        Mapa mapa = algodefense.getMapa();
+        Enemigo enemigo = new Hormiga(algodefense.getMapa().getOrigen());
         algodefense.agregarEnemigo(enemigo);
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 23; i++) {
             algodefense.moverEnemigos();
+
         }
+        System.out.println("Las coordenas de la meta son");
+        System.out.println(algodefense.getMapa().getMeta().getCoordenada().getAbscisa());
+        System.out.println(algodefense.getMapa().getMeta().getCoordenada().getOrdenada());
+
+
         assertEquals(1, algodefense.obtenersizeMeta());
     }
 
     @Test
-    public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() {
+    public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() throws FileNotFoundException {
         AlgoDefense algoDefense = new AlgoDefense();
         Mapa mapa = algoDefense.getMapa();
-        Enemigo enemigo = new Hormiga((PasarelaLargada) mapa.getOrigen());
+        Enemigo enemigo = new Hormiga(mapa.getOrigen());
         algoDefense.agregarEnemigo(enemigo);
         TorrePlateada torre = new TorrePlateada();
         torre.atacarA(enemigo);
@@ -122,11 +127,11 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test11NoSeEliminanTodasLasUnidaesEnemigasPeroNoAlcanzaElDanioGanaElJugador() throws NombreInvalido {
+    public void test11NoSeEliminanTodasLasUnidaesEnemigasPeroNoAlcanzaElDanioGanaElJugador() throws NombreInvalido, FileNotFoundException {
         AlgoDefense algoDefense = new AlgoDefense();
         Mapa mapa = algoDefense.getMapa();
-        Enemigo enemigo = new Hormiga((PasarelaLargada) mapa.getOrigen());
-        Enemigo enemigo2 = new Hormiga((PasarelaLargada) mapa.getOrigen());
+        Enemigo enemigo = new Hormiga( mapa.getOrigen());
+        Enemigo enemigo2 = new Hormiga(mapa.getOrigen());
         algoDefense.agregarEnemigo(enemigo);
         algoDefense.agregarEnemigo(enemigo2);
         TorrePlateada torre = new TorrePlateada();
@@ -141,19 +146,16 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test12NoSeEliminanTodasLasUnidadesEnemigasPeroAlcanzaElDanioGanaLaComputadora() throws NombreInvalido {
+    public void test12NoSeEliminanTodasLasUnidadesEnemigasPeroAlcanzaElDanioGanaLaComputadora() throws NombreInvalido, FileNotFoundException {
         AlgoDefense algoDefense = new AlgoDefense();
         Mapa mapa = algoDefense.getMapa();
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 23; i++) {
             Hormiga hormiga = new Hormiga(mapa.getOrigen());
             algoDefense.agregarEnemigo(hormiga);
         }
-        algoDefense.moverEnemigos();
-        algoDefense.moverEnemigos();
-        algoDefense.moverEnemigos();
-        algoDefense.moverEnemigos();
-
-
+        for (int i = 0; i < 23; i++) {
+            algoDefense.moverEnemigos();
+        }
 
 
         algoDefense.agregarJugador("Mariana");

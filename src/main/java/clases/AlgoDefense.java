@@ -2,6 +2,7 @@ package clases;
 
 import Excepciones.NombreInvalido;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +15,10 @@ public class AlgoDefense {
 
     private List<Enemigo> enemigos;
 
-    public AlgoDefense() {
+    public AlgoDefense() throws FileNotFoundException {
 
         this.mapa = new Mapa();
-        this.enemigos = new ArrayList<Enemigo>();
+        this.enemigos = new ArrayList<>();
     }
 
     public Mapa getMapa() {
@@ -58,7 +59,8 @@ public class AlgoDefense {
     private int calcularDanioTotal() {
         int danio = 0;
         for (Enemigo enemigo : enemigos) {
-            if (enemigo.getPasarelaActual() == mapa.getMeta()) {
+            if (enemigo.getPasarelaActual().getCoordenada().getAbscisa() == mapa.getMeta().getCoordenada().getAbscisa() && enemigo.getPasarelaActual().getCoordenada().getOrdenada() == mapa.getMeta().getCoordenada().getOrdenada())
+                {
                 danio += enemigo.getDanio();
             }
         }
@@ -72,7 +74,7 @@ public class AlgoDefense {
     public int obtenersizeMeta() {
         int cantidadMeta = 0;
         for (Enemigo enemigo : enemigos) {
-            if (enemigo.getPasarelaActual() == mapa.getMeta()) {
+            if (enemigo.getPasarelaActual().getCoordenada().getAbscisa() == mapa.getMeta().getCoordenada().getAbscisa() && enemigo.getPasarelaActual().getCoordenada().getOrdenada() == mapa.getMeta().getCoordenada().getOrdenada()) {
                 cantidadMeta += 1;
             }
         }

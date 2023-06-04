@@ -14,6 +14,7 @@ public class ParcelaDeTierra extends Parcela {
         this.defendible= false;
 
     }
+
     public boolean puedoConstruir(Defensa defensa) {
         return true;
     }

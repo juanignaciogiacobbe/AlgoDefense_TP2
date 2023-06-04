@@ -1,31 +1,43 @@
 package clases;
 
-import Excepciones.TerrenoNoAptoParaConstruir;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class Mapa {
 
     private List<Parcela> parcelas;
 
-    private ParcelaDePasarela origen;
+    private PasarelaLargada origen;
 
-    private ParcelaDePasarela meta;
+    private PasarelaMeta meta;
+
+    private Convertidor convertidor;
 
     public Mapa() {
-        this.parcelas = new ArrayList<Parcela>();
-        this.origen = new PasarelaLargada(0, 0);
-        this.meta = new PasarelaMeta(2, 2);
-        inicializarMatrizEjemplo(origen, meta);
+        this.convertidor = new Convertidor();
+        this.parcelas= new ArrayList<>();
+        convertidor.cargarMapa(this);
+        this.origen= convertidor.getOrigen();
+        this.meta= convertidor.getMeta();
+
     }
 
+    public List<Parcela> getParcelas() {
+        return parcelas;
+    }
 
-    public ParcelaDePasarela getOrigen() {
+    public PasarelaLargada getOrigen() {
         return origen;
     }
 
-    public ParcelaDePasarela getMeta() {
+    public PasarelaMeta getMeta() {
         return meta;
     }
 
@@ -44,23 +56,6 @@ public class Mapa {
         return Math.abs(x1 - x2) + Math.abs(y1 - y2);
     }
 
-    public void inicializarMatrizEjemplo(Parcela origen, Parcela meta) {
-        parcelas.add(origen);
-        parcelas.add(new ParcelaRocosa(2, 0));
-        ParcelaDeTierra parcela = new ParcelaDeTierra(0, 1);
-        try {parcela.construir(new TorreBlanca());} catch (
-                TerrenoNoAptoParaConstruir e) {
-            throw new RuntimeException(e);
-        }
-        parcelas.add(parcela);
-        parcelas.add(new ParcelaRocosa(0, 2));
-        parcelas.add(new ParcelaRocosa(2, 1));
-        parcelas.add(new PasarelaComun(1, 0));
-        parcelas.add(new PasarelaComun(1, 1));
-        parcelas.add(new PasarelaComun(1, 2));
-        parcelas.add(meta);
-
-    }
 
     public ParcelaDePasarela hallarParcelaVecinaCorrectaADistancia(Parcela parcela, int distancia) {
         List<ParcelaDePasarela> vecinos = new ArrayList<>();
@@ -80,13 +75,14 @@ public class Mapa {
             int distancia = calcularDistancia(vecino.getCoordenada(), meta.getCoordenada());
             if (distancia < distanciaMinima) {
                 distanciaMinima = distancia;
-                parcelaFinal =  vecino;
+                parcelaFinal = vecino;
             }
         }
 
+        //System.out.println("La coordenada vecina es"+ parcelaFinal.getCoordenada().getAbscisa() +"," + parcelaFinal.getCoordenada().getOrdenada());
         return parcelaFinal;
-    }
 
+    }
 
 
     public ParcelaDePasarela obtenerPasarelasEnRango(ParcelaDeTierra defensa, int rango) {
@@ -101,7 +97,7 @@ public class Mapa {
             }
         }
 
-        return  this.calcularParcelaConDistanciaMinimaALaMeta(pasarelasEnRango);
+        return this.calcularParcelaConDistanciaMinimaALaMeta(pasarelasEnRango);
     }
 
     public List<ParcelaDeTierra> obtenerDefensas() {

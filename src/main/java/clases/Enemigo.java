@@ -43,6 +43,11 @@ public abstract class Enemigo {
         return pasarelaActual;
     }
 
+
+
+
+
+
     public void mover(Mapa mapa) {
         this.setPasarelaActual(this.pasarelaActual.mover(this.getVelocidad(), mapa));
 
