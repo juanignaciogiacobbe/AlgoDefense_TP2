@@ -27,7 +27,7 @@ public class AlgoDefense {
 
 	public void agregarJugador(String nombre) throws NombreInvalido {
 		if (nombre.length() < 6) throw new NombreInvalido();
-		;
+
 		jugador1 = new Jugador(nombre);
 	}
 

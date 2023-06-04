@@ -1,5 +1,7 @@
 package clases;
 
+import Excepciones.SinVidaRestante;
+
 import java.util.Random;
 
 public class Arania extends Enemigo {
@@ -18,10 +20,16 @@ public class Arania extends Enemigo {
     }
 
     public int recibirDanio(int puntosARecibir) {
-        energia.consumirPuntos(puntosARecibir);
+        /*energia.consumirPuntos(puntosARecibir);
 
         if (estaMuerto()) {
             return this.obtenerCreditosRandom();
+        }
+        return 0;*/
+        try {
+            energia.consumirPuntos(puntosARecibir);
+        } catch (SinVidaRestante sinVidaRestante) {
+
         }
         return 0;
     }
