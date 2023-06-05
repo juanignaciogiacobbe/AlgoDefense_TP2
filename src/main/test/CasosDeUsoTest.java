@@ -3,8 +3,14 @@ import Excepciones.TerrenoNoAptoParaConstruir;
 import clases.*;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 
+import org.json.simple.parser.ParseException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 
@@ -93,7 +99,7 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test09EnemigosSeMuevenPorMapa() throws FileNotFoundException {
+    public void test09EnemigosSeMuevenPorMapa() throws IOException, ParseException {
         AlgoDefense algodefense = new AlgoDefense();
         Enemigo enemigo = new Hormiga(algodefense.getMapa().getOrigen());
         algodefense.agregarEnemigo(enemigo);
@@ -105,7 +111,7 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() throws FileNotFoundException {
+    public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() throws IOException, ParseException {
         AlgoDefense algoDefense = new AlgoDefense();
         Mapa mapa = algoDefense.getMapa();
         Enemigo enemigo = new Hormiga(mapa.getOrigen());
@@ -119,7 +125,7 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test11NoSeEliminanTodasLasUnidaesEnemigasPeroNoAlcanzaElDanioGanaElJugador() throws NombreInvalido, FileNotFoundException {
+    public void test11NoSeEliminanTodasLasUnidaesEnemigasPeroNoAlcanzaElDanioGanaElJugador() throws NombreInvalido, IOException, ParseException {
         AlgoDefense algoDefense = new AlgoDefense();
         Mapa mapa = algoDefense.getMapa();
         Enemigo enemigo = new Hormiga( mapa.getOrigen());
@@ -137,8 +143,10 @@ public class CasosDeUsoTest {
         assertEquals(ganador, "Mariana");
     }
 
+
+
     @Test
-    public void test12NoSeEliminanTodasLasUnidadesEnemigasPeroAlcanzaElDanioGanaLaComputadora() throws NombreInvalido, FileNotFoundException {
+    public void test12NoSeEliminanTodasLasUnidadesEnemigasPeroAlcanzaElDanioGanaLaComputadora() throws NombreInvalido, IOException, ParseException {
         AlgoDefense algoDefense = new AlgoDefense();
         Mapa mapa = algoDefense.getMapa();
         for (int i = 0; i < 23; i++) {
@@ -151,5 +159,55 @@ public class CasosDeUsoTest {
         algoDefense.agregarJugador("Mariana");
         String ganador = algoDefense.finDelJuego();
         assertEquals(ganador, "Computadora");
+        
+        
     }
+
+    @Test
+    public void test13VerificoFormatoValidoJSONEnemigos() {
+        ConvertidorEnemigos convertidor = new ConvertidorEnemigosImplementacion();
+        assertThrows(FileNotFoundException.class, () -> {
+            convertidor.cargarEnemigos("src/temp/enemigos1.json");
+        });
+
+    }
+
+
+    @Test
+    public void test14VerificoFormatoValidoJSONMapa() {
+        ConvertidorMapa convertidor = new ConvertidorMapaImplementacion();
+        assertThrows(FileNotFoundException.class, () -> {
+            convertidor.cargarMapa("src/temp/mapa1.json");
+        });
+
+    }
+
+
+    @Test
+    public void test15VerificoCorrectaLecturaYConversionDeJsonEnemigos() throws IOException, ParseException {
+        ConvertidorMapa convertidor = new ConvertidorMapaImplementacion();
+        Mapa mapa = convertidor.cargarMapa("src/temp/mapa.json");
+        Assertions.assertEquals(mapa.getParcelas().size(), 225);
+
+    }
+
+
+    @Test
+    public void test16VerificoCorrectaLecturaYConversionDeJSONMapa() throws IOException, ParseException {
+        ConvertidorEnemigos convertidor = new ConvertidorEnemigosImplementacion();
+        Map<Integer, List<String>> enemigosPorRonda = convertidor.cargarEnemigos("src/temp/enemigos.json");
+
+        int cantidadTotalEnemigos = 0;
+
+        // Calcular la cantidad total de enemigos
+        for (List<String> enemigos : enemigosPorRonda.values()) {
+            cantidadTotalEnemigos += enemigos.size();
+        }
+
+        // Verificar la cantidad total de enemigos
+
+        Assertions.assertEquals(21, cantidadTotalEnemigos);
+
+    }
+
 }

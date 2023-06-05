@@ -1,8 +1,10 @@
 package clases;
 
 import Excepciones.NombreInvalido;
+import org.json.simple.parser.ParseException;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,10 +18,9 @@ public class AlgoDefense {
 
 	private List<Enemigo> enemigos;
 
-	public AlgoDefense() {
+	public AlgoDefense() throws IOException, ParseException {
         ConvertidorMapa convertidor = new ConvertidorMapaImplementacion();
-		ConvertidorEnemigos convertidorEnemigos = new ConvertidorEnemigosImplementacion();
-		this.mapa = convertidor.cargarMapa();
+		this.mapa = convertidor.cargarMapa("src/temp/mapa.json");
 		this.enemigos = new ArrayList<>();
 	}
 
@@ -76,4 +77,5 @@ public class AlgoDefense {
 		}
 		return cantidadMeta;
 	}
+
 }

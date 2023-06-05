@@ -16,10 +16,10 @@ public class ConvertidorMapaImplementacion implements ConvertidorMapa {
 
 
     @Override
-    public Mapa cargarMapa() {
+    public Mapa cargarMapa(String path) throws IOException, ParseException {
         try {
             JSONParser parser = new JSONParser();
-            File file = new File("src/temp/mapa.json");
+            File file = new File(path);
             JSONObject jsonObject = (JSONObject) parser.parse(new FileReader(file));
             JSONObject mapaJson = (JSONObject) jsonObject.get("Mapa");
             Mapa mapa = new Mapa();
@@ -42,14 +42,13 @@ public class ConvertidorMapaImplementacion implements ConvertidorMapa {
 
             return mapa;
         } catch (FileNotFoundException e) {
-            System.out.println("El archivo no existe en la ubicación especificada.");
-        } catch (ParseException e) {
-            System.out.println("El archivo JSON no es válido.");
+            throw new FileNotFoundException();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IOException();
+        } catch (ParseException e) {
+            throw new ParseException(-1); // Puedes ajustar el valor del offset o posición según corresponda
         }
 
-        return null;
     }
 
 

@@ -1,7 +1,9 @@
 import clases.*;
+import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -10,9 +12,9 @@ import static org.junit.Assert.assertEquals;
 public class ConvertidoresTest {
 
     @Test
-    void ConvertidorEnemigosEsCorrecto() {
+    void ConvertidorEnemigosEsCorrecto() throws IOException, ParseException {
         ConvertidorEnemigos convertidor = new ConvertidorEnemigosImplementacion();
-        Map<Integer, List<String>> enemigosPorRonda = convertidor.cargarEnemigos();
+        Map<Integer, List<String>> enemigosPorRonda = convertidor.cargarEnemigos("src/temp/enemigos.json");
         for (Map.Entry<Integer, List<String>> entry : enemigosPorRonda.entrySet()) {
             int turno = entry.getKey(); // Obtener el número de turno
             List<String> enemigos = entry.getValue(); // Obtener la lista de enemigos para el turno
@@ -27,30 +29,5 @@ public class ConvertidoresTest {
 
             System.out.println(); // Imprimir una línea en blanco para separar las rondas
         }
-    }
-
-    @Test
-    void test01EsCorrectaLaCantidadDeEnemigosTotales() {
-        ConvertidorEnemigos convertidor = new ConvertidorEnemigosImplementacion();
-        Map<Integer, List<String>> enemigosPorRonda = convertidor.cargarEnemigos();
-
-        int cantidadTotalEnemigos = 0;
-
-        // Calcular la cantidad total de enemigos
-        for (List<String> enemigos : enemigosPorRonda.values()) {
-            cantidadTotalEnemigos += enemigos.size();
-        }
-
-        // Realizar la aserción para verificar la cantidad total de enemigos
-
-        Assertions.assertEquals(21, cantidadTotalEnemigos);
-
-    }
-
-    @Test
-    void test02EsCorrectaLaCantidadDeParcelas(){
-        ConvertidorMapa convertidor = new ConvertidorMapaImplementacion();
-        Mapa mapa = convertidor.cargarMapa();
-        Assertions.assertEquals(mapa.getParcelas().size(), 225);
     }
 }
