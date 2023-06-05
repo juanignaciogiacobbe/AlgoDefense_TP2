@@ -3,7 +3,7 @@ package clases;
 import Excepciones.SinVidaRestante;
 
 public abstract class Enemigo {
-    protected Vida energia;
+    protected Estado estado;
 
     protected int creditos;
 
@@ -14,20 +14,12 @@ public abstract class Enemigo {
     protected ParcelaDePasarela pasarelaActual;
 
 
-    public int recibirDanio(int puntosARecibir) {
-        /*energia.consumirPuntos(puntosARecibir);
-
-        if (estaMuerto()) {
-            return 1;
-        }
-        return 0;
-*/
+    public void recibirDanio(int puntosARecibir) {
         try {
-            energia.consumirPuntos(puntosARecibir);
+            this.estado.recibirDanio(puntosARecibir);
         } catch (SinVidaRestante sinVidaRestante) {
-            return this.creditos;
+            this.estado = new EstadoMuerto();
         }
-        return 0;
     }
 
 
@@ -35,16 +27,12 @@ public abstract class Enemigo {
         this.pasarelaActual = pasarela;
     }
 
-    public int getVida() {
-        return this.energia.getVida();
+    public boolean tieneVidaIgualA(int vidaEsperada) {
+        return this.estado.tieneVidaIgualA(vidaEsperada);
     }
 
     public int getVelocidad() {
         return velocidad;
-    }
-
-    public boolean estaMuerto(){
-        return this.getVida() <=0;
     }
 
 
@@ -56,6 +44,10 @@ public abstract class Enemigo {
 
     public ParcelaDePasarela getPasarelaActual() {
         return pasarelaActual;
+    }
+
+    public int recolectarCreditos(int sumaActual) {
+        return this.estado.recolectarCreditos(sumaActual, this.creditos);
     }
 
 

@@ -10,7 +10,7 @@ public class EnemigoTest {
         Hormiga hormiga = new Hormiga(pasarelaLargada);
         int puntosDeEnergiaEsperados = 1;
 
-        assertEquals(hormiga.getVida(), puntosDeEnergiaEsperados);
+        assertTrue(hormiga.tieneVidaIgualA(puntosDeEnergiaEsperados));
     }
 
     @Test
@@ -19,6 +19,6 @@ public class EnemigoTest {
         Arania arania = new Arania(pasarelaLargada);
         int puntosDeEnergiaEsperados = 2;
 
-        assertEquals(arania.getVida(), puntosDeEnergiaEsperados);
+        assertTrue(arania.tieneVidaIgualA(puntosDeEnergiaEsperados));
     }
 }

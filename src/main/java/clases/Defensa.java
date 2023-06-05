@@ -27,8 +27,8 @@ abstract class Defensa {
         return rangoAtaque;
     }
 
-    public int atacarA(Enemigo enemigo) {
-       return enemigo.recibirDanio(danio);
+    public void atacarA(Enemigo enemigo) {
+       enemigo.recibirDanio(danio);
     }
 
 }
