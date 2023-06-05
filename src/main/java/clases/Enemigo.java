@@ -1,5 +1,7 @@
 package clases;
 
+import Excepciones.SinVidaRestante;
+
 public abstract class Enemigo {
     protected Vida energia;
 
@@ -12,7 +14,21 @@ public abstract class Enemigo {
     protected ParcelaDePasarela pasarelaActual;
 
 
-    abstract int recibirDanio(int puntosARecibir);
+    public int recibirDanio(int puntosARecibir) {
+        /*energia.consumirPuntos(puntosARecibir);
+
+        if (estaMuerto()) {
+            return 1;
+        }
+        return 0;
+*/
+        try {
+            energia.consumirPuntos(puntosARecibir);
+        } catch (SinVidaRestante sinVidaRestante) {
+            return this.creditos;
+        }
+        return 0;
+    }
 
 
     public void setPasarelaActual(ParcelaDePasarela pasarela) {

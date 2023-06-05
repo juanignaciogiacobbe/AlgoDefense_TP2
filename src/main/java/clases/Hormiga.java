@@ -13,20 +13,4 @@ public class Hormiga extends Enemigo{
         this.pasarelaActual = pasarela;
         }
 
-
-    public int recibirDanio(int puntosARecibir) {
-        /*energia.consumirPuntos(puntosARecibir);
-
-        if (estaMuerto()) {
-            return 1;
-        }
-        return 0;
-*/
-        try {
-            energia.consumirPuntos(puntosARecibir);
-        } catch (SinVidaRestante sinVidaRestante) {
-        }
-        return 0;
-    }
-
 }
