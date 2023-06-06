@@ -1,10 +1,12 @@
 package clases;
 
 import Excepciones.NombreInvalido;
+import org.json.simple.parser.ParseException;
 import Excepciones.TerrenoNoAptoParaCaminar;
 import Excepciones.TerrenoNoAptoParaConstruir;
 
-import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +19,10 @@ public class AlgoDefense {
 
 	private List<Enemigo> enemigos;
 
-	public AlgoDefense() {
-		this.mapa = new Mapa();
+	public AlgoDefense() throws IOException, ParseException, FormatoJSONInvalidoException {
+		FileReader reader = new FileReader("src/temp/mapa.json");
+        ConvertidorMapa convertidor = new ConvertidorMapaImplementacion(reader);
+		this.mapa = convertidor.cargarMapa();
 		this.enemigos = new ArrayList<>();
 	}
 

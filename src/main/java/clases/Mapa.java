@@ -1,11 +1,6 @@
 package clases;
 
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,15 +13,10 @@ public class Mapa {
 
     private PasarelaMeta meta;
 
-    private Convertidor convertidor;
+
 
     public Mapa() {
-        this.convertidor = new Convertidor();
         this.parcelas= new ArrayList<>();
-        convertidor.cargarMapa(this);
-        this.origen= convertidor.getOrigen();
-        this.meta= convertidor.getMeta();
-
     }
 
     public List<Parcela> getParcelas() {
@@ -39,6 +29,14 @@ public class Mapa {
 
     public PasarelaMeta getMeta() {
         return meta;
+    }
+
+    public void setOrigen(PasarelaLargada origen) {
+        this.origen = origen;
+    }
+
+    public void setMeta(PasarelaMeta meta) {
+        this.meta = meta;
     }
 
     public ParcelaDePasarela darSiguientePasarela(ParcelaDePasarela pasarela) {
