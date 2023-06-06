@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface ConvertidorEnemigos {
-    Map<Integer, List<Enemigo>> cargarEnemigos() throws ParseException;
+    Map<Integer, List<Enemigo>> cargarEnemigos() throws ParseException, FormatoJSONInvalidoException;
     List<Enemigo> obtenerEnemigos(JSONObject jsonCantidadEnemigos);
 }
 

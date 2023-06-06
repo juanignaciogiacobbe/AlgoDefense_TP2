@@ -19,14 +19,15 @@ public class ConvertidorEnemigosImplementacion implements ConvertidorEnemigos {
 	}
 
 	@Override
-	public Map<Integer, List<Enemigo>> cargarEnemigos() throws ParseException {
+	public Map<Integer, List<Enemigo>> cargarEnemigos() throws ParseException, FormatoJSONInvalidoException {
+
 		Map<Integer, List<Enemigo>> enemigosPorRonda = new HashMap<>();
 
 		JSONParser parser = new JSONParser();
 
 		try {
 			Object obj = parser.parse(fileReader);
-
+			this.verificarFormato(obj);
 			JSONArray enemigosJson = (JSONArray) obj;
 
 			for (Object enemigoObj : enemigosJson) {
@@ -45,6 +46,41 @@ public class ConvertidorEnemigosImplementacion implements ConvertidorEnemigos {
 			e.printStackTrace();
 		}
 		return enemigosPorRonda;
+	}
+
+	private void verificarFormato(Object obj) throws FormatoJSONInvalidoException, ParseException {
+		if (!(obj instanceof JSONArray)) {
+			throw new FormatoJSONInvalidoException("El archivo JSON debe contener una lista de objetos");
+		}
+
+		JSONArray enemigosJson = (JSONArray) obj;
+
+		for (Object enemigoObj : enemigosJson) {
+			if (!(enemigoObj instanceof JSONObject)) {
+				throw new FormatoJSONInvalidoException("Cada objeto en la lista debe ser un objeto JSON");
+			}
+
+			JSONObject enemigoJson = (JSONObject) enemigoObj;
+
+			if (!enemigoJson.containsKey("turno")) {
+				throw new FormatoJSONInvalidoException("Cada objeto debe contener una clave 'turno'");
+			}
+
+			if (!enemigoJson.containsKey("enemigos")) {
+				throw new FormatoJSONInvalidoException("Cada objeto debe contener una clave 'enemigos'");
+			}
+
+			Object turnoObj = enemigoJson.get("turno");
+			Object enemigosObj = enemigoJson.get("enemigos");
+
+			if (!(turnoObj instanceof Number)) {
+				throw new FormatoJSONInvalidoException("El valor de 'turno' debe ser un número");
+			}
+
+			if (!(enemigosObj instanceof JSONObject)) {
+				throw new FormatoJSONInvalidoException("El valor de 'enemigos' debe ser un objeto JSON");
+			}
+		}
 	}
 
 	public List<Enemigo> obtenerEnemigos(JSONObject jsonCantidadEnemigos) {

@@ -1,6 +1,7 @@
 import clases.ConvertidorEnemigos;
 import clases.ConvertidorEnemigosImplementacion;
 import clases.Enemigo;
+import clases.FormatoJSONInvalidoException;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 
@@ -49,7 +50,56 @@ public class ConvertidoresTest {
 		assertThrows(ParseException.class, convertidor::cargarEnemigos);
 	}
 
-	private FileReader createFileReaderWithContent(String content) {
+	@Test
+	public void testVerificarFormatoExcepciones() {
+		// Caso 1: Archivo JSON sin una lista de objetos
+		String contenidoInvalido = "{\"turno\": 1, \"enemigos\": {\"hormiga\": 1, \"arana\": 0}}";
+		FileReader fileReaderInvalido = createFileReaderWithContent(contenidoInvalido);
+
+		assertThrows(FormatoJSONInvalidoException.class, () -> {
+			ConvertidorEnemigos convertidor = new ConvertidorEnemigosImplementacion(fileReaderInvalido);
+			convertidor.cargarEnemigos();
+		});
+
+		// Caso 2: Archivo JSON con objetos que no son JSON
+		String contenidoInvalido2 = "[1, 2, 3]";
+		FileReader fileReaderInvalido2 = createFileReaderWithContent(contenidoInvalido2);
+
+		assertThrows(FormatoJSONInvalidoException.class, () -> {
+			ConvertidorEnemigos convertidor = new ConvertidorEnemigosImplementacion(fileReaderInvalido2);
+			convertidor.cargarEnemigos();
+		});
+
+		// Caso 3: Archivo JSON con objetos sin clave 'turno'
+		String contenidoInvalido3 = "[{\"enemigos\": {\"hormiga\": 1, \"arana\": 0}}]";
+		FileReader fileReaderInvalido3 = createFileReaderWithContent(contenidoInvalido3);
+
+		assertThrows(FormatoJSONInvalidoException.class, () -> {
+			ConvertidorEnemigos convertidor = new ConvertidorEnemigosImplementacion(fileReaderInvalido3);
+			convertidor.cargarEnemigos();
+		});
+
+		// Caso 4: Archivo JSON con objetos sin clave 'enemigos'
+		String contenidoInvalido4 = "[{\"turno\": 1}]";
+		FileReader fileReaderInvalido4 = createFileReaderWithContent(contenidoInvalido4);
+
+		assertThrows(FormatoJSONInvalidoException.class, () -> {
+			ConvertidorEnemigos convertidor = new ConvertidorEnemigosImplementacion(fileReaderInvalido4);
+			convertidor.cargarEnemigos();
+		});
+
+		// Caso 5: Archivo JSON con valores incorrectos para 'turno' y 'enemigos'
+		String contenidoInvalido5 = "[{\"turno\": \"uno\", \"enemigos\": \"ninguno\"}]";
+		FileReader fileReaderInvalido5 = createFileReaderWithContent(contenidoInvalido5);
+
+		assertThrows(FormatoJSONInvalidoException.class, () -> {
+			ConvertidorEnemigos convertidor = new ConvertidorEnemigosImplementacion(fileReaderInvalido5);
+			convertidor.cargarEnemigos();
+		});
+	}
+
+
+	public FileReader createFileReaderWithContent(String content) {
 		File inputFile;
 		try {
 			inputFile = File.createTempFile("test_input", ".json");

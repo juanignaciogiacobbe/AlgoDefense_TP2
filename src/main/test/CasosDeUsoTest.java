@@ -4,6 +4,7 @@ import clases.*;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -162,15 +163,14 @@ public class CasosDeUsoTest {
 
 	}
 
-	//    @Test
-//    public void test13VerificoFormatoValidoJSONEnemigos() {
-//        ConvertidorEnemigos convertidor = new ConvertidorEnemigosImplementacion();
-//        assertThrows(FileNotFoundException.class, () -> {
-//            convertidor.cargarEnemigos("src/temp/enemigos1.json");
-//        });
-//
-//    }
-//
+	@Test
+	public void test13VerificoFormatoValidoJSONEnemigos() throws FileNotFoundException {
+		FileReader fileReader = new FileReader("src/temp/enemigos.json");
+		ConvertidorEnemigos convertidor = new ConvertidorEnemigosImplementacion(fileReader);
+		assertDoesNotThrow(convertidor::cargarEnemigos);
+	}
+
+	//
 //
 //    @Test
 //    public void test14VerificoFormatoValidoJSONMapa() {
