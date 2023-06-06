@@ -19,8 +19,8 @@ public class TurnoIA implements Turno {
 
 
     public TurnoIA(Mapa mapa) throws IOException, ParseException {
-        ConvertidorEnemigos convertidor = new ConvertidorEnemigosImplementacion();
-        this.enemigosTurno = convertidor.cargarEnemigos("src/temp/enemigos.json");
+        //ConvertidorEnemigos convertidor = new ConvertidorEnemigosImplementacion();
+        //this.enemigosTurno = convertidor.cargarEnemigos("src/temp/enemigos.json");
         this.turnoActual = 1;
         this.enemigos = new ArrayList<>();
         this.mapa = mapa;

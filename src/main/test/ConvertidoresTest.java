@@ -1,7 +1,4 @@
-import clases.ConvertidorEnemigos;
-import clases.ConvertidorEnemigosImplementacion;
-import clases.Enemigo;
-import clases.FormatoJSONInvalidoException;
+import clases.*;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 public class ConvertidoresTest {
-
 
 	@Test
 	void ConvertidorEnemigosEsCorrecto() {
@@ -51,7 +47,7 @@ public class ConvertidoresTest {
 	}
 
 	@Test
-	public void testVerificarFormatoExcepciones() {
+	public void testVerificarFormatoDeJsonEnemigosExcepciones() {
 		// Caso 1: Archivo JSON sin una lista de objetos
 		String contenidoInvalido = "{\"turno\": 1, \"enemigos\": {\"hormiga\": 1, \"arana\": 0}}";
 		FileReader fileReaderInvalido = createFileReaderWithContent(contenidoInvalido);
@@ -95,6 +91,54 @@ public class ConvertidoresTest {
 		assertThrows(FormatoJSONInvalidoException.class, () -> {
 			ConvertidorEnemigos convertidor = new ConvertidorEnemigosImplementacion(fileReaderInvalido5);
 			convertidor.cargarEnemigos();
+		});
+	}
+
+	@Test
+	public void testVerificarFormatoDeJsonMapaExcepciones() {
+		// Caso 1: Archivo JSON sin clave "Mapa"
+		String contenidoInvalido = "{\"Turno\": 1}";
+		FileReader fileReaderInvalido1 = createFileReaderWithContent(contenidoInvalido);
+
+		assertThrows(FormatoJSONInvalidoException.class, () -> {
+			ConvertidorMapa convertidor = new ConvertidorMapaImplementacion(fileReaderInvalido1);
+			convertidor.cargarMapa();
+		});
+
+		// Caso 2: Archivo JSON con clave "Mapa" pero sin claves de fila
+		String contenidoInvalido2 = "{\"Mapa\": {}}";
+		FileReader fileReaderInvalido2 = createFileReaderWithContent(contenidoInvalido2);
+
+		assertThrows(FormatoJSONInvalidoException.class, () -> {
+			ConvertidorMapa convertidor = new ConvertidorMapaImplementacion(fileReaderInvalido2);
+			convertidor.cargarMapa();
+		});
+
+		// Caso 3: Archivo JSON con claves de fila faltantes
+		String contenidoInvalido3 = "{\"Mapa\": {\"1\": [\"Rocoso\", \"Tierra\", \"Tierra\"]}}";
+		FileReader fileReaderInvalido3 = createFileReaderWithContent(contenidoInvalido3);
+
+		assertThrows(FormatoJSONInvalidoException.class, () -> {
+			ConvertidorMapa convertidor = new ConvertidorMapaImplementacion(fileReaderInvalido3);
+			convertidor.cargarMapa();
+		});
+
+		// Caso 4: Archivo JSON con arreglo de terrenos con tamaño incorrecto
+		String contenidoInvalido4 = "{\"Mapa\": {\"1\": [\"Rocoso\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\"]}}";
+		FileReader fileReaderInvalido4 = createFileReaderWithContent(contenidoInvalido4);
+
+		assertThrows(FormatoJSONInvalidoException.class, () -> {
+			ConvertidorMapa convertidor = new ConvertidorMapaImplementacion(fileReaderInvalido4);
+			convertidor.cargarMapa();
+		});
+
+		// Caso 5: Archivo JSON con terreno inválido
+		String contenidoInvalido5 = "{\"Mapa\": {\"1\": [\"Rocoso\", \"Tierra\", \"Agua\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\"]}}";
+		FileReader fileReaderInvalido5 = createFileReaderWithContent(contenidoInvalido5);
+
+		assertThrows(FormatoJSONInvalidoException.class, () -> {
+			ConvertidorMapa convertidor = new ConvertidorMapaImplementacion(fileReaderInvalido5);
+			convertidor.cargarMapa();
 		});
 	}
 

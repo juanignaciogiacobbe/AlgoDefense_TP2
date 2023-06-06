@@ -17,7 +17,7 @@ public class AlgoDefense {
 
 	private List<Enemigo> enemigos;
 
-	public AlgoDefense() throws IOException, ParseException {
+	public AlgoDefense() throws IOException, ParseException, FormatoJSONInvalidoException {
 		FileReader reader = new FileReader("src/temp/mapa.json");
         ConvertidorMapa convertidor = new ConvertidorMapaImplementacion(reader);
 		this.mapa = convertidor.cargarMapa();

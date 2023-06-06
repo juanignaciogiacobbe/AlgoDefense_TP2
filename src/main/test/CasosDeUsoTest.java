@@ -100,7 +100,7 @@ public class CasosDeUsoTest {
 	}
 
 	@Test
-	public void test09EnemigosSeMuevenPorMapa() throws IOException, ParseException {
+	public void test09EnemigosSeMuevenPorMapa() throws IOException, ParseException, FormatoJSONInvalidoException {
 		AlgoDefense algodefense = new AlgoDefense();
 		Enemigo enemigo = new Hormiga(algodefense.getMapa().getOrigen());
 		algodefense.agregarEnemigo(enemigo);
@@ -112,7 +112,7 @@ public class CasosDeUsoTest {
 	}
 
 	@Test
-	public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() throws IOException, ParseException {
+	public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() throws IOException, ParseException, FormatoJSONInvalidoException {
 		AlgoDefense algoDefense = new AlgoDefense();
 		Mapa mapa = algoDefense.getMapa();
 		Enemigo enemigo = new Hormiga(mapa.getOrigen());
@@ -126,7 +126,7 @@ public class CasosDeUsoTest {
 	}
 
 	@Test
-	public void test11NoSeEliminanTodasLasUnidaesEnemigasPeroNoAlcanzaElDanioGanaElJugador() throws NombreInvalido, IOException, ParseException {
+	public void test11NoSeEliminanTodasLasUnidaesEnemigasPeroNoAlcanzaElDanioGanaElJugador() throws NombreInvalido, IOException, ParseException, FormatoJSONInvalidoException {
 		AlgoDefense algoDefense = new AlgoDefense();
 		Mapa mapa = algoDefense.getMapa();
 		Enemigo enemigo = new Hormiga(mapa.getOrigen());
@@ -146,7 +146,7 @@ public class CasosDeUsoTest {
 
 
 	@Test
-	public void test12NoSeEliminanTodasLasUnidadesEnemigasPeroAlcanzaElDanioGanaLaComputadora() throws NombreInvalido, IOException, ParseException {
+	public void test12NoSeEliminanTodasLasUnidadesEnemigasPeroAlcanzaElDanioGanaLaComputadora() throws NombreInvalido, IOException, ParseException, FormatoJSONInvalidoException {
 		AlgoDefense algoDefense = new AlgoDefense();
 		Mapa mapa = algoDefense.getMapa();
 		for (int i = 0; i < 23; i++) {
@@ -170,18 +170,14 @@ public class CasosDeUsoTest {
 		assertDoesNotThrow(convertidor::cargarEnemigos);
 	}
 
-	//
-//
-//    @Test
-//    public void test14VerificoFormatoValidoJSONMapa() {
-//        ConvertidorMapa convertidor = new ConvertidorMapaImplementacion();
-//        assertThrows(FileNotFoundException.class, () -> {
-//            convertidor.cargarMapa("src/temp/mapa1.json");
-//        });
-//
-//    }
-//
-//
+
+	@Test
+	public void test14VerificoFormatoValidoJSONMapa() throws FileNotFoundException {
+		FileReader fileReader = new FileReader("src/temp/mapa.json");
+		ConvertidorMapa convertidor = new ConvertidorMapaImplementacion(fileReader);
+		assertDoesNotThrow(convertidor::cargarMapa);
+	}
+
 	@Test
 	public void test15VerificoCorrectaLecturaYConversionDeJsonEnemigos() throws IOException {
 		FileReader fileReader = new FileReader("src/temp/enemigos.json");
@@ -209,7 +205,7 @@ public class CasosDeUsoTest {
 	}
 
 	@Test
-	public void test16VerificoCorrectaLecturaYConversionDeJSONMapa() throws IOException, ParseException {
+	public void test16VerificoCorrectaLecturaYConversionDeJSONMapa() throws IOException, ParseException, FormatoJSONInvalidoException {
 		Reader reader = new FileReader("src/temp/mapa.json");
 		ConvertidorMapa convertidor = new ConvertidorMapaImplementacion(reader);
 		Mapa mapa = convertidor.cargarMapa();

@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public interface ConvertidorMapa {
 
-    Mapa cargarMapa() throws ParseException, IOException;
+    Mapa cargarMapa() throws ParseException, IOException, FormatoJSONInvalidoException;
 
     Parcela definirParcela(String terreno, int fila, int columna, Mapa mapa);
 }
