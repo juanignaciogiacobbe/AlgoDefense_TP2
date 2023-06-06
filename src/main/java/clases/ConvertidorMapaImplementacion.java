@@ -29,7 +29,7 @@ public class ConvertidorMapaImplementacion implements ConvertidorMapa {
 
 		// Itera a través de las claves del objeto mapaJson, es decir las filas
 		int j;
-		for (j = 1; j <= 15; j++) {
+		for (j = 1; j <= mapaJson.size(); j++) {
 			// Convierte la clave en un entero representando el número de fila
 			int i = 0;
 			JSONArray filaArray = (JSONArray) mapaJson.get(Integer.toString(j));
@@ -50,8 +50,11 @@ public class ConvertidorMapaImplementacion implements ConvertidorMapa {
 		}
 
 		JSONObject mapaJson = (JSONObject) jsonObject.get("Mapa");
+		if (mapaJson.size() < 1 || mapaJson.size() > 15) {
+			throw new FormatoJSONInvalidoException("El mapa debe tener entre 1 y 15 filas");
+		}
 
-		for (int i = 1; i <= 15; i++) {
+		for (int i = 1; i <= mapaJson.size(); i++) {
 			String filaKey = Integer.toString(i);
 			if (!mapaJson.containsKey(filaKey)) {
 				throw new FormatoJSONInvalidoException("La clave 'Mapa' debe contener una clave '" + filaKey + "'");

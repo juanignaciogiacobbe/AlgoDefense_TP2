@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ConvertidoresTest {
 
 	@Test
-	void ConvertidorEnemigosEsCorrecto() {
+	void testConvertidorEnemigosEsCorrecto() {
 		String mockedJson = "[{\"turno\": 4, \"enemigos\": {\"hormiga\": 0, \"arana\": 1}}]";
 		FileReader fileReader = createFileReaderWithContent(mockedJson);
 
@@ -36,7 +36,7 @@ public class ConvertidoresTest {
 	}
 
 	@Test
-	void cargarEnemigos_InvalidJson() {
+	void testConvertidorEnemigosEsInvalido() {
 		// Arrange
 		String invalidJson = "{";
 		FileReader fileReaderMock = createFileReaderWithContent(invalidJson);
@@ -95,6 +95,45 @@ public class ConvertidoresTest {
 	}
 
 	@Test
+	public void testConvertidorMapaEsCorrecto() throws ParseException, IOException, FormatoJSONInvalidoException {
+		String mockedJson = "{\"Mapa\": {\"1\": [\"Rocoso\", \"Rocoso\", \"Rocoso\", \"Rocoso\", \"Rocoso\", \"Rocoso\", \"Rocoso\", \"Rocoso\", \"Rocoso\", \"Rocoso\", \"Rocoso\", \"Rocoso\", \"Rocoso\", \"Rocoso\", \"Rocoso\"], \"2\": [\"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\"]}}";
+		FileReader fileReader = createFileReaderWithContent(mockedJson);
+
+		ConvertidorMapa convertidor = new ConvertidorMapaImplementacion(fileReader);
+		Mapa mapa = convertidor.cargarMapa();
+
+		List<Parcela> parcelas = mapa.getParcelas();
+		assertNotNull(parcelas);
+		assertEquals(30, parcelas.size());
+
+		// Verificar las primeras 15 parcelas como rocosas
+		for (int i = 0; i < 15; i++) {
+			Parcela parcela = parcelas.get(i);
+			assertTrue(parcela instanceof ParcelaRocosa);
+			assertEquals(0, parcela.getCoordenada().getAbscisa());
+			assertEquals(i % 15, parcela.getCoordenada().getOrdenada());
+		}
+
+		// Verificar las siguientes 15 parcelas como de tierra
+		for (int i = 15; i < 30; i++) {
+			Parcela parcela = parcelas.get(i);
+			assertTrue(parcela instanceof ParcelaDeTierra);
+			assertEquals(i / 15, parcela.getCoordenada().getAbscisa());
+			assertEquals(i % 15, parcela.getCoordenada().getOrdenada());
+		}
+	}
+
+	@Test
+	public void testConvertidorMapaEsInvalido() {
+		// Arrange
+		String invalidJson = "{mapa}";
+		FileReader fileReaderMock = createFileReaderWithContent(invalidJson);
+		ConvertidorMapaImplementacion convertidor = new ConvertidorMapaImplementacion(fileReaderMock);
+		// Act & Assert
+		assertThrows(ParseException.class, convertidor::cargarMapa);
+	}
+
+	@Test
 	public void testVerificarFormatoDeJsonMapaExcepciones() {
 		// Caso 1: Archivo JSON sin clave "Mapa"
 		String contenidoInvalido = "{\"Turno\": 1}";
@@ -124,7 +163,7 @@ public class ConvertidoresTest {
 		});
 
 		// Caso 4: Archivo JSON con arreglo de terrenos con tamaño incorrecto
-		String contenidoInvalido4 = "{\"Mapa\": {\"1\": [\"Rocoso\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\", \"Tierra\"]}}";
+		String contenidoInvalido4 = "{\"Mapa\": {\"1\": [\"Rocoso\", \"Tierra\", \"Tierra\", \"Tierra\"]}}";
 		FileReader fileReaderInvalido4 = createFileReaderWithContent(contenidoInvalido4);
 
 		assertThrows(FormatoJSONInvalidoException.class, () -> {
@@ -142,7 +181,7 @@ public class ConvertidoresTest {
 		});
 	}
 
-
+	// creates a temporary file with the given content
 	public FileReader createFileReaderWithContent(String content) {
 		File inputFile;
 		try {
