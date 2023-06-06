@@ -80,8 +80,6 @@
                     <version>${javafx-version}</version>
                     <classifier>win</classifier>
                 </dependency>
-
-
             </dependencies>
         </profile>
     </profiles>

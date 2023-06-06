@@ -1,5 +1,7 @@
 package clases;
 
+import Excepciones.TerrenoNoAptoParaCaminar;
+import Excepciones.TerrenoNoAptoParaConstruir;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
@@ -26,7 +28,7 @@ public class TurnoIA implements Turno {
         this.mapa = mapa;
     }
 
-    public void ejecutarTurno() {
+    public void ejecutarTurno() throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir {
         this.cargarEnemigos();
         this.moverEnemigos();
         if (this.turnoActual < 12) {
@@ -62,7 +64,7 @@ public class TurnoIA implements Turno {
 
     }
 
-    public void moverEnemigos() {
+    public void moverEnemigos() throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir {
         for (Enemigo enemigo : enemigos) {
             enemigo.mover(this.mapa);
         }

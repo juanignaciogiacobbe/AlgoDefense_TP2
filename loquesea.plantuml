@@ -1,0 +1,202 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class AlgoDefense {
+  + AlgoDefense():
+  - jugador1: Jugador
+  - mapa: Mapa
+  - enemigos: List<Enemigo>
+  + getMapa(): Mapa
+  + obtenersizeMeta(): int
+  + agregarEnemigo(Enemigo): void
+  + moverEnemigos(): void
+  + finDelJuego(): String
+  + agregarJugador(String): void
+  + getEnemigosSize(): int
+  - calcularDanioTotal(): int
+}
+class Arania {
+  + Arania(ParcelaDePasarela):
+  + recibirDanio(int): int
+  - obtenerCreditosRandom(): int
+  + mover(Mapa): void
+}
+class Coordenada {
+  + Coordenada(int, int):
+  ~ abscisa: int
+  ~ ordenada: int
+  + getAbscisa(): int
+  + getOrdenada(): int
+}
+class Creditos {
+  + Creditos(int):
+  - puntosActuales: int
+  + agregarCreditos(int): void
+  + consumirPuntos(int): void
+  + getCreditos(): int
+}
+class Defensa {
+  + Defensa():
+  # costoConstruccion: int
+  # turnosRestantesParaDespliegue: int
+  # rangoAtaque: int
+  # danio: int
+  + getCostoConstruccion(): int
+  ~ enemigoDentroDeRango(int): boolean
+  + restarTurnoParaDespliegue(): void
+  + atacarA(Enemigo): int
+  + estaDesplegada(): boolean
+}
+class Enemigo {
+  + Enemigo():
+  # creditos: int
+  # energia: Vida
+  # pasarelaActual: ParcelaDePasarela
+  # velocidad: int
+  # danio: int
+  # puntosEnergia: int
+  ~ recibirDanio(int): int
+  + estaMuerto(): boolean
+  + mover(Mapa): void
+  + setPasarelaActual(ParcelaDePasarela): void
+  + getVelocidad(): int
+  + getDanio(): int
+  + getPasarelaActual(): ParcelaDePasarela
+  + getVida(): int
+  + puedeMoverseA(Parcela): boolean
+}
+class Hormiga {
+  + Hormiga(PasarelaLargada):
+  + recibirDanio(int): int
+  + mover(Mapa): void
+}
+class Jugador {
+  + Jugador(String):
+  - nombre: String
+  - creditos: Creditos
+  - vida: Vida
+  + getNombre(): String
+  + getCreditos(): int
+  + construir(Defensa, Parcela): void
+  + getVida(): int
+  + agregarCreditos(int): void
+  + sobreviveConDanio(int): boolean
+}
+class Mapa {
+  + Mapa():
+  - parcelas: List<Parcela>
+  - meta: Parcela
+  - origen: Parcela
+  + getMeta(): Parcela
+  + getOrigen(): Parcela
+  + inicializarMatrizEjemplo(Parcela, Parcela): void
+  + darSiguientePasarela(ParcelaDePasarela): ParcelaDePasarela
+  + hallarParcelaVecinaCorrectaADistancia(Parcela, int): ParcelaDePasarela
+  - calcularParcelaConDistanciaMinimaALaMeta(List<Parcela>): ParcelaDePasarela
+  - calcularDistancia(Coordenada, Coordenada): int
+}
+class Parcela {
+  + Parcela():
+  # coordenada: Coordenada
+  # mapa: Mapa
+  ~ puedoConstruir(Defensa): boolean
+  + estaADistancia(Coordenada, int): boolean
+  ~ puedeDefender(): boolean
+  + getCoordenada(): Coordenada
+  + construir(Defensa): void
+  ~ puedeMoverseAqui(): boolean
+}
+class ParcelaDePasarela {
+  + ParcelaDePasarela():
+  + mover(int, Enemigo, Mapa): void
+  + puedoConstruir(Defensa): boolean
+  + construir(Defensa): void
+  + puedeDefender(): boolean
+  + puedeMoverseAqui(): boolean
+  + darSiguientePasarela(): ParcelaDePasarela
+}
+class ParcelaDeTierra {
+  + ParcelaDeTierra(int, int):
+  - defensa: Defensa
+  - defendible: boolean
+  + puedoConstruir(Defensa): boolean
+  + setDefensa(Defensa): void
+  + puedeDefender(): boolean
+  + isDefendible(): boolean
+  + construir(Defensa): void
+  + getDefensa(): Defensa
+  + puedeMoverseAqui(): boolean
+}
+class ParcelaRocosa {
+  + ParcelaRocosa(int, int):
+  + construir(Defensa): void
+  + puedeMoverseAqui(): boolean
+  + puedoConstruir(Defensa): boolean
+  + puedeDefender(): boolean
+}
+class PasarelaComun {
+  + PasarelaComun(int, int):
+}
+class PasarelaLargada {
+  + PasarelaLargada(int, int):
+}
+class PasarelaMeta {
+  + PasarelaMeta(int, int):
+}
+class TorreBlanca {
+  + TorreBlanca():
+  + enemigoDentroDeRango(int): boolean
+}
+class TorrePlateada {
+  + TorrePlateada():
+  + enemigoDentroDeRango(int): boolean
+}
+class Vida {
+  + Vida(int):
+  - puntosActuales: int
+  + getVida(): int
+  + consumirPuntos(int): void
+}
+
+AlgoDefense       "1" *-[#595959,plain]-> "enemigos\n*" Enemigo
+AlgoDefense       "1" *-[#595959,plain]-> "jugador1\n1" Jugador
+AlgoDefense        -[#595959,dashed]->  Jugador           : "«create»"
+AlgoDefense        -[#595959,dashed]->  Mapa              : "«create»"
+AlgoDefense       "1" *-[#595959,plain]-> "mapa\n1" Mapa
+Arania             -[#000082,plain]-^  Enemigo
+Arania             -[#595959,dashed]->  Vida              : "«create»"
+Enemigo           "1" *-[#595959,plain]-> "pasarelaActual\n1" ParcelaDePasarela
+Enemigo           "1" *-[#595959,plain]-> "energia\n1" Vida
+Hormiga            -[#000082,plain]-^  Enemigo
+Hormiga            -[#595959,dashed]->  Vida              : "«create»"
+Jugador           "1" *-[#595959,plain]-> "creditos\n1" Creditos
+Jugador            -[#595959,dashed]->  Creditos          : "«create»"
+Jugador            -[#595959,dashed]->  Vida              : "«create»"
+Jugador           "1" *-[#595959,plain]-> "vida\n1" Vida
+Mapa              "1" *-[#595959,plain]-> "parcelas\n*" Parcela
+Mapa               -[#595959,dashed]->  ParcelaDeTierra   : "«create»"
+Mapa               -[#595959,dashed]->  ParcelaRocosa     : "«create»"
+Mapa               -[#595959,dashed]->  PasarelaComun     : "«create»"
+Mapa               -[#595959,dashed]->  PasarelaLargada   : "«create»"
+Mapa               -[#595959,dashed]->  PasarelaMeta      : "«create»"
+Mapa               -[#595959,dashed]->  TorreBlanca       : "«create»"
+Parcela           "1" *-[#595959,plain]-> "coordenada\n1" Coordenada
+Parcela           "1" *-[#595959,plain]-> "mapa\n1" Mapa
+ParcelaDePasarela  -[#000082,plain]-^  Parcela
+ParcelaDeTierra    -[#595959,dashed]->  Coordenada        : "«create»"
+ParcelaDeTierra   "1" *-[#595959,plain]-> "defensa\n1" Defensa
+ParcelaDeTierra    -[#000082,plain]-^  Parcela
+ParcelaRocosa      -[#595959,dashed]->  Coordenada        : "«create»"
+ParcelaRocosa      -[#000082,plain]-^  Parcela
+PasarelaComun      -[#595959,dashed]->  Coordenada        : "«create»"
+PasarelaComun      -[#000082,plain]-^  ParcelaDePasarela
+PasarelaLargada    -[#595959,dashed]->  Coordenada        : "«create»"
+PasarelaLargada    -[#000082,plain]-^  ParcelaDePasarela
+PasarelaMeta       -[#595959,dashed]->  Coordenada        : "«create»"
+PasarelaMeta       -[#000082,plain]-^  ParcelaDePasarela
+TorreBlanca        -[#000082,plain]-^  Defensa
+TorrePlateada      -[#000082,plain]-^  Defensa
+@enduml

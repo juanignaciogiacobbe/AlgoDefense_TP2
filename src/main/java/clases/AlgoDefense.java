@@ -2,6 +2,8 @@ package clases;
 
 import Excepciones.NombreInvalido;
 import org.json.simple.parser.ParseException;
+import Excepciones.TerrenoNoAptoParaCaminar;
+import Excepciones.TerrenoNoAptoParaConstruir;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -30,6 +32,7 @@ public class AlgoDefense {
 
 	public void agregarJugador(String nombre) throws NombreInvalido {
 		if (nombre.length() < 6) throw new NombreInvalido();
+
 		jugador1 = new Jugador(nombre);
 	}
 
@@ -47,7 +50,7 @@ public class AlgoDefense {
 		return "Computadora";
 	}
 
-	public void moverEnemigos() {
+	public void moverEnemigos() throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
 		for (Enemigo enemigo : enemigos) {
 			enemigo.mover(this.mapa);
 		}
@@ -77,5 +80,4 @@ public class AlgoDefense {
 		}
 		return cantidadMeta;
 	}
-
 }

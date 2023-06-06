@@ -1,7 +1,11 @@
 package clases;
 
+import Excepciones.SinVidaRestante;
+import Excepciones.TerrenoNoAptoParaCaminar;
+import Excepciones.TerrenoNoAptoParaConstruir;
+
 public abstract class Enemigo {
-    protected Vida energia;
+    protected Estado estado;
 
     protected int creditos;
 
@@ -12,23 +16,25 @@ public abstract class Enemigo {
     protected ParcelaDePasarela pasarelaActual;
 
 
-    abstract int recibirDanio(int puntosARecibir);
+    public void recibirDanio(int puntosARecibir) {
+        try {
+            this.estado.recibirDanio(puntosARecibir);
+        } catch (SinVidaRestante sinVidaRestante) {
+            this.estado = new EstadoMuerto();
+        }
+    }
 
 
     public void setPasarelaActual(ParcelaDePasarela pasarela) {
         this.pasarelaActual = pasarela;
     }
 
-    public int getVida() {
-        return this.energia.getVida();
+    public boolean tieneVidaIgualA(int vidaEsperada) {
+        return this.estado.tieneVidaIgualA(vidaEsperada);
     }
 
     public int getVelocidad() {
         return velocidad;
-    }
-
-    public boolean estaMuerto(){
-        return this.getVida() <=0;
     }
 
 
@@ -42,12 +48,14 @@ public abstract class Enemigo {
         return pasarelaActual;
     }
 
+    public int recolectarCreditos(int sumaActual) {
+        return this.estado.recolectarCreditos(sumaActual, this.creditos);
+    }
 
 
 
 
-
-    public void mover(Mapa mapa) {
+    public void mover(Mapa mapa) throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
         this.setPasarelaActual(this.pasarelaActual.mover(this.getVelocidad(), mapa));
 
     }
