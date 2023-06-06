@@ -1,6 +1,7 @@
 package clases;
 
 import Excepciones.SinVidaRestante;
+import Excepciones.TerrenoNoAptoParaConstruir;
 
 public abstract class Enemigo {
     protected Estado estado;
@@ -53,9 +54,7 @@ public abstract class Enemigo {
 
 
 
-
-
-    public void mover(Mapa mapa) {
+    public void mover(Mapa mapa) throws TerrenoNoAptoParaConstruir {
         this.setPasarelaActual(this.pasarelaActual.mover(this.getVelocidad(), mapa));
 
     }

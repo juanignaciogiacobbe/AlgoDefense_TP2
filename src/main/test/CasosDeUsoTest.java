@@ -95,7 +95,7 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test09EnemigosSeMuevenPorMapa() throws FileNotFoundException {
+    public void test09EnemigosSeMuevenPorMapa() throws FileNotFoundException, TerrenoNoAptoParaConstruir {
         AlgoDefense algodefense = new AlgoDefense();
         Enemigo enemigo = new Hormiga(algodefense.getMapa().getOrigen());
         algodefense.agregarEnemigo(enemigo);
@@ -108,7 +108,7 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() throws FileNotFoundException {
+    public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() throws FileNotFoundException, TerrenoNoAptoParaConstruir {
         AlgoDefense algoDefense = new AlgoDefense();
         Mapa mapa = algoDefense.getMapa();
         Enemigo enemigo = new Hormiga(mapa.getOrigen());
@@ -122,7 +122,7 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test11NoSeEliminanTodasLasUnidaesEnemigasPeroNoAlcanzaElDanioGanaElJugador() throws NombreInvalido, FileNotFoundException {
+    public void test11NoSeEliminanTodasLasUnidaesEnemigasPeroNoAlcanzaElDanioGanaElJugador() throws NombreInvalido, FileNotFoundException, TerrenoNoAptoParaConstruir {
         AlgoDefense algoDefense = new AlgoDefense();
         Mapa mapa = algoDefense.getMapa();
         Enemigo enemigo = new Hormiga( mapa.getOrigen());
@@ -141,7 +141,7 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test12NoSeEliminanTodasLasUnidadesEnemigasPeroAlcanzaElDanioGanaLaComputadora() throws NombreInvalido, FileNotFoundException {
+    public void test12NoSeEliminanTodasLasUnidadesEnemigasPeroAlcanzaElDanioGanaLaComputadora() throws NombreInvalido, FileNotFoundException, TerrenoNoAptoParaConstruir {
         AlgoDefense algoDefense = new AlgoDefense();
         Mapa mapa = algoDefense.getMapa();
         for (int i = 0; i < 23; i++) {

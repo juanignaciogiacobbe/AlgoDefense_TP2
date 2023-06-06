@@ -4,9 +4,12 @@ import Excepciones.TerrenoNoAptoParaConstruir;
 
 abstract class ParcelaDePasarela extends Parcela{
 
-    public boolean puedoConstruir(Defensa defensa) {
-        return false;
+    public ParcelaDePasarela() {
+        construible = new NoConstruible();
+        movible = new Desplazable();
+        defendible = new NoDefendible();
     }
+
 
     public boolean puedeMoverseAqui() {
         return true;
@@ -20,12 +23,12 @@ abstract class ParcelaDePasarela extends Parcela{
         return mapa.darSiguientePasarela(this);
     }
 
-    public ParcelaDePasarela mover(int distancia,Mapa mapa) {
-        return mapa.hallarParcelaVecinaCorrectaADistancia(this, distancia);
+    public ParcelaDePasarela mover(int distancia,Mapa mapa) throws TerrenoNoAptoParaConstruir {
+        return movible.mover(this,distancia,mapa);
     }
 
     public void construir(Defensa defensa) throws TerrenoNoAptoParaConstruir {
-        throw new TerrenoNoAptoParaConstruir();
+        construible.construir();
     }
 
 

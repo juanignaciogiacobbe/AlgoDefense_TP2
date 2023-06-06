@@ -1,6 +1,7 @@
 package clases;
 
 import Excepciones.NombreInvalido;
+import Excepciones.TerrenoNoAptoParaConstruir;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class AlgoDefense {
 		return "Computadora";
 	}
 
-	public void moverEnemigos() {
+	public void moverEnemigos() throws TerrenoNoAptoParaConstruir {
 		for (Enemigo enemigo : enemigos) {
 			enemigo.mover(this.mapa);
 		}

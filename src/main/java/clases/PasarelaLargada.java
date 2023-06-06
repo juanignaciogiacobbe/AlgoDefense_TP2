@@ -6,4 +6,8 @@ public class PasarelaLargada extends ParcelaDePasarela {
         this.coordenada = new Coordenada(abscisa, ordenada);
     }
 
+    @Override
+    boolean puedoConstruir(Defensa defensa) {
+        return false;
+    }
 }
