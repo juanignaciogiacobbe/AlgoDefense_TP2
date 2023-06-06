@@ -1,60 +1,69 @@
 package clases;
 
-import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ConvertidorEnemigosImplementacion implements ConvertidorEnemigos {
-    @Override
-    public Map<Integer, List<String>> cargarEnemigos(String path) throws IOException, ParseException {
-        Map<Integer, List<String>> enemigosPorRonda = new HashMap<>(); // Diccionario para almacenar enemigos por ronda
 
-        try {
-            JSONParser parser = new JSONParser();
-            JSONArray jsonArray = (JSONArray) parser.parse(new FileReader(path)); // Parsear el archivo JSON
+	@Override
+	public Map<Integer, List<Enemigo>> cargarEnemigos(String archivo) {
+		Map<Integer, List<Enemigo>> enemigosPorRonda = new HashMap<>();
 
-            for (Object obj : jsonArray) { // Recorrer cada objeto en el JSON
-                JSONObject jsonEnemigo = (JSONObject) obj; // Obtiene bloque de codigo que tiene al turno y sus enemigos
-                int turno = Integer.parseInt(jsonEnemigo.get("turno").toString()); // Obtener el número de ronda del enemigo
-                JSONObject jsonCantidadEnemigos = (JSONObject) jsonEnemigo.get("enemigos"); //  Obtiene bloque de codigo que enemigos:
-                List<String> enemigosRonda = obtenerNombresEnemigos(jsonCantidadEnemigos); // Obtener los nombres de los enemigos para la ronda actual
-                enemigosPorRonda.put(turno, enemigosRonda);
-            }
-        } catch (FileNotFoundException e) {
-            throw new FileNotFoundException();
-        } catch (IOException e) {
-            throw new IOException();
-        } catch (ParseException e) {
-            throw new ParseException(-1); // Puedes ajustar el valor del offset o posición según corresponda
-        }
+		JSONParser parser = new JSONParser();
 
-        return enemigosPorRonda;
-    }
+		try {
+			Object obj = parser.parse(new FileReader(archivo));
 
+			JSONArray enemigosJson = (JSONArray) obj;
 
-    public List<String> obtenerNombresEnemigos(JSONObject jsonCantidadEnemigos) {
-        List<String> nombresEnemigos = new ArrayList<>(); // Lista para almacenar los nombres de los enemigos de la ronda
+			for (Object enemigoObj : enemigosJson) {
+				JSONObject enemigoJson = (JSONObject) enemigoObj;
 
-        for (Object key : jsonCantidadEnemigos.keySet()) {
-            String nombreEnemigo = (String) key; // Obtener el nombre del enemigo
-            int cantidadEnemigos = Integer.parseInt(jsonCantidadEnemigos.get(nombreEnemigo).toString()); // Obtener la cantidad de enemigos
+				int turno = Integer.parseInt(enemigoJson.get("turno").toString());
+				JSONObject enemigos = (JSONObject) enemigoJson.get("enemigos");
 
-            for (int i = 0; i < cantidadEnemigos; i++) {
-                nombresEnemigos.add(nombreEnemigo); // Agregar el nombre del enemigo a la lista por cada enemigo definido
-            }
-        }
+				List<Enemigo> enemigosRonda = obtenerEnemigos(enemigos);
 
-        return nombresEnemigos; // Devolver la lista de nombres de enemigos de la ronda
-    }
+				enemigosPorRonda.put(turno, enemigosRonda);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
+		return enemigosPorRonda;
+	}
 
+	public List<Enemigo> obtenerEnemigos(JSONObject jsonCantidadEnemigos) {
+		List<Enemigo> enemigos = new ArrayList<>();
+
+		for (Object key : jsonCantidadEnemigos.keySet()) {
+			String nombreEnemigo = (String) key;
+			int cantidadEnemigos = Integer.parseInt(jsonCantidadEnemigos.get(nombreEnemigo).toString());
+
+			for (int i = 0; i < cantidadEnemigos; i++) {
+				Enemigo enemigo = crearEnemigo(nombreEnemigo);
+				enemigos.add(enemigo);
+			}
+		}
+
+		return enemigos;
+	}
+
+	public Enemigo crearEnemigo(String nombreEnemigo) {
+		switch (nombreEnemigo) {
+			case "hormiga":
+				return new Hormiga(new PasarelaComun(0, 0));
+			case "arana":
+				return new Arania(new PasarelaComun(0, 0));
+			default:
+				throw new IllegalArgumentException("Unknown enemy type: " + nombreEnemigo);
+		}
+	}
 }

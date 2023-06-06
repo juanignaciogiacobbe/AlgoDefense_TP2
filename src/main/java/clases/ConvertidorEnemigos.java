@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface ConvertidorEnemigos {
-    Map<Integer, List<String>> cargarEnemigos(String path) throws IOException, ParseException;
-    List<String> obtenerNombresEnemigos(JSONObject jsonCantidadEnemigos);
+    Map<Integer, List<Enemigo>> cargarEnemigos(String path) throws IOException, ParseException;
+    List<Enemigo> obtenerEnemigos(JSONObject jsonCantidadEnemigos);
 }
 
