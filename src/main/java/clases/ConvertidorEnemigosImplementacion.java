@@ -3,8 +3,11 @@ package clases;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +16,7 @@ import java.util.Map;
 public class ConvertidorEnemigosImplementacion implements ConvertidorEnemigos {
 
 	@Override
-	public Map<Integer, List<Enemigo>> cargarEnemigos(String archivo) {
+	public Map<Integer, List<Enemigo>> cargarEnemigos(String archivo)  throws IOException, ParseException {
 		Map<Integer, List<Enemigo>> enemigosPorRonda = new HashMap<>();
 
 		JSONParser parser = new JSONParser();
@@ -33,6 +36,8 @@ public class ConvertidorEnemigosImplementacion implements ConvertidorEnemigos {
 
 				enemigosPorRonda.put(turno, enemigosRonda);
 			}
+		} catch (FileNotFoundException | ParseException e) {
+			throw e;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
