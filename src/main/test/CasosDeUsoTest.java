@@ -1,4 +1,5 @@
 import Excepciones.NombreInvalido;
+import Excepciones.TerrenoNoAptoParaCaminar;
 import Excepciones.TerrenoNoAptoParaConstruir;
 import clases.*;
 
@@ -95,7 +96,7 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test09EnemigosSeMuevenPorMapa() throws FileNotFoundException, TerrenoNoAptoParaConstruir {
+    public void test09EnemigosSeMuevenPorMapa() throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
         AlgoDefense algodefense = new AlgoDefense();
         Enemigo enemigo = new Hormiga(algodefense.getMapa().getOrigen());
         algodefense.agregarEnemigo(enemigo);
@@ -108,7 +109,7 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() throws FileNotFoundException, TerrenoNoAptoParaConstruir {
+    public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
         AlgoDefense algoDefense = new AlgoDefense();
         Mapa mapa = algoDefense.getMapa();
         Enemigo enemigo = new Hormiga(mapa.getOrigen());
@@ -122,7 +123,7 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test11NoSeEliminanTodasLasUnidaesEnemigasPeroNoAlcanzaElDanioGanaElJugador() throws NombreInvalido, FileNotFoundException, TerrenoNoAptoParaConstruir {
+    public void test11NoSeEliminanTodasLasUnidaesEnemigasPeroNoAlcanzaElDanioGanaElJugador() throws NombreInvalido, FileNotFoundException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
         AlgoDefense algoDefense = new AlgoDefense();
         Mapa mapa = algoDefense.getMapa();
         Enemigo enemigo = new Hormiga( mapa.getOrigen());
@@ -141,7 +142,7 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test12NoSeEliminanTodasLasUnidadesEnemigasPeroAlcanzaElDanioGanaLaComputadora() throws NombreInvalido, FileNotFoundException, TerrenoNoAptoParaConstruir {
+    public void test12NoSeEliminanTodasLasUnidadesEnemigasPeroAlcanzaElDanioGanaLaComputadora() throws NombreInvalido, FileNotFoundException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
         AlgoDefense algoDefense = new AlgoDefense();
         Mapa mapa = algoDefense.getMapa();
         for (int i = 0; i < 23; i++) {

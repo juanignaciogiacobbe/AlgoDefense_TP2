@@ -1,5 +1,7 @@
 package clases;
 
+import Excepciones.TerrenoNoAptoParDefender;
+import Excepciones.TerrenoNoAptoParaCaminar;
 import Excepciones.TerrenoNoAptoParaConstruir;
 
 abstract class ParcelaDePasarela extends Parcela{
@@ -10,25 +12,21 @@ abstract class ParcelaDePasarela extends Parcela{
         defendible = new NoDefendible();
     }
 
-
     public boolean puedeMoverseAqui() {
         return true;
     }
 
-    public boolean puedeDefender(){
-        return false;
-    }
-
-    public ParcelaDePasarela darSiguientePasarela() {
-        return mapa.darSiguientePasarela(this);
-    }
-
-    public ParcelaDePasarela mover(int distancia,Mapa mapa) throws TerrenoNoAptoParaConstruir {
+    public ParcelaDePasarela mover(int distancia,Mapa mapa) throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
         return movible.mover(this,distancia,mapa);
     }
 
-    public void construir(Defensa defensa) throws TerrenoNoAptoParaConstruir {
-        construible.construir();
+    public void construir(Defensa defensaAConstuir) throws TerrenoNoAptoParaConstruir {
+        construible.construir(defensaAConstuir,null);
+
+    }
+
+    public void defender() throws TerrenoNoAptoParDefender {
+        defendible.defender();
     }
 
 

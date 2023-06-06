@@ -89,17 +89,7 @@ public class Mapa {
         return this.calcularParcelaConDistanciaMinimaALaMeta(pasarelasEnRango);
     }
 
-    public List<ParcelaDeTierra> obtenerDefensas() {
-        List<ParcelaDeTierra> defensas = new ArrayList<>();
 
-        for (Parcela parcela : parcelas) {
-            if (parcela.puedeDefender()) {
-                defensas.add((ParcelaDeTierra) parcela);
-            }
-        }
-
-        return defensas;
-    }
 
 }
 
