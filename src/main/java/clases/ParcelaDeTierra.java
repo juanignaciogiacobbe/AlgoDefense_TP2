@@ -44,7 +44,7 @@ public class ParcelaDeTierra extends Parcela {
 
     public void construir(Defensa defensaAConstruir) throws TerrenoNoAptoParaConstruir {
         construible.construir(defensaAConstruir,this);
-        this.defendible = new Defensora();
+        this.defendible = new Defensora(defensaAConstruir);
     }
 
 
