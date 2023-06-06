@@ -2,10 +2,7 @@ package clases;
 
 import Excepciones.TerrenoNoAptoParaConstruir;
 
-import java.util.ArrayList;
-import java.util.List;
-
-abstract class Parcela {
+public abstract class Parcela {
 
     protected Coordenada coordenada;
 

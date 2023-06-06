@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
@@ -206,13 +207,31 @@ public class CasosDeUsoTest {
 		int rondasEsperadas = 12;
 		assertEquals(rondasEsperadas, enemigosPorRonda.get().size(), "Número incorrecto de rondas");
 	}
-//
-//	@Test
-//	public void test16VerificoCorrectaLecturaYConversionDeJSONMapa() throws IOException, ParseException {
-//		FileReader fileReader = new FileReader("src/temp/mapa.json");
-//		ConvertidorMapa convertidor = new ConvertidorMapaImplementacion(fileReader);
-//		Mapa mapa = convertidor.cargarMapa();
-//		assertEquals(mapa.getParcelas().size(), 225);
-//	}
 
+	@Test
+	public void test16VerificoCorrectaLecturaYConversionDeJSONMapa() throws IOException, ParseException {
+		Reader reader = new FileReader("src/temp/mapa.json");
+		ConvertidorMapa convertidor = new ConvertidorMapaImplementacion(reader);
+		Mapa mapa = convertidor.cargarMapa();
+		assertNotNull(mapa);
+		// Comprobar el tamaño del mapa
+		int filasEsperadas = 15;
+		int columnasEsperadas = 15;
+		assertEquals(filasEsperadas * columnasEsperadas, mapa.getParcelas().size(), "Tamaño incorrecto del mapa");
+		// Comprobar algunas parcelas individuales
+		int filaAComprobar = 5;
+		int columnaAComprobar = 10;
+		int indiceParcela = (filaAComprobar - 1) * columnasEsperadas + (columnaAComprobar - 1);
+		// Coordenadas (X, Y): (10, 5)
+		List<Parcela> parcelas = mapa.getParcelas();
+		assertNotNull(parcelas.get(indiceParcela), "La parcela en la fila " + filaAComprobar + " y columna " + columnaAComprobar + " es nula");
+		assertEquals(ParcelaDeTierra.class, parcelas.get(indiceParcela).getClass(), "Tipo de parcela incorrecto");
+
+		filaAComprobar = 10;
+		columnaAComprobar = 8;
+		indiceParcela = (filaAComprobar - 1) * columnasEsperadas + (columnaAComprobar - 1);
+		// Coordenadas (X, Y): (8, 10)
+		assertNotNull(parcelas.get(indiceParcela), "La parcela en la fila " + filaAComprobar + " y columna " + columnaAComprobar + " es nula");
+		assertEquals(ParcelaDeTierra.class, parcelas.get(indiceParcela).getClass(), "Tipo de parcela incorrecto");
+	}
 }
