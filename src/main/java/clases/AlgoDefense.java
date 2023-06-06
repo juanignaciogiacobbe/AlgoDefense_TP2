@@ -3,11 +3,9 @@ package clases;
 import Excepciones.NombreInvalido;
 import org.json.simple.parser.ParseException;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 public class AlgoDefense {
