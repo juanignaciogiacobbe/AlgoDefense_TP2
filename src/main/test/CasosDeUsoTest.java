@@ -2,6 +2,7 @@ import Excepciones.NombreInvalido;
 import Excepciones.TerrenoNoAptoParaCaminar;
 import Excepciones.TerrenoNoAptoParaConstruir;
 import clases.*;
+import clases.Enemigo;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 

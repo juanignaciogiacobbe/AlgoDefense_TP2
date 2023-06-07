@@ -4,6 +4,7 @@ import Excepciones.EnemigoFueraDeRango;
 import Excepciones.SinVidaRestante;
 import Excepciones.TerrenoNoAptoParaCaminar;
 import Excepciones.TerrenoNoAptoParaConstruir;
+import clases.*;
 
 public abstract class Enemigo {
     protected Estado estado;

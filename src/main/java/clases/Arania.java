@@ -1,6 +1,6 @@
 package clases;
 
-import Excepciones.SinVidaRestante;
+import clases.Enemigo;
 
 import java.util.Random;
 

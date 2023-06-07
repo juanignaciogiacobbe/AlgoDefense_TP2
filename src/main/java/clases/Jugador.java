@@ -4,6 +4,10 @@ import Excepciones.CreditosInsuficientes;
 import Excepciones.NombreInvalido;
 import Excepciones.TerrenoNoAptoParDefender;
 import Excepciones.TerrenoNoAptoParaConstruir;
+import clases.vida.EstadoVida;
+import clases.vida.EstadoVivo;
+import clases.vida.SinVidaRestanteException;
+import clases.vida.Vida;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +61,16 @@ public class Jugador {
             defensa.defender(enemigos);
         }
     }
+
+    public void recibirDanio(int danioARecibir) {
+        vida.consumirPuntos(danioARecibir);
+    }
+
+    public void comenzarTurno() {
+        vida.comenzarTurno();
+    }
+
+
 }
 
 

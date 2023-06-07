@@ -1,9 +1,9 @@
 package clases;
-import Excepciones.SinVidaRestante;
+import clases.Enemigo;
 
 import java.util.Random;
 
-public class Hormiga extends Enemigo{
+public class Hormiga extends Enemigo {
 
     public Hormiga(ParcelaDePasarela pasarela) {
         this.creditos= 1;

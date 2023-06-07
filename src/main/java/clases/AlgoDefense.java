@@ -1,6 +1,7 @@
 package clases;
 
 import Excepciones.NombreInvalido;
+import clases.Enemigo;
 import org.json.simple.parser.ParseException;
 import Excepciones.TerrenoNoAptoParaCaminar;
 import Excepciones.TerrenoNoAptoParaConstruir;

@@ -2,6 +2,7 @@ package clases;
 
 import Excepciones.TerrenoNoAptoParaCaminar;
 import Excepciones.TerrenoNoAptoParaConstruir;
+import clases.Enemigo;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;

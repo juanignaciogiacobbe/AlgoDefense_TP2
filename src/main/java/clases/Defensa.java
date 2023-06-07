@@ -1,6 +1,7 @@
 package clases;
 
 import Excepciones.EnemigoFueraDeRango;
+import clases.Enemigo;
 
 import java.util.List;
 
