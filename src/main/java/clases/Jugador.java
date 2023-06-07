@@ -2,13 +2,19 @@ package clases;
 
 import Excepciones.CreditosInsuficientes;
 import Excepciones.NombreInvalido;
+import Excepciones.TerrenoNoAptoParDefender;
 import Excepciones.TerrenoNoAptoParaConstruir;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Jugador {
     private Creditos creditos;
     private Vida vida;
 
     private String nombre;
+
+    private List<Parcela> defensas = new ArrayList<>();
 
     public Jugador(String nombre) throws NombreInvalido {
         this.creditos = new Creditos(100);
@@ -34,10 +40,22 @@ public class Jugador {
 
     public void construir(Defensa defensa, Parcela parcela) throws CreditosInsuficientes, TerrenoNoAptoParaConstruir {
         this.creditos.consumirPuntos(defensa.getCostoConstruccion());
-        parcela.construir(defensa);
+        try {
+            parcela.construir(defensa);
+            defensas.add(parcela);
+        } catch (TerrenoNoAptoParaConstruir e) {
+            this.creditos.agregarCreditos(defensa.getCostoConstruccion());
+            throw new TerrenoNoAptoParaConstruir();
+        }
     }
     public boolean sobreviveConDanio(int danio) {
         return (this.vida.getVida() - danio > 0);
+    }
+
+    public void defender(List<Enemigo> enemigos) throws TerrenoNoAptoParDefender {
+        for (Parcela defensa: this.defensas) {
+            defensa.defender(enemigos);
+        }
     }
 }
 
