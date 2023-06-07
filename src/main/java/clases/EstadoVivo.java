@@ -4,10 +4,17 @@ import Excepciones.SinVidaRestante;
 
 import java.util.List;
 
-public class EstadoVivo extends Estado {
+public class EstadoVivo implements EstadoVida {
+
+    private int vida;
 
     public EstadoVivo(int vidaInicial) {
         this.vida = vidaInicial;
+    }
+
+
+    public int getVida() {
+        return vida;
     }
 
     @Override
@@ -15,6 +22,7 @@ public class EstadoVivo extends Estado {
         this.vida -= danioARecibir;
         if (this.vida <= 0) {
             throw new SinVidaRestante();
+
         }
     }
 

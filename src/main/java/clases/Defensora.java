@@ -2,6 +2,8 @@ package clases;
 
 import Excepciones.TerrenoNoAptoParDefender;
 
+import java.util.List;
+
 public class Defensora implements Defendible {
 
     private Defensa defensa;
@@ -11,8 +13,8 @@ public class Defensora implements Defendible {
     }
 
     @Override
-    public void defender() throws TerrenoNoAptoParDefender {
-        //defensa.atacarA();
+    public void defender(List<Enemigo> enemigos, Parcela parcelaDefensa) throws TerrenoNoAptoParDefender {
+        this.defensa.atacar(enemigos, parcelaDefensa);
     }
 
 }

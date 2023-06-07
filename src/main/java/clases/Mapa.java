@@ -71,7 +71,6 @@ public class Mapa {
 
     }
 
-
     public ParcelaDePasarela obtenerPasarelasEnRango(ParcelaDeTierra defensa, int rango) {
         List<ParcelaDePasarela> pasarelasEnRango = new ArrayList<>();
 

@@ -1,7 +1,5 @@
 package clases;
 
-import Excepciones.SinVidaRestante;
-
 import java.util.Random;
 
 public class Arania extends Enemigo {
@@ -9,7 +7,7 @@ public class Arania extends Enemigo {
         this.creditos = obtenerCreditosRandom();
         this.velocidad = 2;
         this.danio = 2;
-        this.estado = new EstadoVivo(2);
+        this.estadoVida = new EstadoVivo(2);
         this.pasarelaActual = pasarela;
     }
 

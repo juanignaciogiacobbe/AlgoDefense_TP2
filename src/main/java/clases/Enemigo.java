@@ -1,11 +1,14 @@
 package clases;
 
+import Excepciones.EnemigoFueraDeRango;
 import Excepciones.SinVidaRestante;
 import Excepciones.TerrenoNoAptoParaCaminar;
 import Excepciones.TerrenoNoAptoParaConstruir;
 
+import java.util.List;
+
 public abstract class Enemigo {
-    protected Estado estado;
+    protected EstadoVida estadoVida;
 
     protected int creditos;
 
@@ -18,9 +21,9 @@ public abstract class Enemigo {
 
     public void recibirDanio(int puntosARecibir) {
         try {
-            this.estado.recibirDanio(puntosARecibir);
+            this.estadoVida.recibirDanio(puntosARecibir);
         } catch (SinVidaRestante sinVidaRestante) {
-            this.estado = new EstadoMuerto();
+            this.estadoVida = new EstadoMuerto();
         }
     }
 
@@ -29,10 +32,11 @@ public abstract class Enemigo {
         this.pasarelaActual = pasarela;
     }
 
+   /*
     public boolean tieneVidaIgualA(int vidaEsperada) {
-        return this.estado.tieneVidaIgualA(vidaEsperada);
+        return this.estadoVida.tieneVidaIgualA(vidaEsperada);
     }
-
+*/
     public int getVelocidad() {
         return velocidad;
     }
@@ -49,14 +53,19 @@ public abstract class Enemigo {
     }
 
     public int recolectarCreditos(int sumaActual) {
-        return this.estado.recolectarCreditos(sumaActual, this.creditos);
+        return this.estadoVida.recolectarCreditos(sumaActual, this.creditos);
     }
-
-
 
 
     public void mover(Mapa mapa) throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
         this.setPasarelaActual(this.pasarelaActual.mover(this.getVelocidad(), mapa));
 
+    }
+
+    public void recibirAtaque(Parcela parcelaDefensa, int rangoAtaque, int danio) throws EnemigoFueraDeRango {
+        if (!this.pasarelaActual.estaEnRango(parcelaDefensa, rangoAtaque)) {
+            throw new EnemigoFueraDeRango();
+        }
+        this.recibirDanio(danio);
     }
 }

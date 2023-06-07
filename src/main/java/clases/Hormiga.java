@@ -1,7 +1,4 @@
 package clases;
-import Excepciones.SinVidaRestante;
-
-import java.util.Random;
 
 public class Hormiga extends Enemigo{
 
@@ -9,7 +6,7 @@ public class Hormiga extends Enemigo{
         this.creditos= 1;
         this.velocidad = 1;
         this.danio = 1;
-        this.estado = new EstadoVivo(1);
+        this.estadoVida = new EstadoVivo(1);
         this.pasarelaActual = pasarela;
         }
 

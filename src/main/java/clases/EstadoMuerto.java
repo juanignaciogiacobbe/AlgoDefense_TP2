@@ -4,11 +4,9 @@ import Excepciones.SinVidaRestante;
 
 import java.util.List;
 
-public class EstadoMuerto extends Estado {
+public class EstadoMuerto implements EstadoVida {
 
-    public EstadoMuerto() {
-        this.vida = 0;
-    }
+
     @Override
     public void recibirDanio(int danioARecibir) throws SinVidaRestante {
 
@@ -22,5 +20,10 @@ public class EstadoMuerto extends Estado {
     @Override
     public int recolectarCreditos(int sumaActual, int creditosEnemigo) {
         return sumaActual + creditosEnemigo;
+    }
+
+    @Override
+    public int getVida() {
+        return 0;
     }
 }
