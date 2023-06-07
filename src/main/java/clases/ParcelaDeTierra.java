@@ -1,47 +1,48 @@
 package clases;
 
+import Excepciones.TerrenoNoAptoParDefender;
+import Excepciones.TerrenoNoAptoParaCaminar;
 import Excepciones.TerrenoNoAptoParaConstruir;
+
+import java.util.List;
 
 public class ParcelaDeTierra extends Parcela {
 
-
     private Defensa defensa;
 
-    private boolean defendible;
-    public ParcelaDeTierra(int abscisa, int ordenada ) {
+    public ParcelaDeTierra(int abscisa, int ordenada) {
 
         this.coordenada = new Coordenada(abscisa, ordenada);
-        this.defendible= false;
+        this.construible = new Edificable();
+        this.movible = new NoDesplazable();
+        this.defendible = new NoDefendible();
+        this.defensa = null;
 
     }
 
-    public boolean puedoConstruir(Defensa defensa) {
-        return true;
-    }
 
     public boolean puedeMoverseAqui() {
         return false;
     }
 
-    public boolean puedeDefender(){
-        return isDefendible();
+
+    public void setDefensa(Defensa defensa) {
+        this.defensa = defensa;
     }
-
-    public boolean isDefendible() {
-        return defendible;
-    }
-
-
     public Defensa getDefensa() {
         return defensa;
     }
 
-    public void construir(Defensa defensa) throws TerrenoNoAptoParaConstruir {
-        this.defensa = defensa;
-        defendible= true;
+
+    public ParcelaDePasarela mover(int distancia,Mapa mapa) throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir {
+        return (movible.mover(this, distancia, mapa));
     }
 
-    public int obtenerRangoDefensa(){
-         return defensa.getRangoAtaque();
+    public void construir(Defensa defensaAConstruir) throws TerrenoNoAptoParaConstruir {
+        construible.construir(defensaAConstruir,this);
+        this.defendible = new Defensora(defensaAConstruir);
     }
+
+
+
 }

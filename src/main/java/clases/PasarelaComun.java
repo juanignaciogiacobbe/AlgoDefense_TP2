@@ -6,4 +6,5 @@ public class PasarelaComun extends ParcelaDePasarela {
         super();
         this.coordenada = new Coordenada(abscisa, ordenada);
     }
+
 }

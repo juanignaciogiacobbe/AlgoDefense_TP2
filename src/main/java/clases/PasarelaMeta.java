@@ -6,4 +6,5 @@ public class PasarelaMeta extends ParcelaDePasarela {
         this.coordenada = new Coordenada(abscisa, ordenada);
     }
 
+
 }

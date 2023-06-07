@@ -1,5 +1,9 @@
 package clases;
 
+import Excepciones.EnemigoFueraDeRango;
+
+import java.util.List;
+
 abstract class Defensa {
 
      protected int costoConstruccion;
@@ -27,8 +31,16 @@ abstract class Defensa {
         return rangoAtaque;
     }
 
-    public int atacarA(Enemigo enemigo) {
-       return enemigo.recibirDanio(danio);
+    public void atacarA(Enemigo enemigo) {
+       enemigo.recibirDanio(danio);
     }
 
+    public void atacar(List<Enemigo> enemigos, Parcela parcelaDefensa) {
+        for (Enemigo enemigo: enemigos) {
+            try {
+                enemigo.recibirAtaque(parcelaDefensa, this.rangoAtaque, this.danio);
+                return;
+            } catch (EnemigoFueraDeRango e) {}
+        }
+    }
 }
