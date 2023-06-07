@@ -98,7 +98,7 @@ public class CasosDeUsoTest {
 		Hormiga hormiga = new Hormiga(pasarelaLargada);
 		defensa.atacarA(hormiga);
 		int creditosObtenidos = 0;
-		creditosObtenidos = hormiga.recolectarCreditos(creditosObtenidos);
+		creditosObtenidos = hormiga.obtenerCreditos();
 		jugador.agregarCreditos(creditosObtenidos);
 		assertEquals(jugador.getCreditos(), 101);
 	}

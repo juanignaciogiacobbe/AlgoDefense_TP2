@@ -1,13 +1,7 @@
 package clases;
 
-import Excepciones.CreditosInsuficientes;
-import Excepciones.NombreInvalido;
-import Excepciones.TerrenoNoAptoParDefender;
-import Excepciones.TerrenoNoAptoParaConstruir;
-import clases.vida.EstadoVida;
-import clases.vida.EstadoVivo;
-import clases.vida.SinVidaRestanteException;
-import clases.vida.Vida;
+import Excepciones.*;
+import clases.vida.*;
 
 import java.util.ArrayList;
 import java.util.List;
