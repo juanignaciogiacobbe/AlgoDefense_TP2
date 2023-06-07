@@ -11,7 +11,7 @@ public abstract class Estado {
 
     public abstract void recibirDanio(int danioARecibir) throws SinVidaRestante;
 
-    public abstract void actualizarLista(List<Enemigo> lista);
+    public abstract void actualizarLista(List<Enemigo> lista, Enemigo enemigo);
 
     public abstract int recolectarCreditos(int sumaActual, int creditosEnemigo);
 

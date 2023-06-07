@@ -16,8 +16,8 @@ public class EstadoMuerto extends Estado {
     }
 
     @Override
-    public void actualizarLista(List<Enemigo> lista) {
-
+    public void actualizarLista(List<Enemigo> lista, Enemigo enemigo) {
+        lista.remove(enemigo);
     }
 
     @Override

@@ -20,7 +20,7 @@ public class EstadoVivo extends Estado {
     }
 
     @Override
-    public void actualizarLista(List<Enemigo> lista) {
+    public void actualizarLista(List<Enemigo> lista, Enemigo enemigo) {
     }
 
     @Override
