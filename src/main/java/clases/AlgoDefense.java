@@ -24,7 +24,7 @@ public class AlgoDefense {
 
     private List<ParcelaDeTierra> defensas;
 
-    public AlgoDefense() throws IOException, ParseException, FormatoJSONInvalidoException, NombreInvalido {
+    public AlgoDefense() throws IOException, ParseException, FormatoJSONInvalidoException {
         FileReader reader = new FileReader("src/temp/mapa.json");
         ConvertidorMapa convertidor = new ConvertidorMapaImplementacion(reader);
         this.mapa = convertidor.cargarMapa();
@@ -52,7 +52,7 @@ public class AlgoDefense {
 
     }
 
-    public void moverEnemigos() throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, SinVidaRestante {
+    public void moverEnemigos() throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
         for (Enemigo enemigo : enemigos) {
             enemigo.mover(this.mapa);
         }
@@ -64,16 +64,6 @@ public class AlgoDefense {
 
     public void agregarEnemigo(Enemigo enemigo) {
         enemigos.add(enemigo);
-    }
-
-    public int enemigosEnMeta() {
-        int cantidadMeta = 0;
-        for (Enemigo enemigo : enemigos) {
-            if (enemigo.getPasarelaActual().getCoordenada().equals(mapa.getMeta().getCoordenada())) {
-                cantidadMeta += 1;
-            }
-        }
-        return cantidadMeta;
     }
 
 
