@@ -13,6 +13,7 @@ import java.io.Reader;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -235,7 +236,26 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    void test18SimuloYVerificoQueGanaJugador() throws FormatoJSONInvalidoException, IOException, ParseException, NombreInvalido, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, SinVidaRestante {
+    void test17VerificarQueElJuegoSecreaAcordeAAmbosJSON() {
+	    assertDoesNotThrow(() -> {
+				    FileReader reader = new FileReader("src/temp/mapa.json");
+				    ConvertidorMapa convertidor = new ConvertidorMapaImplementacion(reader);
+				    Mapa mapa = convertidor.cargarMapa();
+
+				    FileReader readerEnemigos = new FileReader("src/temp/enemigos.json");
+				    ConvertidorEnemigos convertidorEnemigos = new ConvertidorEnemigosImplementacion(readerEnemigos);
+				    List<Enemigo> enemigos = convertidorEnemigos.cargarEnemigos().values().stream()
+						    .flatMap(List::stream)
+						    .peek(enemigo -> enemigo.setPasarelaActual(mapa.getOrigen()))
+						    .collect(Collectors.toList());
+
+				    new AlgoDefense(mapa, enemigos);
+						// podriamos tener un turno y verificar si tal estado es el esperado para crear o mockearlo y verificar que se llame
+			    }
+	    );
+    }
+    @Test
+    void test18SimuloYVerificoQueGanaJugador() throws FormatoJSONInvalidoException, IOException, ParseException, NombreInvalido, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir {
         TorrePlateada torre = new TorrePlateada();
         TorrePlateada torre1 = new TorrePlateada();
         AlgoDefense algoDefense = new AlgoDefense();
