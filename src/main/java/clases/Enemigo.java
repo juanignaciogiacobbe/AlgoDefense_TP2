@@ -46,6 +46,10 @@ public abstract class Enemigo {
         return pasarelaActual;
     }
 
+    public int getVida(){
+        return estadoDeVida.getVida();
+    }
+
 
 
     public void mover(Mapa mapa) throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
