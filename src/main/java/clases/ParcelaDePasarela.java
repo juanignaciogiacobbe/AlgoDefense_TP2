@@ -25,4 +25,10 @@ abstract class ParcelaDePasarela extends Parcela{
 
     }
 
+    public void defender() throws TerrenoNoAptoParDefender {
+        defendible.defender();
+    }
+
+
+
 }

@@ -27,6 +27,10 @@ public class ParcelaRocosa extends Parcela {
         return(movible.mover(this,distancia,mapa));
     }
 
+    public void defender() throws TerrenoNoAptoParDefender {
+        defendible.defender();
+    }
+
     public void construir() throws TerrenoNoAptoParaConstruir {
         construible.construir(null,null);
     }

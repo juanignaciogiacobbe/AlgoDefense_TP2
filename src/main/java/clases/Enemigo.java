@@ -1,6 +1,5 @@
 package clases;
 
-import Excepciones.EnemigoFueraDeRango;
 import Excepciones.SinVidaRestante;
 import Excepciones.TerrenoNoAptoParaCaminar;
 import Excepciones.TerrenoNoAptoParaConstruir;
@@ -63,12 +62,5 @@ public abstract class Enemigo {
     public void mover(Mapa mapa) throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
         this.setPasarelaActual(this.pasarelaActual.mover(this.getVelocidad(), mapa));
 
-    }
-
-    public void recibirAtaque(Parcela parcelaDefensa, int rangoAtaque, int danio) throws EnemigoFueraDeRango {
-        if (!this.pasarelaActual.estaEnRango(parcelaDefensa, rangoAtaque)) {
-            throw new EnemigoFueraDeRango();
-        }
-        this.recibirDanio(danio);
     }
 }

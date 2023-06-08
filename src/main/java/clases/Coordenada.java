@@ -41,8 +41,4 @@ public class Coordenada {
 
         return Math.abs(x1 - x2) + Math.abs(y1 - y2);
     }
-
-    public boolean estaDentroDelRango(Coordenada coordenada, int rango) {
-        return distanciaHacia(coordenada) <= rango;
-    }
 }

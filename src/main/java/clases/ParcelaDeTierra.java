@@ -4,8 +4,6 @@ import Excepciones.TerrenoNoAptoParDefender;
 import Excepciones.TerrenoNoAptoParaCaminar;
 import Excepciones.TerrenoNoAptoParaConstruir;
 
-import java.util.List;
-
 public class ParcelaDeTierra extends Parcela {
 
     private Defensa defensa;
@@ -35,8 +33,14 @@ public class ParcelaDeTierra extends Parcela {
 
 
     public ParcelaDePasarela mover(int distancia,Mapa mapa) throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir {
-        return (movible.mover(this, distancia, mapa));
+        return(movible.mover(this,distancia,mapa));
     }
+
+    @Override
+    public void defender() throws TerrenoNoAptoParDefender {
+        defendible.defender();
+    }
+
 
     public void construir(Defensa defensaAConstruir) throws TerrenoNoAptoParaConstruir {
         construible.construir(defensaAConstruir,this);
