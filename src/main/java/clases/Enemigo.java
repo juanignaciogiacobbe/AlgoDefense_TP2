@@ -8,7 +8,7 @@ import Excepciones.TerrenoNoAptoParaConstruir;
 import java.util.List;
 
 public abstract class Enemigo {
-    protected EstadoVida estadoVida;
+    protected EstadoVivo estadoDeVida;
 
     protected int creditos;
 
@@ -21,9 +21,9 @@ public abstract class Enemigo {
 
     public void recibirDanio(int puntosARecibir) {
         try {
-            this.estadoVida.recibirDanio(puntosARecibir);
+            this.estadoDeVida.recibirDanio(puntosARecibir);
         } catch (SinVidaRestante sinVidaRestante) {
-            this.estadoVida = new EstadoMuerto();
+            this.estadoDeVida = new EstadoVivo(0);
         }
     }
 
@@ -32,11 +32,7 @@ public abstract class Enemigo {
         this.pasarelaActual = pasarela;
     }
 
-   /*
-    public boolean tieneVidaIgualA(int vidaEsperada) {
-        return this.estadoVida.tieneVidaIgualA(vidaEsperada);
-    }
-*/
+
     public int getVelocidad() {
         return velocidad;
     }
@@ -52,9 +48,6 @@ public abstract class Enemigo {
         return pasarelaActual;
     }
 
-    public int recolectarCreditos(int sumaActual) {
-        return this.estadoVida.recolectarCreditos(sumaActual, this.creditos);
-    }
 
 
     public void mover(Mapa mapa) throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {

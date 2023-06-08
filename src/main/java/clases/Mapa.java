@@ -71,7 +71,7 @@ public class Mapa {
 
     }
 
-    public ParcelaDePasarela obtenerPasarelasEnRango(ParcelaDeTierra defensa, int rango) {
+    public ParcelaDePasarela obtenerPasarelasEnRango(Parcela defensa, int rango) {
         List<ParcelaDePasarela> pasarelasEnRango = new ArrayList<>();
 
         for (Parcela parcela : parcelas) {

@@ -20,18 +20,14 @@ public class EstadoVivo implements EstadoVida {
     @Override
     public void recibirDanio(int danioARecibir) throws SinVidaRestante {
         this.vida -= danioARecibir;
+        System.out.println(this.vida);
         if (this.vida <= 0) {
             throw new SinVidaRestante();
 
         }
     }
 
-    @Override
-    public void actualizarLista(List<Enemigo> lista) {
-    }
 
-    @Override
-    public int recolectarCreditos(int sumaActual, int creditosEnemigo) {
-        return sumaActual;
-    }
+
+
 }

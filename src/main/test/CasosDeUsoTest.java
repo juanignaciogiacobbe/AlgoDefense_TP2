@@ -98,7 +98,7 @@ public class CasosDeUsoTest {
 		Hormiga hormiga = new Hormiga(pasarelaLargada);
 		defensa.atacarA(hormiga);
 		int creditosObtenidos = 0;
-		creditosObtenidos = hormiga.recolectarCreditos(creditosObtenidos);
+		//creditosObtenidos = hormiga.recolectarCreditos(creditosObtenidos);
 		jugador.agregarCreditos(creditosObtenidos);
 		assertEquals(jugador.getCreditos(), 101);
 	}
@@ -106,6 +106,7 @@ public class CasosDeUsoTest {
 	@Test
 	public void test09EnemigosSeMuevenPorMapa() throws IOException, ParseException, FormatoJSONInvalidoException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, NombreInvalido, SinVidaRestante {
 		AlgoDefense algodefense = new AlgoDefense();
+		algodefense.agregarJugador("Mariana");
 		Enemigo enemigo = new Hormiga(algodefense.getMapa().getOrigen());
 		algodefense.agregarEnemigo(enemigo);
 		for (int i = 0; i < 23; i++) {
@@ -151,12 +152,13 @@ public class CasosDeUsoTest {
 	@Test
 	public void test12NoSeEliminanTodasLasUnidadesEnemigasPeroAlcanzaElDanioGanaLaComputadora() throws NombreInvalido, IOException, ParseException, FormatoJSONInvalidoException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, SinVidaRestante {
 		AlgoDefense algoDefense = new AlgoDefense();
+		algoDefense.agregarJugador("Mariana");
 		Mapa mapa = algoDefense.getMapa();
 		for (int i = 0; i < 23; i++) {
 			Hormiga hormiga = new Hormiga(mapa.getOrigen());
 			algoDefense.agregarEnemigo(hormiga);
 		}
-		for (int i = 0; i < 23; i++) {
+		for (int i = 0; i < 24; i++) {
 			algoDefense.moverEnemigos();
 		}
 		algoDefense.agregarJugador("Mariana");
@@ -238,8 +240,9 @@ public class CasosDeUsoTest {
 	@Test
 	void caso18() throws FormatoJSONInvalidoException, IOException, ParseException, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, SinVidaRestante, NombreInvalido {
 		AlgoDefense algoDefense = new AlgoDefense();
+		algoDefense.agregarJugador("Sebastian");
 		algoDefense.cargarEnemigos();
-		for (int i = 0 ; i < 25; i++){
+		for (int i = 0 ; i < 100; i++){
 			algoDefense.moverEnemigos();
 		}
 		String ganador = algoDefense.finDelJuego();

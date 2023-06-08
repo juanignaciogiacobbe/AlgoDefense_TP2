@@ -2,6 +2,7 @@ package clases;
 
 import Excepciones.*;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,7 @@ public class Jugador {
     private Creditos creditos;
     //private Vida vida;
 
-    private EstadoVida estadoDeVida;
+    private EstadoVivo estadoDeVida;
 
     private String nombre;
 
@@ -63,7 +64,7 @@ public class Jugador {
     }
 
     public void recibirdanio(int danio) throws SinVidaRestante {
-        estadoDeVida.recibirDanio(danio);
+        this.estadoDeVida.recibirDanio(danio);
     }
 }
 

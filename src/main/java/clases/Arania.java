@@ -7,7 +7,7 @@ public class Arania extends Enemigo {
         this.creditos = obtenerCreditosRandom();
         this.velocidad = 2;
         this.danio = 2;
-        this.estadoVida = new EstadoVivo(2);
+        this.estadoDeVida = new EstadoVivo(2);
         this.pasarelaActual = pasarela;
     }
 

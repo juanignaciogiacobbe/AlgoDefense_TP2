@@ -25,10 +25,8 @@ public class AlgoDefense {
 	public AlgoDefense() throws IOException, ParseException, FormatoJSONInvalidoException, NombreInvalido {
 		FileReader reader = new FileReader("src/temp/mapa.json");
         ConvertidorMapa convertidor = new ConvertidorMapaImplementacion(reader);
-
 		this.mapa = convertidor.cargarMapa();
 		this.enemigos = new ArrayList<>();
-		this.jugador1 = new Jugador("Mariana");
 	}
 
 	public Mapa getMapa() {
@@ -38,41 +36,16 @@ public class AlgoDefense {
 	public void agregarJugador(String nombre) throws NombreInvalido {
 		if (nombre.length() < 6) throw new NombreInvalido();
 
-		jugador1 = new Jugador(nombre);
+		this.jugador1 = new Jugador(nombre);
 	}
 
 
-	public String finDelJuego() throws SinVidaRestante {
+	public String finDelJuego() {
 
-		if (jugador1.getVida() <= 0){
+		if (jugador1.getVida() <= 0 || enemigos.isEmpty()){
 			return "Computadora";
 		}
 		return jugador1.getNombre();
-
-
-		/*
-		if (this.enemigos.isEmpty()) {
-			return jugador1.getNombre();
-		}
-
-		int danio = calcularDanioTotal();
-		/*
-		if (jugador1.sobreviveConDanio(danio)) {
-			return jugador1.getNombre();
-		}
-
-
-		try {
-			if (this.enemigos.isEmpty()) {
-				return jugador1.getNombre();
-			}
-			jugador1.recibirdanio(danio);
-			return jugador1.getNombre();
-		}
-		catch (SinVidaRestante e) {
-			return "Computadora";
-		}
-		*/
 
 	}
 
@@ -83,19 +56,9 @@ public class AlgoDefense {
 
 		this.enemigos = this.mapa.getMeta().actualizarEnemigos(this.enemigos,jugador1);
 
-
 	}
 
 
-	public int calcularDanioTotal() {
-		int danio = 0;
-		for (Enemigo enemigo : enemigos) {
-			if (enemigo.getPasarelaActual().getCoordenada().equals(mapa.getMeta().getCoordenada())) {
-				danio += enemigo.getDanio();
-			}
-		}
-		return danio;
-	}
 
 	public void agregarEnemigo(Enemigo enemigo) {
 		enemigos.add(enemigo);
