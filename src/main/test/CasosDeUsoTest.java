@@ -242,7 +242,6 @@ public class CasosDeUsoTest {
 		for (int i = 0 ; i < 25; i++){
 			algoDefense.moverEnemigos();
 		}
-		System.out.println(algoDefense.calcularDanioTotal());
 		String ganador = algoDefense.finDelJuego();
 		assertEquals(ganador, "Computadora");
 
