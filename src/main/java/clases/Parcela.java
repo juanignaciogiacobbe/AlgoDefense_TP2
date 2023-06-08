@@ -33,12 +33,6 @@ public abstract class Parcela {
     }
 
 
-    public boolean estaADistancia(Coordenada coordenada, int distancia) {
-        double difrenciaAbsica = this.coordenada.getAbscisa() - coordenada.getAbscisa();
-        double difrenciaOrdenada = this.coordenada.getOrdenada() - coordenada.getOrdenada();
-        return (difrenciaAbsica == 0 && Math.abs(difrenciaOrdenada) == distancia) || (Math.abs(difrenciaAbsica) == distancia && difrenciaOrdenada == 0);
-    }
-
     public boolean estaEnRango(Parcela parcelaDefensa, int rango) {
         return this.getCoordenada().estaDentroDelRango(parcelaDefensa.getCoordenada(), rango);
     }

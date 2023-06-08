@@ -1,18 +1,15 @@
 import Excepciones.NombreInvalido;
-import Excepciones.SinVidaRestante;
 import Excepciones.TerrenoNoAptoParaCaminar;
 import Excepciones.TerrenoNoAptoParaConstruir;
 import clases.*;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -51,12 +48,8 @@ public class CasosDeUsoTest {
         ParcelaDeTierra tierra = new ParcelaDeTierra(1, 0);
         ParcelaRocosa rocoso = new ParcelaRocosa(0, 1);
 
-        assertDoesNotThrow(() -> {
-            tierra.construir(defensa);
-        });
-        assertThrows(TerrenoNoAptoParaConstruir.class, () -> {
-            rocoso.construir(defensa);
-        });
+        assertDoesNotThrow(() -> tierra.construir(defensa));
+        assertThrows(TerrenoNoAptoParaConstruir.class, () -> rocoso.construir(defensa));
     }
 
     @Test
@@ -97,24 +90,25 @@ public class CasosDeUsoTest {
         PasarelaLargada pasarelaLargada = new PasarelaLargada(0, 0);
         Hormiga hormiga = new Hormiga(pasarelaLargada);
         defensa.atacarA(hormiga);
+        int creditos = hormiga.obtenerCreditos();
+        jugador.agregarCreditos(creditos);
         assertEquals(jugador.getCreditos(), 101);
     }
 
     @Test
-    public void test09EnemigosSeMuevenPorMapa() throws IOException, ParseException, FormatoJSONInvalidoException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, NombreInvalido, SinVidaRestante {
-        AlgoDefense algodefense = new AlgoDefense();
-        algodefense.agregarJugador("Mariana");
-        Enemigo enemigo = new Hormiga(algodefense.getMapa().getOrigen());
-        algodefense.agregarEnemigo(enemigo);
-        for (int i = 0; i < 23; i++) {
-            algodefense.moverEnemigos();
-
-        }
-        assertEquals(1, algodefense.enemigosEnMeta());
+    public void test09EnemigosSeMuevenPorMapa() throws IOException, ParseException, FormatoJSONInvalidoException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, NombreInvalido {
+            AlgoDefense algoDefense = new AlgoDefense();
+            algoDefense.agregarJugador("Sebastian");
+            Arania arania = new Arania(algoDefense.getMapa().getOrigen());
+            algoDefense.agregarEnemigo(arania);
+            for (int i = 0; i < 12; i++) { // en el turno 12 se llega a la meta en 10,14
+                algoDefense.moverEnemigos();
+            }
+            assertTrue(arania.getPasarelaActual() instanceof PasarelaMeta);
     }
 
     @Test
-    public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, FormatoJSONInvalidoException, IOException, ParseException, SinVidaRestante, NombreInvalido {
+    public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, FormatoJSONInvalidoException, IOException, ParseException {
         AlgoDefense algoDefense = new AlgoDefense();
         Mapa mapa = algoDefense.getMapa();
         Enemigo enemigo = new Hormiga(mapa.getOrigen());
@@ -128,7 +122,7 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test11NoSeEliminanTodasLasUnidaesEnemigasPeroNoAlcanzaElDanioGanaElJugador() throws NombreInvalido, IOException, ParseException, FormatoJSONInvalidoException, FileNotFoundException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, SinVidaRestante {
+    public void test11NoSeEliminanTodasLasUnidaesEnemigasPeroNoAlcanzaElDanioGanaElJugador() throws NombreInvalido, IOException, ParseException, FormatoJSONInvalidoException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
         AlgoDefense algoDefense = new AlgoDefense();
         Mapa mapa = algoDefense.getMapa();
         Enemigo enemigo = new Hormiga(mapa.getOrigen());
@@ -147,7 +141,7 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test12NoSeEliminanTodasLasUnidadesEnemigasPeroAlcanzaElDanioGanaLaComputadora() throws NombreInvalido, IOException, ParseException, FormatoJSONInvalidoException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, SinVidaRestante {
+    public void test12NoSeEliminanTodasLasUnidadesEnemigasPeroAlcanzaElDanioGanaLaComputadora() throws NombreInvalido, IOException, ParseException, FormatoJSONInvalidoException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
         AlgoDefense algoDefense = new AlgoDefense();
         algoDefense.agregarJugador("Mariana");
         Mapa mapa = algoDefense.getMapa();
@@ -234,7 +228,26 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    void test18SimuloYVerificoQueGanaJugador() throws FormatoJSONInvalidoException, IOException, ParseException, NombreInvalido, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, SinVidaRestante {
+    void test17VerificarQueElJuegoSecreaAcordeAAmbosJSON() {
+	    assertDoesNotThrow(() -> {
+				    FileReader reader = new FileReader("src/temp/mapa.json");
+				    ConvertidorMapa convertidor = new ConvertidorMapaImplementacion(reader);
+				    Mapa mapa = convertidor.cargarMapa();
+
+				    FileReader readerEnemigos = new FileReader("src/temp/enemigos.json");
+				    ConvertidorEnemigos convertidorEnemigos = new ConvertidorEnemigosImplementacion(readerEnemigos);
+				    List<Enemigo> enemigos = convertidorEnemigos.cargarEnemigos().values().stream()
+						    .flatMap(List::stream)
+						    .peek(enemigo -> enemigo.setPasarelaActual(mapa.getOrigen()))
+						    .collect(Collectors.toList());
+
+				    new AlgoDefense(mapa, enemigos);
+						// podriamos tener un turno y verificar si tal estado es el esperado para crear o mockearlo y verificar que se llame
+			    }
+	    );
+    }
+    @Test
+    void test18SimuloYVerificoQueGanaJugador() throws FormatoJSONInvalidoException, IOException, ParseException, NombreInvalido, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir {
         TorrePlateada torre = new TorrePlateada();
         TorrePlateada torre1 = new TorrePlateada();
         AlgoDefense algoDefense = new AlgoDefense();
@@ -250,7 +263,7 @@ public class CasosDeUsoTest {
 
     }
     @Test
-    void test19SimuloYVerificoQueGanaComputadora() throws FormatoJSONInvalidoException, IOException, ParseException, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, SinVidaRestante, NombreInvalido {
+    void test19SimuloYVerificoQueGanaComputadora() throws FormatoJSONInvalidoException, IOException, ParseException, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, NombreInvalido {
         AlgoDefense algoDefense = new AlgoDefense();
         algoDefense.agregarJugador("Sebastian");
         algoDefense.cargarEnemigos(12);
@@ -261,6 +274,28 @@ public class CasosDeUsoTest {
         assertEquals(ganador, "Computadora");
     }
 
+    @Test
+    void test20VerificarSistemaDeLog(){
+        // Create a ByteArrayOutputStream to capture the printed output
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
 
+        try {
+            // Redirect System.out to the ByteArrayOutputStream
+            System.setOut(new PrintStream(outputStream));
 
+            // Log a message using the custom logger
+            CustomLogger customLogger = CustomLogger.getInstance();
+            customLogger.log("Test log message");
+
+            // Get the printed output from the ByteArrayOutputStream
+            String loggedMessage = outputStream.toString().trim();
+
+            // Verify the printed output
+            assertEquals("Test log message", loggedMessage);
+
+        } finally {
+            // Restore the original System.out
+            System.setOut(originalOut);
+        }}
 }

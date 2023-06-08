@@ -10,4 +10,8 @@ public class Hormiga extends Enemigo{
         this.pasarelaActual = pasarela;
         }
 
+    @Override
+    public int obtenerCreditos() {
+        return super.obtenerCreditos();
+    }
 }
