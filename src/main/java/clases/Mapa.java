@@ -1,6 +1,8 @@
 package clases;
 
 
+import Excepciones.TerrenoNoAptoParaCaminar;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,17 +57,8 @@ public class Mapa {
 
     }
 
-    public ParcelaDePasarela obtenerPasarelasEnRango(Parcela defensa, int rango) {
-        List<ParcelaDePasarela> pasarelasEnRango = new ArrayList<>();
-        for (Parcela parcela : parcelas) {
-            if(parcela.puedeMoverseAqui()) {
-                int distancia = (parcela.getCoordenada()).distanciaHacia(defensa.getCoordenada());
-                if (distancia <= rango) {
-                    pasarelasEnRango.add((ParcelaDePasarela) parcela);
-                }
-            }
-        }
-
+    public ParcelaDePasarela obtenerPasarelasEnRango(Parcela parcela, int rango) {
+        List<ParcelaDePasarela> pasarelasEnRango = parcela.vecinos(this, rango);
         return this.calcularParcelaConDistanciaMinimaALaMeta(pasarelasEnRango);
     }
 

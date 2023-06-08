@@ -1,6 +1,8 @@
 package clases;
 
 
+import Excepciones.TerrenoNoAptoParaCaminar;
+
 public class Desplazable implements Movible{
 
     @Override
@@ -8,6 +10,8 @@ public class Desplazable implements Movible{
         return mapa.obtenerPasarelasEnRango(parcela,distancia);
     }
 
+    @Override
+    public void moverseA() throws TerrenoNoAptoParaCaminar {
 
-
+    }
 }
