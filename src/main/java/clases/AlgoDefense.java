@@ -98,9 +98,12 @@ public class AlgoDefense {
 
     public void activarDefensas() throws TerrenoNoAptoParaCaminar, TorreNoDesplegada {
         for (ParcelaDeTierra parcela : defensas) {
-            parcela.getDefensa().atacar(enemigos, parcela);//no desplegada
-            parcela.getDefensa().atacar(enemigos, parcela);//no desplegada
-            parcela.getDefensa().atacar(enemigos, parcela);// desplegada
+            parcela.getDefensa().pasarTurno();//no desplegada
+            parcela.getDefensa().pasarTurno();//no desplegada
+            try {
+                parcela.getDefensa().atacar(enemigos, parcela);// desplegada
+            } catch (EnemigosFueraDeRango e) {
+            }
         }
 
     }

@@ -1,6 +1,7 @@
 package clases;
 
 import Excepciones.TerrenoNoAptoParaCaminar;
+import Excepciones.TorreDesplegada;
 import Excepciones.TorreNoDesplegada;
 
 import java.util.List;
@@ -14,19 +15,16 @@ public class NoDesplegado implements Desplegable{
     }
 
     @Override
-    public void atacar(List<Enemigo> enemigos, Parcela parcelaDefensa, int rangoAtaque, int danio) {
-        try {
-            this.turnosRestantesParaDespliegue -= 1;
-            throw new TorreNoDesplegada();
-        } catch (TorreNoDesplegada e) {
-            System.out.println("Error: La torre no ha sido desplegada.");
-        }
+    public void atacar(List<Enemigo> enemigos, Parcela parcelaDefensa, int rangoAtaque, int danio) throws TorreNoDesplegada {
+        throw new TorreNoDesplegada();
 
 
     }
 
-    @Override
-    public boolean puedeDesplegarse() {
-        return (turnosRestantesParaDespliegue <= 0);
+    public void pasarTurno() throws TorreDesplegada {
+        this.turnosRestantesParaDespliegue -= 1;
+        if (this.turnosRestantesParaDespliegue == 0) {
+            throw new TorreDesplegada();
+        }
     }
 }

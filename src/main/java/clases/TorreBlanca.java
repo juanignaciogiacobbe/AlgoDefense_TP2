@@ -10,9 +10,6 @@ public class TorreBlanca extends Defensa {
         this.desplegable = new NoDesplegado(1);
 
     }
-    public boolean enemigoDentroDeRango(int distanciaAEnemigo) {
-        return (distanciaAEnemigo <= rangoAtaque);
-    }
 }
 
 

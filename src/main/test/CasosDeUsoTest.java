@@ -1,7 +1,4 @@
-import Excepciones.NombreInvalido;
-import Excepciones.TerrenoNoAptoParaCaminar;
-import Excepciones.TerrenoNoAptoParaConstruir;
-import Excepciones.TorreNoDesplegada;
+import Excepciones.*;
 import clases.*;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
@@ -27,12 +24,14 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test02DefensaPuedeSerUtilizadaLuegoDeCrearse() {
+    public void test02DefensaPuedeSerUtilizadaLuegoDeCrearseRecienAlPasarTurnosCorrespondientes() {
         List<Enemigo> enemigos = new ArrayList<>();
         enemigos.add (new Hormiga(new PasarelaLargada(0,0)));
         ParcelaDeTierra parcelaDeTierra = new ParcelaDeTierra(1,1);
         TorrePlateada defensa = new TorrePlateada();
-        //assertThrows(TorreNoDesplegada.class, () -> defensa.atacar(enemigos,parcelaDeTierra));
+        assertThrows(TorreNoDesplegada.class, () -> defensa.atacar(enemigos,parcelaDeTierra));
+        defensa.pasarTurno();
+        defensa.pasarTurno();
         assertDoesNotThrow(() -> defensa.atacar(enemigos,parcelaDeTierra));
 
     }
@@ -56,14 +55,31 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test05VerificoQueLasDefensasAtaquenDentroDelRangoEsperado() {
-        TorrePlateada torre = new TorrePlateada();
-        int distanciaEnemigoDentroDeRango = 1;
-        int distanciaEnemigoFueraDeRango = 7;
+    public void test05VerificoQueLasDefensasAtaquenDentroDelRangoEsperado() throws TerrenoNoAptoParaConstruir {
+        TorrePlateada torre1 = new TorrePlateada();
+        TorrePlateada torre2 = new TorrePlateada();
+        ParcelaDeTierra tierra1 = new ParcelaDeTierra(1,1);
+        ParcelaDeTierra tierra2 = new ParcelaDeTierra(7,1);
+        tierra1.construir(torre1);
+        tierra2.construir(torre2);
+
+        for (int i = 0; i<3; i++) {
+            torre1.pasarTurno();
+            torre2.pasarTurno();
+        }
+        PasarelaComun ubicacionEnemigo = new PasarelaComun(1,2);
+
+        Hormiga enemigo1 = new Hormiga(ubicacionEnemigo);
+        List <Enemigo> enemigos1 = new ArrayList<>();
+        enemigos1.add(enemigo1);
+
+        Hormiga enemigo2 = new Hormiga(ubicacionEnemigo);
+        List <Enemigo> enemigos2 = new ArrayList<>();
+        enemigos2.add(enemigo2);
 
 
-        assertTrue(torre.enemigoDentroDeRango(distanciaEnemigoDentroDeRango));
-        assertFalse(torre.enemigoDentroDeRango(distanciaEnemigoFueraDeRango));
+        assertDoesNotThrow(()->{torre1.atacar(enemigos1, tierra1);});
+        assertThrows(EnemigosFueraDeRango.class, ()-> {torre2.atacar(enemigos2, tierra2);});
     }
 
     @Test
