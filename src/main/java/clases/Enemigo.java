@@ -18,11 +18,8 @@ public abstract class Enemigo {
 
 
     public void recibirDanio(int puntosARecibir) {
-        try {
-            this.estadoDeVida.recibirDanio(puntosARecibir);
-        } catch (SinVidaRestante sinVidaRestante) {
-            this.estadoDeVida = new EstadoMuerto();
-        }
+
+        this.estado = this.estadoDeVida.recibirDanio(puntosARecibir);
     }
 
 

@@ -22,9 +22,10 @@ public class EstadoVivo implements EstadoVida {
     public void recibirDanio(int danioARecibir) throws SinVidaRestante {
         this.vida -= danioARecibir;
         if (this.vida <= 0) {
-            throw new SinVidaRestante();
+            return new EstadoMuerto();
 
         }
+        return this;
     }
 
     public int recolectarCreditos(int creditos) {
