@@ -61,6 +61,9 @@ public class Jugador {
         for (Parcela defensa : this.defensas) {
             defensa.defender(enemigos);
         }
+        for (Enemigo enemigo: enemigos) {
+            this.agregarCreditos(enemigo.recolectarCreditos());
+        }
     }
 
     public void recibirdanio(int danio) throws SinVidaRestante {

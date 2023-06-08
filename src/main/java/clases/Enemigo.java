@@ -6,7 +6,7 @@ import Excepciones.TerrenoNoAptoParaCaminar;
 import Excepciones.TerrenoNoAptoParaConstruir;
 
 public abstract class Enemigo {
-    protected EstadoVivo estadoDeVida;
+    protected EstadoVida estadoDeVida;
 
     protected int creditos;
 
@@ -21,7 +21,7 @@ public abstract class Enemigo {
         try {
             this.estadoDeVida.recibirDanio(puntosARecibir);
         } catch (SinVidaRestante sinVidaRestante) {
-            this.estadoDeVida = new EstadoVivo(0);
+            this.estadoDeVida = new EstadoMuerto();
         }
     }
 
@@ -62,5 +62,9 @@ public abstract class Enemigo {
 
     public int obtenerCreditos() {
         return this.creditos;
+    }
+
+    public int recolectarCreditos() {
+        return this.estadoDeVida.recolectarCreditos(this.creditos);
     }
 }

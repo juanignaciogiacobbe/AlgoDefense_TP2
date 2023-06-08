@@ -21,11 +21,14 @@ public class EstadoVivo implements EstadoVida {
     @Override
     public void recibirDanio(int danioARecibir) throws SinVidaRestante {
         this.vida -= danioARecibir;
-        logger.log("Vida restante: " + this.vida);
         if (this.vida <= 0) {
             throw new SinVidaRestante();
 
         }
+    }
+
+    public int recolectarCreditos(int creditos) {
+        return 0;
     }
 
 

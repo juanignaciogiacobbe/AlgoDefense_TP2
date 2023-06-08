@@ -25,11 +25,29 @@ public class EnemigoTest {
     }
 
     @Test
-    public void test03HormigaNoPuedeSerAtacadoPorNoEstarEnRangoLanzaExcepcion() {
+    public void test03AraniaNoPuedeSerAtacadoPorNoEstarEnRangoLanzaExcepcion() {
         PasarelaComun pasarela = new PasarelaComun(1,1);
         Arania arania = new Arania(pasarela);
         ParcelaDeTierra parcelaDefensa = new ParcelaDeTierra(3,1);
 
         assertThrows(EnemigoFueraDeRango.class, ()-> {arania.recibirAtaque(parcelaDefensa, 1, 2);});
+    }
+
+    @Test
+    public void test04HormigaMuereAlRecolectarCreditosDaSusCreditos() throws EnemigoFueraDeRango {
+        PasarelaComun pasarela = new PasarelaComun(1,1);
+        Hormiga hormiga = new Hormiga(pasarela);
+        ParcelaDeTierra parcelaDefensa = new ParcelaDeTierra(1,1);
+        hormiga.recibirAtaque(parcelaDefensa,1,2);
+        assertEquals(hormiga.recolectarCreditos(), 1);
+
+    }
+
+    @Test
+    public void test04HormigaNoEstaMuertaAlRecolectarCreditosDevuelve0() throws EnemigoFueraDeRango {
+        PasarelaComun pasarela = new PasarelaComun(1,1);
+        Hormiga hormiga = new Hormiga(pasarela);
+        assertEquals(hormiga.recolectarCreditos(), 0);
+
     }
 }

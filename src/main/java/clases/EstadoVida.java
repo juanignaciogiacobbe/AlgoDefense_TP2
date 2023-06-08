@@ -10,4 +10,6 @@ public interface EstadoVida {
 
     public int getVida();
 
+    int recolectarCreditos(int creditos);
+
 }
