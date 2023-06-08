@@ -76,14 +76,7 @@ public class AlgoDefense {
         return cantidadMeta;
     }
 
-    public void comenzaPartida() throws IOException, ParseException {
-        //TurnoJugador turnoJugador = new TurnoJugador();
-        //TurnoIA turnoIA = new TurnoIA();
-        //while (partida sea jugable)
-        //turnoJugador.ejecutarTurno();
-        //turnoIA.ejecutarTurno();
 
-    }
 
 
     public void cargarEnemigos(int cantTurnos) throws FileNotFoundException, FormatoJSONInvalidoException, ParseException {
