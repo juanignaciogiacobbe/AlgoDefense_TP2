@@ -1,10 +1,7 @@
 package clases;
 
-import Excepciones.NombreInvalido;
-import Excepciones.SinVidaRestante;
+import Excepciones.*;
 import org.json.simple.parser.ParseException;
-import Excepciones.TerrenoNoAptoParaCaminar;
-import Excepciones.TerrenoNoAptoParaConstruir;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -99,9 +96,11 @@ public class AlgoDefense {
     }
 
 
-    public void activarDefensas() {
+    public void activarDefensas() throws TerrenoNoAptoParaCaminar, TorreNoDesplegada {
         for (ParcelaDeTierra parcela : defensas) {
-            parcela.getDefensa().atacar(enemigos, parcela);
+            parcela.getDefensa().atacar(enemigos, parcela);//no desplegada
+            parcela.getDefensa().atacar(enemigos, parcela);//no desplegada
+            parcela.getDefensa().atacar(enemigos, parcela);// desplegada
         }
 
     }

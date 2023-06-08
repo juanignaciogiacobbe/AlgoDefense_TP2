@@ -1,22 +1,32 @@
 package clases;
 
 import Excepciones.EnemigoFueraDeRango;
+import Excepciones.TerrenoNoAptoParaCaminar;
+import Excepciones.TorreNoDesplegada;
 
 import java.util.List;
 
 abstract class Defensa {
 
-     protected int costoConstruccion;
+    protected int costoConstruccion;
 
-     protected int danio;
-     protected int rangoAtaque;
+    protected int danio;
+    protected int rangoAtaque;
     protected int turnosRestantesParaDespliegue;
+
+    protected Desplegable desplegable;
 
     abstract boolean enemigoDentroDeRango(int distanciaAEnemigo);
 
+    /*
     public void restarTurnoParaDespliegue() {
         turnosRestantesParaDespliegue -= 1;
+        if (desplegable.puedeDesplegarse() ) {
+            desplegable = new Despelgado();
+        }
     }
+
+     */
 
     public boolean estaDesplegada() {
         return (turnosRestantesParaDespliegue <= 0);
@@ -32,15 +42,13 @@ abstract class Defensa {
     }
 
     public void atacarA(Enemigo enemigo) {
-       enemigo.recibirDanio(danio);
+        enemigo.recibirDanio(danio);
     }
 
-    public void atacar(List<Enemigo> enemigos, Parcela parcelaDefensa) {
-        for (Enemigo enemigo: enemigos) {
-            try {
-                enemigo.recibirAtaque(parcelaDefensa, this.rangoAtaque, this.danio);
-                return;
-            } catch (EnemigoFueraDeRango e) {}
+    public void atacar(List<Enemigo> enemigos, Parcela parcelaDefensa) throws TerrenoNoAptoParaCaminar, TorreNoDesplegada {
+        desplegable.atacar(enemigos, parcelaDefensa, rangoAtaque, danio);
+        if (desplegable.puedeDesplegarse()) {
+            desplegable = new Despelgado();
         }
     }
 }

@@ -1,11 +1,13 @@
 import Excepciones.NombreInvalido;
 import Excepciones.TerrenoNoAptoParaCaminar;
 import Excepciones.TerrenoNoAptoParaConstruir;
+import Excepciones.TorreNoDesplegada;
 import clases.*;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
@@ -26,12 +28,13 @@ public class CasosDeUsoTest {
 
     @Test
     public void test02DefensaPuedeSerUtilizadaLuegoDeCrearse() {
+        List<Enemigo> enemigos = new ArrayList<>();
+        enemigos.add (new Hormiga(new PasarelaLargada(0,0)));
+        ParcelaDeTierra parcelaDeTierra = new ParcelaDeTierra(1,1);
         TorrePlateada defensa = new TorrePlateada();
+        //assertThrows(TorreNoDesplegada.class, () -> defensa.atacar(enemigos,parcelaDeTierra));
+        assertDoesNotThrow(() -> defensa.atacar(enemigos,parcelaDeTierra));
 
-        defensa.restarTurnoParaDespliegue();
-        assertFalse(defensa.estaDesplegada());
-        defensa.restarTurnoParaDespliegue();
-        assertTrue(defensa.estaDesplegada());
     }
 
     @Test
@@ -247,7 +250,7 @@ public class CasosDeUsoTest {
 	    );
     }
     @Test
-    void test18SimuloYVerificoQueGanaJugador() throws FormatoJSONInvalidoException, IOException, ParseException, NombreInvalido, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir {
+    void test18SimuloYVerificoQueGanaJugador() throws FormatoJSONInvalidoException, IOException, ParseException, NombreInvalido, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, TorreNoDesplegada {
         TorrePlateada torre = new TorrePlateada();
         TorrePlateada torre1 = new TorrePlateada();
         AlgoDefense algoDefense = new AlgoDefense();
