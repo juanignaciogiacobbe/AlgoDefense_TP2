@@ -5,8 +5,6 @@ import Excepciones.SinVidaRestante;
 import Excepciones.TerrenoNoAptoParaCaminar;
 import Excepciones.TerrenoNoAptoParaConstruir;
 
-import java.util.List;
-
 public abstract class Enemigo {
     protected EstadoVivo estadoDeVida;
 
@@ -60,5 +58,9 @@ public abstract class Enemigo {
             throw new EnemigoFueraDeRango();
         }
         this.recibirDanio(danio);
+    }
+
+    public int obtenerCreditos() {
+        return this.creditos;
     }
 }

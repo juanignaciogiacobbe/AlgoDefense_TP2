@@ -97,6 +97,8 @@ public class CasosDeUsoTest {
         PasarelaLargada pasarelaLargada = new PasarelaLargada(0, 0);
         Hormiga hormiga = new Hormiga(pasarelaLargada);
         defensa.atacarA(hormiga);
+        int creditos = hormiga.obtenerCreditos();
+        jugador.agregarCreditos(creditos);
         assertEquals(jugador.getCreditos(), 101);
     }
 
