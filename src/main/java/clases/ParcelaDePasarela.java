@@ -9,7 +9,6 @@ abstract class ParcelaDePasarela extends Parcela{
     public ParcelaDePasarela() {
         construible = new NoConstruible();
         movible = new Desplazable();
-        defendible = new NoDefendible();
     }
 
     public boolean puedeMoverseAqui() {

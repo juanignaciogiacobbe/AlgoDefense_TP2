@@ -8,7 +8,6 @@ import java.util.List;
 
 public class Jugador {
     private Creditos creditos;
-    //private Vida vida;
 
     private EstadoVivo estadoDeVida;
 
@@ -53,6 +52,7 @@ public class Jugador {
         }
     }
 
+    /*
     public boolean sobreviveConDanio(int danio) {
         return (this.estadoDeVida.getVida() - danio > 0);
     }
@@ -66,8 +66,15 @@ public class Jugador {
         }
     }
 
+
+
+     */
     public void recibirdanio(int danio) throws SinVidaRestante {
         this.estadoDeVida.recibirDanio(danio);
+    }
+
+    public boolean estaMuerto(){
+        return (estadoDeVida.getVida() <= 0 );
     }
 }
 

@@ -10,7 +10,6 @@ public class ParcelaRocosa extends Parcela {
         this.coordenada = new Coordenada(abscisa, ordenada);
         construible = new NoConstruible();
         movible = new NoDesplazable();
-        defendible = new NoDefendible();
     }
 
     public boolean puedeMoverseAqui() {

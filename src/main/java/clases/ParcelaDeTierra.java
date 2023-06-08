@@ -15,7 +15,6 @@ public class ParcelaDeTierra extends Parcela {
         this.coordenada = new Coordenada(abscisa, ordenada);
         this.construible = new Edificable();
         this.movible = new NoDesplazable();
-        this.defendible = new NoDefendible();
         this.defensa = null;
 
     }
@@ -40,7 +39,6 @@ public class ParcelaDeTierra extends Parcela {
 
     public void construir(Defensa defensaAConstruir) throws TerrenoNoAptoParaConstruir {
         construible.construir(defensaAConstruir,this);
-        this.defendible = new Defensora(defensaAConstruir);
     }
 
 

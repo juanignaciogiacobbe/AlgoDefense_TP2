@@ -14,9 +14,8 @@ public class Mapa {
     private PasarelaMeta meta;
 
 
-
     public Mapa() {
-        this.parcelas= new ArrayList<>();
+        this.parcelas = new ArrayList<>();
     }
 
     public List<Parcela> getParcelas() {
@@ -39,24 +38,6 @@ public class Mapa {
         this.meta = meta;
     }
 
-    public ParcelaDePasarela darSiguientePasarela(ParcelaDePasarela pasarela) {
-        int indexPasarela = parcelas.indexOf(pasarela);
-        return pasarela;
-    }
-
-
-    /*
-    public ParcelaDePasarela hallarParcelaVecinaCorrectaADistancia(Parcela parcela, int distancia) {
-        List<ParcelaDePasarela> vecinos = new ArrayList<>();
-        for (Parcela parcelaMapa : parcelas) {
-            if (parcelaMapa.estaADistancia(parcela.getCoordenada(), distancia) && parcelaMapa.puedeMoverseAqui()) {
-                vecinos.add((ParcelaDePasarela) parcelaMapa);
-            }
-        }
-        return (this.calcularParcelaConDistanciaMinimaALaMeta(vecinos));
-    }
-
-     */
 
     private ParcelaDePasarela calcularParcelaConDistanciaMinimaALaMeta(List<ParcelaDePasarela> vecinos) {
         ParcelaDePasarela parcelaFinal = null;
@@ -76,9 +57,8 @@ public class Mapa {
 
     public ParcelaDePasarela obtenerPasarelasEnRango(Parcela defensa, int rango) {
         List<ParcelaDePasarela> pasarelasEnRango = new ArrayList<>();
-
         for (Parcela parcela : parcelas) {
-            if (parcela.puedeMoverseAqui()) {
+            if(parcela.puedeMoverseAqui()) {
                 int distancia = (parcela.getCoordenada()).distanciaHacia(defensa.getCoordenada());
                 if (distancia <= rango) {
                     pasarelasEnRango.add((ParcelaDePasarela) parcela);
@@ -88,7 +68,6 @@ public class Mapa {
 
         return this.calcularParcelaConDistanciaMinimaALaMeta(pasarelasEnRango);
     }
-
 
 
 }

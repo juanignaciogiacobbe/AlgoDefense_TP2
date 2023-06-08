@@ -46,10 +46,9 @@ public class AlgoDefense {
         this.jugador1 = new Jugador(nombre);
     }
 
-
     public String finDelJuego() {
 
-        if (jugador1.getVida() <= 0 || enemigos.isEmpty()) {
+        if (jugador1.estaMuerto() || enemigos.isEmpty()) {
             return "Computadora";
         }
         return jugador1.getNombre();
@@ -58,6 +57,7 @@ public class AlgoDefense {
 
     public void moverEnemigos() throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
         for (Enemigo enemigo : enemigos) {
+
             enemigo.mover(this.mapa);
         }
 

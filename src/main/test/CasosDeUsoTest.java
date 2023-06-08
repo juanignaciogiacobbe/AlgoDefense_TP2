@@ -68,7 +68,7 @@ public class CasosDeUsoTest {
         PasarelaLargada pasarelaLargada = new PasarelaLargada(0, 0);
         Arania arania = new Arania(pasarelaLargada);
         arania.recibirDanio(1);
-        //assertTrue(//arania.tieneVidaIgualA(1));
+        assertEquals(1,arania.getEstadoDeVida().getVida());
     }
 
     @Test

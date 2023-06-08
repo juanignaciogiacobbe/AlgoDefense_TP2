@@ -49,7 +49,8 @@ public abstract class Enemigo {
 
 
     public void mover(Mapa mapa) throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
-        this.setPasarelaActual(this.pasarelaActual.mover(this.getVelocidad(), mapa));
+        ParcelaDePasarela parcelaaMover = this.pasarelaActual.mover(this.getVelocidad(), mapa);
+        this.setPasarelaActual(parcelaaMover);
 
     }
 
@@ -66,5 +67,9 @@ public abstract class Enemigo {
 
     public int recolectarCreditos() {
         return this.estadoDeVida.recolectarCreditos(this.creditos);
+    }
+
+    public EstadoVida getEstadoDeVida() {
+        return estadoDeVida;
     }
 }

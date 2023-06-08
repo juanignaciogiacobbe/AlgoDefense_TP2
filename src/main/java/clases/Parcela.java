@@ -14,7 +14,6 @@ public abstract class Parcela {
     protected Construible construible;
     protected Movible movible;
 
-    protected Defendible defendible;
 
 
     abstract boolean puedeMoverseAqui();
@@ -28,9 +27,6 @@ public abstract class Parcela {
 
     public abstract  ParcelaDePasarela mover(int distancia,Mapa mapa) throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar;
 
-    public void defender(List<Enemigo> enemigos) throws TerrenoNoAptoParDefender {
-        this.defendible.defender(enemigos, this);
-    }
 
 
     public boolean estaEnRango(Parcela parcelaDefensa, int rango) {
