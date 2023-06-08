@@ -1,15 +1,11 @@
 import Excepciones.NombreInvalido;
-import Excepciones.SinVidaRestante;
 import Excepciones.TerrenoNoAptoParaCaminar;
 import Excepciones.TerrenoNoAptoParaConstruir;
 import clases.*;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
@@ -52,12 +48,8 @@ public class CasosDeUsoTest {
         ParcelaDeTierra tierra = new ParcelaDeTierra(1, 0);
         ParcelaRocosa rocoso = new ParcelaRocosa(0, 1);
 
-        assertDoesNotThrow(() -> {
-            tierra.construir(defensa);
-        });
-        assertThrows(TerrenoNoAptoParaConstruir.class, () -> {
-            rocoso.construir(defensa);
-        });
+        assertDoesNotThrow(() -> tierra.construir(defensa));
+        assertThrows(TerrenoNoAptoParaConstruir.class, () -> rocoso.construir(defensa));
     }
 
     @Test
@@ -116,7 +108,7 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, FormatoJSONInvalidoException, IOException, ParseException, SinVidaRestante, NombreInvalido {
+    public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, FormatoJSONInvalidoException, IOException, ParseException {
         AlgoDefense algoDefense = new AlgoDefense();
         Mapa mapa = algoDefense.getMapa();
         Enemigo enemigo = new Hormiga(mapa.getOrigen());
@@ -130,7 +122,7 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test11NoSeEliminanTodasLasUnidaesEnemigasPeroNoAlcanzaElDanioGanaElJugador() throws NombreInvalido, IOException, ParseException, FormatoJSONInvalidoException, FileNotFoundException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, SinVidaRestante {
+    public void test11NoSeEliminanTodasLasUnidaesEnemigasPeroNoAlcanzaElDanioGanaElJugador() throws NombreInvalido, IOException, ParseException, FormatoJSONInvalidoException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
         AlgoDefense algoDefense = new AlgoDefense();
         Mapa mapa = algoDefense.getMapa();
         Enemigo enemigo = new Hormiga(mapa.getOrigen());
@@ -149,7 +141,7 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test12NoSeEliminanTodasLasUnidadesEnemigasPeroAlcanzaElDanioGanaLaComputadora() throws NombreInvalido, IOException, ParseException, FormatoJSONInvalidoException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, SinVidaRestante {
+    public void test12NoSeEliminanTodasLasUnidadesEnemigasPeroAlcanzaElDanioGanaLaComputadora() throws NombreInvalido, IOException, ParseException, FormatoJSONInvalidoException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
         AlgoDefense algoDefense = new AlgoDefense();
         algoDefense.agregarJugador("Mariana");
         Mapa mapa = algoDefense.getMapa();
@@ -271,7 +263,7 @@ public class CasosDeUsoTest {
 
     }
     @Test
-    void test19SimuloYVerificoQueGanaComputadora() throws FormatoJSONInvalidoException, IOException, ParseException, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, SinVidaRestante, NombreInvalido {
+    void test19SimuloYVerificoQueGanaComputadora() throws FormatoJSONInvalidoException, IOException, ParseException, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, NombreInvalido {
         AlgoDefense algoDefense = new AlgoDefense();
         algoDefense.agregarJugador("Sebastian");
         algoDefense.cargarEnemigos(12);
@@ -282,6 +274,28 @@ public class CasosDeUsoTest {
         assertEquals(ganador, "Computadora");
     }
 
+    @Test
+    void test20VerificarSistemaDeLog(){
+        // Create a ByteArrayOutputStream to capture the printed output
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
 
+        try {
+            // Redirect System.out to the ByteArrayOutputStream
+            System.setOut(new PrintStream(outputStream));
 
+            // Log a message using the custom logger
+            CustomLogger customLogger = CustomLogger.getInstance();
+            customLogger.log("Test log message");
+
+            // Get the printed output from the ByteArrayOutputStream
+            String loggedMessage = outputStream.toString().trim();
+
+            // Verify the printed output
+            assertEquals("Test log message", loggedMessage);
+
+        } finally {
+            // Restore the original System.out
+            System.setOut(originalOut);
+        }}
 }
