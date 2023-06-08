@@ -1,27 +1,22 @@
-package clases.vida;
+package clases;
+
+import Excepciones.SinVidaRestante;
 
 public class Vida {
     private int puntosActuales;
-    private EstadoVida estadoVida;
-
     public Vida(int puntosIniciales) {
         puntosActuales = puntosIniciales;
-        this.estadoVida = new EstadoVivo();
     }
 
     public int getVida() {
         return puntosActuales;
     }
 
-    public void consumirPuntos(int puntosAConsumir) {
+    public void consumirPuntos(int puntosAConsumir) throws SinVidaRestante {
         puntosActuales -= puntosAConsumir;
 
         if(puntosActuales <= 0) {
-            estadoVida = new EstadoMuerto();
+            throw new SinVidaRestante();
         }
-    }
-
-    public void comenzarTurno() {
-        estadoVida.comenzarTurno();
     }
 }

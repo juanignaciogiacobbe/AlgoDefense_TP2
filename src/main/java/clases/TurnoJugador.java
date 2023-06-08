@@ -1,8 +1,13 @@
 package clases;
 
+import Excepciones.TerrenoNoAptoParaCaminar;
+import Excepciones.TerrenoNoAptoParaConstruir;
+
 public class TurnoJugador implements  Turno{
 
-    public void ejecutarTurno(){
+
+    @Override
+    public void ejecutarTurno() throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir {
 
     }
 }

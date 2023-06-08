@@ -45,6 +45,7 @@ public class Mapa {
     }
 
 
+    /*
     public ParcelaDePasarela hallarParcelaVecinaCorrectaADistancia(Parcela parcela, int distancia) {
         List<ParcelaDePasarela> vecinos = new ArrayList<>();
         for (Parcela parcelaMapa : parcelas) {
@@ -54,6 +55,8 @@ public class Mapa {
         }
         return (this.calcularParcelaConDistanciaMinimaALaMeta(vecinos));
     }
+
+     */
 
     private ParcelaDePasarela calcularParcelaConDistanciaMinimaALaMeta(List<ParcelaDePasarela> vecinos) {
         ParcelaDePasarela parcelaFinal = null;
@@ -71,8 +74,7 @@ public class Mapa {
 
     }
 
-
-    public ParcelaDePasarela obtenerPasarelasEnRango(ParcelaDeTierra defensa, int rango) {
+    public ParcelaDePasarela obtenerPasarelasEnRango(Parcela defensa, int rango) {
         List<ParcelaDePasarela> pasarelasEnRango = new ArrayList<>();
 
         for (Parcela parcela : parcelas) {

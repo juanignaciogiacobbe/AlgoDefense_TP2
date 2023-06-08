@@ -1,5 +1,4 @@
 import clases.*;
-import clases.Enemigo;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 

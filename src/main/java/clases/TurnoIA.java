@@ -2,7 +2,6 @@ package clases;
 
 import Excepciones.TerrenoNoAptoParaCaminar;
 import Excepciones.TerrenoNoAptoParaConstruir;
-import clases.Enemigo;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
@@ -21,7 +20,7 @@ public class TurnoIA implements Turno {
     private List<Enemigo> enemigos;
 
 
-    public TurnoIA(Mapa mapa) throws IOException, ParseException {
+    public TurnoIA() throws IOException, ParseException {
         //ConvertidorEnemigos convertidor = new ConvertidorEnemigosImplementacion();
         //this.enemigosTurno = convertidor.cargarEnemigos("src/temp/enemigos.json");
         this.turnoActual = 1;
@@ -29,6 +28,7 @@ public class TurnoIA implements Turno {
         this.mapa = mapa;
     }
 
+    /*
     public void ejecutarTurno() throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir {
         this.cargarEnemigos();
         this.moverEnemigos();
@@ -38,6 +38,8 @@ public class TurnoIA implements Turno {
             this.turnoActual = 1;
         }
     }
+
+     */
 
 
     public Enemigo definirEnemigo(String nombre) {
@@ -65,10 +67,18 @@ public class TurnoIA implements Turno {
 
     }
 
+    @Override
+    public void ejecutarTurno() throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir {
+
+    }
+
+    /*
     public void moverEnemigos() throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir {
         for (Enemigo enemigo : enemigos) {
             enemigo.mover(this.mapa);
         }
     }
+
+     */
 
 }
