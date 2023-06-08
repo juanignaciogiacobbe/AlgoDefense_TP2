@@ -1,8 +1,7 @@
 package clases;
 
-import Excepciones.SinVidaRestante;
 
-import java.util.List;
+import Excepciones.SinVidaRestante;
 
 public class EstadoVivo implements EstadoVida {
 
@@ -20,7 +19,6 @@ public class EstadoVivo implements EstadoVida {
     @Override
     public void recibirDanio(int danioARecibir) throws SinVidaRestante {
         this.vida -= danioARecibir;
-        System.out.println(this.vida);
         if (this.vida <= 0) {
             throw new SinVidaRestante();
 

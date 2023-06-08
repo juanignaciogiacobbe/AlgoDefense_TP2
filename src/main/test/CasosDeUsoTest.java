@@ -103,16 +103,15 @@ public class CasosDeUsoTest {
     }
 
     @Test
-    public void test09EnemigosSeMuevenPorMapa() throws IOException, ParseException, FormatoJSONInvalidoException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, NombreInvalido, SinVidaRestante {
-        AlgoDefense algodefense = new AlgoDefense();
-        algodefense.agregarJugador("Mariana");
-        Enemigo enemigo = new Hormiga(algodefense.getMapa().getOrigen());
-        algodefense.agregarEnemigo(enemigo);
-        for (int i = 0; i < 23; i++) {
-            algodefense.moverEnemigos();
-
-        }
-        assertEquals(1, algodefense.enemigosEnMeta());
+    public void test09EnemigosSeMuevenPorMapa() throws IOException, ParseException, FormatoJSONInvalidoException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, NombreInvalido {
+            AlgoDefense algoDefense = new AlgoDefense();
+            algoDefense.agregarJugador("Sebastian");
+            Arania arania = new Arania(algoDefense.getMapa().getOrigen());
+            algoDefense.agregarEnemigo(arania);
+            for (int i = 0; i < 12; i++) { // en el turno 12 se llega a la meta en 10,14
+                algoDefense.moverEnemigos();
+            }
+            assertTrue(arania.getPasarelaActual() instanceof PasarelaMeta);
     }
 
     @Test
