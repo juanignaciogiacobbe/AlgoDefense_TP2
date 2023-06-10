@@ -1,7 +1,5 @@
 package clases;
 
-import Excepciones.TerrenoNoAptoParaCaminar;
-import Excepciones.TorreDesplegada;
 import Excepciones.TorreNoDesplegada;
 
 import java.util.List;
@@ -21,10 +19,11 @@ public class NoDesplegado implements Desplegable{
 
     }
 
-    public void pasarTurno() throws TorreDesplegada {
+    public Desplegable pasarTurno()  {
         this.turnosRestantesParaDespliegue -= 1;
         if (this.turnosRestantesParaDespliegue == 0) {
-            throw new TorreDesplegada();
+            return new Desplegado();
         }
+        return this;
     }
 }

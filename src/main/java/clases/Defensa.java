@@ -36,11 +36,7 @@ abstract class Defensa {
     }
 
     public void pasarTurno() {
-        try {
-            this.desplegable.pasarTurno();
-        } catch (TorreDesplegada e) {
-            this.desplegable = new Desplegado();
-        }
+        this.desplegable = this.desplegable.pasarTurno();
     }
 
     public boolean enemigoDentroDeRango(int distanciaAEnemigo) {

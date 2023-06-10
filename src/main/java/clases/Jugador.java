@@ -9,7 +9,7 @@ import java.util.List;
 public class Jugador {
     private Creditos creditos;
 
-    private EstadoVivo estadoDeVida;
+    private EstadoVida estadoDeVida;
 
     private String nombre;
 
@@ -69,8 +69,8 @@ public class Jugador {
 
 
      */
-    public void recibirdanio(int danio) throws SinVidaRestante {
-        this.estadoDeVida.recibirDanio(danio);
+    public void recibirdanio(int danio) {
+        this.estadoDeVida = this.estadoDeVida.recibirDanio(danio);
     }
 
     public boolean estaMuerto(){

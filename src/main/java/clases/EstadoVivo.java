@@ -1,9 +1,6 @@
 package clases;
 
 
-import Excepciones.SinVidaRestante;
-
-
 public class EstadoVivo implements EstadoVida {
     private final CustomLogger logger = CustomLogger.getInstance();
 
@@ -19,7 +16,7 @@ public class EstadoVivo implements EstadoVida {
     }
 
     @Override
-    public void recibirDanio(int danioARecibir) throws SinVidaRestante {
+    public EstadoVida recibirDanio(int danioARecibir)  {
         this.vida -= danioARecibir;
         if (this.vida <= 0) {
             return new EstadoMuerto();

@@ -1,7 +1,6 @@
 package clases;
 
 import Excepciones.EnemigoFueraDeRango;
-import Excepciones.SinVidaRestante;
 import Excepciones.TerrenoNoAptoParaCaminar;
 import Excepciones.TerrenoNoAptoParaConstruir;
 
@@ -19,7 +18,7 @@ public abstract class Enemigo {
 
     public void recibirDanio(int puntosARecibir) {
 
-        this.estado = this.estadoDeVida.recibirDanio(puntosARecibir);
+        this.estadoDeVida = this.estadoDeVida.recibirDanio(puntosARecibir);
     }
 
 

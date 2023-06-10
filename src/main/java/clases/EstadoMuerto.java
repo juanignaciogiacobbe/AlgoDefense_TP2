@@ -1,6 +1,5 @@
 package clases;
 
-import Excepciones.SinVidaRestante;
 import clases.CustomLogger;
 import clases.EstadoVida;
 
@@ -19,7 +18,8 @@ public class EstadoMuerto implements EstadoVida {
     }
 
     @Override
-    public void recibirDanio(int danioARecibir) throws SinVidaRestante {
+    public EstadoVida recibirDanio(int danioARecibir) {
+        return this;
     }
 
     public int recolectarCreditos(int creditos) {

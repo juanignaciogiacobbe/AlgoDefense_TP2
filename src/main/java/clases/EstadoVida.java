@@ -1,12 +1,11 @@
 package clases;
 
-import Excepciones.SinVidaRestante;
 
 import java.util.List;
 
 public interface EstadoVida {
 
-    public void recibirDanio(int danioARecibir) throws SinVidaRestante;
+    public EstadoVida recibirDanio(int danioARecibir);
 
     public int getVida();
 

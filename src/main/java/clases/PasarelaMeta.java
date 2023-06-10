@@ -1,6 +1,5 @@
 package clases;
 
-import Excepciones.SinVidaRestante;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,16 +14,11 @@ public class PasarelaMeta extends ParcelaDePasarela {
         List<Enemigo> nuevaLista = new ArrayList<>();
 
         for (Enemigo enemigo : enemigos) {
-            try {
-                if (!enemigo.getPasarelaActual().getCoordenada().equals(this.getCoordenada())) {
-                    nuevaLista.add(enemigo);
-                } else {
-                    jugador.recibirdanio(enemigo.getDanio());
-                    enemigo.setPasarelaActual(this);
-                }
-            } catch (SinVidaRestante e) {
-                // Manejar la excepción aquí (puedes imprimir un mensaje de error, tomar alguna acción, etc.)
-                // ...
+            if (!enemigo.getPasarelaActual().getCoordenada().equals(this.getCoordenada())) {
+                nuevaLista.add(enemigo);
+            } else {
+                jugador.recibirdanio(enemigo.getDanio());
+                enemigo.setPasarelaActual(this);
             }
         }
 

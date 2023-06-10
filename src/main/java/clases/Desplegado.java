@@ -2,7 +2,6 @@ package clases;
 
 import Excepciones.EnemigoFueraDeRango;
 import Excepciones.EnemigosFueraDeRango;
-import Excepciones.TorreDesplegada;
 
 import java.util.List;
 
@@ -18,6 +17,8 @@ public class Desplegado implements Desplegable{
     }
 
 
-    public void pasarTurno() throws TorreDesplegada {}
+    public Desplegable pasarTurno()  {
+        return this;
+    }
 }
 
