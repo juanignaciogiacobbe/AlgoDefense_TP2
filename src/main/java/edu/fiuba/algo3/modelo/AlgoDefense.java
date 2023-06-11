@@ -50,6 +50,10 @@ public class AlgoDefense {
         return this.mapa;
     }
 
+    public List<ParcelaDeTierra> getDefensas() {
+        return defensas;
+    }
+
     public void agregarJugador(String nombre) throws NombreInvalido {
         if (nombre.length() < 6) throw new NombreInvalido();
 
@@ -67,7 +71,6 @@ public class AlgoDefense {
 
     public void moverEnemigos() throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
         for (Enemigo enemigo : enemigos) {
-
             enemigo.mover(this.mapa);
         }
 
@@ -76,12 +79,13 @@ public class AlgoDefense {
 
     }
 
-    private List<ParcelaDeTierra> actualizarDefensas() {
+    public List<ParcelaDeTierra> actualizarDefensas() {
         List<ParcelaDeTierra> nuevaLista = defensas;
         int contador = 0;
 
         for (Enemigo enemigo : enemigos) {
-            contador += enemigo.atacar();
+            if (enemigo.getPasarelaActual().getCoordenada().equals(this.mapa.getMeta().getCoordenada())){
+            contador += enemigo.atacar();}
         }
 
         for(int i = 0 ; i < contador ; i++){
