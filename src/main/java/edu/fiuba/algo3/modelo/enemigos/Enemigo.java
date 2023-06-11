@@ -75,5 +75,5 @@ public abstract class Enemigo {
 		return estadoDeVida;
 	}
 
-	public abstract int atacar(Jugador jugador);
+	public abstract void atacar(Jugador jugador);
 }

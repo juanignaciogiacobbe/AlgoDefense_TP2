@@ -14,7 +14,7 @@ public class Lechuza extends Enemigo {
         }
 
     @Override
-    public int atacar(Jugador jugador) {
-        return 1;
+    public void atacar(Jugador jugador) {
+            jugador.getDefensas().remove(0);
     }
 }

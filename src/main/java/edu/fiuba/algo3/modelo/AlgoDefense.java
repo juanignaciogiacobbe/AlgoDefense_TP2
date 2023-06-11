@@ -78,29 +78,10 @@ public class AlgoDefense {
 
     }
 
-    /*
-    private List<ParcelaDeTierra> actualizarDefensas(Jugador jugador) {
-        List<ParcelaDeTierra> nuevaLista = defensas;
-        int contador = 0;
-
-        for (Enemigo enemigo : enemigos) {
-            if (enemigo.getPasarelaActual().getCoordenada().equals(this.mapa.getMeta().getCoordenada())){
-            contador += enemigo.atacar(jugador);}
-        }
-
-        for(int i = 0 ; i < contador ; i++){
-            nuevaLista.remove(i);
-        }
-        return nuevaLista;
-    }
-
-     */
-
 
     public void agregarEnemigo(Enemigo enemigo) {
         enemigos.add(enemigo);
     }
-
 
     public void cargarEnemigos(int cantTurnos) throws FileNotFoundException, FormatoJSONInvalidoException, ParseException {
         FileReader readerEnemigos = new FileReader("src/resources/enemigos.json");
@@ -114,7 +95,6 @@ public class AlgoDefense {
         }
 
     }
-
     public void ubicarDefensa(Defensa defensa, int absica, int ordenada) {
         ParcelaDeTierra parcelaSet = null;
         Coordenada coordenadaset = new Coordenada(absica, ordenada);
@@ -124,7 +104,6 @@ public class AlgoDefense {
             }
         }
         parcelaSet.setDefensa(defensa);
-        //defensas.add(parcelaSet);
         jugador1.agregarDefensa(parcelaSet);
     }
 

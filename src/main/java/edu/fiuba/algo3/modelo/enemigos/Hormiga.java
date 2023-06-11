@@ -20,8 +20,8 @@ public class Hormiga extends Enemigo {
 	}
 
 	@Override
-	public int atacar(Jugador jugador) {
+	public void atacar(Jugador jugador) {
 		jugador.recibirdanio(this.getDanio());
-		return 0;
+
 	}
 }

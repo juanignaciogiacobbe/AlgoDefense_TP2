@@ -8,12 +8,13 @@ import edu.fiuba.algo3.modelo.estados.EstadoVivo;
 import edu.fiuba.algo3.modelo.parcelas.Parcela;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Jugador {
 	private final Creditos creditos;
 	private final String nombre;
-	private List<Parcela> defensas = new ArrayList<>();
+	private List<Parcela> defensas = new LinkedList<>();
 	private EstadoVida estadoDeVida;
 
 	public Jugador(String nombre) throws NombreInvalido {
@@ -57,23 +58,7 @@ public class Jugador {
 		}
 	}
 
-	/*
-	public boolean sobreviveConDanio(int danio) {
-			return (this.estadoDeVida.getVida() - danio > 0);
-	}
 
-	public void defender(List<Enemigo> enemigos) throws TerrenoNoAptoParDefender {
-			for (Parcela defensa : this.defensas) {
-					defensa.defender(enemigos);
-			}
-			for (Enemigo enemigo: enemigos) {
-					this.agregarCreditos(enemigo.recolectarCreditos());
-			}
-	}
-
-
-
-	 */
 	public void recibirdanio(int danio) {
 		this.estadoDeVida = this.estadoDeVida.recibirDanio(danio);
 	}
