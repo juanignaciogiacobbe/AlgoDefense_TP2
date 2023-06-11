@@ -8,6 +8,7 @@ import edu.fiuba.algo3.modelo.enemigos.EnemigoFueraDeRango;
 import edu.fiuba.algo3.modelo.enemigos.Hormiga;
 import edu.fiuba.algo3.modelo.enemigos.Lechuza;
 import edu.fiuba.algo3.modelo.enemigos.Topo;
+import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.juego.NombreInvalido;
 import edu.fiuba.algo3.modelo.parcelas.*;
 import org.json.simple.parser.ParseException;
@@ -82,5 +83,18 @@ public class EnemigoTest {
 	public void test06CreoUnTopoYVerificoQueSeCreaCorrectamente() {
 		PasarelaLargada pasarelaLargada = new PasarelaLargada(0, 0);
 		Topo topo = new Topo(pasarelaLargada);
+	}
+
+	@Test
+	public void test07CreoUnaHormigaYAtaca15VecesAUnJugador() throws NombreInvalido {
+		PasarelaLargada pasarelaLargada = new PasarelaLargada(0, 0);
+		Jugador jugador = new Jugador("Juancito");
+		Hormiga hormiga = new Hormiga(pasarelaLargada);
+
+		for (int i = 0; i < 15; i++) {
+			hormiga.atacar(jugador);
+		}
+
+		assertEquals(jugador.getVida(), 5);
 	}
 }

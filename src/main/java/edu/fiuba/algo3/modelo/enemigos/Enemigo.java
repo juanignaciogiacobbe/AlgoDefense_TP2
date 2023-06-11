@@ -13,7 +13,7 @@ public abstract class Enemigo {
 
 	protected int creditos;
 
-	protected int danio;
+	//protected int danio;
 
 	protected ParcelaDePasarela pasarelaActual;
 
@@ -28,9 +28,9 @@ public abstract class Enemigo {
 		return (parcela.puedeMoverseAqui());
 	}
 
-	public int getDanio() {
-		return this.danio;
-	}
+	//public int getDanio() {
+	//	return this.danio;
+	//}
 
 	public ParcelaDePasarela getPasarelaActual() {
 		return (trasladable.getPasarelaActual());

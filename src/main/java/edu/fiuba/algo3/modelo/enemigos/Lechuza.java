@@ -5,15 +5,19 @@ import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.parcelas.ParcelaDePasarela;
 
 public class Lechuza extends Enemigo {
-        public Lechuza(ParcelaDePasarela pasarela) {
-            this.creditos = 1;
-            this.danio = 0;
-            this.estadoDeVida = new EstadoVivo(5);
-            this.pasarelaActual = pasarela;
-        }
+
+    private Atacante atacante;
+
+    public Lechuza(ParcelaDePasarela pasarela) {
+        this.creditos = 1;
+       // this.danio = 0;
+        this.estadoDeVida = new EstadoVivo(5);
+        this.pasarelaActual = pasarela;
+        this.atacante = new DestructorDeDefensas();
+    }
 
     @Override
     public void atacar(Jugador jugador) {
-            jugador.getDefensas().remove(0);
+        this.atacante.atacar(jugador);
     }
 }
