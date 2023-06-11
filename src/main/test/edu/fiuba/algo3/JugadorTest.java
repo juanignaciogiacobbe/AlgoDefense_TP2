@@ -1,3 +1,5 @@
+package edu.fiuba.algo3;
+
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaConstruir;
 import edu.fiuba.algo3.modelo.defensas.TorreBlanca;
 import edu.fiuba.algo3.modelo.juego.CreditosInsuficientes;
@@ -13,9 +15,7 @@ public class JugadorTest {
 
 	@Test
 	public void test01JugadorSeCreaConNombreMenorA6CaracteresLanzaExcepcion() {
-		assertThrows(NombreInvalido.class, () -> {
-			new Jugador("Alan");
-		});
+		assertThrows(NombreInvalido.class, () -> new Jugador("Alan"));
 	}
 
 	@Test
@@ -25,9 +25,7 @@ public class JugadorTest {
 		for (int i = 0; i < 10; i++) {
 			ParcelaDeTierra tierra = new ParcelaDeTierra(0, 1);
 			TorreBlanca torre = new TorreBlanca();
-			assertDoesNotThrow(() -> {
-				jugador.construir(torre, tierra);
-			});
+			assertDoesNotThrow(() -> jugador.construir(torre, tierra));
 		}
 	}
 
@@ -42,8 +40,6 @@ public class JugadorTest {
 		}
 		ParcelaDeTierra tierra = new ParcelaDeTierra(1, 1);
 		TorreBlanca torre = new TorreBlanca();
-		assertThrows(CreditosInsuficientes.class, () -> {
-			jugador.construir(torre, tierra);
-		});
+		assertThrows(CreditosInsuficientes.class, () -> jugador.construir(torre, tierra));
 	}
 }

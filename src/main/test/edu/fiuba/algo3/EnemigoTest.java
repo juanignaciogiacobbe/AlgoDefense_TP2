@@ -1,3 +1,5 @@
+package edu.fiuba.algo3;
+
 import edu.fiuba.algo3.modelo.enemigos.Arania;
 import edu.fiuba.algo3.modelo.enemigos.EnemigoFueraDeRango;
 import edu.fiuba.algo3.modelo.enemigos.Hormiga;
@@ -34,9 +36,7 @@ public class EnemigoTest {
 		Arania arania = new Arania(pasarela);
 		ParcelaDeTierra parcelaDefensa = new ParcelaDeTierra(3, 1);
 
-		assertThrows(EnemigoFueraDeRango.class, () -> {
-			arania.recibirAtaque(parcelaDefensa, 1, 2);
-		});
+		assertThrows(EnemigoFueraDeRango.class, () -> arania.recibirAtaque(parcelaDefensa, 1, 2));
 	}
 
 	@Test
@@ -50,7 +50,7 @@ public class EnemigoTest {
 	}
 
 	@Test
-	public void test04HormigaNoEstaMuertaAlRecolectarCreditosDevuelve0() throws EnemigoFueraDeRango {
+	public void test04HormigaNoEstaMuertaAlRecolectarCreditosDevuelve0() {
 		PasarelaComun pasarela = new PasarelaComun(1, 1);
 		Hormiga hormiga = new Hormiga(pasarela);
 		assertEquals(hormiga.recolectarCreditos(), 0);

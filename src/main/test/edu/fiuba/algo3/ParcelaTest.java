@@ -1,3 +1,5 @@
+package edu.fiuba.algo3;
+
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaConstruir;
 import edu.fiuba.algo3.modelo.defensas.TorrePlateada;
 import edu.fiuba.algo3.modelo.parcelas.PasarelaComun;
@@ -19,9 +21,7 @@ public class ParcelaTest {
 		PasarelaLargada pasarela = new PasarelaLargada(0, 1);
 		TorrePlateada defensa = new TorrePlateada();
 
-		assertThrows(TerrenoNoAptoParaConstruir.class, () -> {
-			pasarela.construir(defensa);
-		});
+		assertThrows(TerrenoNoAptoParaConstruir.class, () -> pasarela.construir(defensa));
 	}
 
 
@@ -30,9 +30,7 @@ public class ParcelaTest {
 		PasarelaComun pasarela = new PasarelaComun(0, 1);
 		TorrePlateada defensa = new TorrePlateada();
 
-		assertThrows(TerrenoNoAptoParaConstruir.class, () -> {
-			pasarela.construir(defensa);
-		});
+		assertThrows(TerrenoNoAptoParaConstruir.class, () -> pasarela.construir(defensa));
 	}
 
 	@Test
@@ -40,9 +38,7 @@ public class ParcelaTest {
 		PasarelaMeta pasarela = new PasarelaMeta(0, 1);
 		TorrePlateada defensa = new TorrePlateada();
 
-		assertThrows(TerrenoNoAptoParaConstruir.class, () -> {
-			pasarela.construir(defensa);
-		});
+		assertThrows(TerrenoNoAptoParaConstruir.class, () -> pasarela.construir(defensa));
 	}
 /*
     @Test

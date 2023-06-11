@@ -1,3 +1,5 @@
+package edu.fiuba.algo3;
+
 import edu.fiuba.algo3.modelo.AlgoDefense;
 import edu.fiuba.algo3.modelo.CustomLogger;
 import edu.fiuba.algo3.modelo.convertidor.*;
@@ -91,12 +93,8 @@ public class CasosDeUsoTest {
 		enemigos2.add(enemigo2);
 
 
-		assertDoesNotThrow(() -> {
-			torre1.atacar(enemigos1, tierra1);
-		});
-		assertThrows(EnemigosFueraDeRango.class, () -> {
-			torre2.atacar(enemigos2, tierra2);
-		});
+		assertDoesNotThrow(() -> torre1.atacar(enemigos1, tierra1));
+		assertThrows(EnemigosFueraDeRango.class, () -> torre2.atacar(enemigos2, tierra2));
 	}
 
 	@Test

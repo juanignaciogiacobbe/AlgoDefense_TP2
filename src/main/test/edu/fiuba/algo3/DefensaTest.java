@@ -1,3 +1,5 @@
+package edu.fiuba.algo3;
+
 import edu.fiuba.algo3.modelo.defensas.TorreBlanca;
 import edu.fiuba.algo3.modelo.defensas.TorrePlateada;
 import org.junit.jupiter.api.Test;
