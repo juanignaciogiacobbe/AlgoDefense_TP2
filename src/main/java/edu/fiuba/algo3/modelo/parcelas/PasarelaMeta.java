@@ -21,6 +21,7 @@ public class PasarelaMeta extends ParcelaDePasarela {
 			if (!enemigo.getPasarelaActual().getCoordenada().equals(this.getCoordenada())) {
 				nuevaLista.add(enemigo);
 			} else {
+				//Enemigo atacar a jugador enemigo.atacar(Jugador)
 				jugador.recibirdanio(enemigo.getDanio());
 				enemigo.setPasarelaActual(this);
 			}

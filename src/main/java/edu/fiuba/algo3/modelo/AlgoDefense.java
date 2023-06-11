@@ -72,8 +72,20 @@ public class AlgoDefense {
 		}
 
 		this.enemigos = this.mapa.getMeta().actualizarEnemigos(this.enemigos, jugador1);
+		this.defensas = this.actualizarDefensas();
 
 	}
+
+	private List<ParcelaDeTierra> actualizarDefensas() {
+		List<ParcelaDeTierra> nuevaLista = defensas;
+
+		for (Enemigo enemigo : enemigos) {
+			//enemigo.atacar(nuevaLista);
+		}
+
+		return nuevaLista;
+	}
+
 
 
 	public void agregarEnemigo(Enemigo enemigo) {
