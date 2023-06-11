@@ -13,20 +13,15 @@ public abstract class Enemigo {
 
 	protected int creditos;
 
-	protected int velocidad;
-
 	protected int danio;
 
 	protected ParcelaDePasarela pasarelaActual;
 
+	protected Trasladable trasladable;
 
 	public void recibirDanio(int puntosARecibir) {
 
 		this.estadoDeVida = this.estadoDeVida.recibirDanio(puntosARecibir);
-	}
-
-	public int getVelocidad() {
-		return velocidad;
 	}
 
 	public boolean puedeMoverseA(Parcela parcela) {
@@ -38,11 +33,12 @@ public abstract class Enemigo {
 	}
 
 	public ParcelaDePasarela getPasarelaActual() {
-		return pasarelaActual;
+		return (trasladable.getPasarelaActual());
 	}
 
 	public void setPasarelaActual(ParcelaDePasarela pasarela) {
-		this.pasarelaActual = pasarela;
+		//this.pasarelaActual = pasarela;
+		this.trasladable.setPasarelaActual(pasarela);
 	}
 
 	public int getVida() {
@@ -51,8 +47,9 @@ public abstract class Enemigo {
 
 
 	public void mover(Mapa mapa) throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
-		ParcelaDePasarela parcelaaMover = this.pasarelaActual.mover(this.getVelocidad(), mapa);
-		this.setPasarelaActual(parcelaaMover);
+		//ParcelaDePasarela parcelaaMover = this.pasarelaActual.mover(this.getVelocidad(), mapa);
+		//this.setPasarelaActual(parcelaaMover);
+		this.trasladable = trasladable.moverse(mapa);
 
 	}
 
@@ -69,10 +66,6 @@ public abstract class Enemigo {
 
 	public int recolectarCreditos() {
 		return this.estadoDeVida.recolectarCreditos(this.creditos);
-	}
-
-	public EstadoVida getEstadoDeVida() {
-		return estadoDeVida;
 	}
 
 	public abstract void atacar(Jugador jugador);

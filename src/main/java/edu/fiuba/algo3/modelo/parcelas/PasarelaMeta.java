@@ -23,7 +23,6 @@ public class PasarelaMeta extends ParcelaDePasarela {
 				nuevaLista.add(enemigo);
 			} else {
 				enemigo.atacar(jugador);
-				enemigo.setPasarelaActual(this);
 			}
 		}
 		return nuevaLista;

@@ -7,6 +7,7 @@ import edu.fiuba.algo3.modelo.enemigos.Arania;
 import edu.fiuba.algo3.modelo.enemigos.EnemigoFueraDeRango;
 import edu.fiuba.algo3.modelo.enemigos.Hormiga;
 import edu.fiuba.algo3.modelo.enemigos.Lechuza;
+import edu.fiuba.algo3.modelo.enemigos.Topo;
 import edu.fiuba.algo3.modelo.juego.NombreInvalido;
 import edu.fiuba.algo3.modelo.parcelas.*;
 import org.json.simple.parser.ParseException;
@@ -75,7 +76,11 @@ public class EnemigoTest {
 		algoDefense.moverEnemigos();
 		assertEquals(0,algoDefense.obtenerCantidadDefensas());
 
+	}
 
-
+	@Test
+	public void test06CreoUnTopoYVerificoQueSeCreaCorrectamente() {
+		PasarelaLargada pasarelaLargada = new PasarelaLargada(0, 0);
+		Topo topo = new Topo(pasarelaLargada);
 	}
 }
