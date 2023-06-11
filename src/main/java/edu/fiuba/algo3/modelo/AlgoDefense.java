@@ -75,17 +75,17 @@ public class AlgoDefense {
         }
 
         this.enemigos = this.mapa.getMeta().actualizarEnemigos(this.enemigos, jugador1);
-        this.defensas = this.actualizarDefensas();
 
     }
 
-    public List<ParcelaDeTierra> actualizarDefensas() {
+    /*
+    private List<ParcelaDeTierra> actualizarDefensas(Jugador jugador) {
         List<ParcelaDeTierra> nuevaLista = defensas;
         int contador = 0;
 
         for (Enemigo enemigo : enemigos) {
             if (enemigo.getPasarelaActual().getCoordenada().equals(this.mapa.getMeta().getCoordenada())){
-            contador += enemigo.atacar();}
+            contador += enemigo.atacar(jugador);}
         }
 
         for(int i = 0 ; i < contador ; i++){
@@ -93,6 +93,8 @@ public class AlgoDefense {
         }
         return nuevaLista;
     }
+
+     */
 
 
     public void agregarEnemigo(Enemigo enemigo) {
@@ -122,7 +124,8 @@ public class AlgoDefense {
             }
         }
         parcelaSet.setDefensa(defensa);
-        defensas.add(parcelaSet);
+        //defensas.add(parcelaSet);
+        jugador1.agregarDefensa(parcelaSet);
     }
 
 
@@ -136,5 +139,9 @@ public class AlgoDefense {
             }
         }
 
+    }
+
+    public int obtenerCantidadDefensas() {
+        return (jugador1.getDefensas().size());
     }
 }

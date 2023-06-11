@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.enemigos;
 
 import edu.fiuba.algo3.modelo.estados.EstadoVivo;
+import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.parcelas.ParcelaDePasarela;
 
 public class Lechuza extends Enemigo {
@@ -13,7 +14,7 @@ public class Lechuza extends Enemigo {
         }
 
     @Override
-    public int atacar() {
+    public int atacar(Jugador jugador) {
         return 1;
     }
 }

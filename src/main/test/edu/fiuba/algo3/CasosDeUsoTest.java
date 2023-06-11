@@ -158,6 +158,7 @@ public class CasosDeUsoTest {
 	@Test
 	public void test11NoSeEliminanTodasLasUnidaesEnemigasPeroNoAlcanzaElDanioGanaElJugador() throws NombreInvalido, IOException, ParseException, FormatoJSONInvalidoException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
 		AlgoDefense algoDefense = new AlgoDefense();
+		algoDefense.agregarJugador("Mariana");
 		Mapa mapa = algoDefense.getMapa();
 		Enemigo enemigo = new Hormiga(mapa.getOrigen());
 		Enemigo enemigo2 = new Hormiga(mapa.getOrigen());

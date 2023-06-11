@@ -71,9 +71,9 @@ public class EnemigoTest {
 		TorreBlanca torre = new TorreBlanca();
 		algoDefense.agregarEnemigo(lechuza);
 		algoDefense.ubicarDefensa(torre,0,2);
-		assertEquals(1,algoDefense.getDefensas().size());
-		algoDefense.actualizarDefensas();
-		assertEquals(0,algoDefense.getDefensas().size());
+		assertEquals(1,algoDefense.obtenerCantidadDefensas());
+		algoDefense.moverEnemigos();
+		assertEquals(0,algoDefense.obtenerCantidadDefensas());
 
 
 

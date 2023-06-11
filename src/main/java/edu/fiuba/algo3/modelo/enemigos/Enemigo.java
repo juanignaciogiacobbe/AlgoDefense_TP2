@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.enemigos;
 
+import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaCaminar;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaConstruir;
 import edu.fiuba.algo3.modelo.estados.EstadoVida;
@@ -74,5 +75,5 @@ public abstract class Enemigo {
 		return estadoDeVida;
 	}
 
-	public abstract int atacar();
+	public abstract int atacar(Jugador jugador);
 }

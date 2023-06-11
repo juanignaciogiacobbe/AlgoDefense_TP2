@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.juego;
 
 import edu.fiuba.algo3.modelo.defensas.Defensa;
+import edu.fiuba.algo3.modelo.parcelas.ParcelaDeTierra;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaConstruir;
 import edu.fiuba.algo3.modelo.estados.EstadoVida;
 import edu.fiuba.algo3.modelo.estados.EstadoVivo;
@@ -12,7 +13,7 @@ import java.util.List;
 public class Jugador {
 	private final Creditos creditos;
 	private final String nombre;
-	private final List<Parcela> defensas = new ArrayList<>();
+	private List<Parcela> defensas = new ArrayList<>();
 	private EstadoVida estadoDeVida;
 
 	public Jugador(String nombre) throws NombreInvalido {
@@ -23,6 +24,10 @@ public class Jugador {
 		}
 		this.nombre = nombre;
 		this.estadoDeVida = new EstadoVivo(20);
+	}
+
+	public List<Parcela> getDefensas() {
+		return defensas;
 	}
 
 	public int getCreditos() {
@@ -75,6 +80,14 @@ public class Jugador {
 
 	public boolean estaMuerto() {
 		return (estadoDeVida.getVida() <= 0);
+	}
+
+	public void agregarDefensa(ParcelaDeTierra parcelaSet) {
+		defensas.add(parcelaSet);
+	}
+
+	public void setDefensa(List<Parcela> nuevaLista) {
+		this.defensas = nuevaLista;
 	}
 }
 
