@@ -1,6 +1,5 @@
 package clases;
 
-import clases.Enemigo;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -103,9 +102,9 @@ public class ConvertidorEnemigosImplementacion implements ConvertidorEnemigos {
 	public Enemigo crearEnemigo(String nombreEnemigo) {
 		switch (nombreEnemigo) {
 			case "hormiga":
-				return new Hormiga(new PasarelaComun(0, 0));
+				return new Hormiga(new PasarelaComun(0,0));
 			case "arana":
-				return new Arania(new PasarelaComun(0, 0));
+				return new Arania(new PasarelaComun(0,0));
 			default:
 				throw new IllegalArgumentException("Unknown enemy type: " + nombreEnemigo);
 		}

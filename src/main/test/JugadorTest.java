@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.ArrayList;
 
 
-import clases.vida.SinVidaRestanteException;
 import org.junit.jupiter.api.Test;
 
 
@@ -46,16 +45,5 @@ public class JugadorTest {
         ParcelaDeTierra tierra = new ParcelaDeTierra(1,1);
         TorreBlanca torre = new TorreBlanca();
         assertThrows(CreditosInsuficientes.class, () -> {jugador.construir(torre, tierra);});
-    }
-
-    @Test
-    public void test04CreoUnJugadorYRecibeElDanioCorrespondienteYMuere() throws NombreInvalido {
-        Jugador jugador = new Jugador("Juancito");
-
-        jugador.recibirDanio(25);
-
-
-        assertEquals(jugador.getVida(), -5);
-        assertThrows(SinVidaRestanteException.class, ()-> {jugador.comenzarTurno();});
     }
 }

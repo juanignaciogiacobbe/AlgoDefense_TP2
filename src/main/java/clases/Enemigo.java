@@ -1,11 +1,11 @@
 package clases;
 
-import Excepciones.*;
-import clases.vida.*;
-import clases.*;
+import Excepciones.EnemigoFueraDeRango;
+import Excepciones.TerrenoNoAptoParaCaminar;
+import Excepciones.TerrenoNoAptoParaConstruir;
 
 public abstract class Enemigo {
-    //protected Estado estado;
+    protected EstadoVida estadoDeVida;
 
     protected int creditos;
 
@@ -15,13 +15,10 @@ public abstract class Enemigo {
 
     protected ParcelaDePasarela pasarelaActual;
 
-    protected Vida energia;
-
 
     public void recibirDanio(int puntosARecibir) {
 
-
-        energia.consumirPuntos(puntosARecibir);
+        this.estadoDeVida = this.estadoDeVida.recibirDanio(puntosARecibir);
     }
 
 
@@ -29,9 +26,6 @@ public abstract class Enemigo {
         this.pasarelaActual = pasarela;
     }
 
-    public boolean tieneVidaIgualA(int vidaEsperada) {
-        return (this.energia.getVida() == (vidaEsperada));
-    }
 
     public int getVelocidad() {
         return velocidad;
@@ -48,15 +42,15 @@ public abstract class Enemigo {
         return pasarelaActual;
     }
 
-    //public int recolectarCreditos(int sumaActual) {
-    //    return this.estado.recolectarCreditos(sumaActual, this.creditos);
-    //}
+    public int getVida(){
+        return estadoDeVida.getVida();
+    }
 
-    abstract int obtenerCreditos();
 
 
     public void mover(Mapa mapa) throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
-        this.setPasarelaActual(this.pasarelaActual.mover(this.getVelocidad(), mapa));
+        ParcelaDePasarela parcelaaMover = this.pasarelaActual.mover(this.getVelocidad(), mapa);
+        this.setPasarelaActual(parcelaaMover);
 
     }
 
@@ -65,5 +59,17 @@ public abstract class Enemigo {
             throw new EnemigoFueraDeRango();
         }
         this.recibirDanio(danio);
+    }
+
+    public int obtenerCreditos() {
+        return this.creditos;
+    }
+
+    public int recolectarCreditos() {
+        return this.estadoDeVida.recolectarCreditos(this.creditos);
+    }
+
+    public EstadoVida getEstadoDeVida() {
+        return estadoDeVida;
     }
 }

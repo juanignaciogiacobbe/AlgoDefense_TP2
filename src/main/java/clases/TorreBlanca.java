@@ -7,10 +7,8 @@ public class TorreBlanca extends Defensa {
         this.danio = 1;
         this.costoConstruccion = 10;
         this.turnosRestantesParaDespliegue = 1;
+        this.desplegable = new NoDesplegado(1);
 
-    }
-    public boolean enemigoDentroDeRango(int distanciaAEnemigo) {
-        return (distanciaAEnemigo <= rangoAtaque);
     }
 }
 

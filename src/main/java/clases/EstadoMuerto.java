@@ -1,27 +1,28 @@
 package clases;
 
-import Excepciones.SinVidaRestante;
-import clases.Enemigo;
+import clases.CustomLogger;
+import clases.EstadoVida;
 
-import java.util.List;
+public class EstadoMuerto implements EstadoVida {
+    private final CustomLogger logger = CustomLogger.getInstance();
 
-public class EstadoMuerto extends Estado {
+    private int vida;
 
     public EstadoMuerto() {
         this.vida = 0;
     }
-    @Override
-    public void recibirDanio(int danioARecibir) throws SinVidaRestante {
 
+
+    public int getVida() {
+        return vida;
     }
 
     @Override
-    public void actualizarLista(List<Enemigo> lista) {
-
+    public EstadoVida recibirDanio(int danioARecibir) {
+        return this;
     }
 
-    @Override
-    public int recolectarCreditos(int sumaActual, int creditosEnemigo) {
-        return sumaActual + creditosEnemigo;
+    public int recolectarCreditos(int creditos) {
+        return creditos;
     }
 }

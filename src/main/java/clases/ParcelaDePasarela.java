@@ -9,7 +9,6 @@ abstract class ParcelaDePasarela extends Parcela{
     public ParcelaDePasarela() {
         construible = new NoConstruible();
         movible = new Desplazable();
-        defendible = new NoDefendible();
     }
 
     public boolean puedeMoverseAqui() {
@@ -17,7 +16,7 @@ abstract class ParcelaDePasarela extends Parcela{
     }
 
     public ParcelaDePasarela mover(int distancia,Mapa mapa) throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
-        return movible.mover(this,distancia,mapa);
+        return mapa.obtenerPasarelasEnRango(this,distancia);
     }
 
     public void construir(Defensa defensaAConstuir) throws TerrenoNoAptoParaConstruir {

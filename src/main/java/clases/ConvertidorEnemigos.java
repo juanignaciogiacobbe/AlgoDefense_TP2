@@ -1,6 +1,5 @@
 package clases;
 
-import clases.Enemigo;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 

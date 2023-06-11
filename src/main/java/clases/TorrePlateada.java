@@ -7,9 +7,7 @@ public class TorrePlateada extends Defensa {
         this.danio = 2;
         this.costoConstruccion = 20;
         this.turnosRestantesParaDespliegue = 2;
-    }
-    public boolean enemigoDentroDeRango(int distanciaAEnemigo) {
-        return (distanciaAEnemigo <= rangoAtaque);
+        this.desplegable = new NoDesplegado(2);
     }
 
 }

@@ -9,4 +9,9 @@ public class NoDesplazable implements Movible{
     public ParcelaDePasarela mover(Parcela parcela, int distancia, Mapa mapa) throws TerrenoNoAptoParaCaminar {
         throw new TerrenoNoAptoParaCaminar();
     }
+
+    @Override
+    public void moverseA() throws TerrenoNoAptoParaCaminar {
+        throw new TerrenoNoAptoParaCaminar();
+    }
 }
