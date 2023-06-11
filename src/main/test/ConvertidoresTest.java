@@ -1,4 +1,9 @@
-import clases.*;
+import edu.fiuba.algo3.modelo.convertidor.*;
+import edu.fiuba.algo3.modelo.enemigos.Enemigo;
+import edu.fiuba.algo3.modelo.mapa.Mapa;
+import edu.fiuba.algo3.modelo.parcelas.Parcela;
+import edu.fiuba.algo3.modelo.parcelas.ParcelaDeTierra;
+import edu.fiuba.algo3.modelo.parcelas.ParcelaRocosa;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 
