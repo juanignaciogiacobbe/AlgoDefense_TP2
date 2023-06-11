@@ -19,4 +19,9 @@ public class Arania extends Enemigo {
 		Random random = new Random();
 		return random.nextInt(11);
 	}
+
+	@Override
+	public int atacar() {
+		return 0;
+	}
 }

@@ -73,4 +73,6 @@ public abstract class Enemigo {
 	public EstadoVida getEstadoDeVida() {
 		return estadoDeVida;
 	}
+
+	public abstract int atacar();
 }

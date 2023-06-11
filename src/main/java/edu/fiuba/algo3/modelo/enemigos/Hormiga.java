@@ -17,4 +17,9 @@ public class Hormiga extends Enemigo {
 	public int obtenerCreditos() {
 		return super.obtenerCreditos();
 	}
+
+	@Override
+	public int atacar() {
+		return 0;
+	}
 }
