@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.enemigos;
 
+import edu.fiuba.algo3.modelo.parcelas.Parcela;
 import edu.fiuba.algo3.modelo.parcelas.ParcelaDePasarela;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaCaminar;
@@ -9,9 +10,9 @@ public class Caminante implements Trasladable {
 
     private int velocidad;
 
-    private ParcelaDePasarela pasarelaActual;
+    private Parcela pasarelaActual;
 
-    public Caminante(int velocidad, ParcelaDePasarela pasarela) {
+    public Caminante(int velocidad, Parcela pasarela) {
         this.velocidad = velocidad;
         this.pasarelaActual = pasarela;
     }
@@ -24,11 +25,11 @@ public class Caminante implements Trasladable {
         return this;
     }
 
-    public void setPasarelaActual(ParcelaDePasarela pasarela) {
+    public void setPasarelaActual(Parcela pasarela) {
         this.pasarelaActual = pasarela;
     }
 
-    public ParcelaDePasarela getPasarelaActual() {
+    public Parcela getPasarelaActual() {
         return pasarelaActual;
     }
 

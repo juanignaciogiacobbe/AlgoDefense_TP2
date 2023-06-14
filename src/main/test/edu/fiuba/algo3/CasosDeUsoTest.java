@@ -3,6 +3,7 @@ package edu.fiuba.algo3;
 import edu.fiuba.algo3.modelo.AlgoDefense;
 import edu.fiuba.algo3.modelo.CustomLogger;
 import edu.fiuba.algo3.modelo.convertidor.*;
+import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaCaminar;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaConstruir;
 import edu.fiuba.algo3.modelo.defensas.TorreNoDesplegada;
@@ -130,7 +131,7 @@ public class CasosDeUsoTest {
 	}
 
 	@Test
-	public void test09EnemigosSeMuevenPorMapa() throws IOException, ParseException, FormatoJSONInvalidoException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, NombreInvalido {
+	public void test09EnemigosSeMuevenPorMapa() throws IOException, ParseException, FormatoJSONInvalidoException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, NombreInvalido, DefensasVacias {
 		AlgoDefense algoDefense = new AlgoDefense();
 		algoDefense.agregarJugador("Sebastian");
 		Arania arania = new Arania(algoDefense.getMapa().getOrigen());
@@ -142,7 +143,7 @@ public class CasosDeUsoTest {
 	}
 
 	@Test
-	public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, FormatoJSONInvalidoException, IOException, ParseException {
+	public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, FormatoJSONInvalidoException, IOException, ParseException, DefensasVacias {
 		AlgoDefense algoDefense = new AlgoDefense();
 		Mapa mapa = algoDefense.getMapa();
 		Enemigo enemigo = new Hormiga(mapa.getOrigen());
@@ -156,7 +157,7 @@ public class CasosDeUsoTest {
 	}
 
 	@Test
-	public void test11NoSeEliminanTodasLasUnidaesEnemigasPeroNoAlcanzaElDanioGanaElJugador() throws NombreInvalido, IOException, ParseException, FormatoJSONInvalidoException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
+	public void test11NoSeEliminanTodasLasUnidaesEnemigasPeroNoAlcanzaElDanioGanaElJugador() throws NombreInvalido, IOException, ParseException, FormatoJSONInvalidoException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, DefensasVacias {
 		AlgoDefense algoDefense = new AlgoDefense();
 		algoDefense.agregarJugador("Mariana");
 		Mapa mapa = algoDefense.getMapa();
@@ -176,7 +177,7 @@ public class CasosDeUsoTest {
 	}
 
 	@Test
-	public void test12NoSeEliminanTodasLasUnidadesEnemigasPeroAlcanzaElDanioGanaLaComputadora() throws NombreInvalido, IOException, ParseException, FormatoJSONInvalidoException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
+	public void test12NoSeEliminanTodasLasUnidadesEnemigasPeroAlcanzaElDanioGanaLaComputadora() throws NombreInvalido, IOException, ParseException, FormatoJSONInvalidoException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, DefensasVacias {
 		AlgoDefense algoDefense = new AlgoDefense();
 		algoDefense.agregarJugador("Mariana");
 		Mapa mapa = algoDefense.getMapa();
@@ -283,7 +284,7 @@ public class CasosDeUsoTest {
 	}
 
 	@Test
-	void test18SimuloYVerificoQueGanaJugador() throws FormatoJSONInvalidoException, IOException, ParseException, NombreInvalido, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, TorreNoDesplegada {
+	void test18SimuloYVerificoQueGanaJugador() throws FormatoJSONInvalidoException, IOException, ParseException, NombreInvalido, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, TorreNoDesplegada, DefensasVacias {
 		TorrePlateada torre = new TorrePlateada();
 		TorrePlateada torre1 = new TorrePlateada();
 		AlgoDefense algoDefense = new AlgoDefense();
@@ -300,7 +301,7 @@ public class CasosDeUsoTest {
 	}
 
 	@Test
-	void test19SimuloYVerificoQueGanaComputadora() throws FormatoJSONInvalidoException, IOException, ParseException, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, NombreInvalido {
+	void test19SimuloYVerificoQueGanaComputadora() throws FormatoJSONInvalidoException, IOException, ParseException, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, NombreInvalido, DefensasVacias {
 		AlgoDefense algoDefense = new AlgoDefense();
 		algoDefense.agregarJugador("Sebastian");
 		algoDefense.cargarEnemigos(12);

@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.enemigos;
 
+import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
 import edu.fiuba.algo3.modelo.estados.EstadoVida;
 import edu.fiuba.algo3.modelo.estados.EstadoVivo;
 import edu.fiuba.algo3.modelo.juego.Jugador;
@@ -31,7 +32,7 @@ public class Arania implements Enemigo {
 	}
 
 	@Override
-	public void atacar(Jugador jugador) {
+	public void atacar(Jugador jugador) throws DefensasVacias {
 		this.atacante.atacar(jugador);
 	}
 
@@ -44,7 +45,7 @@ public class Arania implements Enemigo {
 	}
 
 	public ParcelaDePasarela getPasarelaActual() {
-		return (trasladable.getPasarelaActual());
+		return (ParcelaDePasarela) trasladable.getPasarelaActual();
 	}
 
 

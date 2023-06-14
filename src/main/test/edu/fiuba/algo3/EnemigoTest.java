@@ -2,6 +2,7 @@ package edu.fiuba.algo3;
 
 import edu.fiuba.algo3.modelo.AlgoDefense;
 import edu.fiuba.algo3.modelo.convertidor.FormatoJSONInvalidoException;
+import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
 import edu.fiuba.algo3.modelo.defensas.TorreBlanca;
 import edu.fiuba.algo3.modelo.enemigos.Arania;
 import edu.fiuba.algo3.modelo.enemigos.EnemigoFueraDeRango;
@@ -16,8 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class EnemigoTest {
 	@Test
@@ -66,7 +66,7 @@ public class EnemigoTest {
 	}
 
 	@Test
-	public void test05AgregoLechuzaADefensaYAtaca() throws FormatoJSONInvalidoException, IOException, ParseException, NombreInvalido, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir {
+	public void test05AgregoLechuzaADefensaYAtaca() throws FormatoJSONInvalidoException, IOException, ParseException, NombreInvalido, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, DefensasVacias {
 		AlgoDefense algoDefense = new AlgoDefense();
 		algoDefense.agregarJugador("Sebastian");
 		Lechuza lechuza = new Lechuza(algoDefense.getMapa().getMeta());
@@ -86,7 +86,7 @@ public class EnemigoTest {
 	}
 
 	@Test
-	public void test07CreoUnaHormigaYAtaca15VecesAUnJugador() throws NombreInvalido {
+	public void test07CreoUnaHormigaYAtaca15VecesAUnJugador() throws NombreInvalido, DefensasVacias {
 		PasarelaLargada pasarelaLargada = new PasarelaLargada(0, 0);
 		Jugador jugador = new Jugador("Juancito");
 		Hormiga hormiga = new Hormiga(pasarelaLargada);
@@ -96,5 +96,44 @@ public class EnemigoTest {
 		}
 
 		assertEquals(jugador.getVida(), 5);
+	}
+
+
+	@Test
+	public void test08LaLechuzaSeMueveDeFormaCorrecta() throws FormatoJSONInvalidoException, IOException, ParseException, NombreInvalido, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, DefensasVacias {
+		AlgoDefense algoDefense = new AlgoDefense();
+		algoDefense.agregarJugador("Sebastian");
+		TorreBlanca torre = new TorreBlanca();
+		algoDefense.ubicarDefensa(torre,0,2);
+		Lechuza lechuza = new Lechuza(algoDefense.getMapa().getOrigen());
+		algoDefense.agregarEnemigo(lechuza);
+		assertEquals(1,algoDefense.obtenerCantidadDefensas());
+		algoDefense.moverEnemigos();
+		algoDefense.moverEnemigos();
+		algoDefense.moverEnemigos();
+		algoDefense.moverEnemigos();
+		algoDefense.moverEnemigos();
+		assertEquals(0,algoDefense.obtenerCantidadDefensas());
+	}
+
+	@Test
+	public void test09LaLechuzaSeMueveDeFormaCorrectaConLaMitadDeSuVida() throws FormatoJSONInvalidoException, IOException, ParseException, NombreInvalido, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, DefensasVacias {
+		AlgoDefense algoDefense = new AlgoDefense();
+		algoDefense.agregarJugador("Sebastian");
+		TorreBlanca torre = new TorreBlanca();
+		algoDefense.ubicarDefensa(torre,0,2);
+		Lechuza lechuza = new Lechuza(algoDefense.getMapa().getOrigen());
+		lechuza.recibirDanio(3);
+		algoDefense.agregarEnemigo(lechuza);
+		assertEquals(1,algoDefense.obtenerCantidadDefensas());
+		algoDefense.moverEnemigos();
+		algoDefense.moverEnemigos();
+		algoDefense.moverEnemigos();
+		algoDefense.moverEnemigos();
+		algoDefense.moverEnemigos();
+		algoDefense.moverEnemigos();
+		algoDefense.moverEnemigos();
+		algoDefense.moverEnemigos();
+		assertEquals(0,algoDefense.obtenerCantidadDefensas());
 	}
 }
