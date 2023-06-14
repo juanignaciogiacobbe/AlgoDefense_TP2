@@ -27,24 +27,21 @@ public class VoladorEnL implements Trasladable {
     @Override
     public Trasladable moverse(Mapa mapa) {
         Parcela parcelaAMover = this.volarEnL(mapa);
-        this.setPasarelaActual((ParcelaDePasarela) parcelaAMover);
-        return this.actualizarEstado();
+        this.setPasarelaActual(parcelaAMover);
+        return this;
     }
 
     @Override
-    public ParcelaDePasarela getPasarelaActual() {
-        return null;
+    public Parcela getPasarelaActual() {
+        return this.pasarelaActual;
     }
 
     @Override
-    public void setPasarelaActual(ParcelaDePasarela pasarela) {
+    public void setPasarelaActual(Parcela pasarela) {
         this.pasarelaActual = pasarela;
 
     }
 
-    public void actualizar(int vida) {
-        this.vida = vida;
-    }
 
     public Parcela volarEnL(Mapa mapa) {
 
@@ -70,13 +67,8 @@ public class VoladorEnL implements Trasladable {
             }
         }
 
+        System.out.println("Se mueve a " + parcelaActualX +"," + parcelaActualY);
         return mapa.obtenerParcelaConCoordenadas(parcelaActualX, parcelaActualY);
     }
 
-    private Trasladable actualizarEstado(){
-        if (vida < 3){
-            return new VoladorEnRecta(this.velocidad,this.getPasarelaActual());
-        }
-        return this;
-    }
 }

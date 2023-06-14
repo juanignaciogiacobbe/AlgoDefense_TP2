@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.parcelas;
 
 
 import edu.fiuba.algo3.modelo.AlgoDefense;
+import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
 import edu.fiuba.algo3.modelo.enemigos.Enemigo;
 import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.mapa.Coordenada;
@@ -15,7 +16,7 @@ public class PasarelaMeta extends ParcelaDePasarela {
 		this.coordenada = new Coordenada(abscisa, ordenada);
 	}
 
-	public List<Enemigo> actualizarEnemigos(List<Enemigo> enemigos, Jugador jugador) {
+	public List<Enemigo> actualizarEnemigos(List<Enemigo> enemigos, Jugador jugador) throws DefensasVacias {
 		List<Enemigo> nuevaLista = new ArrayList<>();
 
 		for (Enemigo enemigo : enemigos) {

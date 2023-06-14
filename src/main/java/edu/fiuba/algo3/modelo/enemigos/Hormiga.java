@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.enemigos;
 
+import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
 import edu.fiuba.algo3.modelo.estados.EstadoVida;
 import edu.fiuba.algo3.modelo.estados.EstadoVivo;
 import edu.fiuba.algo3.modelo.juego.Jugador;
@@ -22,7 +23,7 @@ public class Hormiga implements Enemigo {
 		this.atacante = new AtacanteDeJugador(1);
 	}
 	@Override
-	public void atacar(Jugador jugador) {
+	public void atacar(Jugador jugador) throws DefensasVacias {
 		atacante.atacar(jugador);
 	}
 
@@ -40,7 +41,7 @@ public class Hormiga implements Enemigo {
 	}
 
 	public ParcelaDePasarela getPasarelaActual() {
-		return (trasladable.getPasarelaActual());
+		return (ParcelaDePasarela) trasladable.getPasarelaActual();
 	}
 
 	public void setPasarelaActual(ParcelaDePasarela pasarela) {

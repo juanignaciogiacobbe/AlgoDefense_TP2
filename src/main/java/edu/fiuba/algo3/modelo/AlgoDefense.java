@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.convertidor.*;
 import edu.fiuba.algo3.modelo.defensas.Defensa;
+import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaCaminar;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaConstruir;
 import edu.fiuba.algo3.modelo.defensas.TorreNoDesplegada;
@@ -69,7 +70,7 @@ public class AlgoDefense {
 
     }
 
-    public void moverEnemigos() throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
+    public void moverEnemigos() throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, DefensasVacias {
         for (Enemigo enemigo : enemigos) {
             enemigo.mover(this.mapa);
         }

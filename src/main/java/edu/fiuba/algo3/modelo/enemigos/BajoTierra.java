@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.enemigos;
 
 import edu.fiuba.algo3.modelo.mapa.Mapa;
+import edu.fiuba.algo3.modelo.parcelas.Parcela;
 import edu.fiuba.algo3.modelo.parcelas.ParcelaDePasarela;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaCaminar;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaConstruir;
@@ -8,7 +9,7 @@ import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaConstruir;
 public class BajoTierra implements Trasladable {
 
     private int velocidad;
-    private ParcelaDePasarela pasarelaActual;
+    private Parcela pasarelaActual;
 
     private int movimientos;
 
@@ -27,7 +28,7 @@ public class BajoTierra implements Trasladable {
         return this.actualizarEstado();
     }
 
-    public void setPasarelaActual(ParcelaDePasarela pasarela) {
+    public void setPasarelaActual(Parcela pasarela) {
         this.pasarelaActual = pasarela;
     }
 
@@ -35,11 +36,11 @@ public class BajoTierra implements Trasladable {
         Trasladable trasladableFinal;
         switch (this.movimientos) {
             case 5:
-                trasladableFinal = new BajoTierra(2, this.pasarelaActual, this.movimientos);
+                trasladableFinal = new BajoTierra(2, (ParcelaDePasarela) this.pasarelaActual, this.movimientos);
                 break;
 
             case 10:
-                trasladableFinal = new BajoTierra(3, this.pasarelaActual, this.movimientos);
+                trasladableFinal = new BajoTierra(3, (ParcelaDePasarela) this.pasarelaActual, this.movimientos);
                 break;
 
             default:
@@ -49,7 +50,7 @@ public class BajoTierra implements Trasladable {
         return trasladableFinal;
     }
 
-    public ParcelaDePasarela getPasarelaActual() {
+    public Parcela getPasarelaActual() {
         return pasarelaActual;
     }
 }

@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.enemigos;
 
+import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
 import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
 import edu.fiuba.algo3.modelo.parcelas.Parcela;
@@ -16,7 +17,7 @@ public class Topo implements Enemigo {
         this.atacante = new AtacanteDeJugador(2);
     }
 
-    public void atacar(Jugador jugador) {
+    public void atacar(Jugador jugador) throws DefensasVacias {
         this.atacante.atacar(jugador);
     }
 
@@ -24,7 +25,7 @@ public class Topo implements Enemigo {
         return (parcela.puedeMoverseAqui());
     }
     public ParcelaDePasarela getPasarelaActual() {
-        return (trasladable.getPasarelaActual());
+        return (ParcelaDePasarela) trasladable.getPasarelaActual();
     }
 
     public void setPasarelaActual(ParcelaDePasarela pasarela) {

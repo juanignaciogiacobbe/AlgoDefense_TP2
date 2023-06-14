@@ -4,7 +4,7 @@ import edu.fiuba.algo3.modelo.mapa.Mapa;
 import edu.fiuba.algo3.modelo.parcelas.Parcela;
 import edu.fiuba.algo3.modelo.parcelas.ParcelaDePasarela;
 
-public class VoladorEnRecta implements  Trasladable{
+public class VoladorEnRecta implements Trasladable {
 
     private int velocidad;
 
@@ -19,17 +19,17 @@ public class VoladorEnRecta implements  Trasladable{
     @Override
     public Trasladable moverse(Mapa mapa) {
         Parcela parcelaAMover = this.volarEnLineaRecta(mapa);
-        this.setPasarelaActual((ParcelaDePasarela) parcelaAMover);
+        this.setPasarelaActual(parcelaAMover);
         return this;
     }
 
     @Override
-    public ParcelaDePasarela getPasarelaActual() {
-        return (ParcelaDePasarela) this.pasarelaActual;
+    public Parcela getPasarelaActual() {
+        return this.pasarelaActual;
     }
 
     @Override
-    public void setPasarelaActual(ParcelaDePasarela pasarela) {
+    public void setPasarelaActual(Parcela pasarela) {
         this.pasarelaActual = pasarela;
     }
 
@@ -40,16 +40,24 @@ public class VoladorEnRecta implements  Trasladable{
         int metaX = mapa.getMeta().getCoordenada().getAbscisa();
         int metaY = mapa.getMeta().getCoordenada().getOrdenada();
 
-        int distancia = this.getPasarelaActual().getCoordenada().distanciaHacia(mapa.getMeta().getCoordenada());
-        // Calcular los incrementos en X y Y por cada paso
-        int incrementoX = (metaX - parcelaActualX) / distancia;
-        int incrementoY = (metaY - parcelaActualY) / distancia;
 
-        // Bucle para moverse en línea recta hacia la meta
         for (int i = 0; i < this.velocidad; i++) {
-            parcelaActualX += incrementoX;
-            parcelaActualY += incrementoY;
+            if (parcelaActualX != metaX) {
+                if (parcelaActualX < metaX) {
+                    parcelaActualX++;
+                } else {
+                    parcelaActualX--;
+                }
+            }
+            if ((parcelaActualY != metaY)) {
+                if (parcelaActualY < metaY) {
+                    parcelaActualY++;
+                } else {
+                    parcelaActualY--;
+                }
+            }
         }
+        System.out.println("Se mueve a " + parcelaActualX + "," + parcelaActualY);
         return mapa.obtenerParcelaConCoordenadas(parcelaActualX, parcelaActualY);
 
     }

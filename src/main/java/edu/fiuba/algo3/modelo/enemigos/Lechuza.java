@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.enemigos;
 
+import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
 import edu.fiuba.algo3.modelo.estados.EstadoVida;
 import edu.fiuba.algo3.modelo.estados.EstadoVivo;
 import edu.fiuba.algo3.modelo.juego.Jugador;
@@ -22,7 +23,7 @@ public class Lechuza implements Enemigo {
     }
 
     @Override
-    public void atacar(Jugador jugador) {
+    public void atacar(Jugador jugador) throws DefensasVacias {
         this.atacante.atacar(jugador);
     }
 
@@ -30,8 +31,8 @@ public class Lechuza implements Enemigo {
         return (parcela.puedeMoverseAqui());
     }
 
-    public ParcelaDePasarela getPasarelaActual() {
-        return (trasladable.getPasarelaActual());
+    public Parcela getPasarelaActual() {
+        return trasladable.getPasarelaActual();
     }
 
     public void setPasarelaActual(ParcelaDePasarela pasarela) {
@@ -46,7 +47,9 @@ public class Lechuza implements Enemigo {
     @Override
     public void recibirDanio(int puntosARecibir) {
         this.estadoDeVida = this.estadoDeVida.recibirDanio(puntosARecibir);
-       //que actualize a el volador;
+        if (this.estadoDeVida.getVida() < 3 ){
+            this.trasladable = new VoladorEnRecta(5,this.getPasarelaActual());
+        }
     }
 
     @Override
