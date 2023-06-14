@@ -21,6 +21,7 @@ public class Hormiga implements Enemigo {
 		this.trasladable = new Caminante(1, pasarela);
 		this.atacante = new AtacanteDeJugador(1);
 	}
+
 	@Override
 	public void atacar(Jugador jugador) {
 		atacante.atacar(jugador);
@@ -64,5 +65,10 @@ public class Hormiga implements Enemigo {
 
 	public int recolectarCreditos() {
 		return this.estadoDeVida.recolectarCreditos(this.creditos);
+	}
+
+	@Override
+	public String toString() {
+		return "H";
 	}
 }

@@ -39,4 +39,8 @@ public class ParcelaDeTierra extends Parcela {
 	}
 
 
+	@Override
+	public String toString() {
+		return "T";
+	}
 }

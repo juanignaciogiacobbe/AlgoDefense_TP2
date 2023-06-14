@@ -75,4 +75,9 @@ public class Arania implements Enemigo {
 	public int recolectarCreditos() {
 		return this.estadoDeVida.recolectarCreditos(this.creditos);
 	}
+
+	@Override
+	public String toString() {
+		return "A";
+	}
 }
