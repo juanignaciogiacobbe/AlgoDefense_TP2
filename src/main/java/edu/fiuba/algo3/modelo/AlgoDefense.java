@@ -24,17 +24,18 @@ import java.util.List;
 import java.util.Map;
 
 
-public class AlgoDefense {
+public class AlgoDefense implements Observable {
 
     private final Mapa mapa;
     private Jugador jugador1;
     private List<Enemigo> enemigos;
-
     private List<ParcelaDeTierra> defensas;
+    private final ArrayList<Observer> observers = new ArrayList<>();
 
     public AlgoDefense(Mapa mapa, List<Enemigo> enemigos) {
         this.mapa = mapa;
         this.enemigos = enemigos;
+
     }
 
     public AlgoDefense() throws IOException, ParseException, FormatoJSONInvalidoException {
@@ -45,7 +46,10 @@ public class AlgoDefense {
         this.enemigos = new ArrayList<>();
         this.defensas = new ArrayList<>();
     }
+    public void siguienteTurno() {
+        this.notifyObservers();
 
+    }
     public Mapa getMapa() {
         return this.mapa;
     }
@@ -122,5 +126,15 @@ public class AlgoDefense {
 
     public int obtenerCantidadDefensas() {
         return (jugador1.getDefensas().size());
+    }
+
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        observers.forEach(Observer::update);
     }
 }
