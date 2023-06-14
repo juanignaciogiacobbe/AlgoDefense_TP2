@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class BienvenidoVista implements Vista {
 
@@ -18,7 +17,7 @@ public class BienvenidoVista implements Vista {
 	}
 
 	@Override
-	public void mostrar(Stage stage) {
+	public void mostrar(Scene scene) {
 		var label = new Label("Hola que hace");
 		var button = new Button("Next");
 
@@ -26,14 +25,12 @@ public class BienvenidoVista implements Vista {
 
 		button.setOnAction(e -> {
 			if (nextVista != null) {
-				nextVista.mostrar(stage);
+				nextVista.mostrar(scene);
 			}
 		});
 
 		var vbox = new VBox(label, button);
 		vbox.setAlignment(Pos.CENTER); // Align the VBox to the center
-		var scene = new Scene(vbox, 640, 480);
-		stage.setScene(scene);
-		stage.show();
+		scene.setRoot(vbox);
 	}
 }

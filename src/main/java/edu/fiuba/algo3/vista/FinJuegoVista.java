@@ -13,7 +13,7 @@ public class FinJuegoVista implements Vista {
 	}
 
 	@Override
-	public void mostrar(Stage stage) {
+	public void mostrar(Scene scene) {
 		Label celebratoryLabel = new Label("clickme  ;)");
 		celebratoryLabel.setStyle("-fx-font-size: 60px;");
 
@@ -24,10 +24,11 @@ public class FinJuegoVista implements Vista {
 		StackPane stackPane = new StackPane(finishButton);
 		stackPane.setAlignment(Pos.CENTER);
 
-		var scene = new Scene(stackPane, 640, 480);
-		stage.setScene(scene);
-		stage.show();
+		scene.setRoot(stackPane);
 
-		finishButton.setOnAction(e -> stage.close());
+		finishButton.setOnAction(e -> {
+			Stage stage = (Stage) scene.getWindow();
+			stage.close();
+		});
 	}
 }

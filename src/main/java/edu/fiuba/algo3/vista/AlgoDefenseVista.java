@@ -6,30 +6,29 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class AlgoDefenseVista implements Observer, Vista {
 	private Vista nextVista;
-	private Stage ventana;
+	private Scene scene;
 
 	@Override
 	public void update() {
-		if (ventana != null) {
-			mostrar(ventana);
+		if (scene != null) {
+			mostrar(scene);
 		}
 	}
 
 	@Override
 	public void setNextVista(Vista nextVista) {
 		this.nextVista = nextVista;
-		if (ventana != null) {
-			mostrar(ventana);
+		if (scene != null) {
+			mostrar(scene);
 		}
 	}
 
 	@Override
-	public void mostrar(Stage stage) {
-		this.ventana = stage;
+	public void mostrar(Scene scene) {
+		this.scene = scene;
 
 		Label mapaLabel = new Label("Mapa");
 
@@ -39,14 +38,12 @@ public class AlgoDefenseVista implements Observer, Vista {
 			// ...
 
 			if (nextVista != null) {
-				nextVista.mostrar(stage);
+				nextVista.mostrar(scene);
 			}
 		});
 
 		VBox vbox = new VBox(mapaLabel, finishButton);
 		vbox.setAlignment(Pos.CENTER);
-		var scene = new Scene(vbox, 640, 480);
-		stage.setScene(scene);
-		stage.show();
+		scene.setRoot(vbox);
 	}
 }

@@ -1,9 +1,9 @@
 package edu.fiuba.algo3.vista;
 
-import javafx.stage.Stage;
+import javafx.scene.Scene;
 
 public interface Vista {
 	void setNextVista(Vista nextVista);
 
-	void mostrar(Stage stage);
+	void mostrar(Scene scene);
 }

@@ -7,7 +7,12 @@ import edu.fiuba.algo3.vista.AlgoDefenseVista;
 import edu.fiuba.algo3.vista.BienvenidoVista;
 import edu.fiuba.algo3.vista.FinJuegoVista;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
+import java.util.Objects;
 
 public class Main extends Application {
 
@@ -16,7 +21,13 @@ public class Main extends Application {
 	}
 
 	@Override
-	public void start(Stage stage) {
+	public void start(Stage primaryStage) {
+		String cssFile = Objects.requireNonNull(getClass().getClassLoader().getResource("styles.css")).toExternalForm();
+		Scene scene = new Scene(new StackPane(), 640, 480);
+		scene.getStylesheets().add(cssFile);
+		primaryStage.setScene(scene);
+		primaryStage.setTitle("AlgoDefense");
+
 		try {
 			BienvenidoVista bienvenidoVista = new BienvenidoVista();
 			AlgoDefenseVista algoDefenseVista = new AlgoDefenseVista();
@@ -27,9 +38,11 @@ public class Main extends Application {
 			AlgoDefense algoDefense = new AlgoDefense();
 			algoDefense.addObserver(algoDefenseVista);
 
-			bienvenidoVista.mostrar(stage);
+			bienvenidoVista.mostrar(scene);
+			primaryStage.show();
 		} catch (Exception | FormatoJSONInvalidoException e) {
 			e.printStackTrace();
+			Platform.exit();
 		}
 	}
 }
