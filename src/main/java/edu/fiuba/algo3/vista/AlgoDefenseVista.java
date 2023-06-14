@@ -30,7 +30,7 @@ public class AlgoDefenseVista implements Observer, Vista {
 	public void mostrar(Scene scene) {
 		this.scene = scene;
 
-		Label mapaLabel = new Label("Mapa");
+		Label mapaLabel = new Label("[INSERTE UN MAPA XD]️");
 
 		Button finishButton = new Button("Finish Game");
 		finishButton.setOnAction(e -> {

@@ -5,10 +5,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 public class BienvenidoVista implements Vista {
-
 	private Vista nextVista;
 
 	@Override
@@ -18,19 +18,23 @@ public class BienvenidoVista implements Vista {
 
 	@Override
 	public void mostrar(Scene scene) {
-		var label = new Label("Hola que hace");
-		var button = new Button("Next");
+		Label nameLabel = new Label("Nombre del jugador:");
+		TextField nameField = new TextField();
+		Button loginButton = new Button("Jugar ▶️");
 
-		VBox.setMargin(button, new Insets(20, 0, 0, 0)); // Add top margin to move the button down
+		VBox vbox = new VBox(nameLabel, nameField, loginButton);
+		vbox.setAlignment(Pos.CENTER);
+		vbox.setSpacing(10);
+		vbox.setPadding(new Insets(20));
 
-		button.setOnAction(e -> {
+		loginButton.setOnAction(e -> {
+			String playerName = nameField.getText();
+			System.out.println("Que onda perro, " + playerName + "!");
 			if (nextVista != null) {
 				nextVista.mostrar(scene);
 			}
 		});
 
-		var vbox = new VBox(label, button);
-		vbox.setAlignment(Pos.CENTER); // Align the VBox to the center
 		scene.setRoot(vbox);
 	}
 }
