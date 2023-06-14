@@ -95,14 +95,10 @@ public class AlgoDefense {
         }
 
     }
+
     public void ubicarDefensa(Defensa defensa, int absica, int ordenada) {
         ParcelaDeTierra parcelaSet = null;
-        Coordenada coordenadaset = new Coordenada(absica, ordenada);
-        for (Parcela parcela : mapa.getParcelas()) {
-            if (parcela.getCoordenada().equals(coordenadaset)) {
-                parcelaSet = (ParcelaDeTierra) parcela;
-            }
-        }
+        parcelaSet = (ParcelaDeTierra) this.mapa.obtenerParcelaConCoordenadas(absica, ordenada);
         parcelaSet.setDefensa(defensa);
         jugador1.agregarDefensa(parcelaSet);
     }

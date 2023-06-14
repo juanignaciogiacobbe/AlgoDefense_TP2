@@ -14,10 +14,11 @@ public class Lechuza implements Enemigo {
     private EstadoVida estadoDeVida;
     private Atacante atacante;
     private Trasladable trasladable;
+
     public Lechuza(ParcelaDePasarela pasarela) {
         this.estadoDeVida = new EstadoVivo(5);
         this.atacante = new DestructorDeDefensas();
-        this.trasladable = new Volador();
+        this.trasladable = new VoladorEnL(5,pasarela,estadoDeVida.getVida());
     }
 
     @Override
@@ -41,10 +42,19 @@ public class Lechuza implements Enemigo {
         this.trasladable = trasladable.moverse(mapa);
 
     }
+
     @Override
     public void recibirDanio(int puntosARecibir) {
+        this.estadoDeVida = this.estadoDeVida.recibirDanio(puntosARecibir);
+       //que actualize a el volador;
     }
+
     @Override
     public void recibirAtaque(Parcela parcelaDefensa, int rangoAtaque, int danio) throws EnemigoFueraDeRango {
+        if (!this.trasladable.getPasarelaActual().estaEnRango(parcelaDefensa, rangoAtaque)) {
+            throw new EnemigoFueraDeRango();
+        }
+        this.recibirDanio(danio);
     }
+
 }
