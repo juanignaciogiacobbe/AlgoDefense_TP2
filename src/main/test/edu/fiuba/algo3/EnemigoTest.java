@@ -44,7 +44,7 @@ public class EnemigoTest {
 	}
 
 	@Test
-	public void test04HormigaMuereAlRecolectarCreditosDaSusCreditos() throws EnemigoFueraDeRango {
+	public void test04HormigaMuereAlRecolectarCreditosDaSusCreditos() throws EnemigoFueraDeRango, EnemigoNoDaniable {
 		PasarelaComun pasarela = new PasarelaComun(1, 1);
 		Hormiga hormiga = new Hormiga(pasarela);
 		ParcelaDeTierra parcelaDefensa = new ParcelaDeTierra(1, 1);

@@ -15,6 +15,8 @@ public class Desplegado implements Desplegable {
 				enemigo.recibirAtaque(parcelaDefensa, rangoAtaque, danio);
 				return;
 			} catch (EnemigoFueraDeRango e) {
+			} catch (EnemigoNoDaniable e) {
+				throw new RuntimeException(e);
 			}
 		}
 		throw new EnemigosFueraDeRango();
