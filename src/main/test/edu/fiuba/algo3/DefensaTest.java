@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.defensas.TorreBlanca;
 import edu.fiuba.algo3.modelo.defensas.TorrePlateada;
 import edu.fiuba.algo3.modelo.enemigos.Arania;
 import edu.fiuba.algo3.modelo.enemigos.Lechuza;
+import edu.fiuba.algo3.modelo.enemigos.Topo;
 import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.juego.NombreInvalido;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
@@ -96,16 +97,44 @@ public class DefensaTest {
 	}
 
 	@Test
-	public void test08UnaLechuzaQuePasaPorUnaTrampaArenosaNoEsRealentizada() throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir {
+	public void test08UnaLechuzaQuePasaPorUnaTrampaArenosaNoEsRealentizada() throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, NombreInvalido {
+		Jugador jugador = new Jugador("Jugador");
+		TrampaArenosa defensa = new TrampaArenosa();
+
 		PasarelaComun pasarelaComun = new PasarelaComun(0, 1);
 		PasarelaComun pasarelaComun2 = new PasarelaComun(0, 2);
 		PasarelaMeta pasarelaMeta = new PasarelaMeta(0, 5);
 		List<Parcela> pasarelas = List.of(pasarelaComun, pasarelaComun2, pasarelaMeta);
 		Mapa mapa = new Mapa(pasarelas);
 		mapa.setMeta(pasarelaMeta);
+
+		assertDoesNotThrow(() -> jugador.construir(defensa, pasarelaComun));
+
 		Lechuza lechuza = new Lechuza(pasarelaComun);
 		lechuza.mover(mapa);
-		assertEquals(pasarelaMeta.getCoordenada(), lechuza.getPasarelaActual().getCoordenada());
 		assertNotEquals(pasarelaComun2.getCoordenada(), lechuza.getPasarelaActual().getCoordenada());
+	}
+
+	@Test
+	public void test09UnTopoQuePasaPorUnaTrampaArenosaEsRealentizado() throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, NombreInvalido {
+		Jugador jugador = new Jugador("Jugador");
+		TrampaArenosa defensa = new TrampaArenosa();
+		PasarelaComun pasarelaComun1 = new PasarelaComun(0, 1);
+		PasarelaComun pasarelaComun2 = new PasarelaComun(0, 2);
+		PasarelaComun pasarelaComun3 = new PasarelaComun(0, 3);
+		PasarelaComun pasarelaComun4 = new PasarelaComun(0, 4);
+		PasarelaComun pasarelaComun5 = new PasarelaComun(0, 5);
+		PasarelaMeta pasarelaMeta = new PasarelaMeta(0, 6);
+		List<Parcela> pasarelas = List.of(pasarelaComun1, pasarelaComun2, pasarelaComun3, pasarelaComun4, pasarelaComun5, pasarelaMeta);
+		Mapa mapa = new Mapa(pasarelas);
+		mapa.setMeta(pasarelaMeta);
+
+		assertDoesNotThrow(() -> jugador.construir(defensa, pasarelaComun5));
+
+		Topo topo = new Topo(pasarelaComun1);
+		for (int i = 0; i < 5; i++) {
+			topo.mover(mapa);
+		}
+		assertEquals(pasarelaMeta.getCoordenada(), topo.getPasarelaActual().getCoordenada());
 	}
 }
