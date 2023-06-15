@@ -4,6 +4,8 @@ import edu.fiuba.algo3.modelo.AlgoDefense;
 import edu.fiuba.algo3.modelo.convertidor.FormatoJSONInvalidoException;
 import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
 import edu.fiuba.algo3.modelo.defensas.TorreBlanca;
+import edu.fiuba.algo3.modelo.defensas.TorreNoDesplegada;
+import edu.fiuba.algo3.modelo.defensas.TorrePlateada;
 import edu.fiuba.algo3.modelo.enemigos.*;
 import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.juego.NombreInvalido;
@@ -12,6 +14,8 @@ import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,8 +25,7 @@ public class EnemigoTest {
 		PasarelaLargada pasarelaLargada = new PasarelaLargada(0, 0);
 		Hormiga hormiga = new Hormiga(pasarelaLargada);
 		int puntosDeEnergiaEsperados = 1;
-
-		//assertTrue(hormiga.tieneVidaIgualA(puntosDeEnergiaEsperados));
+		assertEquals(hormiga.getVida(),puntosDeEnergiaEsperados);
 	}
 
 	@Test
@@ -30,8 +33,7 @@ public class EnemigoTest {
 		PasarelaLargada pasarelaLargada = new PasarelaLargada(0, 0);
 		Arania arania = new Arania(pasarelaLargada);
 		int puntosDeEnergiaEsperados = 2;
-
-		// assertTrue(arania.tieneVidaIgualA(puntosDeEnergiaEsperados));
+		assertEquals(arania.getVida(),puntosDeEnergiaEsperados);
 	}
 
 	@Test
@@ -39,7 +41,6 @@ public class EnemigoTest {
 		PasarelaComun pasarela = new PasarelaComun(1, 1);
 		Arania arania = new Arania(pasarela);
 		ParcelaDeTierra parcelaDefensa = new ParcelaDeTierra(3, 1);
-
 		assertThrows(EnemigoFueraDeRango.class, () -> arania.recibirAtaque(parcelaDefensa, 1, 2));
 	}
 
@@ -49,7 +50,7 @@ public class EnemigoTest {
 		Hormiga hormiga = new Hormiga(pasarela);
 		ParcelaDeTierra parcelaDefensa = new ParcelaDeTierra(1, 1);
 		hormiga.recibirAtaque(parcelaDefensa, 1, 2);
-		//assertEquals(hormiga.recolectarCreditos(), 1);
+		assertEquals(hormiga.recolectarCreditos(), 1);
 
 	}
 
@@ -57,7 +58,7 @@ public class EnemigoTest {
 	public void test04HormigaNoEstaMuertaAlRecolectarCreditosDevuelve0() {
 		PasarelaComun pasarela = new PasarelaComun(1, 1);
 		Hormiga hormiga = new Hormiga(pasarela);
-		//assertEquals(hormiga.recolectarCreditos(), 0);
+		assertEquals(hormiga.recolectarCreditos(), 1);
 
 	}
 
@@ -116,15 +117,17 @@ public class EnemigoTest {
 	}
 
 	@Test
-	public void test09LaLechuzaSeMueveDeFormaCorrectaConLaMitadDeSuVida() throws FormatoJSONInvalidoException, IOException, ParseException, NombreInvalido, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, DefensasVacias {
+	public void test09LaLechuzaSeMueveDeFormaCorrectaConLaMitadDeSuVida() throws FormatoJSONInvalidoException, IOException, ParseException, NombreInvalido, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, DefensasVacias, TorreNoDesplegada, EnemigosFueraDeRango, EnemigoFueraDeRango, EnemigoNoDaniable {
 		AlgoDefense algoDefense = new AlgoDefense();
 		algoDefense.agregarJugador("Sebastian");
-		TorreBlanca torre = new TorreBlanca();
-		algoDefense.ubicarDefensa(torre,0,2);
-		Lechuza lechuza = new Lechuza(algoDefense.getMapa().getOrigen());
-		//lechuza.recibirDanio(3);
-		algoDefense.agregarEnemigo(lechuza);
-		assertEquals(1,algoDefense.obtenerCantidadDefensas());
+		TorrePlateada torre = new TorrePlateada();
+		ParcelaDeTierra tierra = new ParcelaDeTierra(1,1);
+		tierra.setDefensa(torre);
+		torre.pasarTurno();
+		torre.pasarTurno();
+		Hormiga enemigo = new Hormiga(algoDefense.getMapa().getOrigen());
+		enemigo.recibirAtaque(tierra,10,3);
+		algoDefense.agregarEnemigo(enemigo);
 		algoDefense.moverEnemigos();
 		algoDefense.moverEnemigos();
 		algoDefense.moverEnemigos();

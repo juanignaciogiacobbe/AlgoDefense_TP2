@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.enemigos;
 
+import edu.fiuba.algo3.modelo.CustomLogger;
 import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
 import edu.fiuba.algo3.modelo.estados.EstadoVida;
 import edu.fiuba.algo3.modelo.estados.EstadoVivo;
@@ -20,11 +21,14 @@ public class Arania implements Enemigo {
 
 	private Daniable daniable;
 
+	private CustomLogger logger;
+
 	public Arania(ParcelaDePasarela pasarela) {
 		this.creditos = obtenerCreditosRandom();
 		this.trasladable = new Caminante(2, pasarela);
 		this.atacante = new AtacanteDeJugador(2);
 		this.daniable = new Atacable(2);
+		this.logger = CustomLogger.getInstance();
 	}
 
 	private int obtenerCreditosRandom() {
@@ -34,6 +38,7 @@ public class Arania implements Enemigo {
 
 	@Override
 	public void atacar(Jugador jugador) throws DefensasVacias {
+		logger.log(this.getNombre() + " llego a la meta ,Produce " + this.getDanio() + " puntos de daño");
 		this.atacante.atacar(jugador);
 	}
 	public ParcelaDePasarela getPasarelaActual() {
@@ -56,6 +61,16 @@ public class Arania implements Enemigo {
 
 	public void recibirAtaque(Parcela parcelaDefensa, int rangoAtaque, int danio) throws EnemigoFueraDeRango, EnemigoNoDaniable {
 		this.daniable.recibirAtaque(parcelaDefensa, rangoAtaque, danio, this.trasladable.getPasarelaActual());
+	}
+
+	@Override
+	public String getNombre() {
+		return "Arania";
+	}
+
+	@Override
+	public int getDanio() {
+		return this.atacante.getDanio();
 	}
 
 	@Override

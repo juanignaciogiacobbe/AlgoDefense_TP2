@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.enemigos;
 
+import edu.fiuba.algo3.modelo.CustomLogger;
 import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
 import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
@@ -15,14 +16,18 @@ public class Lechuza implements Enemigo {
 
     private Daniable daniable;
 
+    private CustomLogger logger;
+
     public Lechuza(ParcelaDePasarela pasarela) {
         this.atacante = new DestructorDeDefensas();
         this.trasladable = new VoladorEnL(5, pasarela);
         this.daniable = new Atacable(5);
+        this.logger = CustomLogger.getInstance();
     }
 
     @Override
     public void atacar(Jugador jugador) throws DefensasVacias {
+        logger.log(this.getNombre() + "llego a la meta ,Elimino una torre");
         this.atacante.atacar(jugador);
     }
     public Parcela getPasarelaActual() {
@@ -45,6 +50,16 @@ public class Lechuza implements Enemigo {
             this.trasladable = new VoladorEnRecta(5, this.getPasarelaActual());
         }
 
+    }
+
+    @Override
+    public String getNombre() {
+        return "Lechuza";
+    }
+
+    @Override
+    public int getDanio() {
+        return this.atacante.getDanio();
     }
 
 }

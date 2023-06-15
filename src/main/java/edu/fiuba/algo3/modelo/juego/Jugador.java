@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.juego;
 
+import edu.fiuba.algo3.modelo.CustomLogger;
 import edu.fiuba.algo3.modelo.defensas.Defensa;
 import edu.fiuba.algo3.modelo.parcelas.ParcelaDeTierra;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaConstruir;
@@ -17,6 +18,10 @@ public class Jugador {
 	private List<Parcela> defensas = new LinkedList<>();
 	private EstadoVida estadoDeVida;
 
+	private CustomLogger logger;
+
+
+
 	public Jugador(String nombre) throws NombreInvalido {
 		this.creditos = new Creditos(100);
 		if (nombre.length() < 6) {
@@ -24,6 +29,7 @@ public class Jugador {
 		}
 		this.nombre = nombre;
 		this.estadoDeVida = new EstadoVivo(20);
+		this.logger = CustomLogger.getInstance();
 	}
 
 	public List<Parcela> getDefensas() {
@@ -51,6 +57,8 @@ public class Jugador {
 		try {
 			parcela.construir(defensa);
 			defensas.add(parcela);
+			logger.log("El jugador construyo una " + defensa.getNombre() + " en la posicion (" + parcela.getCoordenada().getAbscisa()
+			+ "," + parcela.getCoordenada().getOrdenada() + ")" );
 		} catch (TerrenoNoAptoParaConstruir e) {
 			this.creditos.agregarCreditos(defensa.getCostoConstruccion());
 			throw new TerrenoNoAptoParaConstruir();

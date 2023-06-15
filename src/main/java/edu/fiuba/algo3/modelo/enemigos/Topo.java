@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.enemigos;
 
+import edu.fiuba.algo3.modelo.CustomLogger;
 import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
 import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
@@ -14,13 +15,17 @@ public class Topo implements Enemigo {
 
     private Daniable daniable;
 
+    private CustomLogger logger;
+
     public Topo(ParcelaDePasarela pasarela) {
         this.trasladable = new BajoTierra(1, pasarela, 0);
         this.atacante = new AtacanteDeJugador(2);
         this.daniable = new NoDaniable();
+        this.logger = CustomLogger.getInstance();
     }
 
     public void atacar(Jugador jugador) throws DefensasVacias {
+        logger.log(this.getNombre() + " llego a la meta ,Produce " + this.getDanio() + " puntos de daño");
         this.atacante.atacar(jugador);
     }
     public ParcelaDePasarela getPasarelaActual() {
@@ -38,5 +43,15 @@ public class Topo implements Enemigo {
     @Override
     public void recibirAtaque(Parcela parcelaDefensa, int rangoAtaque, int danio) throws EnemigoFueraDeRango, EnemigoNoDaniable {
         this.daniable.recibirAtaque(parcelaDefensa, rangoAtaque, danio, this.trasladable.getPasarelaActual());
+    }
+
+    @Override
+    public String getNombre() {
+        return "Topo";
+    }
+
+    @Override
+    public int getDanio() {
+        return this.atacante.getDanio();
     }
 }

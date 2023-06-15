@@ -21,6 +21,11 @@ public class TrampaArenosa extends Defensa {
 		//super.atacar(enemigos, parcelaDefensa);
 	}
 
+	@Override
+	public String getNombre() {
+		return "Trampa Arenosa";
+	}
+
 	public ParcelaDePasarela ralentizar(int distancia, Mapa mapa, PasarelaComun pasarela) {
 		return mapa.obtenerPasarelasEnRango(pasarela, (int) Math.ceil((double) distancia / 2));
 	}

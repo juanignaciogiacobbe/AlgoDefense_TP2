@@ -14,4 +14,9 @@ public class DestructorDeDefensas implements Atacante {
 
         }
     }
+
+    @Override
+    public int getDanio() {
+        return 0;
+    }
 }

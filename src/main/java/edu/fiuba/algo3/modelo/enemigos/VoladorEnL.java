@@ -63,7 +63,6 @@ public class VoladorEnL implements Trasladable {
             }
         }
 
-        System.out.println("Se mueve a " + parcelaActualX +"," + parcelaActualY);
         return mapa.obtenerParcelaConCoordenadas(parcelaActualX, parcelaActualY);
     }
 

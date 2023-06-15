@@ -34,7 +34,6 @@ public class VoladorEnRecta implements Trasladable {
     }
 
     public Parcela volarEnLineaRecta(Mapa mapa) {
-
         int parcelaActualX = this.getPasarelaActual().getCoordenada().getAbscisa();
         int parcelaActualY = this.getPasarelaActual().getCoordenada().getOrdenada();
         int metaX = mapa.getMeta().getCoordenada().getAbscisa();
@@ -57,7 +56,6 @@ public class VoladorEnRecta implements Trasladable {
                 }
             }
         }
-        System.out.println("Se mueve a " + parcelaActualX + "," + parcelaActualY);
         return mapa.obtenerParcelaConCoordenadas(parcelaActualX, parcelaActualY);
 
     }

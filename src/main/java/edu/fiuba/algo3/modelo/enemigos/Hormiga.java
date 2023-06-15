@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.enemigos;
 
+import edu.fiuba.algo3.modelo.CustomLogger;
 import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
 import edu.fiuba.algo3.modelo.estados.EstadoVida;
 import edu.fiuba.algo3.modelo.estados.EstadoVivo;
@@ -17,16 +18,20 @@ public class Hormiga implements Enemigo {
 
 	private Daniable daniable;
 
+	private CustomLogger logger;
+
 	public Hormiga(ParcelaDePasarela pasarela) {
 		this.creditos = 1;
 		this.trasladable = new Caminante(1, pasarela);
 		this.atacante = new AtacanteDeJugador(1);
 		this.daniable = new Atacable(1);
+		this.logger =  CustomLogger.getInstance();
 	}
 
 	@Override
 	public void atacar(Jugador jugador) throws DefensasVacias {
-		atacante.atacar(jugador);
+		logger.log(this.getNombre() + " llego a la meta ,Produce " + this.getDanio() + " puntos de daño");
+		this.atacante.atacar(jugador);
 	}
 
 	public void mover(Mapa mapa) throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
@@ -50,8 +55,14 @@ public class Hormiga implements Enemigo {
 		this.daniable.recibirAtaque(parcelaDefensa, rangoAtaque, danio, this.trasladable.getPasarelaActual());
 	}
 
-	public int obtenerCreditos() {
-		return this.creditos;
+	@Override
+	public String getNombre() {
+		return "Hormiga";
+	}
+
+	@Override
+	public int getDanio() {
+		return this.atacante.getDanio();
 	}
 
 	public int recolectarCreditos() {

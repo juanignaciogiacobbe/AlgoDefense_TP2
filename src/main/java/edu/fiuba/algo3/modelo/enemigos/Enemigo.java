@@ -19,4 +19,8 @@ public interface Enemigo {
 	public void atacar(Jugador jugador) throws DefensasVacias;
 
 	public void recibirAtaque(Parcela parcelaDefensa, int rangoAtaque, int danio) throws EnemigoFueraDeRango, EnemigoNoDaniable;
+
+	public String getNombre();
+
+	public int getDanio();
 }

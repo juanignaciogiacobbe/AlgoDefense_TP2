@@ -48,5 +48,6 @@ public abstract class Parcela {
 		}
 		return pasarelasEnRango;
 	}
+
 }
 

@@ -33,6 +33,8 @@ public class AlgoDefense implements Observable {
 	private List<ParcelaDeTierra> defensas;
 	private final ArrayList<Observer> observers = new ArrayList<>();
 
+	private CustomLogger logger;
+
 	private int turnos;
 
 	public AlgoDefense(Mapa mapa, List<Enemigo> enemigos) {
@@ -48,6 +50,7 @@ public class AlgoDefense implements Observable {
 		this.mapa = convertidor.cargarMapa();
 		this.enemigos = new ArrayList<>();
 		this.defensas = new ArrayList<>();
+		this.logger =  CustomLogger.getInstance();
 	}
 
 	public void siguienteTurno() {
@@ -77,8 +80,10 @@ public class AlgoDefense implements Observable {
 	public String finDelJuego() {
 
 		if (jugador1.estaMuerto() || enemigos.isEmpty()) {
+			logger.log("Computadora gana la partida");
 			return "Computadora";
 		}
+		logger.log(jugador1.getNombre() + " gana la partida");
 		return jugador1.getNombre();
 
 	}

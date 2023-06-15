@@ -9,13 +9,18 @@ import java.util.List;
 
 public abstract class Defensa {
 
+	protected String nombre;
+
 	protected int costoConstruccion;
 
 	protected int danio;
+
 	protected int rangoAtaque;
 	protected int turnosRestantesParaDespliegue;
 
 	protected Desplegable desplegable;
+
+
 
 	public int getCostoConstruccion() {
 		return costoConstruccion;
@@ -33,4 +38,7 @@ public abstract class Defensa {
 	public void pasarTurno() {
 		this.desplegable = this.desplegable.pasarTurno();
 	}
+
+
+	public abstract String getNombre();
 }
