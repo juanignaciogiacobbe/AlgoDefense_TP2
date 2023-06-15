@@ -4,11 +4,7 @@ import edu.fiuba.algo3.modelo.AlgoDefense;
 import edu.fiuba.algo3.modelo.convertidor.FormatoJSONInvalidoException;
 import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
 import edu.fiuba.algo3.modelo.defensas.TorreBlanca;
-import edu.fiuba.algo3.modelo.enemigos.Arania;
-import edu.fiuba.algo3.modelo.enemigos.EnemigoFueraDeRango;
-import edu.fiuba.algo3.modelo.enemigos.Hormiga;
-import edu.fiuba.algo3.modelo.enemigos.Lechuza;
-import edu.fiuba.algo3.modelo.enemigos.Topo;
+import edu.fiuba.algo3.modelo.enemigos.*;
 import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.juego.NombreInvalido;
 import edu.fiuba.algo3.modelo.parcelas.*;
@@ -80,7 +76,7 @@ public class EnemigoTest {
 	}
 
 	@Test
-	public void test06CreoUnTopoYVerificoQueSeCreaCorrectamente() {
+	public void test06CreoUnTopoYAlAtacarloNoRecibeDanio() {
 		PasarelaLargada pasarelaLargada = new PasarelaLargada(0, 0);
 		Topo topo = new Topo(pasarelaLargada);
 	}

@@ -21,5 +21,5 @@ public interface Enemigo {
 
 	public void recibirDanio(int puntosARecibir);
 
-	public void recibirAtaque(Parcela parcelaDefensa, int rangoAtaque, int danio) throws EnemigoFueraDeRango;
+	public void recibirAtaque(Parcela parcelaDefensa, int rangoAtaque, int danio) throws EnemigoFueraDeRango, EnemigoNoDaniable;
 }

@@ -16,11 +16,14 @@ public class Hormiga implements Enemigo {
 	private int creditos;
 	private Trasladable trasladable;
 
+	private Daniable daniable;
+
 	public Hormiga(ParcelaDePasarela pasarela) {
 		this.creditos = 1;
 		this.estadoDeVida = new EstadoVivo(1);
 		this.trasladable = new Caminante(1, pasarela);
 		this.atacante = new AtacanteDeJugador(1);
+		this.daniable = new Atacable();
 	}
 	@Override
 	public void atacar(Jugador jugador) throws DefensasVacias {
@@ -30,10 +33,6 @@ public class Hormiga implements Enemigo {
 	public void mover(Mapa mapa) throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
 		this.trasladable = trasladable.moverse(mapa);
 
-	}
-
-	public void recibirDanio(int puntosARecibir) {
-		this.estadoDeVida = this.estadoDeVida.recibirDanio(puntosARecibir);
 	}
 
 	public boolean puedeMoverseA(Parcela parcela) {
@@ -52,7 +51,11 @@ public class Hormiga implements Enemigo {
 		return estadoDeVida.getVida();
 	}
 
-	public void recibirAtaque(Parcela parcelaDefensa, int rangoAtaque, int danio) throws EnemigoFueraDeRango {
+	public void recibirDanio(int puntosARecibir) {
+		this.estadoDeVida = this.estadoDeVida.recibirDanio(puntosARecibir);
+	}
+
+	public void recibirAtaque(Parcela parcelaDefensa, int rangoAtaque, int danio) throws EnemigoFueraDeRango, EnemigoNoDaniable {
 		if (!this.trasladable.getPasarelaActual().estaEnRango(parcelaDefensa, rangoAtaque)) {
 			throw new EnemigoFueraDeRango();
 		}

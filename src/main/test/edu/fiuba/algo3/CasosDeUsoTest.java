@@ -135,11 +135,12 @@ public class CasosDeUsoTest {
 		AlgoDefense algoDefense = new AlgoDefense();
 		algoDefense.agregarJugador("Sebastian");
 		Arania arania = new Arania(algoDefense.getMapa().getOrigen());
+
 		algoDefense.agregarEnemigo(arania);
 		for (int i = 0; i < 12; i++) { // en el turno 12 se llega a la meta en 10,14
 			algoDefense.moverEnemigos();
 		}
-		assertTrue(arania.getPasarelaActual() instanceof PasarelaMeta);
+		assertEquals(arania.getPasarelaActual().getCoordenada(), algoDefense.getMapa().getMeta().getCoordenada());
 	}
 
 	@Test

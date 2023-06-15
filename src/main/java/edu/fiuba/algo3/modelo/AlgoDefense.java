@@ -33,9 +33,12 @@ public class AlgoDefense {
 
     private List<ParcelaDeTierra> defensas;
 
+    private int turnos;
+
     public AlgoDefense(Mapa mapa, List<Enemigo> enemigos) {
         this.mapa = mapa;
         this.enemigos = enemigos;
+        this.turnos = 0;
     }
 
     public AlgoDefense() throws IOException, ParseException, FormatoJSONInvalidoException {
