@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.defensas;
 
-public class TorrePlateada extends Defensa {
+public class TorrePlateada extends Torre {
 
 	public TorrePlateada() {
 		this.rangoAtaque = 5;

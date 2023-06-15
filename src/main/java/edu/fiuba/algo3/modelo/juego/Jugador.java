@@ -6,6 +6,7 @@ import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaConstruir;
 import edu.fiuba.algo3.modelo.estados.EstadoVida;
 import edu.fiuba.algo3.modelo.estados.EstadoVivo;
 import edu.fiuba.algo3.modelo.parcelas.Parcela;
+import edu.fiuba.algo3.modelo.parcelas.TrampaArenosa;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -50,7 +51,9 @@ public class Jugador {
 		this.creditos.consumirPuntos(defensa.getCostoConstruccion());
 		try {
 			parcela.construir(defensa);
-			defensas.add(parcela);
+			if (! (defensa instanceof TrampaArenosa)) {
+				defensas.add(parcela);
+			}
 		} catch (TerrenoNoAptoParaConstruir e) {
 			this.creditos.agregarCreditos(defensa.getCostoConstruccion());
 			throw new TerrenoNoAptoParaConstruir();

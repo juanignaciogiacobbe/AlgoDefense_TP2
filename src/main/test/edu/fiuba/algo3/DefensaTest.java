@@ -1,5 +1,7 @@
 package edu.fiuba.algo3;
 
+import edu.fiuba.algo3.modelo.AlgoDefense;
+import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
 import edu.fiuba.algo3.modelo.defensas.TorreBlanca;
 import edu.fiuba.algo3.modelo.defensas.TorrePlateada;
 import edu.fiuba.algo3.modelo.enemigos.Arania;
@@ -136,5 +138,71 @@ public class DefensaTest {
 			topo.mover(mapa);
 		}
 		assertEquals(pasarelaMeta.getCoordenada(), topo.getPasarelaActual().getCoordenada());
+	}
+
+	@Test
+	public void test10TrasDosTurnosLaTrampaArenosaRalentiza() throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, NombreInvalido, DefensasVacias {
+		TrampaArenosa defensa = new TrampaArenosa();
+		PasarelaComun pasarelaComun1 = new PasarelaComun(0, 1);
+		PasarelaComun pasarelaComun2 = new PasarelaComun(0, 2);
+		PasarelaMeta pasarelaMeta = new PasarelaMeta(0, 3);
+		List<Parcela> pasarelas = List.of(pasarelaComun1, pasarelaComun2, pasarelaMeta);
+		Mapa mapa = new Mapa(pasarelas);
+		mapa.setMeta(pasarelaMeta);
+
+		AlgoDefense algoDefense = new AlgoDefense(mapa);
+		algoDefense.agregarJugador("Jugador");
+		algoDefense.ubicarTrampa(defensa, pasarelaComun1);
+
+		Arania arania1 = new Arania(pasarelaComun1);
+		algoDefense.agregarEnemigo(arania1);
+		algoDefense.moverEnemigos();
+
+		Arania arania2 = new Arania(pasarelaComun1);
+		algoDefense.agregarEnemigo(arania2);
+		algoDefense.moverEnemigos();
+
+		Arania arania3 = new Arania(pasarelaComun1);
+		algoDefense.agregarEnemigo(arania3);
+		algoDefense.moverEnemigos();
+
+		assertEquals(pasarelaComun2.getCoordenada(), arania3.getPasarelaActual().getCoordenada());
+
+
+	}
+
+	@Test
+	public void test11TrasTresTurnosLaTrampaArenosaNoRalentiza() throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, NombreInvalido, DefensasVacias {
+		TrampaArenosa defensa = new TrampaArenosa();
+		PasarelaComun pasarelaComun1 = new PasarelaComun(0, 1);
+		PasarelaComun pasarelaComun2 = new PasarelaComun(0, 2);
+		PasarelaMeta pasarelaMeta = new PasarelaMeta(0, 3);
+		List<Parcela> pasarelas = List.of(pasarelaComun1, pasarelaComun2, pasarelaMeta);
+		Mapa mapa = new Mapa(pasarelas);
+		mapa.setMeta(pasarelaMeta);
+		AlgoDefense algoDefense = new AlgoDefense(mapa);
+		algoDefense.agregarJugador("Jugador");
+		algoDefense.ubicarTrampa(defensa, pasarelaComun1);
+
+
+		Arania arania1 = new Arania(pasarelaComun1);
+		algoDefense.agregarEnemigo(arania1);
+		algoDefense.moverEnemigos();
+
+		Arania arania2 = new Arania(pasarelaComun1);
+		algoDefense.agregarEnemigo(arania2);
+		algoDefense.moverEnemigos();
+
+		Arania arania3 = new Arania(pasarelaComun1);
+		algoDefense.agregarEnemigo(arania3);
+		algoDefense.moverEnemigos();
+
+		Arania arania4 = new Arania(pasarelaComun1);
+		algoDefense.agregarEnemigo(arania4);
+		algoDefense.moverEnemigos();
+
+		assertEquals(pasarelaMeta.getCoordenada(), arania4.getPasarelaActual().getCoordenada());
+
+
 	}
 }

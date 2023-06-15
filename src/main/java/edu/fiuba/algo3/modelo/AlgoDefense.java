@@ -3,15 +3,14 @@ package edu.fiuba.algo3.modelo;
 import edu.fiuba.algo3.modelo.convertidor.*;
 import edu.fiuba.algo3.modelo.defensas.Defensa;
 import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
+import edu.fiuba.algo3.modelo.defensas.Torre;
 import edu.fiuba.algo3.modelo.defensas.TorreNoDesplegada;
 import edu.fiuba.algo3.modelo.enemigos.Enemigo;
 import edu.fiuba.algo3.modelo.enemigos.EnemigosFueraDeRango;
 import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.juego.NombreInvalido;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
-import edu.fiuba.algo3.modelo.parcelas.ParcelaDeTierra;
-import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaCaminar;
-import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaConstruir;
+import edu.fiuba.algo3.modelo.parcelas.*;
 import org.json.simple.parser.ParseException;
 
 import java.io.File;
@@ -46,6 +45,12 @@ public class AlgoDefense implements Observable {
 		FileReader reader = new FileReader(file);
 		ConvertidorMapa convertidor = new ConvertidorMapaImplementacion(reader);
 		this.mapa = convertidor.cargarMapa();
+		this.enemigos = new ArrayList<>();
+		this.defensas = new ArrayList<>();
+	}
+
+	public AlgoDefense(Mapa mapa) {
+		this.mapa = mapa;
 		this.enemigos = new ArrayList<>();
 		this.defensas = new ArrayList<>();
 	}
@@ -89,6 +94,7 @@ public class AlgoDefense implements Observable {
 		}
 
 		this.enemigos = this.mapa.getMeta().actualizarEnemigos(this.enemigos, jugador1);
+		this.mapa.pasarTurno();
 
 	}
 
@@ -116,11 +122,15 @@ public class AlgoDefense implements Observable {
 		jugador1.agregarDefensa(parcelaSet);
 	}
 
+	public void ubicarTrampa(TrampaArenosa trampa, PasarelaComun pasarela) throws TerrenoNoAptoParaConstruir {
+		pasarela.construir(trampa);
+	}
+
 
 	public void activarDefensas() throws TerrenoNoAptoParaCaminar, TorreNoDesplegada {
 		for (ParcelaDeTierra parcela : defensas) {
-			parcela.getDefensa().pasarTurno();//no desplegada
-			parcela.getDefensa().pasarTurno();//no desplegada
+			((Torre)parcela.getDefensa()).pasarTurno();//no desplegada
+			((Torre)parcela.getDefensa()).pasarTurno();//no desplegada
 			try {
 				parcela.getDefensa().atacar(enemigos, parcela);// desplegada
 			} catch (EnemigosFueraDeRango e) {

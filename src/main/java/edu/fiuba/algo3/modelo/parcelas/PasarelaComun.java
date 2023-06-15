@@ -10,6 +10,7 @@ public class PasarelaComun extends ParcelaDePasarela {
 
 	public PasarelaComun(int abscisa, int ordenada) {
 		super();
+		this.defensa = null;
 		this.construible = new ConstruibleTrampa();
 		this.coordenada = new Coordenada(abscisa, ordenada);
 	}
@@ -31,6 +32,12 @@ public class PasarelaComun extends ParcelaDePasarela {
 			return mapa.obtenerPasarelasEnRango(this, distancia);
 		}
 		return this.defensa.ralentizar(distancia, mapa, this);
+	}
+
+	@Override
+	public void pasarTurno() {
+		if (this.defensa == null) {return;}
+		this.defensa = this.defensa.pasarTurno();
 	}
 	@Override
 	public String toString() {
