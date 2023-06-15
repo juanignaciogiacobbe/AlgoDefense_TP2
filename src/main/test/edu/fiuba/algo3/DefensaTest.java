@@ -48,4 +48,12 @@ public class DefensaTest {
 		PasarelaComun pasarelaComun = new PasarelaComun(0, 3);
 		assertDoesNotThrow(() -> jugador.construir(trampaArenosa, pasarelaComun));
 	}
+	@Test
+	public void test05TrampaArenosaDebeCostar25Creditos() throws NombreInvalido {
+		Jugador jugador = new Jugador("Jugador");
+		TrampaArenosa trampaArenosa = new TrampaArenosa();
+		PasarelaComun pasarelaComun = new PasarelaComun(0, 3);
+		assertDoesNotThrow(() -> jugador.construir(trampaArenosa, pasarelaComun));
+		assertEquals(75, jugador.getCreditos());
+	}
 }
