@@ -57,4 +57,9 @@ public class Arania implements Enemigo {
 	public void recibirAtaque(Parcela parcelaDefensa, int rangoAtaque, int danio) throws EnemigoFueraDeRango, EnemigoNoDaniable {
 		this.daniable.recibirAtaque(parcelaDefensa, rangoAtaque, danio, this.trasladable.getPasarelaActual());
 	}
+
+	@Override
+	public String toString() {
+		return "A";
+	}
 }

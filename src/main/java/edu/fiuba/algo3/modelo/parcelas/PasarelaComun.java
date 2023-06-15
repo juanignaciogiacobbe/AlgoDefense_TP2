@@ -32,4 +32,8 @@ public class PasarelaComun extends ParcelaDePasarela {
 		}
 		return this.defensa.ralentizar(distancia, mapa, this);
 	}
+	@Override
+	public String toString() {
+		return "C";
+	}
 }

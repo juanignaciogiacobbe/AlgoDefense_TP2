@@ -25,4 +25,9 @@ public class ParcelaRocosa extends Parcela {
 	public void construir() throws TerrenoNoAptoParaConstruir {
 		construible.construir(null, null);
 	}
+
+	@Override
+	public String toString() {
+		return "R";
+	}
 }
