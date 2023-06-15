@@ -11,7 +11,6 @@ import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaCaminar;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaConstruir;
 
 public class Hormiga implements Enemigo {
-	private EstadoVida estadoDeVida;
 	private Atacante atacante;
 	private int creditos;
 	private Trasladable trasladable;
@@ -20,10 +19,9 @@ public class Hormiga implements Enemigo {
 
 	public Hormiga(ParcelaDePasarela pasarela) {
 		this.creditos = 1;
-		this.estadoDeVida = new EstadoVivo(1);
 		this.trasladable = new Caminante(1, pasarela);
 		this.atacante = new AtacanteDeJugador(1);
-		this.daniable = new Atacable();
+		this.daniable = new Atacable(1);
 	}
 	@Override
 	public void atacar(Jugador jugador) throws DefensasVacias {
@@ -35,10 +33,6 @@ public class Hormiga implements Enemigo {
 
 	}
 
-	public boolean puedeMoverseA(Parcela parcela) {
-		return (parcela.puedeMoverseAqui());
-	}
-
 	public ParcelaDePasarela getPasarelaActual() {
 		return (ParcelaDePasarela) trasladable.getPasarelaActual();
 	}
@@ -48,18 +42,11 @@ public class Hormiga implements Enemigo {
 	}
 
 	public int getVida() {
-		return estadoDeVida.getVida();
-	}
-
-	public void recibirDanio(int puntosARecibir) {
-		this.estadoDeVida = this.estadoDeVida.recibirDanio(puntosARecibir);
+		return daniable.getVida();
 	}
 
 	public void recibirAtaque(Parcela parcelaDefensa, int rangoAtaque, int danio) throws EnemigoFueraDeRango, EnemigoNoDaniable {
-		if (!this.trasladable.getPasarelaActual().estaEnRango(parcelaDefensa, rangoAtaque)) {
-			throw new EnemigoFueraDeRango();
-		}
-		this.recibirDanio(danio);
+		this.daniable.recibirAtaque(parcelaDefensa, rangoAtaque, danio, this.trasladable.getPasarelaActual());
 	}
 
 	public int obtenerCreditos() {
@@ -67,6 +54,6 @@ public class Hormiga implements Enemigo {
 	}
 
 	public int recolectarCreditos() {
-		return this.estadoDeVida.recolectarCreditos(this.creditos);
+		return this.creditos;
 	}
 }

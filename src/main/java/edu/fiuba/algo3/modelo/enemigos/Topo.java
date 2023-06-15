@@ -23,10 +23,6 @@ public class Topo implements Enemigo {
     public void atacar(Jugador jugador) throws DefensasVacias {
         this.atacante.atacar(jugador);
     }
-
-    public boolean puedeMoverseA(Parcela parcela) {
-        return (parcela.puedeMoverseAqui());
-    }
     public ParcelaDePasarela getPasarelaActual() {
         return (ParcelaDePasarela) trasladable.getPasarelaActual();
     }
@@ -38,12 +34,9 @@ public class Topo implements Enemigo {
     public void mover(Mapa mapa) throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
         this.trasladable = trasladable.moverse(mapa);
     }
-    @Override
-    public void recibirDanio(int puntosARecibir) {
 
-    }
     @Override
     public void recibirAtaque(Parcela parcelaDefensa, int rangoAtaque, int danio) throws EnemigoFueraDeRango, EnemigoNoDaniable {
-
+        this.daniable.recibirAtaque(parcelaDefensa, rangoAtaque, danio, this.trasladable.getPasarelaActual());
     }
 }

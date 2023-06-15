@@ -9,7 +9,6 @@ import edu.fiuba.algo3.modelo.parcelas.Parcela;
 import edu.fiuba.algo3.modelo.parcelas.ParcelaDePasarela;
 
 public interface Enemigo {
-	public boolean puedeMoverseA(Parcela parcela);
 
 	public Parcela getPasarelaActual();
 
@@ -18,8 +17,6 @@ public interface Enemigo {
 	public void mover(Mapa mapa) throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar;
 
 	public void atacar(Jugador jugador) throws DefensasVacias;
-
-	public void recibirDanio(int puntosARecibir);
 
 	public void recibirAtaque(Parcela parcelaDefensa, int rangoAtaque, int danio) throws EnemigoFueraDeRango, EnemigoNoDaniable;
 }

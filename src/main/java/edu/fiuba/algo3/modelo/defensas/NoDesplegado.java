@@ -16,8 +16,6 @@ public class NoDesplegado implements Desplegable {
 	@Override
 	public void atacar(List<Enemigo> enemigos, Parcela parcelaDefensa, int rangoAtaque, int danio) throws TorreNoDesplegada {
 		throw new TorreNoDesplegada();
-
-
 	}
 
 	public Desplegable pasarTurno() {

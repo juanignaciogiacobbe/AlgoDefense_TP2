@@ -19,7 +19,6 @@ public class Jugador {
 
 	public Jugador(String nombre) throws NombreInvalido {
 		this.creditos = new Creditos(100);
-		//this.vida = new Vida(20);
 		if (nombre.length() < 6) {
 			throw new NombreInvalido();
 		}
@@ -57,7 +56,6 @@ public class Jugador {
 			throw new TerrenoNoAptoParaConstruir();
 		}
 	}
-
 
 	public void recibirdanio(int danio) {
 		this.estadoDeVida = this.estadoDeVida.recibirDanio(danio);

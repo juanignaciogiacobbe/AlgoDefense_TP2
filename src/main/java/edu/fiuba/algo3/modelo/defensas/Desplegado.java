@@ -22,7 +22,6 @@ public class Desplegado implements Desplegable {
 		throw new EnemigosFueraDeRango();
 	}
 
-
 	public Desplegable pasarTurno() {
 		return this;
 	}

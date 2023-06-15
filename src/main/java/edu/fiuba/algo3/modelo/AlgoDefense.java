@@ -82,7 +82,6 @@ public class AlgoDefense {
 
     }
 
-
     public void agregarEnemigo(Enemigo enemigo) {
         enemigos.add(enemigo);
     }
