@@ -15,9 +15,6 @@ public abstract class Parcela {
 	protected Construible construible;
 	protected Movible movible;
 
-
-	public abstract boolean puedeMoverseAqui();
-
 	public Coordenada getCoordenada() {
 		return coordenada;
 	}

@@ -15,13 +15,9 @@ public class VoladorEnL implements Trasladable {
 
     private Parcela pasarelaActual;
 
-    private int vida;
-
-
-    public VoladorEnL(int velocidad, Parcela pasarelaActual,int vida) {
+    public VoladorEnL(int velocidad, Parcela pasarelaActual) {
         this.velocidad = velocidad;
         this.pasarelaActual = pasarelaActual;
-        this.vida = vida;
     }
 
     @Override

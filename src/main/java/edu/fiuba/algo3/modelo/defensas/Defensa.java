@@ -17,10 +17,6 @@ public abstract class Defensa {
 
 	protected Desplegable desplegable;
 
-	public boolean estaDesplegada() {
-		return (turnosRestantesParaDespliegue <= 0);
-	}
-
 	public int getCostoConstruccion() {
 		return costoConstruccion;
 	}
@@ -30,19 +26,11 @@ public abstract class Defensa {
 		return rangoAtaque;
 	}
 
-	public void atacarA(Enemigo enemigo) {
-		enemigo.recibirDanio(danio);
-	}
-
 	public void atacar(List<Enemigo> enemigos, Parcela parcelaDefensa) throws TerrenoNoAptoParaCaminar, TorreNoDesplegada, EnemigosFueraDeRango {
 		desplegable.atacar(enemigos, parcelaDefensa, rangoAtaque, danio);
 	}
 
 	public void pasarTurno() {
 		this.desplegable = this.desplegable.pasarTurno();
-	}
-
-	public boolean enemigoDentroDeRango(int distanciaAEnemigo) {
-		return (distanciaAEnemigo <= rangoAtaque);
 	}
 }
