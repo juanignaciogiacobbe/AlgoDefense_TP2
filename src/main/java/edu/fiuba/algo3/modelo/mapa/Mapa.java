@@ -20,6 +20,10 @@ public class Mapa {
 		this.parcelas = new ArrayList<>();
 	}
 
+	public Mapa(List<Parcela> parcelas) {
+		this.parcelas = parcelas;
+	}
+
 	public List<Parcela> getParcelas() {
 		return parcelas;
 	}

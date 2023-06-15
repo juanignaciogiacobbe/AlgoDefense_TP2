@@ -23,7 +23,6 @@ public class Atacable implements Daniable {
         }
         this.recibirDanio(danio);
     }
-
     public int getVida() {
         return this.estadoDeVida.getVida();
     }
