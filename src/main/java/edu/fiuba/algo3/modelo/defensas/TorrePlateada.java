@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.defensas;
 
-public class TorrePlateada extends Defensa {
+public class TorrePlateada extends Torre {
 
 	public TorrePlateada() {
 		this.nombre = "Torre Plateada";
@@ -9,10 +9,5 @@ public class TorrePlateada extends Defensa {
 		this.costoConstruccion = 20;
 		this.turnosRestantesParaDespliegue = 2;
 		this.desplegable = new NoDesplegado(2);
-	}
-
-	@Override
-	public String getNombre() {
-		return "TorrePlateada";
 	}
 }

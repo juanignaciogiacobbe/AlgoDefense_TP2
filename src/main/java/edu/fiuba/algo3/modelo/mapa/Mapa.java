@@ -77,6 +77,11 @@ public class Mapa {
 		return parcelaSet;
 	}
 
+	public void pasarTurno() {
+		for (Parcela parcela: parcelas) {
+			parcela.pasarTurno();
+		}
+	}
 }
 
 

@@ -4,41 +4,18 @@ import edu.fiuba.algo3.modelo.enemigos.Enemigo;
 import edu.fiuba.algo3.modelo.enemigos.EnemigosFueraDeRango;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaCaminar;
 import edu.fiuba.algo3.modelo.parcelas.Parcela;
+import edu.fiuba.algo3.modelo.parcelas.TrampaArenosa;
 
 import java.util.List;
 
-public abstract class Defensa {
+public interface Defensa {
 
-	protected String nombre;
-
-	protected int costoConstruccion;
-
-	protected int danio;
-
-	protected int rangoAtaque;
-	protected int turnosRestantesParaDespliegue;
-
-	protected Desplegable desplegable;
+	public int getCostoConstruccion();
 
 
+	public int getRangoAtaque();
 
-	public int getCostoConstruccion() {
-		return costoConstruccion;
-	}
+	public void atacar(List<Enemigo> enemigos, Parcela parcelaDefensa) throws TerrenoNoAptoParaCaminar, TorreNoDesplegada, EnemigosFueraDeRango;
 
-
-	public int getRangoAtaque() {
-		return rangoAtaque;
-	}
-
-	public void atacar(List<Enemigo> enemigos, Parcela parcelaDefensa) throws TerrenoNoAptoParaCaminar, TorreNoDesplegada, EnemigosFueraDeRango {
-		desplegable.atacar(enemigos, parcelaDefensa, rangoAtaque, danio);
-	}
-
-	public void pasarTurno() {
-		this.desplegable = this.desplegable.pasarTurno();
-	}
-
-
-	public abstract String getNombre();
+	public String getNombre();
 }

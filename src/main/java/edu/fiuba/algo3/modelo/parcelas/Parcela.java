@@ -49,5 +49,7 @@ public abstract class Parcela {
 		return pasarelasEnRango;
 	}
 
+	public void pasarTurno() {
+	}
 }
 
