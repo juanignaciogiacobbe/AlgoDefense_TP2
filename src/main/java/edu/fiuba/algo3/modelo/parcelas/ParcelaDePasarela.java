@@ -6,7 +6,6 @@ import edu.fiuba.algo3.modelo.mapa.Mapa;
 public abstract class ParcelaDePasarela extends Parcela {
 
 	public ParcelaDePasarela() {
-		construible = new NoConstruible();
 		movible = new Desplazable();
 	}
 
@@ -16,7 +15,6 @@ public abstract class ParcelaDePasarela extends Parcela {
 
 	public void construir(Defensa defensaAConstuir) throws TerrenoNoAptoParaConstruir {
 		construible.construir(defensaAConstuir, null);
-
 	}
 
 }

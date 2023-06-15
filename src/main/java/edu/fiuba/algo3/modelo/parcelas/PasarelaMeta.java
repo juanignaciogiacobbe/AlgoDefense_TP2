@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo.parcelas;
 
 
-import edu.fiuba.algo3.modelo.AlgoDefense;
 import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
 import edu.fiuba.algo3.modelo.enemigos.Enemigo;
 import edu.fiuba.algo3.modelo.juego.Jugador;
@@ -13,6 +12,7 @@ import java.util.List;
 public class PasarelaMeta extends ParcelaDePasarela {
 	public PasarelaMeta(int abscisa, int ordenada) {
 		super();
+		this.construible = new NoConstruible();
 		this.coordenada = new Coordenada(abscisa, ordenada);
 	}
 
