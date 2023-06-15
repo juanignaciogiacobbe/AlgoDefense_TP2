@@ -65,7 +65,7 @@ public class DefensaTest {
 	}
 
 	@Test
-	public void test06TrampaArenosaDeberiaEstarInmediatamenteDesplegadaLuegoDeConstruirse() throws NombreInvalido, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir {
+	public void test06EnemigoPasaPorUnaTrampaArenosaEsRalentizado() throws NombreInvalido, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir {
 		Jugador jugador = new Jugador("Jugador");
 		TrampaArenosa defensa = new TrampaArenosa();
 		PasarelaComun pasarelaComun = new PasarelaComun(0, 1);
@@ -79,5 +79,20 @@ public class DefensaTest {
 		Arania arania = new Arania(pasarelaComun);
 		arania.mover(mapa);
 		assertEquals(pasarelaComun2.getCoordenada(), arania.getPasarelaActual().getCoordenada());
+
+	}
+
+	@Test
+	public void test07EnemigoNoPasaPorUnaTrampaArenosaNoEsRalentizado() throws NombreInvalido, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir {
+		PasarelaComun pasarelaComun = new PasarelaComun(0, 1);
+		PasarelaComun pasarelaComun2 = new PasarelaComun(0, 2);
+		PasarelaMeta pasarelaMeta = new PasarelaMeta(0, 3);
+		List<Parcela> pasarelas = List.of(pasarelaComun, pasarelaComun2, pasarelaMeta);
+		Mapa mapa = new Mapa(pasarelas);
+		mapa.setMeta(pasarelaMeta);
+
+		Arania arania = new Arania(pasarelaComun);
+		arania.mover(mapa);
+		assertEquals(pasarelaMeta.getCoordenada(), arania.getPasarelaActual().getCoordenada());
 	}
 }
