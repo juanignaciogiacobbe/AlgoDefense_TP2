@@ -1,10 +1,7 @@
 package edu.fiuba.algo3.modelo.mapa;
 
 
-import edu.fiuba.algo3.modelo.parcelas.Parcela;
-import edu.fiuba.algo3.modelo.parcelas.ParcelaDePasarela;
-import edu.fiuba.algo3.modelo.parcelas.PasarelaLargada;
-import edu.fiuba.algo3.modelo.parcelas.PasarelaMeta;
+import edu.fiuba.algo3.modelo.parcelas.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +62,16 @@ public class Mapa {
 		return this.calcularParcelaConDistanciaMinimaALaMeta(pasarelasEnRango);
 	}
 
+	public Parcela obtenerParcelaConCoordenadas (int absica, int ordenada){
+		Coordenada coordenada = new Coordenada(absica,ordenada);
+		Parcela parcelaSet = null;
+		for (Parcela parcela : this.getParcelas()) {
+			if (parcela.getCoordenada().equals(coordenada)) {
+				 parcelaSet = parcela;
+			}
+		}
+		return parcelaSet;
+	}
 
 }
 

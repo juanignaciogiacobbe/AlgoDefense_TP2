@@ -10,10 +10,6 @@ public abstract class ParcelaDePasarela extends Parcela {
 		movible = new Desplazable();
 	}
 
-	public boolean puedeMoverseAqui() {
-		return true;
-	}
-
 	public ParcelaDePasarela mover(int distancia, Mapa mapa) throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
 		return mapa.obtenerPasarelasEnRango(this, distancia);
 	}

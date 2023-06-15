@@ -2,14 +2,13 @@ package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.convertidor.*;
 import edu.fiuba.algo3.modelo.defensas.Defensa;
+import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
 import edu.fiuba.algo3.modelo.defensas.TorreNoDesplegada;
 import edu.fiuba.algo3.modelo.enemigos.Enemigo;
 import edu.fiuba.algo3.modelo.enemigos.EnemigosFueraDeRango;
 import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.juego.NombreInvalido;
-import edu.fiuba.algo3.modelo.mapa.Coordenada;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
-import edu.fiuba.algo3.modelo.parcelas.Parcela;
 import edu.fiuba.algo3.modelo.parcelas.ParcelaDeTierra;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaCaminar;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaConstruir;
@@ -34,10 +33,12 @@ public class AlgoDefense implements Observable {
 	private List<ParcelaDeTierra> defensas;
 	private final ArrayList<Observer> observers = new ArrayList<>();
 
+	private int turnos;
+
 	public AlgoDefense(Mapa mapa, List<Enemigo> enemigos) {
 		this.mapa = mapa;
 		this.enemigos = enemigos;
-
+		this.turnos = 0;
 	}
 
 	public AlgoDefense() throws IOException, ParseException, FormatoJSONInvalidoException {
@@ -82,7 +83,7 @@ public class AlgoDefense implements Observable {
 
 	}
 
-	public void moverEnemigos() throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
+	public void moverEnemigos() throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, DefensasVacias {
 		for (Enemigo enemigo : enemigos) {
 			enemigo.mover(this.mapa);
 		}
@@ -90,7 +91,6 @@ public class AlgoDefense implements Observable {
 		this.enemigos = this.mapa.getMeta().actualizarEnemigos(this.enemigos, jugador1);
 
 	}
-
 
 	public void agregarEnemigo(Enemigo enemigo) {
 		enemigos.add(enemigo);
@@ -111,12 +111,7 @@ public class AlgoDefense implements Observable {
 
 	public void ubicarDefensa(Defensa defensa, int absica, int ordenada) {
 		ParcelaDeTierra parcelaSet = null;
-		Coordenada coordenadaset = new Coordenada(absica, ordenada);
-		for (Parcela parcela : mapa.getParcelas()) {
-			if (parcela.getCoordenada().equals(coordenadaset)) {
-				parcelaSet = (ParcelaDeTierra) parcela;
-			}
-		}
+		parcelaSet = (ParcelaDeTierra) this.mapa.obtenerParcelaConCoordenadas(absica, ordenada);
 		parcelaSet.setDefensa(defensa);
 		jugador1.agregarDefensa(parcelaSet);
 	}

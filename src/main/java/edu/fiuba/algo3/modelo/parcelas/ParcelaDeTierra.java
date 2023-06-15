@@ -16,12 +16,6 @@ public class ParcelaDeTierra extends Parcela {
 		this.defensa = null;
 
 	}
-
-
-	public boolean puedeMoverseAqui() {
-		return false;
-	}
-
 	public Defensa getDefensa() {
 		return defensa;
 	}

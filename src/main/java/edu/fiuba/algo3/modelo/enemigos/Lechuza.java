@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo.enemigos;
 
-import edu.fiuba.algo3.modelo.estados.EstadoVida;
-import edu.fiuba.algo3.modelo.estados.EstadoVivo;
+import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
 import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
 import edu.fiuba.algo3.modelo.parcelas.Parcela;
@@ -11,26 +10,23 @@ import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaConstruir;
 
 public class Lechuza implements Enemigo {
 
-    private EstadoVida estadoDeVida;
     private Atacante atacante;
     private Trasladable trasladable;
+
+    private Daniable daniable;
+
     public Lechuza(ParcelaDePasarela pasarela) {
-        this.estadoDeVida = new EstadoVivo(5);
         this.atacante = new DestructorDeDefensas();
-        this.trasladable = new Volador();
+        this.trasladable = new VoladorEnL(5, pasarela);
+        this.daniable = new Atacable(5);
     }
 
     @Override
-    public void atacar(Jugador jugador) {
+    public void atacar(Jugador jugador) throws DefensasVacias {
         this.atacante.atacar(jugador);
     }
-
-    public boolean puedeMoverseA(Parcela parcela) {
-        return (parcela.puedeMoverseAqui());
-    }
-
-    public ParcelaDePasarela getPasarelaActual() {
-        return (trasladable.getPasarelaActual());
+    public Parcela getPasarelaActual() {
+        return trasladable.getPasarelaActual();
     }
 
     public void setPasarelaActual(ParcelaDePasarela pasarela) {
@@ -41,10 +37,14 @@ public class Lechuza implements Enemigo {
         this.trasladable = trasladable.moverse(mapa);
 
     }
+
     @Override
-    public void recibirDanio(int puntosARecibir) {
+    public void recibirAtaque(Parcela parcelaDefensa, int rangoAtaque, int danio) throws EnemigoFueraDeRango, EnemigoNoDaniable {
+        this.daniable.recibirAtaque(parcelaDefensa, rangoAtaque, danio, this.trasladable.getPasarelaActual());
+        if (this.daniable.getVida() < 3 ){
+            this.trasladable = new VoladorEnRecta(5, this.getPasarelaActual());
+        }
+
     }
-    @Override
-    public void recibirAtaque(Parcela parcelaDefensa, int rangoAtaque, int danio) throws EnemigoFueraDeRango {
-    }
+
 }

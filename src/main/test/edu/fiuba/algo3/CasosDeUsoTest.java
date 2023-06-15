@@ -3,14 +3,12 @@ package edu.fiuba.algo3;
 import edu.fiuba.algo3.modelo.AlgoDefense;
 import edu.fiuba.algo3.modelo.CustomLogger;
 import edu.fiuba.algo3.modelo.convertidor.*;
+import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
+import edu.fiuba.algo3.modelo.enemigos.*;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaCaminar;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaConstruir;
 import edu.fiuba.algo3.modelo.defensas.TorreNoDesplegada;
 import edu.fiuba.algo3.modelo.defensas.TorrePlateada;
-import edu.fiuba.algo3.modelo.enemigos.Arania;
-import edu.fiuba.algo3.modelo.enemigos.Enemigo;
-import edu.fiuba.algo3.modelo.enemigos.EnemigosFueraDeRango;
-import edu.fiuba.algo3.modelo.enemigos.Hormiga;
 import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.juego.NombreInvalido;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
@@ -48,7 +46,6 @@ public class CasosDeUsoTest {
 		defensa.pasarTurno();
 		defensa.pasarTurno();
 		assertDoesNotThrow(() -> defensa.atacar(enemigos, parcelaDeTierra));
-
 	}
 
 	@Test
@@ -98,57 +95,63 @@ public class CasosDeUsoTest {
 	}
 
 	@Test
-	public void test06VerificoQueLasUnidadesEnemigasSonDaniadasAcordeAlAtaqueRecibido() {
+	public void test06VerificoQueLasUnidadesEnemigasSonDaniadasAcordeAlAtaqueRecibido() throws EnemigoFueraDeRango, EnemigoNoDaniable {
 		PasarelaLargada pasarelaLargada = new PasarelaLargada(0, 0);
+		ParcelaDeTierra tierra1 = new ParcelaDeTierra(1, 1);
+
 		Arania arania = new Arania(pasarelaLargada);
-		arania.recibirDanio(1);
+		arania.recibirAtaque(tierra1, 10, 1);
 		assertEquals(1, arania.getVida());
 	}
 
 	@Test
-	public void test07EnemigosCaminanPorTerrenoValido() {
-		PasarelaComun parcela2 = new PasarelaComun(1, 2);
-		ParcelaRocosa parcela3 = new ParcelaRocosa(1, 0);
+	public void test07EnemigosCaminanPorTerrenoValido() throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
+		Mapa mapa = new Mapa();
+		PasarelaMeta parcela1 = new PasarelaMeta(0, 1);
+		ParcelaRocosa parcela2 = new ParcelaRocosa(1, 0);
+		mapa.getParcelas().add(parcela1);
+		mapa.getParcelas().add(parcela2);
+		mapa.setMeta(parcela1);
 		PasarelaLargada pasarelaLargada = new PasarelaLargada(0, 0);
 		Arania arania = new Arania(pasarelaLargada);
-		assertTrue(arania.puedeMoverseA(parcela2));
-		assertFalse(arania.puedeMoverseA(parcela3));
+		arania.mover(mapa);
 
-
+		assertEquals(parcela1.getCoordenada(), arania.getPasarelaActual().getCoordenada());
 	}
 
 	@Test
-	public void test08JugadorObtieneCreditosAlDestruirEnemigo() throws NombreInvalido {
+	public void test08JugadorObtieneCreditosAlDestruirEnemigo() throws NombreInvalido, EnemigoFueraDeRango, EnemigoNoDaniable {
 		Jugador jugador = new Jugador("pepito");
-		TorrePlateada defensa = new TorrePlateada();
 		PasarelaLargada pasarelaLargada = new PasarelaLargada(0, 0);
 		Hormiga hormiga = new Hormiga(pasarelaLargada);
-		defensa.atacarA(hormiga);
+		hormiga.recibirAtaque(pasarelaLargada, 10, 100);
 		int creditos = hormiga.recolectarCreditos();
 		jugador.agregarCreditos(creditos);
 		assertEquals(jugador.getCreditos(), 101);
 	}
 
 	@Test
-	public void test09EnemigosSeMuevenPorMapa() throws IOException, ParseException, FormatoJSONInvalidoException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, NombreInvalido {
+	public void test09EnemigosSeMuevenPorMapa() throws IOException, ParseException, FormatoJSONInvalidoException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, NombreInvalido, DefensasVacias {
 		AlgoDefense algoDefense = new AlgoDefense();
 		algoDefense.agregarJugador("Sebastian");
 		Arania arania = new Arania(algoDefense.getMapa().getOrigen());
+
 		algoDefense.agregarEnemigo(arania);
 		for (int i = 0; i < 12; i++) { // en el turno 12 se llega a la meta en 10,14
 			algoDefense.moverEnemigos();
 		}
-		assertTrue(arania.getPasarelaActual() instanceof PasarelaMeta);
+		assertEquals(arania.getPasarelaActual().getCoordenada(), algoDefense.getMapa().getMeta().getCoordenada());
 	}
 
 	@Test
-	public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, FormatoJSONInvalidoException, IOException, ParseException {
+	public void test10AlEliminarTodasLasUnidaesEnemigasGanaElJugador() throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, FormatoJSONInvalidoException, IOException, ParseException, DefensasVacias, EnemigoFueraDeRango, EnemigoNoDaniable {
+		PasarelaLargada pasarelaLargada = new PasarelaLargada(0, 0);
 		AlgoDefense algoDefense = new AlgoDefense();
 		Mapa mapa = algoDefense.getMapa();
-		Enemigo enemigo = new Hormiga(mapa.getOrigen());
-		algoDefense.agregarEnemigo(enemigo);
-		TorrePlateada torre = new TorrePlateada();
-		torre.atacarA(enemigo);
+		Hormiga hormiga = new Hormiga(mapa.getOrigen());
+		hormiga.recibirAtaque(pasarelaLargada, 10, 100);
+
+		algoDefense.agregarEnemigo(hormiga);
 		assertDoesNotThrow(() -> algoDefense.agregarJugador("Mariana"));
 		algoDefense.moverEnemigos();
 		String ganador = algoDefense.finDelJuego();
@@ -156,16 +159,14 @@ public class CasosDeUsoTest {
 	}
 
 	@Test
-	public void test11NoSeEliminanTodasLasUnidaesEnemigasPeroNoAlcanzaElDanioGanaElJugador() throws NombreInvalido, IOException, ParseException, FormatoJSONInvalidoException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
+	public void test11NoSeEliminanTodasLasUnidaesEnemigasPeroNoAlcanzaElDanioGanaElJugador() throws NombreInvalido, IOException, ParseException, FormatoJSONInvalidoException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, DefensasVacias {
 		AlgoDefense algoDefense = new AlgoDefense();
 		algoDefense.agregarJugador("Mariana");
 		Mapa mapa = algoDefense.getMapa();
-		Enemigo enemigo = new Hormiga(mapa.getOrigen());
-		Enemigo enemigo2 = new Hormiga(mapa.getOrigen());
-		algoDefense.agregarEnemigo(enemigo);
+		Hormiga enemigo1 = new Hormiga(mapa.getOrigen());
+		Hormiga enemigo2 = new Hormiga(mapa.getOrigen());
+		algoDefense.agregarEnemigo(enemigo1);
 		algoDefense.agregarEnemigo(enemigo2);
-		TorrePlateada torre = new TorrePlateada();
-		torre.atacarA(enemigo);
 		for (int i = 0; i < 4; i++) {
 			algoDefense.moverEnemigos();
 		}
@@ -176,7 +177,7 @@ public class CasosDeUsoTest {
 	}
 
 	@Test
-	public void test12NoSeEliminanTodasLasUnidadesEnemigasPeroAlcanzaElDanioGanaLaComputadora() throws NombreInvalido, IOException, ParseException, FormatoJSONInvalidoException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
+	public void test12NoSeEliminanTodasLasUnidadesEnemigasPeroAlcanzaElDanioGanaLaComputadora() throws NombreInvalido, IOException, ParseException, FormatoJSONInvalidoException, TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, DefensasVacias {
 		AlgoDefense algoDefense = new AlgoDefense();
 		algoDefense.agregarJugador("Mariana");
 		Mapa mapa = algoDefense.getMapa();
@@ -190,7 +191,6 @@ public class CasosDeUsoTest {
 		algoDefense.agregarJugador("Mariana");
 		String ganador = algoDefense.finDelJuego();
 		assertEquals(ganador, "Computadora");
-
 
 	}
 
@@ -283,7 +283,7 @@ public class CasosDeUsoTest {
 	}
 
 	@Test
-	void test18SimuloYVerificoQueGanaJugador() throws FormatoJSONInvalidoException, IOException, ParseException, NombreInvalido, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, TorreNoDesplegada {
+	void test18SimuloYVerificoQueGanaJugador() throws FormatoJSONInvalidoException, IOException, ParseException, NombreInvalido, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, TorreNoDesplegada, DefensasVacias {
 		TorrePlateada torre = new TorrePlateada();
 		TorrePlateada torre1 = new TorrePlateada();
 		AlgoDefense algoDefense = new AlgoDefense();
@@ -295,12 +295,10 @@ public class CasosDeUsoTest {
 		algoDefense.activarDefensas();
 		String ganador = algoDefense.finDelJuego();
 		assertEquals(ganador, "Sebastian");
-
-
 	}
 
 	@Test
-	void test19SimuloYVerificoQueGanaComputadora() throws FormatoJSONInvalidoException, IOException, ParseException, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, NombreInvalido {
+	void test19SimuloYVerificoQueGanaComputadora() throws FormatoJSONInvalidoException, IOException, ParseException, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, NombreInvalido, DefensasVacias {
 		AlgoDefense algoDefense = new AlgoDefense();
 		algoDefense.agregarJugador("Sebastian");
 		algoDefense.cargarEnemigos(12);

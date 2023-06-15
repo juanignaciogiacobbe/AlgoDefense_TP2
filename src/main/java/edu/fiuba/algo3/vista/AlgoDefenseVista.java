@@ -56,7 +56,7 @@ public class AlgoDefenseVista implements Observer, Vista {
 
 			// Display enemy inside parcela
 			for (Enemigo enemigo : enemigos) {
-				ParcelaDePasarela pasarelaActual = enemigo.getPasarelaActual();
+				Parcela pasarelaActual = enemigo.getPasarelaActual();
 				Coordenada coordenada = pasarelaActual.getCoordenada();
 				if (parcela.getCoordenada().equals(coordenada)) {
 					Label enemyLabel = new Label(enemigo.toString());
