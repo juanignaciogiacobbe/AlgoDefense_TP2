@@ -26,7 +26,6 @@ public class PasarelaComun extends ParcelaDePasarela {
 
 	@Override
 	public ParcelaDePasarela mover(int distancia, Mapa mapa) throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
-		//TODO: si no tiene una defensa, no ralentizar
 		//TODO: llamar a pasar turno luego de ralentizar, y actualizar estado
 		if (this.defensa == null) {
 			return mapa.obtenerPasarelasEnRango(this, distancia);

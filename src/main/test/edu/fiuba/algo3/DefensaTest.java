@@ -3,13 +3,12 @@ package edu.fiuba.algo3;
 import edu.fiuba.algo3.modelo.defensas.TorreBlanca;
 import edu.fiuba.algo3.modelo.defensas.TorrePlateada;
 import edu.fiuba.algo3.modelo.enemigos.Arania;
+import edu.fiuba.algo3.modelo.enemigos.Lechuza;
 import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.juego.NombreInvalido;
-import edu.fiuba.algo3.modelo.mapa.Coordenada;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
 import edu.fiuba.algo3.modelo.parcelas.*;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.List;
 
@@ -94,5 +93,19 @@ public class DefensaTest {
 		Arania arania = new Arania(pasarelaComun);
 		arania.mover(mapa);
 		assertEquals(pasarelaMeta.getCoordenada(), arania.getPasarelaActual().getCoordenada());
+	}
+
+	@Test
+	public void test08UnaLechuzaQuePasaPorUnaTrampaArenosaNoEsRealentizada() throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir {
+		PasarelaComun pasarelaComun = new PasarelaComun(0, 1);
+		PasarelaComun pasarelaComun2 = new PasarelaComun(0, 2);
+		PasarelaMeta pasarelaMeta = new PasarelaMeta(0, 5);
+		List<Parcela> pasarelas = List.of(pasarelaComun, pasarelaComun2, pasarelaMeta);
+		Mapa mapa = new Mapa(pasarelas);
+		mapa.setMeta(pasarelaMeta);
+		Lechuza lechuza = new Lechuza(pasarelaComun);
+		lechuza.mover(mapa);
+		assertEquals(pasarelaMeta.getCoordenada(), lechuza.getPasarelaActual().getCoordenada());
+		assertNotEquals(pasarelaComun2.getCoordenada(), lechuza.getPasarelaActual().getCoordenada());
 	}
 }
