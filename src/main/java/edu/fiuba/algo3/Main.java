@@ -12,7 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-import java.util.Objects;
+import java.io.File;
 
 public class Main extends Application {
 
@@ -22,7 +22,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		String cssFile = Objects.requireNonNull(getClass().getClassLoader().getResource("styles.css")).toExternalForm();
+		String cssFile = new File("src/resources/styles.css").toURI().toString();
 		Scene scene = new Scene(new StackPane(), 640, 480);
 		scene.getStylesheets().add(cssFile);
 		primaryStage.setScene(scene);
