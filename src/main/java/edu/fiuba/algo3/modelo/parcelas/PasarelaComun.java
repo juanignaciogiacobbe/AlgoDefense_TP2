@@ -9,4 +9,8 @@ public class PasarelaComun extends ParcelaDePasarela {
 		this.coordenada = new Coordenada(abscisa, ordenada);
 	}
 
+	@Override
+	public String toString() {
+		return "C";
+	}
 }

@@ -45,4 +45,8 @@ public class Coordenada {
 	public boolean estaDentroDelRango(Coordenada coordenada, int rango) {
 		return distanciaHacia(coordenada) <= rango;
 	}
+	@Override
+	public String toString() {
+		return "(" + abscisa + ", " + ordenada + ")";
+	}
 }

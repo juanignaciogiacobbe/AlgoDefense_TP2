@@ -23,6 +23,7 @@ public class Hormiga implements Enemigo {
 		this.atacante = new AtacanteDeJugador(1);
 		this.daniable = new Atacable(1);
 	}
+
 	@Override
 	public void atacar(Jugador jugador) throws DefensasVacias {
 		atacante.atacar(jugador);
@@ -55,5 +56,10 @@ public class Hormiga implements Enemigo {
 
 	public int recolectarCreditos() {
 		return this.creditos;
+	}
+
+	@Override
+	public String toString() {
+		return "H";
 	}
 }
