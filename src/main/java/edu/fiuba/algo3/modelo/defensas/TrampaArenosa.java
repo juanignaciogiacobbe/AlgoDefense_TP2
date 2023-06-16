@@ -1,15 +1,17 @@
-package edu.fiuba.algo3.modelo.parcelas;
+package edu.fiuba.algo3.modelo.defensas;
 
 
-import edu.fiuba.algo3.modelo.defensas.Defensa;
-import edu.fiuba.algo3.modelo.defensas.TorreNoDesplegada;
 import edu.fiuba.algo3.modelo.enemigos.Enemigo;
 import edu.fiuba.algo3.modelo.enemigos.EnemigosFueraDeRango;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
+import edu.fiuba.algo3.modelo.parcelas.Parcela;
+import edu.fiuba.algo3.modelo.parcelas.ParcelaDePasarela;
+import edu.fiuba.algo3.modelo.parcelas.PasarelaComun;
+import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaCaminar;
 
 import java.util.List;
 
-public class TrampaArenosa implements Defensa {
+public class TrampaArenosa implements Defensa, Ralentizador {
 
 
 	private int costoConstruccion;
@@ -35,9 +37,9 @@ public class TrampaArenosa implements Defensa {
 		//super.atacar(enemigos, parcelaDefensa);
 	}
 
-	public TrampaArenosa pasarTurno() {
+	public Ralentizador pasarTurno() {
 		this.tiempoDeActividadRestante -= 1;
-		if (this.tiempoDeActividadRestante == 0) {return null;}
+		if (this.tiempoDeActividadRestante == 0) {return new NoRalentizador();}
 		return this;
 	}
 

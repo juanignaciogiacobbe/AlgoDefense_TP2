@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.parcelas;
 
 import edu.fiuba.algo3.modelo.defensas.Defensa;
+import edu.fiuba.algo3.modelo.defensas.Torre;
 import edu.fiuba.algo3.modelo.mapa.Coordenada;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
 
@@ -20,18 +21,14 @@ public class ParcelaDeTierra extends Parcela {
 		return defensa;
 	}
 
-	public void setDefensa(Defensa defensa) {
+	@Override
+	public void setDefensa(Torre defensa) {
 		this.defensa = defensa;
 	}
 
 	public ParcelaDePasarela mover(int distancia, Mapa mapa) throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir {
-		return (movible.mover(this, distancia, mapa));
+		return (this.movible.mover(this, distancia, mapa));
 	}
-
-	public void construir(Defensa defensaAConstruir) throws TerrenoNoAptoParaConstruir {
-		construible.construir(defensaAConstruir, this);
-	}
-
 
 	@Override
 	public String toString() {

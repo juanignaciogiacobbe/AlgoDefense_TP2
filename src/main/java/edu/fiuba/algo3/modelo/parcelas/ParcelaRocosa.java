@@ -12,19 +12,10 @@ public class ParcelaRocosa extends Parcela {
 		movible = new NoDesplazable();
 	}
 
-	@Override
-	public void construir(Defensa defensa) throws TerrenoNoAptoParaConstruir {
-		construible.construir(defensa, null);
-	}
-
-
 	public ParcelaDePasarela mover(int distancia, Mapa mapa) throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir {
 		return (movible.mover(this, distancia, mapa));
 	}
 
-	public void construir() throws TerrenoNoAptoParaConstruir {
-		construible.construir(null, null);
-	}
 
 	@Override
 	public String toString() {

@@ -1,10 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.convertidor.*;
-import edu.fiuba.algo3.modelo.defensas.Defensa;
-import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
-import edu.fiuba.algo3.modelo.defensas.Torre;
-import edu.fiuba.algo3.modelo.defensas.TorreNoDesplegada;
+import edu.fiuba.algo3.modelo.defensas.*;
 import edu.fiuba.algo3.modelo.enemigos.Enemigo;
 import edu.fiuba.algo3.modelo.enemigos.EnemigosFueraDeRango;
 import edu.fiuba.algo3.modelo.juego.Jugador;
@@ -123,7 +120,7 @@ public class AlgoDefense implements Observable {
 	public void ubicarDefensa(Defensa defensa, int absica, int ordenada) {
 		ParcelaDeTierra parcelaSet = null;
 		parcelaSet = (ParcelaDeTierra) this.mapa.obtenerParcelaConCoordenadas(absica, ordenada);
-		parcelaSet.setDefensa(defensa);
+		parcelaSet.setDefensa((Torre) defensa);
 		jugador1.agregarDefensa(parcelaSet);
 	}
 

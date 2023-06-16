@@ -13,8 +13,4 @@ public abstract class ParcelaDePasarela extends Parcela {
 		return mapa.obtenerPasarelasEnRango(this, distancia);
 	}
 
-	public void construir(Defensa defensaAConstuir) throws TerrenoNoAptoParaConstruir {
-		construible.construir(defensaAConstuir, null);
-	}
-
 }

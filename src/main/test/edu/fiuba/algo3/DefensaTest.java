@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.AlgoDefense;
 import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
 import edu.fiuba.algo3.modelo.defensas.TorreBlanca;
 import edu.fiuba.algo3.modelo.defensas.TorrePlateada;
+import edu.fiuba.algo3.modelo.defensas.TrampaArenosa;
 import edu.fiuba.algo3.modelo.enemigos.Arania;
 import edu.fiuba.algo3.modelo.enemigos.Lechuza;
 import edu.fiuba.algo3.modelo.enemigos.Topo;

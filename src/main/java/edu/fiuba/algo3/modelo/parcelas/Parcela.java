@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.parcelas;
 
-import edu.fiuba.algo3.modelo.defensas.Defensa;
+import edu.fiuba.algo3.modelo.defensas.Torre;
+import edu.fiuba.algo3.modelo.defensas.TrampaArenosa;
 import edu.fiuba.algo3.modelo.mapa.Coordenada;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
 
@@ -20,7 +21,13 @@ public abstract class Parcela {
 	}
 
 
-	public abstract void construir(Defensa defensa) throws TerrenoNoAptoParaConstruir;
+	public void construir(Torre defensa) throws TerrenoNoAptoParaConstruir {
+		this.construible.construir(defensa,this);
+	}
+
+	public void construir(TrampaArenosa defensa) throws TerrenoNoAptoParaConstruir {
+		this.construible.construir(defensa, this);
+	}
 
 	public abstract ParcelaDePasarela mover(int distancia, Mapa mapa) throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar;
 
@@ -50,6 +57,12 @@ public abstract class Parcela {
 	}
 
 	public void pasarTurno() {
+	}
+
+	public void setTrampaArenosa(TrampaArenosa defensaAConstruir) {
+	}
+
+	public void setDefensa(Torre defensaAConsrtruir) {
 	}
 }
 

@@ -1,15 +1,17 @@
 package edu.fiuba.algo3.modelo.parcelas;
 
-import edu.fiuba.algo3.modelo.defensas.Defensa;
+import edu.fiuba.algo3.modelo.defensas.Torre;
+import edu.fiuba.algo3.modelo.defensas.TrampaArenosa;
 
 public class ConstruibleTrampa implements Construible {
 
 	@Override
-	public void construir(Defensa defensaAConsrtruir, Parcela parcela) throws TerrenoNoAptoParaConstruir {
-		if (defensaAConsrtruir instanceof TrampaArenosa) {
-			((PasarelaComun) parcela).setTrampaArenosa((TrampaArenosa) defensaAConsrtruir);
-		} else {
-			throw new TerrenoNoAptoParaConstruir();
-		}
+	public void construir(Torre defensaAConsrtruir, Parcela parcela) throws TerrenoNoAptoParaConstruir {
+		throw new TerrenoNoAptoParaConstruir();
+	}
+
+	@Override
+	public void construir(TrampaArenosa defensaAConstruir, Parcela parcela) throws TerrenoNoAptoParaConstruir {
+		parcela.setTrampaArenosa(defensaAConstruir);
 	}
 }
