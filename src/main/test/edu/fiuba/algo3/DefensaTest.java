@@ -1,6 +1,7 @@
 package edu.fiuba.algo3;
 
 import edu.fiuba.algo3.modelo.AlgoDefense;
+import edu.fiuba.algo3.modelo.convertidor.FormatoJSONInvalidoException;
 import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
 import edu.fiuba.algo3.modelo.defensas.TorreBlanca;
 import edu.fiuba.algo3.modelo.defensas.TorrePlateada;
@@ -12,8 +13,10 @@ import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.juego.NombreInvalido;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
 import edu.fiuba.algo3.modelo.parcelas.*;
+import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -142,7 +145,7 @@ public class DefensaTest {
 	}
 
 	@Test
-	public void test10TrasDosTurnosLaTrampaArenosaRalentiza() throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, NombreInvalido, DefensasVacias {
+	public void test10TrasDosTurnosLaTrampaArenosaRalentiza() throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, NombreInvalido, DefensasVacias, FormatoJSONInvalidoException, IOException, ParseException {
 		TrampaArenosa defensa = new TrampaArenosa();
 		PasarelaComun pasarelaComun1 = new PasarelaComun(0, 1);
 		PasarelaComun pasarelaComun2 = new PasarelaComun(0, 2);
@@ -173,7 +176,7 @@ public class DefensaTest {
 	}
 
 	@Test
-	public void test11TrasTresTurnosLaTrampaArenosaNoRalentiza() throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, NombreInvalido, DefensasVacias {
+	public void test11TrasTresTurnosLaTrampaArenosaNoRalentiza() throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, NombreInvalido, DefensasVacias, FormatoJSONInvalidoException, IOException, ParseException {
 		TrampaArenosa defensa = new TrampaArenosa();
 		PasarelaComun pasarelaComun1 = new PasarelaComun(0, 1);
 		PasarelaComun pasarelaComun2 = new PasarelaComun(0, 2);

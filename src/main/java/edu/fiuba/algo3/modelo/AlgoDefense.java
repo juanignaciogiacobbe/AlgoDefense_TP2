@@ -6,6 +6,8 @@ import edu.fiuba.algo3.modelo.enemigos.Enemigo;
 import edu.fiuba.algo3.modelo.enemigos.EnemigosFueraDeRango;
 import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.juego.NombreInvalido;
+import edu.fiuba.algo3.modelo.juego.Turno;
+import edu.fiuba.algo3.modelo.juego.TurnoIA;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
 import edu.fiuba.algo3.modelo.parcelas.*;
 import org.json.simple.parser.ParseException;
@@ -24,19 +26,19 @@ public class AlgoDefense implements Observable {
 	private final Mapa mapa;
 	private Jugador jugador1;
 
+	private List<Turno> turnos;
 
 	private List<Enemigo> enemigos;
 	private List<ParcelaDeTierra> defensas;
 	private final ArrayList<Observer> observers = new ArrayList<>();
-
 	private CustomLogger logger;
 
-	private int turnos;
+	private int turno;
 
 	public AlgoDefense(Mapa mapa, List<Enemigo> enemigos) {
 		this.mapa = mapa;
 		this.enemigos = enemigos;
-		this.turnos = 0;
+		this.turno = 0;
 	}
 
 	public AlgoDefense() throws IOException, ParseException, FormatoJSONInvalidoException {
@@ -46,7 +48,13 @@ public class AlgoDefense implements Observable {
 		this.mapa = convertidor.cargarMapa();
 		this.enemigos = new ArrayList<>();
 		this.defensas = new ArrayList<>();
+		this.turnos = new ArrayList<>();
 		this.logger =  CustomLogger.getInstance();
+	}
+
+	private void inicializarTurnos() throws FormatoJSONInvalidoException, IOException, ParseException {
+		TurnoIA turnoIA = new TurnoIA(this.mapa,this.jugador1);
+		this.turnos.add(turnoIA);
 	}
 
 	public AlgoDefense(Mapa mapa) {
@@ -73,10 +81,11 @@ public class AlgoDefense implements Observable {
 		return defensas;
 	}
 
-	public void agregarJugador(String nombre) throws NombreInvalido {
+	public void agregarJugador(String nombre) throws NombreInvalido, FormatoJSONInvalidoException, IOException, ParseException {
 		if (nombre.length() < 6) throw new NombreInvalido();
 
 		this.jugador1 = new Jugador(nombre);
+		this.inicializarTurnos();
 	}
 
 	public String finDelJuego() {
@@ -88,6 +97,13 @@ public class AlgoDefense implements Observable {
 		logger.log(jugador1.getNombre() + " gana la partida");
 		return jugador1.getNombre();
 
+	}
+
+
+	public void ejecutarTurnos() throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, DefensasVacias {
+		for (Turno turno : turnos){
+			turno.ejecutarTurno();
+		}
 	}
 
 	public void moverEnemigos() throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, DefensasVacias {

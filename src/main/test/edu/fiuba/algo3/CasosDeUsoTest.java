@@ -301,10 +301,18 @@ public class CasosDeUsoTest {
 	void test19SimuloYVerificoQueGanaComputadora() throws FormatoJSONInvalidoException, IOException, ParseException, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, NombreInvalido, DefensasVacias {
 		AlgoDefense algoDefense = new AlgoDefense();
 		algoDefense.agregarJugador("Sebastian");
+
+		/*
 		algoDefense.cargarEnemigos(12);
 		for (int i = 0; i < 24; i++) {
 			algoDefense.moverEnemigos();
 		}
+
+		 */
+		for (int i = 0; i < 24; i++) {
+			algoDefense.ejecutarTurnos();
+		}
+		
 		String ganador = algoDefense.finDelJuego();
 		assertEquals(ganador, "Computadora");
 	}

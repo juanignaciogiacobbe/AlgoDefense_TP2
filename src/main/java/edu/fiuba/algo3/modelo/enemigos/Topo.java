@@ -43,6 +43,8 @@ public class Topo implements Enemigo {
     @Override
     public void recibirAtaque(Parcela parcelaDefensa, int rangoAtaque, int danio) throws EnemigoFueraDeRango, EnemigoNoDaniable {
         this.daniable.recibirAtaque(parcelaDefensa, rangoAtaque, danio, this.trasladable.getPasarelaActual());
+        logger.log(this.getNombre() + " se movio a la coordenada = (" + trasladable.getPasarelaActual().getCoordenada().getAbscisa() + ","
+                + trasladable.getPasarelaActual().getCoordenada().getAbscisa() + ")");
     }
 
     @Override
