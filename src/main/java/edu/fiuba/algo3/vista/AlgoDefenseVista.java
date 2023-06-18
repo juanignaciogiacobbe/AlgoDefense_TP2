@@ -10,6 +10,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import java.util.List;
@@ -19,6 +21,8 @@ public class AlgoDefenseVista implements Observer, Vista {
 	private Scene scene;
 	private List<Enemigo> enemigos;
 	private Mapa mapa;
+	private static final int GRID_SIZE = 15;
+	private static final int CELL_SIZE = 55;
 
 	@Override
 	public void update() {
@@ -43,8 +47,8 @@ public class AlgoDefenseVista implements Observer, Vista {
 		rootPane.setPadding(new Insets(10));
 
 		GridPane gridPane = createGridPane();
-		this.configureGridConstraints(gridPane);
-		this.displayMap(gridPane);
+		configureGridConstraints(gridPane);
+		displayMap(gridPane);
 
 		rootPane.setCenter(gridPane);
 		rootPane.setTop(new Pane());
@@ -58,55 +62,72 @@ public class AlgoDefenseVista implements Observer, Vista {
 		gridPane.setAlignment(Pos.CENTER);
 		gridPane.setHgap(10);
 		gridPane.setVgap(10);
+		gridPane.setStyle("-fx-background-color: #FCFCF9;"); // Set the desired background color here
 		return gridPane;
 	}
 
 	private void configureGridConstraints(GridPane gridPane) {
-		for (int i = 0; i < 15; i++) {
+		for (int i = 0; i < GRID_SIZE; i++) {
 			ColumnConstraints columnConstraints = new ColumnConstraints();
-			columnConstraints.setPercentWidth(100.0 / 15);
+			columnConstraints.setPercentWidth(100.0 / GRID_SIZE);
 			gridPane.getColumnConstraints().add(columnConstraints);
 		}
 
-		for (int i = 0; i < 15; i++) {
+		for (int i = 0; i < GRID_SIZE; i++) {
 			RowConstraints rowConstraints = new RowConstraints();
-			rowConstraints.setPercentHeight(100.0 / 15);
+			rowConstraints.setPercentHeight(100.0 / GRID_SIZE);
 			gridPane.getRowConstraints().add(rowConstraints);
 		}
 
 		gridPane.setAlignment(Pos.CENTER);
 	}
 
-
 	private void displayMap(GridPane gridPane) {
-		for (int i = 0; i < mapa.getParcelas().size(); i++) {
-			Parcela parcela = mapa.getParcelas().get(i);
-			Label parcelaLabel = createParcelaLabel(parcela);
+		for (Parcela parcela : mapa.getParcelas()) {
+			StackPane cellPane = createCellPane(parcela);
 			int x = parcela.getCoordenada().getAbscisa();
 			int y = parcela.getCoordenada().getOrdenada();
 
-			gridPane.add(parcelaLabel, x, y);
-			displayEnemyInParcela(gridPane, parcela);
+			gridPane.add(cellPane, x, y);
+			displayEnemyInParcela(parcela, cellPane);
 		}
 	}
 
-	private Label createParcelaLabel(Parcela parcela) {
-		Label parcelaLabel = new Label(parcela.toString());
-		parcelaLabel.setStyle("-fx-font-size: 16px; -fx-opacity: 0.3");
-		return parcelaLabel;
+	private StackPane createCellPane(Parcela parcela) {
+		StackPane cellPane = new StackPane();
+		ImageView imageView = createParcelaImageView(parcela);
+		cellPane.getChildren().add(imageView);
+		return cellPane;
 	}
 
-	private void displayEnemyInParcela(GridPane gridPane, Parcela parcela) {
+	private ImageView createParcelaImageView(Parcela parcela) {
+		String imagePath = getImagePath(parcela); // Get the path to the image based on the letter of the Parcela
+		Image image = new Image(imagePath, CELL_SIZE, CELL_SIZE, true, true);
+		ImageView imageView = new ImageView(image);
+		imageView.setPreserveRatio(true);
+		imageView.setOpacity(0.9);
+		return imageView;
+	}
+
+	private String getImagePath(Parcela parcela) {
+		String basePath = "src/resources/";
+		switch (parcela.toString()) {
+			case "T":
+				return "file:" + basePath + "T.png";
+			case "R":
+				return "file:" + basePath + "R.png";
+			default:
+				return "file:" + basePath + "C.png";
+		}
+	}
+
+	private void displayEnemyInParcela(Parcela parcela, StackPane cellPane) {
 		for (Enemigo enemigo : enemigos) {
 			Parcela pasarelaActual = enemigo.getPasarelaActual();
 			Coordenada coordenada = pasarelaActual.getCoordenada();
 			if (parcela.getCoordenada().equals(coordenada)) {
 				Label enemyLabel = createEnemyLabel(enemigo);
-				int x = coordenada.getAbscisa();
-				int y = coordenada.getOrdenada();
-
-				GridPane.setConstraints(enemyLabel, x, y);
-				gridPane.getChildren().add(enemyLabel);
+				cellPane.getChildren().add(enemyLabel);
 			}
 		}
 	}
@@ -116,7 +137,6 @@ public class AlgoDefenseVista implements Observer, Vista {
 		enemyLabel.setStyle("-fx-font-size: 8px; -fx-text-fill: red");
 		return enemyLabel;
 	}
-
 
 	public void setAlgoDefense(AlgoDefense algoDefense) {
 		this.enemigos = algoDefense.getEnemigos();

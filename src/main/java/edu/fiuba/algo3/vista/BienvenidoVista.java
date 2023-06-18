@@ -42,8 +42,7 @@ public class BienvenidoVista implements Vista {
 		VBox vbox = new VBox(nameLabel, nameField, loginButton);
 		vbox.setAlignment(Pos.CENTER);
 		vbox.setSpacing(10);
-		vbox.setPadding(new Insets(20));
-
+		vbox.setPadding(new Insets(120));
 		loginButton.setOnAction(e -> validateAndHandleInput(scene));
 		scene.setRoot(vbox);
 	}

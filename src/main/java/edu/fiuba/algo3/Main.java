@@ -25,8 +25,10 @@ public class Main extends Application {
 		String cssFile = new File("src/resources/styles.css").toURI().toString();
 		Scene scene = new Scene(new StackPane(), 640, 480);
 		scene.getStylesheets().add(cssFile);
+		primaryStage.setMaximized(true);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("AlgoDefense");
+
 
 		try {
 			BienvenidoVista bienvenidoVista = new BienvenidoVista();
