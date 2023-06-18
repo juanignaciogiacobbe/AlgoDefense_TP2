@@ -3,7 +3,9 @@ package edu.fiuba.algo3.vista;
 import edu.fiuba.algo3.controladores.SiguienteTurnoHandler;
 import edu.fiuba.algo3.modelo.AlgoDefense;
 import edu.fiuba.algo3.modelo.Observer;
+import edu.fiuba.algo3.modelo.convertidor.FormatoJSONInvalidoException;
 import edu.fiuba.algo3.modelo.enemigos.Enemigo;
+import edu.fiuba.algo3.modelo.juego.NombreInvalido;
 import edu.fiuba.algo3.modelo.mapa.Coordenada;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
 import edu.fiuba.algo3.modelo.parcelas.Parcela;
@@ -15,7 +17,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import org.json.simple.parser.ParseException;
 
+import java.io.IOException;
 import java.util.List;
 
 public class AlgoDefenseVista implements Observer, Vista {
@@ -107,6 +111,8 @@ public class AlgoDefenseVista implements Observer, Vista {
     private StackPane createCellPane(Parcela parcela) {
         StackPane cellPane = new StackPane();
         ImageView imageView = createParcelaImageView(parcela);
+        imageView.setOnMouseClicked(
+                e -> 			System.out.println("Clicked on parcela at position: " + parcela.getCoordenada()));
         cellPane.getChildren().add(imageView);
         return cellPane;
     }
