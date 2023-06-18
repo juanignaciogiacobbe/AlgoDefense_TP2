@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vista;
 
+import edu.fiuba.algo3.controladores.SiguienteTurnoHandler;
 import edu.fiuba.algo3.modelo.AlgoDefense;
 import edu.fiuba.algo3.modelo.Observer;
 import edu.fiuba.algo3.modelo.enemigos.Enemigo;
@@ -25,9 +26,14 @@ public class AlgoDefenseVista implements Observer, Vista {
     private static final int GRID_SIZE = 15;
     private static final int CELL_SIZE = 30;
 
+    private AlgoDefense juego;
+
+
     @Override
     public void update() {
         if (scene != null) {
+            this.enemigos = juego.getEnemigos();
+            this.mapa = juego.getMapa();
             mostrar(scene);
         }
     }
@@ -129,7 +135,8 @@ public class AlgoDefenseVista implements Observer, Vista {
     private void displayEnemyInParcela(Parcela parcela, StackPane cellPane) {
         for (Enemigo enemigo : enemigos) {
             Parcela pasarelaActual = enemigo.getPasarelaActual();
-            Coordenada coordenada = pasarelaActual.getCoordenada();
+            Coordenada coordenada = pasarelaActual.getCoordenada();//
+            //Si esa parcela en el gridpane tiene un enemigo,lo coloco ahi
             if (parcela.getCoordenada().equals(coordenada)) {
                 Label enemyLabel = createEnemyLabel(enemigo);
                 cellPane.getChildren().add(enemyLabel);
@@ -146,22 +153,29 @@ public class AlgoDefenseVista implements Observer, Vista {
     public void setAlgoDefense(AlgoDefense algoDefense) {
         this.enemigos = algoDefense.getEnemigos();
         this.mapa = algoDefense.getMapa();
+        this.juego = algoDefense;
+        try {
+            this.juego.agregarJugador("pepito");
+        } catch (NombreInvalido e) {
+            throw new RuntimeException(e);
+        } catch (FormatoJSONInvalidoException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private HBox createButtonBox() {
         Button ejecutarTurnoButton = new Button("Ejecutar Turno IA");
         //ejecutarTurnoButton.setOnAction(event -> ejecutarTurnoIA());
-
-
+        ejecutarTurnoButton.setOnAction(new SiguienteTurnoHandler(juego,this));
         HBox buttonBox = new HBox(10, ejecutarTurnoButton);
         buttonBox.setAlignment(Pos.CENTER_LEFT);
-
-
         BorderPane container = new BorderPane();
         container.setLeft(buttonBox);
-
         container.setPadding(new Insets(10));
-
         return new HBox(container);
     }
 

@@ -6,8 +6,6 @@ import edu.fiuba.algo3.modelo.enemigos.Enemigo;
 import edu.fiuba.algo3.modelo.enemigos.EnemigosFueraDeRango;
 import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.juego.NombreInvalido;
-import edu.fiuba.algo3.modelo.juego.Turno;
-import edu.fiuba.algo3.modelo.juego.TurnoIA;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
 import edu.fiuba.algo3.modelo.parcelas.*;
 import org.json.simple.parser.ParseException;
@@ -24,10 +22,9 @@ import java.util.Map;
 public class AlgoDefense implements Observable {
 
 	private final Mapa mapa;
+	private final Map<Integer, List<Enemigo>> enemigosTurno;
+
 	private Jugador jugador1;
-
-	private List<Turno> turnos;
-
 	private List<Enemigo> enemigos;
 	private List<ParcelaDeTierra> defensas;
 	private final ArrayList<Observer> observers = new ArrayList<>();
@@ -35,8 +32,9 @@ public class AlgoDefense implements Observable {
 
 	private int turno;
 
-	public AlgoDefense(Mapa mapa, List<Enemigo> enemigos) {
+	public AlgoDefense(Mapa mapa, Map<Integer, List<Enemigo>> enemigosTurno, List<Enemigo> enemigos) {
 		this.mapa = mapa;
+		this.enemigosTurno = enemigosTurno;
 		this.enemigos = enemigos;
 		this.turno = 0;
 	}
@@ -47,26 +45,21 @@ public class AlgoDefense implements Observable {
 		ConvertidorMapa convertidor = new ConvertidorMapaImplementacion(reader);
 		this.mapa = convertidor.cargarMapa();
 		this.enemigos = new ArrayList<>();
+		FileReader readerEnemigos = new FileReader("src/resources/enemigos.json");
+		ConvertidorEnemigos convertidorEnemigos = new ConvertidorEnemigosImplementacion(readerEnemigos,mapa.getOrigen());
+		this.enemigosTurno = convertidorEnemigos.cargarEnemigos();
 		this.defensas = new ArrayList<>();
-		this.turnos = new ArrayList<>();
+		this.turno = 1;
 		this.logger =  CustomLogger.getInstance();
-	}
-
-	private void inicializarTurnos() throws FormatoJSONInvalidoException, IOException, ParseException {
-		TurnoIA turnoIA = new TurnoIA(this.mapa,this.jugador1);
-		this.turnos.add(turnoIA);
 	}
 
 	public AlgoDefense(Mapa mapa) {
 		this.mapa = mapa;
 		this.enemigos = new ArrayList<>();
 		this.defensas = new ArrayList<>();
+		this.enemigosTurno = null;
 	}
 
-	public void siguienteTurno() {
-		this.notifyObservers();
-
-	}
 
 	// only for temporary vista
 	public List<Enemigo> getEnemigos() {
@@ -85,7 +78,6 @@ public class AlgoDefense implements Observable {
 		if (nombre.length() < 6) throw new NombreInvalido();
 
 		this.jugador1 = new Jugador(nombre);
-		this.inicializarTurnos();
 	}
 
 	public String finDelJuego() {
@@ -100,12 +92,6 @@ public class AlgoDefense implements Observable {
 	}
 
 
-	public void ejecutarTurnos() throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, DefensasVacias {
-		for (Turno turno : turnos){
-			turno.ejecutarTurno();
-		}
-	}
-
 	public void moverEnemigos() throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, DefensasVacias {
 		for (Enemigo enemigo : enemigos) {
 			enemigo.mover(this.mapa);
@@ -117,12 +103,14 @@ public class AlgoDefense implements Observable {
 	}
 
 	public void agregarEnemigo(Enemigo enemigo) {
+
+		enemigo.setPasarelaActual(mapa.getOrigen());
 		enemigos.add(enemigo);
 	}
 
 	public void cargarEnemigos(int cantTurnos) throws FileNotFoundException, FormatoJSONInvalidoException, ParseException {
 		FileReader readerEnemigos = new FileReader("src/resources/enemigos.json");
-		ConvertidorEnemigos convertidorEnemigos = new ConvertidorEnemigosImplementacion(readerEnemigos);
+		ConvertidorEnemigos convertidorEnemigos = new ConvertidorEnemigosImplementacion(readerEnemigos,null);
 		Map<Integer, List<Enemigo>> enemigosPorRonda = convertidorEnemigos.cargarEnemigos();
 		for (int i = 1; i < cantTurnos; i++) {
 			for (Enemigo enemigoDefinido : enemigosPorRonda.get(i)) {
@@ -170,4 +158,19 @@ public class AlgoDefense implements Observable {
 	public void notifyObservers() {
 		observers.forEach(Observer::update);
 	}
+
+
+	public void ejecutarTurno() throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, DefensasVacias {
+		this.moverEnemigos();
+		this.cargarEnemigos();
+		if (this.turno < 12) {
+			this.turno++;
+		} else {
+			this.turno = 1;
+		}
+	}
+
+	public void cargarEnemigos() {
+		enemigos.addAll(enemigosTurno.get(turno));
+	};
 }

@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo.convertidor;
 import edu.fiuba.algo3.modelo.enemigos.Arania;
 import edu.fiuba.algo3.modelo.enemigos.Enemigo;
 import edu.fiuba.algo3.modelo.enemigos.Hormiga;
+import edu.fiuba.algo3.modelo.parcelas.Parcela;
 import edu.fiuba.algo3.modelo.parcelas.PasarelaComun;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -17,9 +18,11 @@ import java.util.Map;
 
 public class ConvertidorEnemigosImplementacion implements ConvertidorEnemigos {
 	private final FileReader fileReader;
+	private final Parcela origen;
 
-	public ConvertidorEnemigosImplementacion(FileReader fileReader) {
+	public ConvertidorEnemigosImplementacion(FileReader fileReader, Parcela parcela) {
 		this.fileReader = fileReader;
+		this.origen = parcela;
 	}
 
 	@Override
@@ -106,9 +109,9 @@ public class ConvertidorEnemigosImplementacion implements ConvertidorEnemigos {
 	public Enemigo crearEnemigo(String nombreEnemigo) {
 		switch (nombreEnemigo) {
 			case "hormiga":
-				return new Hormiga(new PasarelaComun(0, 0));
+				return new Hormiga(new PasarelaComun(origen.getCoordenada().getAbscisa(),origen.getCoordenada().getOrdenada()));
 			case "arana":
-				return new Arania(new PasarelaComun(0, 0));
+				return new Arania(new PasarelaComun(origen.getCoordenada().getAbscisa(),origen.getCoordenada().getOrdenada()));
 			default:
 				throw new IllegalArgumentException("Unknown enemy type: " + nombreEnemigo);
 		}

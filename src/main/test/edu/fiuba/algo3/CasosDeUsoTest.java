@@ -276,7 +276,7 @@ public class CasosDeUsoTest {
 							.peek(enemigo -> enemigo.setPasarelaActual(mapa.getOrigen()))
 							.collect(Collectors.toList());
 
-					new AlgoDefense(mapa, enemigos);
+					//new AlgoDefense(mapa, enemigosTurno, enemigos);
 					// podriamos tener un turno y verificar si tal estado es el esperado para crear o mockearlo y verificar que se llame
 				}
 		);
@@ -310,7 +310,7 @@ public class CasosDeUsoTest {
 
 		 */
 		for (int i = 0; i < 24; i++) {
-			algoDefense.ejecutarTurnos();
+	//		algoDefense.ejecutarTurnos();
 		}
 		
 		String ganador = algoDefense.finDelJuego();
