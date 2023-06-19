@@ -14,6 +14,7 @@ import edu.fiuba.algo3.modelo.parcelas.Parcela;
 import edu.fiuba.algo3.modelo.parcelas.ParcelaDeTierra;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -111,6 +112,8 @@ public class AlgoDefenseVista implements Observer, Vista {
             displayDefenseInParcela(parcela,cellPane);
         }
     }
+
+
 
     private StackPane createCellPane(Parcela parcela) {
         StackPane cellPane = new StackPane();
@@ -220,7 +223,6 @@ public class AlgoDefenseVista implements Observer, Vista {
         container.setPadding(new Insets(10));
         return new HBox(container);
     }
-
 
 
 }
