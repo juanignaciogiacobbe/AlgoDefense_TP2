@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +27,7 @@ public class AlgoDefense implements Observable {
 
 	private Jugador jugador1;
 	private List<Enemigo> enemigos;
-	private List<ParcelaDeTierra> defensas;
+	private List<ParcelaDeTierra> defensas ;
 	private final ArrayList<Observer> observers = new ArrayList<>();
 	private CustomLogger logger;
 
@@ -48,7 +49,7 @@ public class AlgoDefense implements Observable {
 		FileReader readerEnemigos = new FileReader("src/resources/enemigos.json");
 		ConvertidorEnemigos convertidorEnemigos = new ConvertidorEnemigosImplementacion(readerEnemigos,mapa.getOrigen());
 		this.enemigosTurno = convertidorEnemigos.cargarEnemigos();
-		this.defensas = new ArrayList<>();
+		this.defensas = new LinkedList<>();
 		this.turno = 1;
 		this.logger =  CustomLogger.getInstance();
 	}
@@ -125,7 +126,8 @@ public class AlgoDefense implements Observable {
 		ParcelaDeTierra parcelaSet = null;
 		parcelaSet = (ParcelaDeTierra) this.mapa.obtenerParcelaConCoordenadas(absica, ordenada);
 		parcelaSet.setDefensa((Torre) defensa);
-		jugador1.agregarDefensa(parcelaSet);
+		defensas.add(parcelaSet);
+		logger.log("Se construyo");
 	}
 
 	public void ubicarTrampa(TrampaArenosa trampa, PasarelaComun pasarela) throws TerrenoNoAptoParaConstruir {

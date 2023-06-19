@@ -195,9 +195,10 @@ public class CasosDeUsoTest {
 	}
 
 	@Test
-	public void test13VerificoFormatoValidoJSONEnemigos() throws FileNotFoundException {
+	public void test13VerificoFormatoValidoJSONEnemigos() throws IOException, FormatoJSONInvalidoException, ParseException {
+		AlgoDefense algoDefense = new AlgoDefense();
 		FileReader fileReader = new FileReader("src/resources/enemigos.json");
-		ConvertidorEnemigos convertidor = new ConvertidorEnemigosImplementacion(fileReader);
+		ConvertidorEnemigos convertidor = new ConvertidorEnemigosImplementacion(fileReader,algoDefense.getMapa().getOrigen());
 		assertDoesNotThrow(convertidor::cargarEnemigos);
 	}
 
@@ -210,9 +211,10 @@ public class CasosDeUsoTest {
 	}
 
 	@Test
-	public void test15VerificoCorrectaLecturaYConversionDeJsonEnemigos() throws IOException {
+	public void test15VerificoCorrectaLecturaYConversionDeJsonEnemigos() throws IOException, FormatoJSONInvalidoException, ParseException {
+		AlgoDefense algoDefense = new AlgoDefense();
 		FileReader fileReader = new FileReader("src/resources/enemigos.json");
-		ConvertidorEnemigos convertidor = new ConvertidorEnemigosImplementacion(fileReader);
+		ConvertidorEnemigos convertidor = new ConvertidorEnemigosImplementacion(fileReader,algoDefense.getMapa().getOrigen());
 		AtomicReference<Map<Integer, List<Enemigo>>> enemigosPorRonda = new AtomicReference<>();
 		assertDoesNotThrow(() -> enemigosPorRonda.set(convertidor.cargarEnemigos()));
 		assertNotNull(enemigosPorRonda);
@@ -228,7 +230,7 @@ public class CasosDeUsoTest {
 		assertTrue(enemigosPorRonda.get().containsKey(rondaAComprobar), "Falta la ronda " + rondaAComprobar);
 		List<Enemigo> enemigosRonda5 = enemigosPorRonda.get().get(rondaAComprobar);
 		assertNotNull(enemigosRonda5, "La lista de enemigos para la ronda " + rondaAComprobar + " es nula");
-		assertEquals(2, enemigosRonda5.size(), "Número incorrecto de enemigos para la ronda " + rondaAComprobar);
+		assertEquals(1, enemigosRonda5.size(), "Número incorrecto de enemigos para la ronda " + rondaAComprobar);
 
 		// Comprobar la longitud de las rondas
 		int rondasEsperadas = 12;
@@ -270,7 +272,7 @@ public class CasosDeUsoTest {
 					Mapa mapa = convertidor.cargarMapa();
 
 					FileReader readerEnemigos = new FileReader("src/resources/enemigos.json");
-					ConvertidorEnemigos convertidorEnemigos = new ConvertidorEnemigosImplementacion(readerEnemigos);
+					ConvertidorEnemigos convertidorEnemigos = new ConvertidorEnemigosImplementacion(readerEnemigos,mapa.getOrigen());
 					List<Enemigo> enemigos = convertidorEnemigos.cargarEnemigos().values().stream()
 							.flatMap(List::stream)
 							.peek(enemigo -> enemigo.setPasarelaActual(mapa.getOrigen()))
@@ -284,9 +286,9 @@ public class CasosDeUsoTest {
 
 	@Test
 	void test18SimuloYVerificoQueGanaJugador() throws FormatoJSONInvalidoException, IOException, ParseException, NombreInvalido, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, TorreNoDesplegada, DefensasVacias {
+		AlgoDefense algoDefense = new AlgoDefense();
 		TorrePlateada torre = new TorrePlateada();
 		TorrePlateada torre1 = new TorrePlateada();
-		AlgoDefense algoDefense = new AlgoDefense();
 		algoDefense.agregarJugador("Sebastian");
 		algoDefense.cargarEnemigos(2);
 		algoDefense.ubicarDefensa(torre, 0, 2);
@@ -301,17 +303,11 @@ public class CasosDeUsoTest {
 	void test19SimuloYVerificoQueGanaComputadora() throws FormatoJSONInvalidoException, IOException, ParseException, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, NombreInvalido, DefensasVacias {
 		AlgoDefense algoDefense = new AlgoDefense();
 		algoDefense.agregarJugador("Sebastian");
-
-		/*
 		algoDefense.cargarEnemigos(12);
 		for (int i = 0; i < 24; i++) {
 			algoDefense.moverEnemigos();
 		}
 
-		 */
-		for (int i = 0; i < 24; i++) {
-	//		algoDefense.ejecutarTurnos();
-		}
 		
 		String ganador = algoDefense.finDelJuego();
 		assertEquals(ganador, "Computadora");

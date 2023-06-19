@@ -10,4 +10,9 @@ public class TorrePlateada extends Torre {
 		this.turnosRestantesParaDespliegue = 2;
 		this.desplegable = new NoDesplegado(2);
 	}
+
+	@Override
+	public String toString() {
+		return "TP";
+	}
 }

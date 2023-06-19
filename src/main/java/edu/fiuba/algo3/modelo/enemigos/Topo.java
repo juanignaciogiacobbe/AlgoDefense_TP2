@@ -56,4 +56,10 @@ public class Topo implements Enemigo {
     public int getDanio() {
         return this.atacante.getDanio();
     }
+
+
+    @Override
+    public String toString() {
+        return "T";
+    }
 }

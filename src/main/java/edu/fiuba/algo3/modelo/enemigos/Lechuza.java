@@ -64,4 +64,9 @@ public class Lechuza implements Enemigo {
         return this.atacante.getDanio();
     }
 
+    @Override
+    public String toString() {
+        return "L";
+    }
+
 }

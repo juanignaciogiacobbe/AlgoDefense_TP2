@@ -1,14 +1,17 @@
 package edu.fiuba.algo3.vista;
 
 import edu.fiuba.algo3.controladores.SiguienteTurnoHandler;
+import edu.fiuba.algo3.controladores.UbicarDefensaHandler;
 import edu.fiuba.algo3.modelo.AlgoDefense;
 import edu.fiuba.algo3.modelo.Observer;
 import edu.fiuba.algo3.modelo.convertidor.FormatoJSONInvalidoException;
+import edu.fiuba.algo3.modelo.defensas.Defensa;
 import edu.fiuba.algo3.modelo.enemigos.Enemigo;
 import edu.fiuba.algo3.modelo.juego.NombreInvalido;
 import edu.fiuba.algo3.modelo.mapa.Coordenada;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
 import edu.fiuba.algo3.modelo.parcelas.Parcela;
+import edu.fiuba.algo3.modelo.parcelas.ParcelaDeTierra;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -105,6 +108,7 @@ public class AlgoDefenseVista implements Observer, Vista {
 
             gridPane.add(cellPane, x, y);
             displayEnemyInParcela(parcela, cellPane);
+            displayDefenseInParcela(parcela,cellPane);
         }
     }
 
@@ -150,8 +154,27 @@ public class AlgoDefenseVista implements Observer, Vista {
         }
     }
 
+
+    private void displayDefenseInParcela(Parcela parcela, StackPane cellPane) {
+        for (ParcelaDeTierra parcela1 : juego.getDefensas()) {
+            Coordenada coordenada = parcela1.getCoordenada();//
+            //Si esa parcela en el gridpane tiene un enemigo,lo coloco ahi
+            if (parcela.getCoordenada().equals(coordenada)) {
+                Label enemyLabel = createDefenseLabel(parcela1.getDefensa());
+                cellPane.getChildren().add(enemyLabel);
+            }
+        }
+    }
+
     private Label createEnemyLabel(Enemigo enemigo) {
         Label enemyLabel = new Label(enemigo.toString());
+        enemyLabel.setStyle("-fx-font-size: 8px; -fx-text-fill: red");
+        return enemyLabel;
+    }
+
+
+    private Label createDefenseLabel(Defensa defensa) {
+        Label enemyLabel = new Label(defensa.toString());
         enemyLabel.setStyle("-fx-font-size: 8px; -fx-text-fill: red");
         return enemyLabel;
     }
@@ -175,15 +198,29 @@ public class AlgoDefenseVista implements Observer, Vista {
 
     private HBox createButtonBox() {
         Button ejecutarTurnoButton = new Button("Ejecutar Turno IA");
-        //ejecutarTurnoButton.setOnAction(event -> ejecutarTurnoIA());
-        ejecutarTurnoButton.setOnAction(new SiguienteTurnoHandler(juego,this));
-        HBox buttonBox = new HBox(10, ejecutarTurnoButton);
+        ejecutarTurnoButton.setOnAction(new SiguienteTurnoHandler(juego, this));
+
+        Button boton2 = new Button("Torre plateada");
+        boton2.setOnAction(new UbicarDefensaHandler(juego,this));
+
+        Button boton3 = new Button("Boton 3");
+        boton3.setOnAction(e -> {
+            // Lógica del botón 3
+        });
+
+        Button boton4 = new Button("Boton 4");
+        boton4.setOnAction(e -> {
+            // Lógica del botón 4
+        });
+
+        HBox buttonBox = new HBox(10, ejecutarTurnoButton, boton2, boton3, boton4);
         buttonBox.setAlignment(Pos.CENTER_LEFT);
         BorderPane container = new BorderPane();
         container.setLeft(buttonBox);
         container.setPadding(new Insets(10));
         return new HBox(container);
     }
+
 
 
 }
