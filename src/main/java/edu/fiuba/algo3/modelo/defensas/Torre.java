@@ -12,6 +12,7 @@ public class Torre implements Defensa {
     protected int costoConstruccion;
 
     protected int danio;
+
     protected int rangoAtaque;
     protected int turnosRestantesParaDespliegue;
 
@@ -29,7 +30,9 @@ public class Torre implements Defensa {
     }
 
     public void atacar(List<Enemigo> enemigos, Parcela parcelaDefensa) throws TerrenoNoAptoParaCaminar, TorreNoDesplegada, EnemigosFueraDeRango {
+
         desplegable.atacar(enemigos, parcelaDefensa, rangoAtaque, danio);
+
     }
 
     public void pasarTurno() {

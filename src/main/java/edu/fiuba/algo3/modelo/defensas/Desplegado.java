@@ -18,7 +18,7 @@ public class Desplegado implements Desplegable {
 		this.logger = CustomLogger.getInstance();
 	}
 
-	public void atacar(List<Enemigo> enemigos, Parcela parcelaDefensa, int rangoAtaque, int danio) throws EnemigosFueraDeRango{
+		public void atacar(List<Enemigo> enemigos, Parcela parcelaDefensa, int rangoAtaque, int danio) throws EnemigosFueraDeRango{
 		for (Enemigo enemigo : enemigos) {
 			try {
 				enemigo.recibirAtaque(parcelaDefensa, rangoAtaque, danio);
@@ -30,6 +30,7 @@ public class Desplegado implements Desplegable {
 				throw new RuntimeException(e);
 			}
 		}
+
 		throw new EnemigosFueraDeRango();
 	}
 

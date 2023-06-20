@@ -40,6 +40,8 @@ public class Lechuza implements Enemigo {
 
     public void mover(Mapa mapa) throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
         this.trasladable = trasladable.moverse(mapa);
+        logger.log(this.getNombre() + " se movio a la coordenada = (" + trasladable.getPasarelaActual().getCoordenada().getAbscisa() + ","
+                + trasladable.getPasarelaActual().getCoordenada().getAbscisa() + ")");
 
     }
 
@@ -60,6 +62,11 @@ public class Lechuza implements Enemigo {
     @Override
     public int getDanio() {
         return this.atacante.getDanio();
+    }
+
+    @Override
+    public String toString() {
+        return "L";
     }
 
 }
