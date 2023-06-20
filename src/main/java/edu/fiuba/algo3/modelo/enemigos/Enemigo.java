@@ -23,4 +23,6 @@ public interface Enemigo {
 	public String getNombre();
 
 	public int getDanio();
+
+	public int getVida();
 }
