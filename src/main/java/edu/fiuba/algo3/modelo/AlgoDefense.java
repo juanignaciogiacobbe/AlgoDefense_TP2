@@ -138,10 +138,8 @@ public class AlgoDefense implements Observable {
 
 	public void activarDefensas() throws TerrenoNoAptoParaCaminar, TorreNoDesplegada {
 		for (ParcelaDeTierra parcela : defensas) {
-			((Torre)parcela.getDefensa()).pasarTurno();//no desplegada
-			((Torre)parcela.getDefensa()).pasarTurno();//no desplegada
 			try {
-				parcela.getDefensa().atacar(enemigos, parcela);// desplegada
+				parcela.getDefensa().atacar(enemigos, parcela);
 			} catch (EnemigosFueraDeRango e) {
 			}
 		}
@@ -163,7 +161,7 @@ public class AlgoDefense implements Observable {
 	}
 
 
-	public void ejecutarTurno() throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, DefensasVacias {
+	public void ejecutarTurno() throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, DefensasVacias, TorreNoDesplegada {
 		this.moverEnemigos();
 		this.cargarEnemigos();
 		if (this.turno < 12) {
@@ -171,6 +169,7 @@ public class AlgoDefense implements Observable {
 		} else {
 			this.turno = 1;
 		}
+		this.activarDefensas();
 	}
 
 	public void cargarEnemigos() {

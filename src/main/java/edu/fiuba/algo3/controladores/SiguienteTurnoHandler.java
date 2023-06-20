@@ -2,6 +2,7 @@ package edu.fiuba.algo3.controladores;
 
 import edu.fiuba.algo3.modelo.AlgoDefense;
 import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
+import edu.fiuba.algo3.modelo.defensas.TorreNoDesplegada;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaCaminar;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaConstruir;
 import edu.fiuba.algo3.vista.AlgoDefenseVista;
@@ -23,12 +24,8 @@ public class SiguienteTurnoHandler implements EventHandler<ActionEvent> {
     public void handle(ActionEvent actionEvent) {
         try {
             juego.ejecutarTurno();
-        } catch (TerrenoNoAptoParaCaminar e) {
-            throw new RuntimeException(e);
-        } catch (TerrenoNoAptoParaConstruir e) {
-            throw new RuntimeException(e);
-        } catch (DefensasVacias e) {
-            throw new RuntimeException(e);
+        } catch (TerrenoNoAptoParaCaminar | TerrenoNoAptoParaConstruir | DefensasVacias | TorreNoDesplegada e) {
+
         }
         juego.notifyObservers();
     }
