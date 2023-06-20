@@ -11,6 +11,11 @@ public class TorreBlanca extends Torre {
 		this.desplegable = new NoDesplegado(1);
 
 	}
+
+	@Override
+	public String toString() {
+		return "TB";
+	}
 }
 
 

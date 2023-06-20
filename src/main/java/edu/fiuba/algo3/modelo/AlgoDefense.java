@@ -122,16 +122,17 @@ public class AlgoDefense implements Observable {
 
 	}
 
-	public void ubicarDefensa(Defensa defensa, int absica, int ordenada) {
-		ParcelaDeTierra parcelaSet = null;
-		parcelaSet = (ParcelaDeTierra) this.mapa.obtenerParcelaConCoordenadas(absica, ordenada);
-		parcelaSet.setDefensa((Torre) defensa);
-		defensas.add(parcelaSet);
+	public void ubicarDefensa(Torre defensa, int absica, int ordenada) throws TerrenoNoAptoParaConstruir {
+		Parcela parcelaSet = null;
+		parcelaSet = this.mapa.obtenerParcelaConCoordenadas(absica, ordenada);
+		parcelaSet.construir(defensa);
+		defensas.add((ParcelaDeTierra) parcelaSet);
 		logger.log("Se construyo");
 	}
 
-	public void ubicarTrampa(TrampaArenosa trampa, PasarelaComun pasarela) throws TerrenoNoAptoParaConstruir {
+	public void ubicarTrampa(TrampaArenosa trampa, Parcela pasarela) throws TerrenoNoAptoParaConstruir {
 		pasarela.construir(trampa);
+		logger.log("Se construyo");
 	}
 
 

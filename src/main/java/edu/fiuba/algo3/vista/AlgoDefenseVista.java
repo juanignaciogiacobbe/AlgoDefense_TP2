@@ -1,7 +1,8 @@
 package edu.fiuba.algo3.vista;
 
 import edu.fiuba.algo3.controladores.SiguienteTurnoHandler;
-import edu.fiuba.algo3.controladores.UbicarDefensaHandler;
+import edu.fiuba.algo3.controladores.UbicarTorreHandler;
+import edu.fiuba.algo3.controladores.UbicarTrampaHandler;
 import edu.fiuba.algo3.modelo.AlgoDefense;
 import edu.fiuba.algo3.modelo.Observer;
 import edu.fiuba.algo3.modelo.convertidor.FormatoJSONInvalidoException;
@@ -14,7 +15,6 @@ import edu.fiuba.algo3.modelo.parcelas.Parcela;
 import edu.fiuba.algo3.modelo.parcelas.ParcelaDeTierra;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -35,6 +35,7 @@ public class AlgoDefenseVista implements Observer, Vista {
     private static final int CELL_SIZE = 30;
 
     private AlgoDefense juego;
+    private Coordenada ultimaCoordenada;
 
 
     @Override
@@ -119,7 +120,8 @@ public class AlgoDefenseVista implements Observer, Vista {
         StackPane cellPane = new StackPane();
         ImageView imageView = createParcelaImageView(parcela);
         imageView.setOnMouseClicked(
-                e -> 			System.out.println("Clicked on parcela at position: " + parcela.getCoordenada()));
+                e -> this.ultimaCoordenada = parcela.getCoordenada());
+                        //System.out.println("Clicked on parcela at position: " + parcela.getCoordenada()));
         cellPane.getChildren().add(imageView);
         return cellPane;
     }
@@ -204,17 +206,13 @@ public class AlgoDefenseVista implements Observer, Vista {
         ejecutarTurnoButton.setOnAction(new SiguienteTurnoHandler(juego, this));
 
         Button boton2 = new Button("Torre plateada");
-        boton2.setOnAction(new UbicarDefensaHandler(juego,this));
+        boton2.setOnAction(new UbicarTorreHandler(juego,this,"p"));
 
-        Button boton3 = new Button("Boton 3");
-        boton3.setOnAction(e -> {
-            // Lógica del botón 3
-        });
+        Button boton3 = new Button("Torre Blanca");
+        boton3.setOnAction(new UbicarTorreHandler(juego,this,"b"));
 
-        Button boton4 = new Button("Boton 4");
-        boton4.setOnAction(e -> {
-            // Lógica del botón 4
-        });
+        Button boton4 = new Button("Trampa Arenosa");
+        boton4.setOnAction(new UbicarTrampaHandler(juego,this));
 
         HBox buttonBox = new HBox(10, ejecutarTurnoButton, boton2, boton3, boton4);
         buttonBox.setAlignment(Pos.CENTER_LEFT);
@@ -223,6 +221,11 @@ public class AlgoDefenseVista implements Observer, Vista {
         container.setPadding(new Insets(10));
         return new HBox(container);
     }
+
+    public Coordenada getUltimaCoordenada(){
+
+        return ultimaCoordenada;
+    };
 
 
 }

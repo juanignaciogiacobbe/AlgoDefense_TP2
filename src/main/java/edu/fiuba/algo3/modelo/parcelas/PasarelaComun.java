@@ -22,6 +22,10 @@ public class PasarelaComun extends ParcelaDePasarela {
 		this.defensa = defensaAConstruir;
 	}
 
+	public Ralentizador getDefensa() {
+		return defensa;
+	}
+
 	@Override
 	public ParcelaDePasarela mover(int distancia, Mapa mapa) throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
 		if (this.defensa == null) {
