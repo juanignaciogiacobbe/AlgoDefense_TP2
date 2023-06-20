@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface Desplegable {
 
-	void atacar(List<Enemigo> enemigos, Parcela parcelaDefensa, int rangoAtaque, int danio) throws TerrenoNoAptoParaCaminar, TorreNoDesplegada, EnemigosFueraDeRango;
+	public Desplegable atacar(List<Enemigo> enemigos, Parcela parcelaDefensa, int rangoAtaque, int danio) throws TerrenoNoAptoParaCaminar, TorreNoDesplegada, EnemigosFueraDeRango;
 
 	Desplegable pasarTurno();
 }

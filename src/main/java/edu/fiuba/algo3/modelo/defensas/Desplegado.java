@@ -18,20 +18,22 @@ public class Desplegado implements Desplegable {
 		this.logger = CustomLogger.getInstance();
 	}
 
-		public void atacar(List<Enemigo> enemigos, Parcela parcelaDefensa, int rangoAtaque, int danio) throws EnemigosFueraDeRango{
+		public Desplegable atacar(List<Enemigo> enemigos, Parcela parcelaDefensa, int rangoAtaque, int danio) throws EnemigosFueraDeRango{
 		for (Enemigo enemigo : enemigos) {
 			try {
 				enemigo.recibirAtaque(parcelaDefensa, rangoAtaque, danio);
 				logger.log("La torre ataco a una " + enemigo.getNombre() + " en la posicion ("+ enemigo.getPasarelaActual().getCoordenada().getAbscisa()
 				 + "," + enemigo.getPasarelaActual().getCoordenada().getAbscisa() + ")");
-				return;
+				return this.pasarTurno();
 			} catch (EnemigoFueraDeRango e) {
 			} catch (EnemigoNoDaniable e) {
 				throw new RuntimeException(e);
 			}
 		}
 
-		throw new EnemigosFueraDeRango();
+		//throw new EnemigosFueraDeRango();
+		return this.pasarTurno();
+
 	}
 
 	public Desplegable pasarTurno() {

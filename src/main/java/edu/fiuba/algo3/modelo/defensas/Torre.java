@@ -31,7 +31,7 @@ public class Torre implements Defensa {
 
     public void atacar(List<Enemigo> enemigos, Parcela parcelaDefensa) throws TerrenoNoAptoParaCaminar, TorreNoDesplegada, EnemigosFueraDeRango {
 
-        desplegable.atacar(enemigos, parcelaDefensa, rangoAtaque, danio);
+        this.desplegable = desplegable.atacar(enemigos, parcelaDefensa, rangoAtaque, danio);
 
     }
 
