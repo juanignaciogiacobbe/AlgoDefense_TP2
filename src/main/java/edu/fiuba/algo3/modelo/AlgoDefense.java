@@ -34,6 +34,8 @@ public class AlgoDefense implements Observable {
 
 	private int turno;
 
+	private int turnosTotales;
+
 	public AlgoDefense(Mapa mapa, Map<Integer, List<Enemigo>> enemigosTurno, List<Enemigo> enemigos) {
 		this.mapa = mapa;
 		this.enemigosTurno = enemigosTurno;
@@ -52,6 +54,7 @@ public class AlgoDefense implements Observable {
 		this.enemigosTurno = convertidorEnemigos.cargarEnemigos();
 		this.defensas = new LinkedList<>();
 		this.turno = 1;
+		this.turnosTotales = 1;
 		this.logger =  CustomLogger.getInstance();
 	}
 
@@ -87,7 +90,7 @@ public class AlgoDefense implements Observable {
 		if (jugador1.estaMuerto()) {
 			logger.log("Computadora gana la partida");
 			return "Computadora";
-		} else if (enemigos.isEmpty() && this.turno!= 1) {
+		} else if (enemigos.isEmpty() && this.turnosTotales!= 1) {
 			logger.log(jugador1.getNombre() + " gana la partida");
 			return jugador1.getNombre();
 		}
@@ -108,13 +111,13 @@ public class AlgoDefense implements Observable {
 
 	public void agregarEnemigo(Enemigo enemigo) {
 
-		enemigo.setPasarelaActual(mapa.getOrigen());
+		//enemigo.setPasarelaActual(mapa.getOrigen());
 		enemigos.add(enemigo);
 	}
 
 	public void cargarEnemigos(int cantTurnos) throws FileNotFoundException, FormatoJSONInvalidoException, ParseException {
 		FileReader readerEnemigos = new FileReader("src/resources/enemigos.json");
-		ConvertidorEnemigos convertidorEnemigos = new ConvertidorEnemigosImplementacion(readerEnemigos,null);
+		ConvertidorEnemigos convertidorEnemigos = new ConvertidorEnemigosImplementacion(readerEnemigos,mapa.getOrigen());
 		Map<Integer, List<Enemigo>> enemigosPorRonda = convertidorEnemigos.cargarEnemigos();
 		for (int i = 1; i < cantTurnos; i++) {
 			for (Enemigo enemigoDefinido : enemigosPorRonda.get(i)) {
@@ -148,10 +151,8 @@ public class AlgoDefense implements Observable {
 
 	public void activarDefensas() throws TerrenoNoAptoParaCaminar, TorreNoDesplegada {
 		for (ParcelaDeTierra parcela : defensas) {
-			try {
-				parcela.getDefensa().atacar(enemigos, parcela);
-			} catch (EnemigosFueraDeRango e) {
-			}
+			parcela.getDefensa().atacar(enemigos, parcela);
+
 		}
 
 	}
@@ -174,15 +175,20 @@ public class AlgoDefense implements Observable {
 	public void ejecutarTurno() throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, DefensasVacias, TorreNoDesplegada {
 		this.moverEnemigos();
 		this.cargarEnemigos();
-		if (this.turno < 12) {
-			this.turno++;
-		} else {
-			this.turno = 1;
-		}
+		this.pasarTurno();
 		this.activarDefensas();
 	}
 
 	public void cargarEnemigos() {
 		enemigos.addAll(enemigosTurno.get(turno));
 	};
+
+	public void pasarTurno() {
+		if (this.turno < 12) {
+			this.turno++;
+		} else {
+			this.turno = 1;
+		}
+		this.turnosTotales++;
+	}
 }

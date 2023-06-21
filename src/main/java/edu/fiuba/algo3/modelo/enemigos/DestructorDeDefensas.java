@@ -14,7 +14,7 @@ public class DestructorDeDefensas implements Atacante {
     @Override
     public void atacar(Jugador jugador) throws DefensasVacias {
         try {
-            jugador.getDefensas().remove(0);
+            jugador.destruirSiguienteDefensa();
         } catch (IndexOutOfBoundsException e) {
             //throw new DefensasVacias();
             logger.log("No se detruyo ninguna torre porque no hay");

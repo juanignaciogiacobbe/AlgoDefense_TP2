@@ -33,7 +33,7 @@ public class TrampaArenosa implements Defensa, Ralentizador {
 	}
 
 	@Override
-	public void atacar(List<Enemigo> enemigos, Parcela parcelaDefensa) throws TerrenoNoAptoParaCaminar, TorreNoDesplegada, EnemigosFueraDeRango {
+	public void atacar(List<Enemigo> enemigos, Parcela parcelaDefensa)  {
 		//super.atacar(enemigos, parcelaDefensa);
 	}
 

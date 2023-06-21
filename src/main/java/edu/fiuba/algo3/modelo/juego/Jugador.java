@@ -92,6 +92,11 @@ public class Jugador {
 	public void setDefensa(List<ParcelaDeTierra> nuevaLista) {
 		this.defensas = nuevaLista;
 	}
+
+	public void destruirSiguienteDefensa() {
+		(this.defensas.get(0)).destruirDefensa();
+		this.defensas.remove(0);
+	}
 }
 
 

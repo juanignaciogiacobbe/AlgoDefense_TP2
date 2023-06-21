@@ -29,7 +29,7 @@ public abstract class Torre implements Defensa {
         return rangoAtaque;
     }
 
-    public void atacar(List<Enemigo> enemigos, Parcela parcelaDefensa) throws TerrenoNoAptoParaCaminar, TorreNoDesplegada, EnemigosFueraDeRango {
+    public void atacar(List<Enemigo> enemigos, Parcela parcelaDefensa)  {
 
         this.desplegable = desplegable.atacar(enemigos, parcelaDefensa, rangoAtaque, danio);
 

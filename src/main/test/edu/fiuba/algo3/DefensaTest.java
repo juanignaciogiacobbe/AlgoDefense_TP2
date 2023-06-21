@@ -9,6 +9,7 @@ import edu.fiuba.algo3.modelo.defensas.TrampaArenosa;
 import edu.fiuba.algo3.modelo.enemigos.Arania;
 import edu.fiuba.algo3.modelo.enemigos.Lechuza;
 import edu.fiuba.algo3.modelo.enemigos.Topo;
+import edu.fiuba.algo3.modelo.juego.CreditosInsuficientes;
 import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.juego.NombreInvalido;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
@@ -145,7 +146,7 @@ public class DefensaTest {
 	}
 
 	@Test
-	public void test10TrasDosTurnosLaTrampaArenosaRalentiza() throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, NombreInvalido, DefensasVacias, FormatoJSONInvalidoException, IOException, ParseException {
+	public void test10TrasDosTurnosLaTrampaArenosaRalentiza() throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, NombreInvalido, DefensasVacias, FormatoJSONInvalidoException, IOException, ParseException, CreditosInsuficientes {
 		TrampaArenosa defensa = new TrampaArenosa();
 		PasarelaComun pasarelaComun1 = new PasarelaComun(0, 1);
 		PasarelaComun pasarelaComun2 = new PasarelaComun(0, 2);
@@ -156,7 +157,7 @@ public class DefensaTest {
 
 		AlgoDefense algoDefense = new AlgoDefense(mapa);
 		algoDefense.agregarJugador("Jugador");
-		algoDefense.ubicarTrampa(defensa, pasarelaComun1);
+		algoDefense.construir(defensa, pasarelaComun1);
 
 		Arania arania1 = new Arania(pasarelaComun1);
 		algoDefense.agregarEnemigo(arania1);
@@ -176,7 +177,7 @@ public class DefensaTest {
 	}
 
 	@Test
-	public void test11TrasTresTurnosLaTrampaArenosaNoRalentiza() throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, NombreInvalido, DefensasVacias, FormatoJSONInvalidoException, IOException, ParseException {
+	public void test11TrasTresTurnosLaTrampaArenosaNoRalentiza() throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, NombreInvalido, DefensasVacias, FormatoJSONInvalidoException, IOException, ParseException, CreditosInsuficientes {
 		TrampaArenosa defensa = new TrampaArenosa();
 		PasarelaComun pasarelaComun1 = new PasarelaComun(0, 1);
 		PasarelaComun pasarelaComun2 = new PasarelaComun(0, 2);
@@ -186,7 +187,7 @@ public class DefensaTest {
 		mapa.setMeta(pasarelaMeta);
 		AlgoDefense algoDefense = new AlgoDefense(mapa);
 		algoDefense.agregarJugador("Jugador");
-		algoDefense.ubicarTrampa(defensa, pasarelaComun1);
+		algoDefense.construir(defensa, pasarelaComun1);
 
 
 		Arania arania1 = new Arania(pasarelaComun1);

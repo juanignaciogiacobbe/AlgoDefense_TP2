@@ -14,7 +14,7 @@ public interface Defensa {
 
 	public int getRangoAtaque();
 
-	public void atacar(List<Enemigo> enemigos, Parcela parcelaDefensa) throws TerrenoNoAptoParaCaminar, TorreNoDesplegada, EnemigosFueraDeRango;
+	public void atacar(List<Enemigo> enemigos, Parcela parcelaDefensa) ;
 
 	public String getNombre();
 }
