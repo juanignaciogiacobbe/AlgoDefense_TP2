@@ -17,7 +17,7 @@ public class FinJuegoVista implements Vista {
 
 	@Override
 	public void mostrar(Scene scene) {
-		Label celebratoryLabel = new Label("El ganador es: )" + this.algoDefense.finDelJuego() );
+		Label celebratoryLabel = new Label("El ganador es: " + this.algoDefense.finDelJuego() );
 		celebratoryLabel.setStyle("-fx-font-size: 60px;");
 
 		Button finishButton = new Button();

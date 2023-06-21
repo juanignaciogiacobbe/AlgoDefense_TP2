@@ -18,7 +18,7 @@ public class NoDesplegado implements Desplegable {
 	}
 
 	@Override
-	public Desplegable atacar(List<Enemigo> enemigos, Parcela parcelaDefensa, int rangoAtaque, int danio) throws TorreNoDesplegada {
+	public Desplegable atacar(List<Enemigo> enemigos, Parcela parcelaDefensa, int rangoAtaque, int danio)  {
 		logger.log("La torre aun no ha sido desplegada");
 		//throw new TorreNoDesplegada();
 		return this.pasarTurno();

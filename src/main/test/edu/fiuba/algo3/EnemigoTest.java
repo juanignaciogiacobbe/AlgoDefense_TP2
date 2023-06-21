@@ -7,6 +7,7 @@ import edu.fiuba.algo3.modelo.defensas.TorreBlanca;
 import edu.fiuba.algo3.modelo.defensas.TorreNoDesplegada;
 import edu.fiuba.algo3.modelo.defensas.TorrePlateada;
 import edu.fiuba.algo3.modelo.enemigos.*;
+import edu.fiuba.algo3.modelo.juego.CreditosInsuficientes;
 import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.juego.NombreInvalido;
 import edu.fiuba.algo3.modelo.parcelas.*;
@@ -63,14 +64,15 @@ public class EnemigoTest {
 	}
 
 	@Test
-	public void test05AgregoLechuzaADefensaYAtaca() throws FormatoJSONInvalidoException, IOException, ParseException, NombreInvalido, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, DefensasVacias {
+	public void test05AgregoLechuzaADefensaYAtaca() throws FormatoJSONInvalidoException, IOException, ParseException, NombreInvalido, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, DefensasVacias, CreditosInsuficientes {
 		AlgoDefense algoDefense = new AlgoDefense();
 		algoDefense.agregarJugador("Sebastian");
-		Lechuza lechuza = new Lechuza(algoDefense.getMapa().getMeta());
+		Lechuza lechuza = new Lechuza((ParcelaDePasarela) algoDefense.getMapa().obtenerParcelaConCoordenadas(10,13));
 		TorreBlanca torre = new TorreBlanca();
 		algoDefense.agregarEnemigo(lechuza);
-		algoDefense.ubicarDefensa(torre,0,2);
+		algoDefense.construir(torre, algoDefense.getMapa().obtenerParcelaConCoordenadas(0,2));
 		assertEquals(1,algoDefense.obtenerCantidadDefensas());
+		algoDefense.moverEnemigos();
 		algoDefense.moverEnemigos();
 		assertEquals(0,algoDefense.obtenerCantidadDefensas());
 
@@ -100,11 +102,12 @@ public class EnemigoTest {
 
 
 	@Test
-	public void test08LaLechuzaSeMueveDeFormaCorrecta() throws FormatoJSONInvalidoException, IOException, ParseException, NombreInvalido, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, DefensasVacias {
+	public void test08LaLechuzaSeMueveDeFormaCorrecta() throws FormatoJSONInvalidoException, IOException, ParseException, NombreInvalido, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, DefensasVacias, CreditosInsuficientes {
 		AlgoDefense algoDefense = new AlgoDefense();
 		algoDefense.agregarJugador("Sebastian");
 		TorreBlanca torre = new TorreBlanca();
-		algoDefense.ubicarDefensa(torre,0,2);
+		Parcela parcela = algoDefense.getMapa().obtenerParcelaConCoordenadas(0,2);
+		algoDefense.construir(torre, parcela);
 		Lechuza lechuza = new Lechuza(algoDefense.getMapa().getOrigen());
 		algoDefense.agregarEnemigo(lechuza);
 		assertEquals(1,algoDefense.obtenerCantidadDefensas());

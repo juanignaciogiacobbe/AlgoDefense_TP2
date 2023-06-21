@@ -39,13 +39,16 @@ public class CasosDeUsoTest {
 	@Test
 	public void test02DefensaPuedeSerUtilizadaLuegoDeCrearseRecienAlPasarTurnosCorrespondientes() {
 		List<Enemigo> enemigos = new ArrayList<>();
-		enemigos.add(new Hormiga(new PasarelaLargada(0, 0)));
+		Hormiga hormiga = new Hormiga(new PasarelaLargada(0, 0));
+		enemigos.add(hormiga);
 		ParcelaDeTierra parcelaDeTierra = new ParcelaDeTierra(1, 1);
 		TorrePlateada defensa = new TorrePlateada();
-		assertThrows(TorreNoDesplegada.class, () -> defensa.atacar(enemigos, parcelaDeTierra));
+		defensa.atacar(enemigos, parcelaDeTierra);
+		assertEquals(1, hormiga.getVida());
 		defensa.pasarTurno();
 		defensa.pasarTurno();
-		assertDoesNotThrow(() -> defensa.atacar(enemigos, parcelaDeTierra));
+		defensa.atacar(enemigos, parcelaDeTierra);
+		assertEquals(0, hormiga.getVida());
 	}
 
 	@Test
@@ -67,7 +70,7 @@ public class CasosDeUsoTest {
 	}
 
 	@Test
-	public void test05VerificoQueLasDefensasAtaquenDentroDelRangoEsperado() throws TerrenoNoAptoParaConstruir {
+	public void test05VerificoQueLasDefensasAtaquenDentroDelRangoEsperado() throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar, TorreNoDesplegada, EnemigosFueraDeRango {
 		TorrePlateada torre1 = new TorrePlateada();
 		TorrePlateada torre2 = new TorrePlateada();
 		ParcelaDeTierra tierra1 = new ParcelaDeTierra(1, 1);
@@ -90,8 +93,11 @@ public class CasosDeUsoTest {
 		enemigos2.add(enemigo2);
 
 
-		assertDoesNotThrow(() -> torre1.atacar(enemigos1, tierra1));
-		assertThrows(EnemigosFueraDeRango.class, () -> torre2.atacar(enemigos2, tierra2));
+		torre1.atacar(enemigos1, tierra1);
+		torre2.atacar(enemigos2, tierra2);
+
+		assertEquals(0, enemigo1.getVida());
+		assertEquals(1, enemigo2.getVida());
 	}
 
 	@Test
@@ -149,13 +155,13 @@ public class CasosDeUsoTest {
 		AlgoDefense algoDefense = new AlgoDefense();
 		Mapa mapa = algoDefense.getMapa();
 		Hormiga hormiga = new Hormiga(mapa.getOrigen());
-		hormiga.recibirAtaque(pasarelaLargada, 10, 100);
-
 		algoDefense.agregarEnemigo(hormiga);
-		assertDoesNotThrow(() -> algoDefense.agregarJugador("Mariana"));
+		hormiga.recibirAtaque(pasarelaLargada, 10, 100);
 		algoDefense.moverEnemigos();
+		algoDefense.pasarTurno();
+		assertDoesNotThrow(() -> algoDefense.agregarJugador("Mariana"));
 		String ganador = algoDefense.finDelJuego();
-		assertEquals(ganador, "Mariana");
+		assertEquals("Mariana", ganador);
 	}
 
 	@Test
@@ -167,13 +173,12 @@ public class CasosDeUsoTest {
 		Hormiga enemigo2 = new Hormiga(mapa.getOrigen());
 		algoDefense.agregarEnemigo(enemigo1);
 		algoDefense.agregarEnemigo(enemigo2);
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 23; i++) {
 			algoDefense.moverEnemigos();
+			algoDefense.pasarTurno();
 		}
-		assertDoesNotThrow(() -> algoDefense.agregarJugador("Mariana"));
-		algoDefense.agregarJugador("Mariana");
 		String ganador = algoDefense.finDelJuego();
-		assertEquals(ganador, "Mariana");
+		assertEquals("Mariana", ganador);
 	}
 
 	@Test
@@ -188,9 +193,8 @@ public class CasosDeUsoTest {
 		for (int i = 0; i < 24; i++) {
 			algoDefense.moverEnemigos();
 		}
-		algoDefense.agregarJugador("Mariana");
 		String ganador = algoDefense.finDelJuego();
-		assertEquals(ganador, "Computadora");
+		assertEquals("Computadora", ganador);
 
 	}
 
@@ -295,22 +299,30 @@ public class CasosDeUsoTest {
 		algoDefense.ubicarDefensa(torre1, 1, 0);
 		algoDefense.moverEnemigos();
 		algoDefense.activarDefensas();
+		for (int i = 0; i < 24; i++) {
+			algoDefense.moverEnemigos();
+			algoDefense.pasarTurno();
+		}
 		String ganador = algoDefense.finDelJuego();
-		assertEquals(ganador, "Sebastian");
+		assertEquals("Sebastian", ganador);
 	}
 
 	@Test
 	void test19SimuloYVerificoQueGanaComputadora() throws FormatoJSONInvalidoException, IOException, ParseException, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, NombreInvalido, DefensasVacias {
 		AlgoDefense algoDefense = new AlgoDefense();
 		algoDefense.agregarJugador("Sebastian");
-		algoDefense.cargarEnemigos(12);
-		for (int i = 0; i < 24; i++) {
+
+		for (int i = 0; i <15; i++) {
+			algoDefense.cargarEnemigos();
+			algoDefense.pasarTurno();
+		}
+		for (int i = 0; i < 30; i++) {
 			algoDefense.moverEnemigos();
 		}
 
 		
 		String ganador = algoDefense.finDelJuego();
-		assertEquals(ganador, "Computadora");
+		assertEquals("Computadora", ganador);
 	}
 
 	@Test

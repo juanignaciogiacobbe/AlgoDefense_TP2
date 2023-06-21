@@ -64,5 +64,6 @@ public abstract class Parcela {
 
 	public void setDefensa(Torre defensaAConsrtruir) {
 	}
+
 }
 

@@ -34,4 +34,8 @@ public class ParcelaDeTierra extends Parcela {
 	public String toString() {
 		return "T";
 	}
+
+	public void destruirDefensa() {
+		this.defensa = null;
+	}
 }

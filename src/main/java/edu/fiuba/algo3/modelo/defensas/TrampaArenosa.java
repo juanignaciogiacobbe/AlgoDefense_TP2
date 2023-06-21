@@ -33,7 +33,7 @@ public class TrampaArenosa implements Defensa, Ralentizador {
 	}
 
 	@Override
-	public void atacar(List<Enemigo> enemigos, Parcela parcelaDefensa) throws TerrenoNoAptoParaCaminar, TorreNoDesplegada, EnemigosFueraDeRango {
+	public void atacar(List<Enemigo> enemigos, Parcela parcelaDefensa)  {
 		//super.atacar(enemigos, parcelaDefensa);
 	}
 
@@ -50,5 +50,9 @@ public class TrampaArenosa implements Defensa, Ralentizador {
 
 	public ParcelaDePasarela ralentizar(int distancia, Mapa mapa, PasarelaComun pasarela) {
 		return mapa.obtenerPasarelasEnRango(pasarela, (int) Math.ceil((double) distancia / 2));
+	}
+
+	public String toString() {
+		return "S";
 	}
 }

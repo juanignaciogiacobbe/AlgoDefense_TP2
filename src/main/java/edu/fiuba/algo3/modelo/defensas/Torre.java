@@ -7,7 +7,7 @@ import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaCaminar;
 
 import java.util.List;
 
-public class Torre implements Defensa {
+public abstract class Torre implements Defensa {
 
     protected int costoConstruccion;
 
@@ -29,7 +29,7 @@ public class Torre implements Defensa {
         return rangoAtaque;
     }
 
-    public void atacar(List<Enemigo> enemigos, Parcela parcelaDefensa) throws TerrenoNoAptoParaCaminar, TorreNoDesplegada, EnemigosFueraDeRango {
+    public void atacar(List<Enemigo> enemigos, Parcela parcelaDefensa)  {
 
         this.desplegable = desplegable.atacar(enemigos, parcelaDefensa, rangoAtaque, danio);
 

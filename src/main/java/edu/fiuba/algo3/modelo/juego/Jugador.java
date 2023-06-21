@@ -15,7 +15,7 @@ import java.util.List;
 public class Jugador {
 	private final Creditos creditos;
 	private final String nombre;
-	private List<Parcela> defensas = new LinkedList<>();
+	private List<ParcelaDeTierra> defensas = new LinkedList<>();
 	private EstadoVida estadoDeVida;
 
 	private CustomLogger logger;
@@ -32,7 +32,7 @@ public class Jugador {
 		this.logger = CustomLogger.getInstance();
 	}
 
-	public List<Parcela> getDefensas() {
+	public List<ParcelaDeTierra> getDefensas() {
 		return defensas;
 	}
 
@@ -56,7 +56,7 @@ public class Jugador {
 		this.creditos.consumirPuntos(defensa.getCostoConstruccion());
 		try {
 			parcela.construir(defensa);
-			defensas.add(parcela);
+			defensas.add((ParcelaDeTierra) parcela);
 			logger.log("El jugador construyo una " + defensa.getNombre() + " en la posicion (" + parcela.getCoordenada().getAbscisa()
 					+ "," + parcela.getCoordenada().getOrdenada() + ")" );
 		} catch (TerrenoNoAptoParaConstruir e) {
@@ -89,8 +89,13 @@ public class Jugador {
 		defensas.add(parcelaSet);
 	}
 
-	public void setDefensa(List<Parcela> nuevaLista) {
+	public void setDefensa(List<ParcelaDeTierra> nuevaLista) {
 		this.defensas = nuevaLista;
+	}
+
+	public void destruirSiguienteDefensa() {
+		(this.defensas.get(0)).destruirDefensa();
+		this.defensas.remove(0);
 	}
 }
 

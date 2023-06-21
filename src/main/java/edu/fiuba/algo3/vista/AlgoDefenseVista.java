@@ -36,6 +36,7 @@ public class AlgoDefenseVista implements Observer, Vista {
 
     private AlgoDefense juego;
     private Coordenada ultimaCoordenada;
+    private Parcela ultimaParcela;
 
 
     @Override
@@ -123,7 +124,7 @@ public class AlgoDefenseVista implements Observer, Vista {
         StackPane cellPane = new StackPane();
         ImageView imageView = createParcelaImageView(parcela);
         imageView.setOnMouseClicked(
-                e -> this.ultimaCoordenada = parcela.getCoordenada());
+                e -> this.ultimaParcela = parcela);
                         //System.out.println("Clicked on parcela at position: " + parcela.getCoordenada()));
         cellPane.getChildren().add(imageView);
         return cellPane;
@@ -145,6 +146,8 @@ public class AlgoDefenseVista implements Observer, Vista {
                 return "file:" + basePath + "T.png";
             case "R":
                 return "file:" + basePath + "R.png";
+            case "S":
+                return "file:" + basePath + "S.png";
             default:
                 return "file:" + basePath + "C.png";
         }
@@ -229,6 +232,10 @@ public class AlgoDefenseVista implements Observer, Vista {
 
         return ultimaCoordenada;
     };
+
+    public Parcela getUltimaParcela() {
+        return this.ultimaParcela;
+    }
 
 
 }
