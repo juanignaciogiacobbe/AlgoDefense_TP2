@@ -40,6 +40,7 @@ public class Main extends Application {
 			AlgoDefense algoDefense = new AlgoDefense();
 			algoDefense.addObserver(algoDefenseVista);
 			algoDefenseVista.setAlgoDefense(algoDefense);
+			finJuegoVista.setAlgoDefense(algoDefense);
 
 			bienvenidoVista.mostrar(scene);
 			primaryStage.show();
