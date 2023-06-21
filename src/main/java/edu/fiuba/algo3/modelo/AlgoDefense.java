@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.convertidor.*;
 import edu.fiuba.algo3.modelo.defensas.*;
 import edu.fiuba.algo3.modelo.enemigos.Enemigo;
 import edu.fiuba.algo3.modelo.enemigos.EnemigosFueraDeRango;
+import edu.fiuba.algo3.modelo.juego.CreditosInsuficientes;
 import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.juego.NombreInvalido;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
@@ -72,7 +73,7 @@ public class AlgoDefense implements Observable {
 	}
 
 	public List<ParcelaDeTierra> getDefensas() {
-		return defensas;
+		return jugador1.getDefensas();
 	}
 
 	public void agregarJugador(String nombre) throws NombreInvalido, FormatoJSONInvalidoException, IOException, ParseException {
@@ -137,6 +138,13 @@ public class AlgoDefense implements Observable {
 		logger.log("Se construyo");
 	}
 
+	public void construir(Torre defensa, Parcela parcela) throws CreditosInsuficientes, TerrenoNoAptoParaConstruir {
+		jugador1.construir(defensa, parcela);
+	}
+
+	public void construir(TrampaArenosa defensa, Parcela parcela) throws CreditosInsuficientes, TerrenoNoAptoParaConstruir {
+		jugador1.construir(defensa, parcela);
+	}
 
 	public void activarDefensas() throws TerrenoNoAptoParaCaminar, TorreNoDesplegada {
 		for (ParcelaDeTierra parcela : defensas) {

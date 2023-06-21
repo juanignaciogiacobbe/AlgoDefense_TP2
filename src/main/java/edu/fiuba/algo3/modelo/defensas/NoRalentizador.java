@@ -14,4 +14,6 @@ public class NoRalentizador implements Ralentizador{
     public Ralentizador pasarTurno() {
         return this;
     }
+
+    public String toString() { return "C";}
 }

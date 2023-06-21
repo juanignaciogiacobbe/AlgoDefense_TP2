@@ -40,6 +40,6 @@ public class PasarelaComun extends ParcelaDePasarela {
 	}
 	@Override
 	public String toString() {
-		return "C";
+		return this.defensa.toString();
 	}
 }

@@ -51,4 +51,8 @@ public class TrampaArenosa implements Defensa, Ralentizador {
 	public ParcelaDePasarela ralentizar(int distancia, Mapa mapa, PasarelaComun pasarela) {
 		return mapa.obtenerPasarelasEnRango(pasarela, (int) Math.ceil((double) distancia / 2));
 	}
+
+	public String toString() {
+		return "S";
+	}
 }

@@ -7,7 +7,7 @@ import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaCaminar;
 
 import java.util.List;
 
-public class Torre implements Defensa {
+public abstract class Torre implements Defensa {
 
     protected int costoConstruccion;
 
