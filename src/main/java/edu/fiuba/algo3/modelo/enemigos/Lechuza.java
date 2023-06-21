@@ -65,6 +65,11 @@ public class Lechuza implements Enemigo {
     }
 
     @Override
+    public int getVida() {
+        return daniable.getVida();
+    }
+
+    @Override
     public String toString() {
         return "L";
     }

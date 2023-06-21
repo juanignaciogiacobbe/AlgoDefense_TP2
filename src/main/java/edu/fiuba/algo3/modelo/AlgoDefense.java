@@ -83,13 +83,15 @@ public class AlgoDefense implements Observable {
 
 	public String finDelJuego() {
 
-		if (jugador1.estaMuerto() || enemigos.isEmpty()) {
+		if (jugador1.estaMuerto()) {
 			logger.log("Computadora gana la partida");
 			return "Computadora";
+		} else if (enemigos.isEmpty() && this.turno!= 1) {
+			logger.log(jugador1.getNombre() + " gana la partida");
+			return jugador1.getNombre();
 		}
-		logger.log(jugador1.getNombre() + " gana la partida");
-		return jugador1.getNombre();
 
+		return null;
 	}
 
 

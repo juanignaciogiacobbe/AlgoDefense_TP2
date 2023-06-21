@@ -12,28 +12,28 @@ import java.util.List;
 
 public class PasarelaMeta extends ParcelaDePasarela {
 
-	private CustomLogger logger;
-	public PasarelaMeta(int abscisa, int ordenada) {
-		super();
-		this.construible = new NoConstruible();
-		this.coordenada = new Coordenada(abscisa, ordenada);
-		this.logger = CustomLogger.getInstance();
-	}
+    private CustomLogger logger;
 
-	public List<Enemigo> actualizarEnemigos(List<Enemigo> enemigos, Jugador jugador) throws DefensasVacias {
-		List<Enemigo> nuevaLista = new ArrayList<>();
+    public PasarelaMeta(int abscisa, int ordenada) {
+        super();
+        this.construible = new NoConstruible();
+        this.coordenada = new Coordenada(abscisa, ordenada);
+        this.logger = CustomLogger.getInstance();
+    }
 
-		for (Enemigo enemigo : enemigos) {
-			if (!enemigo.getPasarelaActual().getCoordenada().equals(this.getCoordenada())) {
-				nuevaLista.add(enemigo);
-			} else {
-				enemigo.atacar(jugador);
-
-			}
-		}
-		return nuevaLista;
-	}
-
+    public List<Enemigo> actualizarEnemigos(List<Enemigo> enemigos, Jugador jugador) throws DefensasVacias {
+        List<Enemigo> nuevaLista = new ArrayList<>();
+        for (Enemigo enemigo : enemigos) {
+            if (enemigo.getVida() > 0) {
+                if (!enemigo.getPasarelaActual().getCoordenada().equals(this.getCoordenada())) {
+                    nuevaLista.add(enemigo);
+                } else {
+                    enemigo.atacar(jugador);
+                }
+            }
+        }
+        return nuevaLista;
+    }
 
 
 }

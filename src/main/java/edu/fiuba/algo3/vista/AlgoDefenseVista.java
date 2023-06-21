@@ -71,6 +71,9 @@ public class AlgoDefenseVista implements Observer, Vista {
         rootPane.setBottom(createButtonBox());
 
         scene.setRoot(rootPane);
+        if (this.juego.finDelJuego() != null ) {
+            this.nextVista.mostrar(scene);
+        }
     }
 
     private GridPane createGridPane() {

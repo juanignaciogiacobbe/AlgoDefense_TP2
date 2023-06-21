@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vista;
 
+import edu.fiuba.algo3.modelo.AlgoDefense;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -8,13 +9,15 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class FinJuegoVista implements Vista {
+
+	private AlgoDefense algoDefense;
 	@Override
 	public void setNextVista(Vista nextVista) {
 	}
 
 	@Override
 	public void mostrar(Scene scene) {
-		Label celebratoryLabel = new Label("clickme  ;)");
+		Label celebratoryLabel = new Label("El ganador es: )" + this.algoDefense.finDelJuego() );
 		celebratoryLabel.setStyle("-fx-font-size: 60px;");
 
 		Button finishButton = new Button();
@@ -30,5 +33,9 @@ public class FinJuegoVista implements Vista {
 			Stage stage = (Stage) scene.getWindow();
 			stage.close();
 		});
+	}
+
+	public void setAlgoDefense(AlgoDefense algoDefense) {
+		this.algoDefense = algoDefense;
 	}
 }

@@ -21,6 +21,7 @@ public class EstadoVivo implements EstadoVida {
 	public EstadoVida recibirDanio(int danioARecibir) {
 		this.vida -= danioARecibir;
 		if (this.vida <= 0) {
+			logger.log("El enemigo ha muerto");
 			return new EstadoMuerto();
 
 		}
