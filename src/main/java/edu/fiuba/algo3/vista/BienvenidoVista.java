@@ -1,7 +1,5 @@
 package edu.fiuba.algo3.vista;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,10 +18,10 @@ public class BienvenidoVista implements Vista {
 	private void validateAndHandleInput(Scene scene) {
 		String playerName = nameField.getText();
 		if (!validateInput(playerName)) {
-			nameField.setStyle("-fx-border-color: red");
+			nameField.getStyleClass().add("input-invalido");
 			return;
 		}
-			System.out.println("que onda, " + playerName + "!");
+			System.out.println(playerName + ", bienvenido a AlgoDefense");
 			if (nextVista != null) {
 				nextVista.mostrar(scene);
 		}
@@ -35,17 +33,15 @@ public class BienvenidoVista implements Vista {
 
 	@Override
 	public void mostrar(Scene scene) {
-		Label nameLabel = new Label("Nombre del jugador:");
+		Label nameLabel = new Label("Ingresa tu nombre:");
 		nameField = new TextField();
-		Button loginButton = new Button("Jugar ▶️");
+		nameField.getStyleClass().add("input");
+		Button loginButton = new Button("Comenzar juego");
+		loginButton.getStyleClass().add("boton");
 
 		VBox vbox = new VBox(nameLabel, nameField, loginButton);
-		vbox.setAlignment(Pos.CENTER);
-		vbox.setSpacing(10);
-		vbox.setPadding(new Insets(120));
+		vbox.getStyleClass().add("container");
 		loginButton.setOnAction(e -> validateAndHandleInput(scene));
 		scene.setRoot(vbox);
 	}
-
-
 }

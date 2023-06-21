@@ -1,0 +1,28 @@
+.root {
+    -fx-font-family: "Monospace", sans-serif;
+}
+
+.container {
+    -fx-alignment: center;
+    -fx-spacing: 10px;
+    -fx-padding: 200px;
+}
+
+.boton {
+    -fx-background-color: #8ab8f5;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+.boton: hover {
+    -fx-text-fill: white;
+    -fx-background-color: #1475f4;
+}
+.input {
+    -fx-min-width: 200px;
+    -fx-max-width: 550px;
+}
+
+.input-invalido {
+    -fx-border-color: red;
+}
