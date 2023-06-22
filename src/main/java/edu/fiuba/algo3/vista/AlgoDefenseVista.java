@@ -8,6 +8,7 @@ import edu.fiuba.algo3.modelo.Observer;
 import edu.fiuba.algo3.modelo.convertidor.FormatoJSONInvalidoException;
 import edu.fiuba.algo3.modelo.defensas.Defensa;
 import edu.fiuba.algo3.modelo.enemigos.Enemigo;
+import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.juego.NombreInvalido;
 import edu.fiuba.algo3.modelo.mapa.Coordenada;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
@@ -68,13 +69,48 @@ public class AlgoDefenseVista implements Observer, Vista {
         displayMap(gridPane);
 
         rootPane.add(gridPane, 0, 0);
-        rootPane.add(createButtonBox(), 1, 0);
-        rootPane.setStyle("-fx-background-color: #FCFCF9; -fx-width: 100%;"); // Set the desired background color here
+        VBox rightSidebar = createSidebar();
+        rootPane.add(rightSidebar, 1, 0);
+        rootPane.setStyle("-fx-background-color: #FCFCF9; -fx-width: 100%;");
 
         scene.setRoot(rootPane);
         if (this.juego.finDelJuego() != null ) {
             this.nextVista.mostrar(scene);
         }
+    }
+
+    private VBox createSidebar() {
+        VBox sidebar = new VBox();
+        sidebar.setSpacing(10);
+        sidebar.setPadding(new Insets(10));
+
+        VBox buttonBox = createButtonBox();
+        VBox playerInfoBox = createPlayerInfoBox();
+        VBox sidebarContent = new VBox();
+        sidebarContent.getChildren().addAll(playerInfoBox, buttonBox);
+
+        sidebar.getChildren().add(sidebarContent);
+
+        return sidebar;
+    }
+
+    private VBox createPlayerInfoBox() {
+        VBox playerInfoBox = new VBox();
+        playerInfoBox.setSpacing(10);
+        playerInfoBox.setPadding(new Insets(10));
+        Jugador jugador = juego.getJugador();
+        Label playerNameLabel = new Label("Jugador: ");
+        Label playerNameValueLabel = new Label(jugador.getNombre());
+
+        Label playerCreditsLabel = new Label("Creditos: ");
+        Label playerCreditsValueLabel = new Label(String.valueOf(jugador.getCreditos()));
+
+        Label playerLifeLabel = new Label("Vida: ");
+        Label playerLifeValueLabel = new Label(String.valueOf(jugador.getVida()));
+
+        playerInfoBox.getChildren().addAll(playerNameLabel, playerNameValueLabel, playerCreditsLabel, playerCreditsValueLabel, playerLifeLabel, playerLifeValueLabel);
+
+        return playerInfoBox;
     }
 
     private GridPane createGridPane() {
@@ -207,7 +243,7 @@ public class AlgoDefenseVista implements Observer, Vista {
         }
     }
 
-    private HBox createButtonBox() {
+    private VBox createButtonBox() {
         Button ejecutarTurnoButton = new Button("Ejecutar Turno IA");
         ejecutarTurnoButton.setOnAction(new SiguienteTurnoHandler(juego, this));
 
@@ -220,13 +256,13 @@ public class AlgoDefenseVista implements Observer, Vista {
         Button boton4 = new Button("Trampa Arenosa");
         boton4.setOnAction(new UbicarTrampaHandler(juego,this));
 
-        HBox buttonBox = new HBox(10, ejecutarTurnoButton, boton2, boton3, boton4);
+        VBox buttonBox = new VBox(10, ejecutarTurnoButton, boton2, boton3, boton4);
         //buttonBox.setAlignment(Pos.CENTER_LEFT);
         buttonBox.getStyleClass().add("contenedorBotones");
         BorderPane container = new BorderPane();
         container.setRight(buttonBox);
         container.setPadding(new Insets(10));
-        return new HBox(container);
+        return new VBox(container);
     }
 
     public Coordenada getUltimaCoordenada(){

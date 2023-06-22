@@ -74,6 +74,9 @@ public class AlgoDefense implements Observable {
 	public Mapa getMapa() {
 		return this.mapa;
 	}
+	public Jugador getJugador() {
+		return this.jugador1;
+	}
 
 	public List<ParcelaDeTierra> getDefensas() {
 		return jugador1.getDefensas();
