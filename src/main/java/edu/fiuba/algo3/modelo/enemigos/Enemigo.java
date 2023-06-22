@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.enemigos;
 
 import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
 import edu.fiuba.algo3.modelo.juego.Jugador;
+import edu.fiuba.algo3.modelo.mapa.Coordenada;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaCaminar;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaConstruir;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
@@ -33,4 +34,6 @@ public interface Enemigo {
 	public void actualizarLista(List<Enemigo> enemigos);
 
 	int recolectarCreditos();
+
+	boolean seEncuentraEn(Coordenada coordenada);
 }

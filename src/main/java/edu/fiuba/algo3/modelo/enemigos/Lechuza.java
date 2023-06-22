@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo.enemigos;
 import edu.fiuba.algo3.modelo.CustomLogger;
 import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
 import edu.fiuba.algo3.modelo.juego.Jugador;
+import edu.fiuba.algo3.modelo.mapa.Coordenada;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
 import edu.fiuba.algo3.modelo.parcelas.Parcela;
 import edu.fiuba.algo3.modelo.parcelas.ParcelaDePasarela;
@@ -61,6 +62,11 @@ public class Lechuza implements Enemigo {
 
     public int recolectarCreditos() {
         return this.daniable.recolectarCreditos(this.creditos);
+    }
+
+    @Override
+    public boolean seEncuentraEn(Coordenada coordenada) {
+        return this.getPasarelaActual().getCoordenada().equals(coordenada);
     }
 
     public void actualizarLista(List<Enemigo> enemigos) {

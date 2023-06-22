@@ -108,6 +108,10 @@ public class Jugador {
 			this.creditos.agregarCreditos(enemigo.recolectarCreditos());
 		}
 	}
+
+	public int cantidadDefensas() {
+		return this.defensas.size();
+	}
 }
 
 

@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
 import edu.fiuba.algo3.modelo.estados.EstadoVida;
 import edu.fiuba.algo3.modelo.estados.EstadoVivo;
 import edu.fiuba.algo3.modelo.juego.Jugador;
+import edu.fiuba.algo3.modelo.mapa.Coordenada;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
 import edu.fiuba.algo3.modelo.parcelas.Parcela;
 import edu.fiuba.algo3.modelo.parcelas.ParcelaDePasarela;
@@ -48,6 +49,11 @@ public class Hormiga implements Enemigo {
 
 	public int recolectarCreditos() {
 		return this.daniable.recolectarCreditos(this.creditos);
+	}
+
+	@Override
+	public boolean seEncuentraEn(Coordenada coordenada) {
+		return this.getPasarelaActual().getCoordenada().equals(coordenada);
 	}
 
 	public ParcelaDePasarela getPasarelaActual() {
