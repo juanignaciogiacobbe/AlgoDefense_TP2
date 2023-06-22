@@ -24,7 +24,7 @@ import java.util.Map;
 public class AlgoDefense implements Observable {
 
 	private final Mapa mapa;
-	private final Map<Integer, List<Enemigo>> enemigosTurno;
+	private Map<Integer, List<Enemigo>> enemigosTurno;
 
 	private Jugador jugador1;
 	private List<Enemigo> enemigos;
@@ -51,9 +51,7 @@ public class AlgoDefense implements Observable {
 		ConvertidorMapa convertidor = new ConvertidorMapaImplementacion(reader);
 		this.mapa = convertidor.cargarMapa();
 		this.enemigos = new ArrayList<>();
-		FileReader readerEnemigos = new FileReader("src/resources/enemigos.json");
-		ConvertidorEnemigos convertidorEnemigos = new ConvertidorEnemigosImplementacion(readerEnemigos,mapa.getOrigen());
-		this.enemigosTurno = convertidorEnemigos.cargarEnemigos();
+		cargarMapaEnemigosPorTurno();
 		this.defensas = new LinkedList<>();
 		this.turno = 1;
 		this.turnosTotales = 1;
@@ -65,6 +63,12 @@ public class AlgoDefense implements Observable {
 		this.enemigos = new ArrayList<>();
 		this.defensas = new ArrayList<>();
 		this.enemigosTurno = null;
+	}
+
+	private void cargarMapaEnemigosPorTurno() throws FormatoJSONInvalidoException, ParseException, FileNotFoundException {
+		FileReader readerEnemigos = new FileReader("src/resources/enemigos.json");
+		ConvertidorEnemigos convertidorEnemigos = new ConvertidorEnemigosImplementacion(readerEnemigos,mapa.getOrigen());
+		this.enemigosTurno = convertidorEnemigos.cargarEnemigos();
 	}
 
 
@@ -192,6 +196,15 @@ public class AlgoDefense implements Observable {
 		if (this.turno < 12) {
 			this.turno++;
 		} else {
+			try {
+				cargarMapaEnemigosPorTurno();
+			} catch (FormatoJSONInvalidoException e) {
+				throw new RuntimeException(e);
+			} catch (ParseException e) {
+				throw new RuntimeException(e);
+			} catch (FileNotFoundException e) {
+				throw new RuntimeException(e);
+			}
 			this.turno = 1;
 		}
 		this.turnosTotales++;
