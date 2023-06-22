@@ -86,9 +86,6 @@ public class Jugador {
 		return (estadoDeVida.getVida() <= 0);
 	}
 
-	public void agregarDefensa(ParcelaDeTierra parcelaSet) {
-		defensas.add(parcelaSet);
-	}
 
 	public void setDefensa(List<ParcelaDeTierra> nuevaLista) {
 		this.defensas = nuevaLista;
