@@ -3,7 +3,6 @@ package edu.fiuba.algo3.modelo.estados;
 import edu.fiuba.algo3.modelo.CustomLogger;
 import edu.fiuba.algo3.modelo.enemigos.Enemigo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EstadoMuerto implements EstadoVida {
@@ -29,7 +28,7 @@ public class EstadoMuerto implements EstadoVida {
 		return creditos;
 	}
 
-	public void actualizarLista(List<Enemigo> enemigos) {
-		enemigos.remove(this);
+	public void actualizarLista(List<Enemigo> enemigos, Enemigo enemigo) {
+		enemigos.remove(enemigo);
 	}
 }

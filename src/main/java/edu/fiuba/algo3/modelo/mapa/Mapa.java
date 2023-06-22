@@ -89,17 +89,14 @@ public class Mapa {
     public List<Enemigo> actualizarMeta(List<Enemigo> enemigos, Jugador jugador1) throws DefensasVacias {
         List<Enemigo> nuevaLista = new ArrayList<>();
         for (Enemigo enemigo : enemigos) {
-            if (enemigo.getVida() > 0) {
                 if (!enemigo.seEncuentraEn(this.meta.getCoordenada())) {
                     nuevaLista.add(enemigo);
                 } else {
                     enemigo.atacar(jugador1);
                 }
-            }
         }
         return nuevaLista;
     }
-
 }
 
 

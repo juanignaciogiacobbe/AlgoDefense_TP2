@@ -9,7 +9,7 @@ public interface Daniable {
 
     public int getVida();
 
-    void actualizarLista(List<Enemigo> enemigos);
+    void actualizarLista(List<Enemigo> enemigos, Enemigo enemigo);
 
     int recolectarCreditos(int creditos);
 }

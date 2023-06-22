@@ -44,7 +44,7 @@ public class Hormiga implements Enemigo {
 	}
 
 	public void actualizarLista(List<Enemigo> enemigos) {
-		this.daniable.actualizarLista(enemigos);
+		this.daniable.actualizarLista(enemigos,this);
 	}
 
 	public int recolectarCreditos() {
