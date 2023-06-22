@@ -26,3 +26,17 @@
 .input-invalido {
     -fx-border-color: red;
 }
+
+
+.vistaParcela {
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+}
+
+.tablero {
+    -fx-alignment: center;
+}
+
+.contenedorBotones {
+    -fx-alignment: center-right;
+}

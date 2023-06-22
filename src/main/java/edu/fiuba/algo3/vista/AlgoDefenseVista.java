@@ -32,7 +32,7 @@ public class AlgoDefenseVista implements Observer, Vista {
     private List<Enemigo> enemigos;
     private Mapa mapa;
     private static final int GRID_SIZE = 15;
-    private static final int CELL_SIZE = 30;
+    private static final int CELL_SIZE = 50;
 
     private AlgoDefense juego;
     private Coordenada ultimaCoordenada;
@@ -60,16 +60,16 @@ public class AlgoDefenseVista implements Observer, Vista {
     public void mostrar(Scene scene) {
         this.scene = scene;
 
-        BorderPane rootPane = new BorderPane();
+        GridPane rootPane = new GridPane();
         rootPane.setPadding(new Insets(10));
 
         GridPane gridPane = createGridPane();
         configureGridConstraints(gridPane);
         displayMap(gridPane);
 
-        rootPane.setCenter(gridPane);
-        rootPane.setTop(new Pane());
-        rootPane.setBottom(createButtonBox());
+        rootPane.add(gridPane, 0, 0);
+        rootPane.add(createButtonBox(), 1, 0);
+        rootPane.setStyle("-fx-background-color: #FCFCF9; -fx-width: 100%;"); // Set the desired background color here
 
         scene.setRoot(rootPane);
         if (this.juego.finDelJuego() != null ) {
@@ -82,7 +82,6 @@ public class AlgoDefenseVista implements Observer, Vista {
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setHgap(10);
         gridPane.setVgap(10);
-        gridPane.setStyle("-fx-background-color: #FCFCF9;"); // Set the desired background color here
         return gridPane;
     }
 
@@ -103,7 +102,7 @@ public class AlgoDefenseVista implements Observer, Vista {
             gridPane.getRowConstraints().add(rowConstraints);
         }
 
-        gridPane.setAlignment(Pos.CENTER);
+        gridPane.getStyleClass().add("tablero");
     }
 
     private void displayMap(GridPane gridPane) {
@@ -125,8 +124,9 @@ public class AlgoDefenseVista implements Observer, Vista {
         ImageView imageView = createParcelaImageView(parcela);
         imageView.setOnMouseClicked(
                 e -> this.ultimaParcela = parcela);
-                        //System.out.println("Clicked on parcela at position: " + parcela.getCoordenada()));
         cellPane.getChildren().add(imageView);
+        cellPane.getStyleClass().add("vistaParcela");
+
         return cellPane;
     }
 
@@ -221,9 +221,10 @@ public class AlgoDefenseVista implements Observer, Vista {
         boton4.setOnAction(new UbicarTrampaHandler(juego,this));
 
         HBox buttonBox = new HBox(10, ejecutarTurnoButton, boton2, boton3, boton4);
-        buttonBox.setAlignment(Pos.CENTER_LEFT);
+        //buttonBox.setAlignment(Pos.CENTER_LEFT);
+        buttonBox.getStyleClass().add("contenedorBotones");
         BorderPane container = new BorderPane();
-        container.setLeft(buttonBox);
+        container.setRight(buttonBox);
         container.setPadding(new Insets(10));
         return new HBox(container);
     }
