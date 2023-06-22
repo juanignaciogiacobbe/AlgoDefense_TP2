@@ -31,7 +31,7 @@ public class PasarelaMeta extends ParcelaDePasarela {
                     enemigo.atacar(jugador);
                 }
             } else {
-                jugador.agregarCreditos(enemigo.getCreditos());
+                //jugador.agregarCreditos(enemigo.getCreditos());
             }
         }
         return nuevaLista;

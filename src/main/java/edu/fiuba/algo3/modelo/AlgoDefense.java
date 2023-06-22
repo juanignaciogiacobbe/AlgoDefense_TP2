@@ -32,6 +32,8 @@ public class AlgoDefense implements Observable {
 	private final ArrayList<Observer> observers = new ArrayList<>();
 	private CustomLogger logger;
 
+	private final int turnoMaximo = 15;
+
 	private int turno;
 
 	private int turnosTotales;
@@ -131,19 +133,6 @@ public class AlgoDefense implements Observable {
 
 	}
 
-	public void ubicarDefensa(Torre defensa, int absica, int ordenada) throws TerrenoNoAptoParaConstruir {
-		Parcela parcelaSet = null;
-		parcelaSet = this.mapa.obtenerParcelaConCoordenadas(absica, ordenada);
-		parcelaSet.construir(defensa);
-		defensas.add((ParcelaDeTierra) parcelaSet);
-		logger.log("Se construyo");
-	}
-
-	public void ubicarTrampa(TrampaArenosa trampa, Parcela pasarela) throws TerrenoNoAptoParaConstruir {
-		pasarela.construir(trampa);
-		logger.log("Se construyo");
-	}
-
 	public void construir(Torre defensa, Parcela parcela) throws CreditosInsuficientes, TerrenoNoAptoParaConstruir {
 		jugador1.construir(defensa, parcela);
 	}
@@ -158,6 +147,10 @@ public class AlgoDefense implements Observable {
 
 		}
 
+	}
+
+	public void ataqueJugador() {
+		jugador1.atacarEnemigos(this.enemigos);
 	}
 
 	public int obtenerCantidadDefensas() {
@@ -179,11 +172,20 @@ public class AlgoDefense implements Observable {
 		this.moverEnemigos();
 		this.cargarEnemigos();
 		this.pasarTurno();
-		this.activarDefensas();
+		this.ataqueJugador();
+		this.actualizarEnemigos();
+	}
+
+	public void actualizarEnemigos() {
+		for (Enemigo enemigo: this.enemigos) {
+			enemigo.actualizarLista(this.enemigos);
+		}
 	}
 
 	public void cargarEnemigos() {
-		enemigos.addAll(enemigosTurno.get(turno));
+		if (this.turnosTotales < this.turnoMaximo) {
+			enemigos.addAll(enemigosTurno.get(turno));
+		}
 	};
 
 	public void pasarTurno() {

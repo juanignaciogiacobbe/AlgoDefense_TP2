@@ -12,6 +12,7 @@ import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaCaminar;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaConstruir;
 import javafx.scene.control.Dialog;
 
+import java.util.List;
 import java.util.Random;
 
 public class Arania implements Enemigo {
@@ -68,6 +69,14 @@ public class Arania implements Enemigo {
 
     public void recibirAtaque(Parcela parcelaDefensa, int rangoAtaque, int danio) throws EnemigoFueraDeRango, EnemigoNoDaniable {
         this.daniable.recibirAtaque(parcelaDefensa, rangoAtaque, danio, this.trasladable.getPasarelaActual());
+    }
+
+    public void actualizarLista(List<Enemigo> enemigos) {
+        this.daniable.actualizarLista(enemigos);
+    }
+
+    public int recolectarCreditos() {
+        return this.daniable.recolectarCreditos(this.creditos);
     }
 
     @Override

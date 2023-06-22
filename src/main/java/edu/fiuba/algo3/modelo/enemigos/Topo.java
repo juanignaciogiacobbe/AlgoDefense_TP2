@@ -9,6 +9,8 @@ import edu.fiuba.algo3.modelo.parcelas.ParcelaDePasarela;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaCaminar;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaConstruir;
 
+import java.util.List;
+
 public class Topo implements Enemigo {
     private Atacante atacante;
     private Trasladable trasladable;
@@ -45,6 +47,14 @@ public class Topo implements Enemigo {
         this.daniable.recibirAtaque(parcelaDefensa, rangoAtaque, danio, this.trasladable.getPasarelaActual());
         logger.log(this.getNombre() + " se movio a la coordenada = (" + trasladable.getPasarelaActual().getCoordenada().getAbscisa() + ","
                 + trasladable.getPasarelaActual().getCoordenada().getAbscisa() + ")");
+    }
+
+    public void actualizarLista(List<Enemigo> enemigos) {
+        this.daniable.actualizarLista(enemigos);
+    }
+
+    public int recolectarCreditos() {
+        return 0;
     }
 
     @Override

@@ -4,6 +4,8 @@ import edu.fiuba.algo3.modelo.estados.EstadoVida;
 import edu.fiuba.algo3.modelo.estados.EstadoVivo;
 import edu.fiuba.algo3.modelo.parcelas.Parcela;
 
+import java.util.List;
+
 public class Atacable implements Daniable {
 
     private EstadoVida estadoDeVida;
@@ -23,8 +25,16 @@ public class Atacable implements Daniable {
         }
         this.recibirDanio(danio);
     }
+
+    public int recolectarCreditos(int creditos) {
+        return this.estadoDeVida.recolectarCreditos(creditos);
+    }
     public int getVida() {
         return this.estadoDeVida.getVida();
+    }
+
+    public void actualizarLista(List<Enemigo> enemigos) {
+        this.estadoDeVida.actualizarLista(enemigos);
     }
 
 }

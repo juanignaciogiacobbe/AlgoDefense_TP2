@@ -45,7 +45,6 @@ public class UbicarTorreHandler implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent actionEvent) {
         Parcela parcela = vista.getUltimaParcela();
-        Coordenada coordenada = vista.getUltimaCoordenada();
         try {
             try {
                 this.juego.construir(this.torre, parcela);

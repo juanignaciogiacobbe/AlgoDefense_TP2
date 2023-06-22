@@ -36,7 +36,6 @@ public class AlgoDefenseVista implements Observer, Vista {
     private static final int CELL_SIZE = 50;
 
     private AlgoDefense juego;
-    private Coordenada ultimaCoordenada;
     private Parcela ultimaParcela;
 
 
@@ -264,12 +263,6 @@ public class AlgoDefenseVista implements Observer, Vista {
         container.setPadding(new Insets(10));
         return new VBox(container);
     }
-
-    public Coordenada getUltimaCoordenada() {
-
-        return ultimaCoordenada;
-    }
-
     ;
 
     public Parcela getUltimaParcela() {

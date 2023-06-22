@@ -9,6 +9,8 @@ import edu.fiuba.algo3.modelo.parcelas.ParcelaDePasarela;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaCaminar;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaConstruir;
 
+import java.util.List;
+
 public class Lechuza implements Enemigo {
 
     private Atacante atacante;
@@ -18,11 +20,14 @@ public class Lechuza implements Enemigo {
 
     private CustomLogger logger;
 
+    private int creditos;
+
     public Lechuza(ParcelaDePasarela pasarela) {
         this.atacante = new DestructorDeDefensas();
         this.trasladable = new VoladorEnL(5, pasarela);
         this.daniable = new Atacable(5);
         this.logger = CustomLogger.getInstance();
+        this.creditos = 0;
     }
 
     @Override
@@ -53,6 +58,15 @@ public class Lechuza implements Enemigo {
         }
 
     }
+
+    public int recolectarCreditos() {
+        return this.daniable.recolectarCreditos(this.creditos);
+    }
+
+    public void actualizarLista(List<Enemigo> enemigos) {
+        this.daniable.actualizarLista(enemigos);
+    }
+
 
     @Override
     public String getNombre() {

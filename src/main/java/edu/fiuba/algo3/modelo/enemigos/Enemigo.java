@@ -8,6 +8,8 @@ import edu.fiuba.algo3.modelo.mapa.Mapa;
 import edu.fiuba.algo3.modelo.parcelas.Parcela;
 import edu.fiuba.algo3.modelo.parcelas.ParcelaDePasarela;
 
+import java.util.List;
+
 public interface Enemigo {
 
 	public Parcela getPasarelaActual();
@@ -27,4 +29,8 @@ public interface Enemigo {
 	public int getVida();
 
     public int getCreditos();
+
+	public void actualizarLista(List<Enemigo> enemigos);
+
+	int recolectarCreditos();
 }

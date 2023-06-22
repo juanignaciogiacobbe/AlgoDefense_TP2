@@ -11,6 +11,8 @@ import edu.fiuba.algo3.modelo.parcelas.ParcelaDePasarela;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaCaminar;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaConstruir;
 
+import java.util.List;
+
 public class Hormiga implements Enemigo {
 	private Atacante atacante;
 	private int creditos;
@@ -38,6 +40,14 @@ public class Hormiga implements Enemigo {
 		this.trasladable = trasladable.moverse(mapa);
 		logger.log(this.getNombre() + " se movio a la coordenada = (" + trasladable.getPasarelaActual().getCoordenada().getAbscisa() + ","
 				+ trasladable.getPasarelaActual().getCoordenada().getAbscisa() + ")");
+	}
+
+	public void actualizarLista(List<Enemigo> enemigos) {
+		this.daniable.actualizarLista(enemigos);
+	}
+
+	public int recolectarCreditos() {
+		return this.daniable.recolectarCreditos(this.creditos);
 	}
 
 	public ParcelaDePasarela getPasarelaActual() {
@@ -69,10 +79,6 @@ public class Hormiga implements Enemigo {
 	@Override
 	public int getDanio() {
 		return this.atacante.getDanio();
-	}
-
-	public int recolectarCreditos() {
-		return this.creditos;
 	}
 
 	@Override

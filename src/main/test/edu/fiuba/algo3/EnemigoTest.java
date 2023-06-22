@@ -59,7 +59,7 @@ public class EnemigoTest {
 	public void test04HormigaNoEstaMuertaAlRecolectarCreditosDevuelve0() {
 		PasarelaComun pasarela = new PasarelaComun(1, 1);
 		Hormiga hormiga = new Hormiga(pasarela);
-		assertEquals(hormiga.recolectarCreditos(), 1);
+		assertEquals(0, hormiga.recolectarCreditos());
 
 	}
 

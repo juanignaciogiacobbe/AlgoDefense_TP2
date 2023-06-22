@@ -2,6 +2,9 @@ package edu.fiuba.algo3.modelo.estados;
 
 
 import edu.fiuba.algo3.modelo.CustomLogger;
+import edu.fiuba.algo3.modelo.enemigos.Enemigo;
+
+import java.util.List;
 
 public class EstadoVivo implements EstadoVida {
 	private final CustomLogger logger = CustomLogger.getInstance();
@@ -30,6 +33,10 @@ public class EstadoVivo implements EstadoVida {
 
 	public int recolectarCreditos(int creditos) {
 		return 0;
+	}
+
+	@Override
+	public void actualizarLista(List<Enemigo> enemigos) {
 	}
 
 

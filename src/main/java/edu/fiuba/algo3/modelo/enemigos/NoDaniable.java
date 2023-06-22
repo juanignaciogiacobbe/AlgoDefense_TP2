@@ -2,6 +2,8 @@ package edu.fiuba.algo3.modelo.enemigos;
 
 import edu.fiuba.algo3.modelo.parcelas.Parcela;
 
+import java.util.List;
+
 public class NoDaniable implements Daniable {
 
     @Override
@@ -9,8 +11,15 @@ public class NoDaniable implements Daniable {
         throw new EnemigoNoDaniable();
     }
 
+    public int recolectarCreditos(int creditos) {
+        return 0;
+    }
+
     @Override
     public int getVida() {
         return 0;
+    }
+
+    public void actualizarLista(List<Enemigo> enemigos) {
     }
 }

@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.CustomLogger;
 import edu.fiuba.algo3.modelo.convertidor.*;
 import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
 import edu.fiuba.algo3.modelo.enemigos.*;
+import edu.fiuba.algo3.modelo.juego.CreditosInsuficientes;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaCaminar;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaConstruir;
 import edu.fiuba.algo3.modelo.defensas.TorreNoDesplegada;
@@ -158,6 +159,7 @@ public class CasosDeUsoTest {
 		algoDefense.agregarEnemigo(hormiga);
 		hormiga.recibirAtaque(pasarelaLargada, 10, 100);
 		algoDefense.moverEnemigos();
+		algoDefense.actualizarEnemigos();
 		algoDefense.pasarTurno();
 		assertDoesNotThrow(() -> algoDefense.agregarJugador("Mariana"));
 		String ganador = algoDefense.finDelJuego();
@@ -289,16 +291,16 @@ public class CasosDeUsoTest {
 	}
 
 	@Test
-	void test18SimuloYVerificoQueGanaJugador() throws FormatoJSONInvalidoException, IOException, ParseException, NombreInvalido, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, TorreNoDesplegada, DefensasVacias {
+	void test18SimuloYVerificoQueGanaJugador() throws FormatoJSONInvalidoException, IOException, ParseException, NombreInvalido, TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir, TorreNoDesplegada, DefensasVacias, CreditosInsuficientes {
 		AlgoDefense algoDefense = new AlgoDefense();
 		TorrePlateada torre = new TorrePlateada();
 		TorrePlateada torre1 = new TorrePlateada();
 		algoDefense.agregarJugador("Sebastian");
 		algoDefense.cargarEnemigos(2);
-		algoDefense.ubicarDefensa(torre, 0, 2);
-		algoDefense.ubicarDefensa(torre1, 1, 0);
+		algoDefense.construir(torre, algoDefense.getMapa().obtenerParcelaConCoordenadas(0,2));
+		algoDefense.construir(torre1, algoDefense.getMapa().obtenerParcelaConCoordenadas(1,0));
 		algoDefense.moverEnemigos();
-		algoDefense.activarDefensas();
+		algoDefense.ataqueJugador();
 		for (int i = 0; i < 24; i++) {
 			algoDefense.moverEnemigos();
 			algoDefense.pasarTurno();

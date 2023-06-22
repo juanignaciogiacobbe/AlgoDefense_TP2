@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.juego;
 
 import edu.fiuba.algo3.modelo.CustomLogger;
 import edu.fiuba.algo3.modelo.defensas.Torre;
+import edu.fiuba.algo3.modelo.enemigos.Enemigo;
 import edu.fiuba.algo3.modelo.parcelas.ParcelaDeTierra;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaConstruir;
 import edu.fiuba.algo3.modelo.estados.EstadoVida;
@@ -96,6 +97,16 @@ public class Jugador {
 	public void destruirSiguienteDefensa() {
 		(this.defensas.get(0)).destruirDefensa();
 		this.defensas.remove(0);
+	}
+
+	public void atacarEnemigos(List<Enemigo> enemigos) {
+		for (ParcelaDeTierra parcela: this.defensas) {
+			parcela.atacar(enemigos);
+		}
+
+		for (Enemigo enemigo: enemigos) {
+			this.creditos.agregarCreditos(enemigo.recolectarCreditos());
+		}
 	}
 }
 
