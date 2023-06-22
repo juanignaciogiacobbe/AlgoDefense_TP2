@@ -52,6 +52,11 @@ public class Hormiga implements Enemigo {
 		return daniable.getVida();
 	}
 
+	@Override
+	public int getCreditos() {
+		return this.creditos;
+	}
+
 	public void recibirAtaque(Parcela parcelaDefensa, int rangoAtaque, int danio) throws EnemigoFueraDeRango, EnemigoNoDaniable {
 		this.daniable.recibirAtaque(parcelaDefensa, rangoAtaque, danio, this.trasladable.getPasarelaActual());
 	}

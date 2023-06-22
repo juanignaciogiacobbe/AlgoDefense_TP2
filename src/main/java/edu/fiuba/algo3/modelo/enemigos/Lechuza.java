@@ -70,6 +70,11 @@ public class Lechuza implements Enemigo {
     }
 
     @Override
+    public int getCreditos() {
+        return 2;
+    }
+
+    @Override
     public String toString() {
         return "L";
     }

@@ -55,6 +55,11 @@ public class Arania implements Enemigo {
         return daniable.getVida();
     }
 
+    @Override
+    public int getCreditos() {
+        return this.creditos;
+    }
+
     public void mover(Mapa mapa) throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
         this.trasladable = trasladable.moverse(mapa);
         logger.log(this.getNombre() + " se movio a la coordenada = (" + trasladable.getPasarelaActual().getCoordenada().getAbscisa() + ","

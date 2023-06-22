@@ -153,7 +153,7 @@ public class AlgoDefense implements Observable {
 	}
 
 	public void activarDefensas() throws TerrenoNoAptoParaCaminar, TorreNoDesplegada {
-		for (ParcelaDeTierra parcela : defensas) {
+		for (ParcelaDeTierra parcela : jugador1.getDefensas()) {
 			parcela.getDefensa().atacar(enemigos, parcela);
 
 		}

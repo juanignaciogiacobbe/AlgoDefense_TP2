@@ -25,4 +25,6 @@ public interface Enemigo {
 	public int getDanio();
 
 	public int getVida();
+
+    public int getCreditos();
 }

@@ -62,6 +62,11 @@ public class Topo implements Enemigo {
         return daniable.getVida();
     }
 
+    @Override
+    public int getCreditos() {
+        return 3;
+    }
+
 
     @Override
     public String toString() {
