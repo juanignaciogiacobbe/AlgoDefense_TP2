@@ -33,6 +33,11 @@
     -fx-border-width: 2px;
 }
 
+.vistaParcelaSeleccionada{
+    -fx-border-color: blue;
+    -fx-border-width: 2px;
+}
+
 .tablero {
     -fx-alignment: center;
 }

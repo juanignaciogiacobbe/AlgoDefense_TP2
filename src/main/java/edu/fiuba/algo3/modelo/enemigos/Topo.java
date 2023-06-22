@@ -3,11 +3,14 @@ package edu.fiuba.algo3.modelo.enemigos;
 import edu.fiuba.algo3.modelo.CustomLogger;
 import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
 import edu.fiuba.algo3.modelo.juego.Jugador;
+import edu.fiuba.algo3.modelo.mapa.Coordenada;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
 import edu.fiuba.algo3.modelo.parcelas.Parcela;
 import edu.fiuba.algo3.modelo.parcelas.ParcelaDePasarela;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaCaminar;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaConstruir;
+
+import java.util.List;
 
 public class Topo implements Enemigo {
     private Atacante atacante;
@@ -47,6 +50,19 @@ public class Topo implements Enemigo {
                 + trasladable.getPasarelaActual().getCoordenada().getAbscisa() + ")");
     }
 
+    public void actualizarLista(List<Enemigo> enemigos) {
+        this.daniable.actualizarLista(enemigos);
+    }
+
+    public int recolectarCreditos() {
+        return 0;
+    }
+
+    @Override
+    public boolean seEncuentraEn(Coordenada coordenada) {
+        return this.getPasarelaActual().getCoordenada().equals(coordenada);
+    }
+
     @Override
     public String getNombre() {
         return "Topo";
@@ -60,6 +76,11 @@ public class Topo implements Enemigo {
     @Override
     public int getVida() {
         return daniable.getVida();
+    }
+
+    @Override
+    public int getCreditos() {
+        return 3;
     }
 
 

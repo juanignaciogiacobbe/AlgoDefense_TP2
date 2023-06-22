@@ -21,20 +21,6 @@ public class PasarelaMeta extends ParcelaDePasarela {
         this.logger = CustomLogger.getInstance();
     }
 
-    public List<Enemigo> actualizarEnemigos(List<Enemigo> enemigos, Jugador jugador) throws DefensasVacias {
-        List<Enemigo> nuevaLista = new ArrayList<>();
-        for (Enemigo enemigo : enemigos) {
-            if (enemigo.getVida() > 0) {
-                if (!enemigo.getPasarelaActual().getCoordenada().equals(this.getCoordenada())) {
-                    nuevaLista.add(enemigo);
-                } else {
-                    enemigo.atacar(jugador);
-                }
-            }
-        }
-        return nuevaLista;
-    }
-
 
 }
 

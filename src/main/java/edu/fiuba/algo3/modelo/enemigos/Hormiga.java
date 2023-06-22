@@ -5,11 +5,14 @@ import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
 import edu.fiuba.algo3.modelo.estados.EstadoVida;
 import edu.fiuba.algo3.modelo.estados.EstadoVivo;
 import edu.fiuba.algo3.modelo.juego.Jugador;
+import edu.fiuba.algo3.modelo.mapa.Coordenada;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
 import edu.fiuba.algo3.modelo.parcelas.Parcela;
 import edu.fiuba.algo3.modelo.parcelas.ParcelaDePasarela;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaCaminar;
 import edu.fiuba.algo3.modelo.parcelas.TerrenoNoAptoParaConstruir;
+
+import java.util.List;
 
 public class Hormiga implements Enemigo {
 	private Atacante atacante;
@@ -40,6 +43,19 @@ public class Hormiga implements Enemigo {
 				+ trasladable.getPasarelaActual().getCoordenada().getAbscisa() + ")");
 	}
 
+	public void actualizarLista(List<Enemigo> enemigos) {
+		this.daniable.actualizarLista(enemigos);
+	}
+
+	public int recolectarCreditos() {
+		return this.daniable.recolectarCreditos(this.creditos);
+	}
+
+	@Override
+	public boolean seEncuentraEn(Coordenada coordenada) {
+		return this.getPasarelaActual().getCoordenada().equals(coordenada);
+	}
+
 	public ParcelaDePasarela getPasarelaActual() {
 		return (ParcelaDePasarela) trasladable.getPasarelaActual();
 	}
@@ -50,6 +66,11 @@ public class Hormiga implements Enemigo {
 
 	public int getVida() {
 		return daniable.getVida();
+	}
+
+	@Override
+	public int getCreditos() {
+		return this.creditos;
 	}
 
 	public void recibirAtaque(Parcela parcelaDefensa, int rangoAtaque, int danio) throws EnemigoFueraDeRango, EnemigoNoDaniable {
@@ -64,10 +85,6 @@ public class Hormiga implements Enemigo {
 	@Override
 	public int getDanio() {
 		return this.atacante.getDanio();
-	}
-
-	public int recolectarCreditos() {
-		return this.creditos;
 	}
 
 	@Override

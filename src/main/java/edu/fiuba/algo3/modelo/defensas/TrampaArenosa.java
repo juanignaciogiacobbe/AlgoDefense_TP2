@@ -16,6 +16,8 @@ public class TrampaArenosa implements Defensa, Ralentizador {
 
 	private int costoConstruccion;
 	private int tiempoDeActividadRestante;
+
+
 	public TrampaArenosa() {
 		this.costoConstruccion = 25;
 		this.tiempoDeActividadRestante = 3;

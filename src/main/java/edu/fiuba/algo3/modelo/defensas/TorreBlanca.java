@@ -2,20 +2,28 @@ package edu.fiuba.algo3.modelo.defensas;
 
 public class TorreBlanca extends Torre {
 
-	public TorreBlanca() {
-		this.nombre = "Torre Blanca";
-		this.rangoAtaque = 3;
-		this.danio = 1;
-		this.costoConstruccion = 10;
-		this.turnosRestantesParaDespliegue = 1;
-		this.desplegable = new NoDesplegado(1);
+    private static final String NOMBRE_TORRE = "Torre Blanca";
+    private static final int RANGO_ATAQUE = 3;
+    private static final int DANIO = 1;
+    private static final int COSTO_CONSTRUCCION = 10;
+    private static final int TURNOS_RESTANTES_DESPLIEGUE = 1;
+    private static final int DESPLEGABLE_NO_DESPLAGADO = 1;
 
-	}
+    public TorreBlanca() {
 
-	@Override
-	public String toString() {
-		return "TB";
-	}
+        this.nombre = NOMBRE_TORRE;
+        this.rangoAtaque = RANGO_ATAQUE;
+        this.danio = DANIO;
+        this.costoConstruccion = COSTO_CONSTRUCCION;
+        this.turnosRestantesParaDespliegue = TURNOS_RESTANTES_DESPLIEGUE;
+        this.desplegable = new NoDesplegado(DESPLEGABLE_NO_DESPLAGADO);
+
+    }
+
+    @Override
+    public String toString() {
+        return "TB";
+    }
 }
 
 

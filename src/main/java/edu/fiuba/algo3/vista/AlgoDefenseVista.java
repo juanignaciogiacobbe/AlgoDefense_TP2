@@ -8,6 +8,7 @@ import edu.fiuba.algo3.modelo.Observer;
 import edu.fiuba.algo3.modelo.convertidor.FormatoJSONInvalidoException;
 import edu.fiuba.algo3.modelo.defensas.Defensa;
 import edu.fiuba.algo3.modelo.enemigos.Enemigo;
+import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.juego.NombreInvalido;
 import edu.fiuba.algo3.modelo.mapa.Coordenada;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
@@ -35,7 +36,6 @@ public class AlgoDefenseVista implements Observer, Vista {
     private static final int CELL_SIZE = 50;
 
     private AlgoDefense juego;
-    private Coordenada ultimaCoordenada;
     private Parcela ultimaParcela;
 
 
@@ -68,13 +68,48 @@ public class AlgoDefenseVista implements Observer, Vista {
         displayMap(gridPane);
 
         rootPane.add(gridPane, 0, 0);
-        rootPane.add(createButtonBox(), 1, 0);
-        rootPane.setStyle("-fx-background-color: #FCFCF9; -fx-width: 100%;"); // Set the desired background color here
+        VBox rightSidebar = createSidebar();
+        rootPane.add(rightSidebar, 1, 0);
+        rootPane.setStyle("-fx-background-color: #FCFCF9; -fx-width: 100%;");
 
         scene.setRoot(rootPane);
-        if (this.juego.finDelJuego() != null ) {
+        if (this.juego.finDelJuego() != null) {
             this.nextVista.mostrar(scene);
         }
+    }
+
+    private VBox createSidebar() {
+        VBox sidebar = new VBox();
+        sidebar.setSpacing(10);
+        sidebar.setPadding(new Insets(10));
+
+        VBox buttonBox = createButtonBox();
+        VBox playerInfoBox = createPlayerInfoBox();
+        VBox sidebarContent = new VBox();
+        sidebarContent.getChildren().addAll(playerInfoBox, buttonBox);
+
+        sidebar.getChildren().add(sidebarContent);
+
+        return sidebar;
+    }
+
+    private VBox createPlayerInfoBox() {
+        VBox playerInfoBox = new VBox();
+        playerInfoBox.setSpacing(10);
+        playerInfoBox.setPadding(new Insets(10));
+        Jugador jugador = juego.getJugador();
+        Label playerNameLabel = new Label("Jugador: ");
+        Label playerNameValueLabel = new Label(jugador.getNombre());
+
+        Label playerCreditsLabel = new Label("Creditos: ");
+        Label playerCreditsValueLabel = new Label(String.valueOf(jugador.getCreditos()));
+
+        Label playerLifeLabel = new Label("Vida: ");
+        Label playerLifeValueLabel = new Label(String.valueOf(jugador.getVida()));
+
+        playerInfoBox.getChildren().addAll(playerNameLabel, playerNameValueLabel, playerCreditsLabel, playerCreditsValueLabel, playerLifeLabel, playerLifeValueLabel);
+
+        return playerInfoBox;
     }
 
     private GridPane createGridPane() {
@@ -113,17 +148,18 @@ public class AlgoDefenseVista implements Observer, Vista {
 
             gridPane.add(cellPane, x, y);
             displayEnemyInParcela(parcela, cellPane);
-            displayDefenseInParcela(parcela,cellPane);
+            displayDefenseInParcela(parcela, cellPane);
         }
     }
-
 
 
     private StackPane createCellPane(Parcela parcela) {
         StackPane cellPane = new StackPane();
         ImageView imageView = createParcelaImageView(parcela);
         imageView.setOnMouseClicked(
-                e -> this.ultimaParcela = parcela);
+                e -> {
+                    this.ultimaParcela = parcela;
+                    cellPane.getStyleClass().add("vistaParcelaSeleccionada");});
         cellPane.getChildren().add(imageView);
         cellPane.getStyleClass().add("vistaParcela");
 
@@ -141,16 +177,12 @@ public class AlgoDefenseVista implements Observer, Vista {
 
     private String getImagePath(Parcela parcela) {
         String basePath = "src/resources/";
-        switch (parcela.toString()) {
-            case "T":
-                return "file:" + basePath + "T.png";
-            case "R":
-                return "file:" + basePath + "R.png";
-            case "S":
-                return "file:" + basePath + "S.png";
-            default:
-                return "file:" + basePath + "C.png";
-        }
+        return "file:" + basePath + parcela.toString() + ".png";
+    }
+
+    private String getImagePath(Defensa defensa) {
+        String basePath = "src/resources/";
+        return "file:" + basePath + defensa.toString() + ".png";
     }
 
     private void displayEnemyInParcela(Parcela parcela, StackPane cellPane) {
@@ -171,8 +203,8 @@ public class AlgoDefenseVista implements Observer, Vista {
             Coordenada coordenada = parcela1.getCoordenada();//
             //Si esa parcela en el gridpane tiene un enemigo,lo coloco ahi
             if (parcela.getCoordenada().equals(coordenada)) {
-                Label enemyLabel = createDefenseLabel(parcela1.getDefensa());
-                cellPane.getChildren().add(enemyLabel);
+                ImageView defenseImage = createDefenseImageView(parcela1.getDefensa());
+                cellPane.getChildren().add(defenseImage);
             }
         }
     }
@@ -184,10 +216,13 @@ public class AlgoDefenseVista implements Observer, Vista {
     }
 
 
-    private Label createDefenseLabel(Defensa defensa) {
-        Label enemyLabel = new Label(defensa.toString());
-        enemyLabel.setStyle("-fx-font-size: 8px; -fx-text-fill: red");
-        return enemyLabel;
+    private ImageView createDefenseImageView(Defensa defensa) {
+        String imagePath = getImagePath(defensa); // Get the path to the image based on the defense
+        Image image = new Image(imagePath, CELL_SIZE, CELL_SIZE, true, true);
+        ImageView imageView = new ImageView(image);
+        imageView.setPreserveRatio(true);
+        imageView.setOpacity(0.9);
+        return imageView;
     }
 
     public void setAlgoDefense(AlgoDefense algoDefense) {
@@ -207,32 +242,28 @@ public class AlgoDefenseVista implements Observer, Vista {
         }
     }
 
-    private HBox createButtonBox() {
+    private VBox createButtonBox() {
         Button ejecutarTurnoButton = new Button("Ejecutar Turno IA");
         ejecutarTurnoButton.setOnAction(new SiguienteTurnoHandler(juego, this));
 
         Button boton2 = new Button("Torre plateada");
-        boton2.setOnAction(new UbicarTorreHandler(juego,this,"p"));
+        boton2.setOnAction(new UbicarTorreHandler(juego, this, "p"));
 
         Button boton3 = new Button("Torre Blanca");
-        boton3.setOnAction(new UbicarTorreHandler(juego,this,"b"));
+        boton3.setOnAction(new UbicarTorreHandler(juego, this, "b"));
 
         Button boton4 = new Button("Trampa Arenosa");
-        boton4.setOnAction(new UbicarTrampaHandler(juego,this));
+        boton4.setOnAction(new UbicarTrampaHandler(juego, this));
 
-        HBox buttonBox = new HBox(10, ejecutarTurnoButton, boton2, boton3, boton4);
+        VBox buttonBox = new VBox(10, ejecutarTurnoButton, boton2, boton3, boton4);
         //buttonBox.setAlignment(Pos.CENTER_LEFT);
         buttonBox.getStyleClass().add("contenedorBotones");
         BorderPane container = new BorderPane();
         container.setRight(buttonBox);
         container.setPadding(new Insets(10));
-        return new HBox(container);
+        return new VBox(container);
     }
-
-    public Coordenada getUltimaCoordenada(){
-
-        return ultimaCoordenada;
-    };
+    ;
 
     public Parcela getUltimaParcela() {
         return this.ultimaParcela;
