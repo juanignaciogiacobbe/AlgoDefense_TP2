@@ -36,8 +36,9 @@ public class EstadoVivo implements EstadoVida {
 	}
 
 	@Override
-	public void actualizarLista(List<Enemigo> enemigos, Enemigo enemigo) {
-	}
+	public List<Enemigo> actualizarLista(List<Enemigo> enemigos, Enemigo enemigo) {
+        return enemigos;
+    }
 
 
 }

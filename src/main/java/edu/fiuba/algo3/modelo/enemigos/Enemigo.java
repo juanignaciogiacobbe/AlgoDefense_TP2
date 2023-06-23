@@ -31,7 +31,7 @@ public interface Enemigo {
 
     public int getCreditos();
 
-	public void actualizarLista(List<Enemigo> enemigos);
+	public List<Enemigo> actualizarLista(List<Enemigo> enemigos);
 
 	int recolectarCreditos();
 

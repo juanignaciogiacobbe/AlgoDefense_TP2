@@ -69,8 +69,9 @@ public class Arania implements Enemigo {
         this.daniable.recibirAtaque(parcelaDefensa, rangoAtaque, danio, this.trasladable.getPasarelaActual());
     }
 
-    public void actualizarLista(List<Enemigo> enemigos) {
-        this.daniable.actualizarLista(enemigos, this);
+    public List<Enemigo> actualizarLista(List<Enemigo> enemigos) {
+
+        return this.daniable.actualizarLista(enemigos, this);
     }
 
     public int recolectarCreditos() {

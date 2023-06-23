@@ -69,8 +69,9 @@ public class Lechuza implements Enemigo {
         return this.getPasarelaActual().getCoordenada().equals(coordenada);
     }
 
-    public void actualizarLista(List<Enemigo> enemigos) {
+    public List<Enemigo> actualizarLista(List<Enemigo> enemigos) {
         this.daniable.actualizarLista(enemigos, this);
+        return enemigos;
     }
 
 
