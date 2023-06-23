@@ -3,6 +3,8 @@ package edu.fiuba.algo3.modelo.parcelas;
 import edu.fiuba.algo3.modelo.defensas.NoRalentizador;
 import edu.fiuba.algo3.modelo.defensas.Ralentizador;
 import edu.fiuba.algo3.modelo.defensas.TrampaArenosa;
+import edu.fiuba.algo3.modelo.enemigos.BajoTierra;
+import edu.fiuba.algo3.modelo.enemigos.Caminante;
 import edu.fiuba.algo3.modelo.mapa.Coordenada;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
 
@@ -26,12 +28,12 @@ public class PasarelaComun extends ParcelaDePasarela {
 		return defensa;
 	}
 
-	@Override
-	public ParcelaDePasarela mover(int distancia, Mapa mapa) throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
-		if (this.defensa == null) {
-			return mapa.obtenerPasarelasEnRango(this, distancia);
-		}
-		return this.defensa.ralentizar(distancia, mapa, this);
+	public Parcela mover(BajoTierra bajoTierra, int distancia, Mapa mapa) throws TerrenoNoAptoParaCaminar {
+		return this.defensa.ralentizar(this, bajoTierra, distancia, mapa);
+	}
+
+	public ParcelaDePasarela mover(Caminante caminante, int distancia, Mapa mapa) throws TerrenoNoAptoParaCaminar {
+		return this.defensa.ralentizar(this, caminante, distancia, mapa);
 	}
 
 	@Override

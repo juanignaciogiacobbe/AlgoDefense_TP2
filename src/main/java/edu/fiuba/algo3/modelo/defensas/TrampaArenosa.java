@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo.defensas;
 
 
+import edu.fiuba.algo3.modelo.enemigos.BajoTierra;
+import edu.fiuba.algo3.modelo.enemigos.Caminante;
 import edu.fiuba.algo3.modelo.enemigos.Enemigo;
 import edu.fiuba.algo3.modelo.enemigos.EnemigosFueraDeRango;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
@@ -50,8 +52,13 @@ public class TrampaArenosa implements Defensa, Ralentizador {
 		return "Trampa Arenosa";
 	}
 
-	public ParcelaDePasarela ralentizar(int distancia, Mapa mapa, PasarelaComun pasarela) {
-		return mapa.obtenerPasarelasEnRango(pasarela, (int) Math.ceil((double) distancia / 2));
+	public Parcela ralentizar(Parcela parcela, BajoTierra bajoTierra, int distancia, Mapa mapa) throws TerrenoNoAptoParaCaminar {
+		return mapa.obtenerPasarelasEnRango(bajoTierra, parcela, (int) Math.ceil((double) distancia / 2));
+	}
+
+	public ParcelaDePasarela ralentizar(Parcela parcela, Caminante caminante, int distancia, Mapa mapa) throws TerrenoNoAptoParaCaminar {
+		int distanciaRalentizada = (int) Math.ceil((double) distancia / 2);
+		return mapa.obtenerPasarelasEnRango(caminante, parcela, distanciaRalentizada);
 	}
 
 	public String toString() {

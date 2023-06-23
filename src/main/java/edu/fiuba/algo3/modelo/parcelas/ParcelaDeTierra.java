@@ -2,6 +2,8 @@ package edu.fiuba.algo3.modelo.parcelas;
 
 import edu.fiuba.algo3.modelo.defensas.Defensa;
 import edu.fiuba.algo3.modelo.defensas.Torre;
+import edu.fiuba.algo3.modelo.enemigos.BajoTierra;
+import edu.fiuba.algo3.modelo.enemigos.Caminante;
 import edu.fiuba.algo3.modelo.enemigos.Enemigo;
 import edu.fiuba.algo3.modelo.mapa.Coordenada;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
@@ -29,8 +31,12 @@ public class ParcelaDeTierra extends Parcela {
 		this.defensa = defensa;
 	}
 
-	public ParcelaDePasarela mover(int distancia, Mapa mapa) throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir {
-		return (this.movible.mover(this, distancia, mapa));
+	public Parcela mover(BajoTierra bajoTierra, int distancia, Mapa mapa) throws TerrenoNoAptoParaCaminar {
+		return mapa.obtenerPasarelasEnRango(bajoTierra, this, distancia);
+	}
+
+	public ParcelaDePasarela mover(Caminante caminante, int distancia, Mapa mapa) throws TerrenoNoAptoParaCaminar {
+		return (this.movible.mover(this, caminante, distancia, mapa));
 	}
 
 	@Override

@@ -19,7 +19,7 @@ public class Caminante implements Trasladable {
 
     @Override
     public Trasladable moverse(Mapa mapa) throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
-        ParcelaDePasarela parcelaAMover = this.pasarelaActual.mover(this.velocidad, mapa);
+        ParcelaDePasarela parcelaAMover = this.pasarelaActual.mover(this, this.velocidad, mapa);
         this.setPasarelaActual(parcelaAMover);
 
         return this;

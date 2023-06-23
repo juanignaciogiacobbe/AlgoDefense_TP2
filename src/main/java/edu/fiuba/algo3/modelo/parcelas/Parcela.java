@@ -2,6 +2,8 @@ package edu.fiuba.algo3.modelo.parcelas;
 
 import edu.fiuba.algo3.modelo.defensas.Torre;
 import edu.fiuba.algo3.modelo.defensas.TrampaArenosa;
+import edu.fiuba.algo3.modelo.enemigos.BajoTierra;
+import edu.fiuba.algo3.modelo.enemigos.Caminante;
 import edu.fiuba.algo3.modelo.mapa.Coordenada;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
 
@@ -29,7 +31,9 @@ public abstract class Parcela {
 		this.construible.construir(defensa, this);
 	}
 
-	public abstract ParcelaDePasarela mover(int distancia, Mapa mapa) throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar;
+	public abstract Parcela mover(BajoTierra bajoTierra, int distancia, Mapa mapa) throws TerrenoNoAptoParaCaminar;
+
+	public abstract ParcelaDePasarela mover(Caminante caminante, int distancia, Mapa mapa) throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir;
 
 
 	public boolean estaEnRango(Parcela parcelaDefensa, int rango) {
@@ -41,16 +45,12 @@ public abstract class Parcela {
 		this.movible.moverseA();
 	}
 
-	public List<ParcelaDePasarela> vecinos(Mapa mapa, int rango) {
-		List<ParcelaDePasarela> pasarelasEnRango = new ArrayList<>();
+	public List<Parcela> vecinos(Mapa mapa, int rango) {
+		List<Parcela> pasarelasEnRango = new ArrayList<>();
 		for (Parcela parcela : mapa.getParcelas()) {
 			int distancia = (parcela.getCoordenada()).distanciaHacia(this.getCoordenada());
 			if (distancia <= rango) {
-				try {
-					parcela.moverseA();
-					pasarelasEnRango.add((ParcelaDePasarela) parcela);
-				} catch (TerrenoNoAptoParaCaminar e) {
-				}
+				pasarelasEnRango.add(parcela);
 			}
 		}
 		return pasarelasEnRango;
