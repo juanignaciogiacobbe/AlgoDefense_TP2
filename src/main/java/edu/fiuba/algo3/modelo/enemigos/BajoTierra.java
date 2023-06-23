@@ -13,7 +13,7 @@ public class BajoTierra implements Trasladable {
 
     private int movimientos;
 
-    public BajoTierra(int velocidad, Parcela pasarela, int movimientos) {
+    public BajoTierra(int velocidad, ParcelaDePasarela pasarela, int movimientos) {
         this.velocidad = velocidad;
         this.pasarelaActual = pasarela;
         this.movimientos = movimientos;
@@ -21,7 +21,7 @@ public class BajoTierra implements Trasladable {
 
     @Override
     public Trasladable moverse(Mapa mapa) throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
-        Parcela parcelaAMover = this.pasarelaActual.mover(this, this.velocidad, mapa);
+        ParcelaDePasarela parcelaAMover = this.pasarelaActual.mover(this.velocidad, mapa);
         this.setPasarelaActual(parcelaAMover);
         this.movimientos ++;
 
@@ -36,11 +36,11 @@ public class BajoTierra implements Trasladable {
         Trasladable trasladableFinal;
         switch (this.movimientos) {
             case 5:
-                trasladableFinal = new BajoTierra(2, this.pasarelaActual, this.movimientos);
+                trasladableFinal = new BajoTierra(2, (ParcelaDePasarela) this.pasarelaActual, this.movimientos);
                 break;
 
             case 10:
-                trasladableFinal = new BajoTierra(3, this.pasarelaActual, this.movimientos);
+                trasladableFinal = new BajoTierra(3, (ParcelaDePasarela) this.pasarelaActual, this.movimientos);
                 break;
 
             default:

@@ -2,8 +2,6 @@ package edu.fiuba.algo3.modelo.mapa;
 
 
 import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
-import edu.fiuba.algo3.modelo.enemigos.BajoTierra;
-import edu.fiuba.algo3.modelo.enemigos.Caminante;
 import edu.fiuba.algo3.modelo.enemigos.Enemigo;
 import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.parcelas.*;
@@ -50,11 +48,11 @@ public class Mapa {
     }
 
 
-    private Parcela calcularParcelaConDistanciaMinimaALaMeta(List<Parcela> vecinos) {
-        Parcela parcelaFinal = null;
+    private ParcelaDePasarela calcularParcelaConDistanciaMinimaALaMeta(List<ParcelaDePasarela> vecinos) {
+        ParcelaDePasarela parcelaFinal = null;
         int distanciaMinima = Integer.MAX_VALUE;
 
-        for (Parcela vecino : vecinos) {
+        for (ParcelaDePasarela vecino : vecinos) {
             int distancia = (vecino.getCoordenada()).distanciaHacia(meta.getCoordenada());
             if (distancia < distanciaMinima) {
                 distanciaMinima = distancia;
@@ -66,27 +64,9 @@ public class Mapa {
 
     }
 
-    public Parcela obtenerPasarelasEnRango(BajoTierra bajoTierra, Parcela parcela, int rango) {
-        List<Parcela> pasarelasEnRango = parcela.vecinos(this, rango);
+    public ParcelaDePasarela obtenerPasarelasEnRango(Parcela parcela, int rango) {
+        List<ParcelaDePasarela> pasarelasEnRango = parcela.vecinos(this, rango);
         return this.calcularParcelaConDistanciaMinimaALaMeta(pasarelasEnRango);
-    }
-
-    public ParcelaDePasarela obtenerPasarelasEnRango(Caminante caminante, Parcela parcela, int rango) {
-        List<Parcela> pasarelasEnRango = parcela.vecinos(this, rango);
-        pasarelasEnRango = obtenerSoloPasarelas(pasarelasEnRango);
-        return (ParcelaDePasarela) this.calcularParcelaConDistanciaMinimaALaMeta(pasarelasEnRango);
-    }
-
-    private List<Parcela> obtenerSoloPasarelas(List<Parcela> parcelasEnRango) {
-        List<Parcela> pasarelasEnRango = new ArrayList<>();
-        for (Parcela parcela : parcelasEnRango) {
-                try {
-                    parcela.moverseA();
-                    pasarelasEnRango.add(parcela);
-                } catch (TerrenoNoAptoParaCaminar e) {
-                }
-        }
-        return pasarelasEnRango;
     }
 
     public Parcela obtenerParcelaConCoordenadas(int absica, int ordenada) {

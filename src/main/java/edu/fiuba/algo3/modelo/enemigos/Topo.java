@@ -31,8 +31,8 @@ public class Topo implements Enemigo {
         logger.log(this.getNombre() + " llego a la meta ,Produce " + this.getDanio() + " puntos de daño");
         this.atacante.atacar(jugador);
     }
-    public Parcela getPasarelaActual() {
-        return trasladable.getPasarelaActual();
+    public ParcelaDePasarela getPasarelaActual() {
+        return (ParcelaDePasarela) trasladable.getPasarelaActual();
     }
 
     public void setPasarelaActual(ParcelaDePasarela pasarela) {

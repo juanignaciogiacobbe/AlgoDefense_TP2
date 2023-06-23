@@ -1,8 +1,6 @@
 package edu.fiuba.algo3.modelo.parcelas;
 
 import edu.fiuba.algo3.modelo.defensas.Defensa;
-import edu.fiuba.algo3.modelo.enemigos.BajoTierra;
-import edu.fiuba.algo3.modelo.enemigos.Caminante;
 import edu.fiuba.algo3.modelo.mapa.Coordenada;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
 
@@ -14,12 +12,8 @@ public class ParcelaRocosa extends Parcela {
 		movible = new NoDesplazable();
 	}
 
-	public Parcela mover(BajoTierra bajoTierra, int distancia, Mapa mapa) throws TerrenoNoAptoParaCaminar {
-		return mapa.obtenerPasarelasEnRango(bajoTierra, this, distancia);
-	}
-
-	public ParcelaDePasarela mover(Caminante caminante, int distancia, Mapa mapa) throws TerrenoNoAptoParaCaminar {
-		return (this.movible.mover(this, caminante, distancia, mapa));
+	public ParcelaDePasarela mover(int distancia, Mapa mapa) throws TerrenoNoAptoParaCaminar, TerrenoNoAptoParaConstruir {
+		return (movible.mover(this, distancia, mapa));
 	}
 
 
