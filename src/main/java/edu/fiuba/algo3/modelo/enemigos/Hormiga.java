@@ -2,8 +2,6 @@ package edu.fiuba.algo3.modelo.enemigos;
 
 import edu.fiuba.algo3.modelo.CustomLogger;
 import edu.fiuba.algo3.modelo.defensas.DefensasVacias;
-import edu.fiuba.algo3.modelo.estados.EstadoVida;
-import edu.fiuba.algo3.modelo.estados.EstadoVivo;
 import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.mapa.Coordenada;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
@@ -43,9 +41,10 @@ public class Hormiga implements Enemigo {
 				+ trasladable.getPasarelaActual().getCoordenada().getAbscisa() + ")");
 	}
 
-	public void actualizarLista(List<Enemigo> enemigos) {
-		this.daniable.actualizarLista(enemigos);
-	}
+	public List<Enemigo> actualizarLista(List<Enemigo> enemigos) {
+		return this.daniable.actualizarLista(enemigos,this);
+
+    }
 
 	public int recolectarCreditos() {
 		return this.daniable.recolectarCreditos(this.creditos);

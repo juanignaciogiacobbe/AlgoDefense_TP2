@@ -41,6 +41,8 @@ public class Topo implements Enemigo {
 
     public void mover(Mapa mapa) throws TerrenoNoAptoParaConstruir, TerrenoNoAptoParaCaminar {
         this.trasladable = trasladable.moverse(mapa);
+        logger.log(this.getNombre() + " se movio a la coordenada = (" + trasladable.getPasarelaActual().getCoordenada().getAbscisa() + ","
+            + trasladable.getPasarelaActual().getCoordenada().getAbscisa() + ")");
     }
 
     @Override
@@ -50,8 +52,9 @@ public class Topo implements Enemigo {
                 + trasladable.getPasarelaActual().getCoordenada().getAbscisa() + ")");
     }
 
-    public void actualizarLista(List<Enemigo> enemigos) {
-        this.daniable.actualizarLista(enemigos);
+    public List<Enemigo> actualizarLista(List<Enemigo> enemigos) {
+        this.daniable.actualizarLista(enemigos, this);
+        return enemigos;
     }
 
     public int recolectarCreditos() {

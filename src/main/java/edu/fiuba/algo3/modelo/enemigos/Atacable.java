@@ -33,8 +33,9 @@ public class Atacable implements Daniable {
         return this.estadoDeVida.getVida();
     }
 
-    public void actualizarLista(List<Enemigo> enemigos) {
-        this.estadoDeVida.actualizarLista(enemigos);
+    public List<Enemigo> actualizarLista(List<Enemigo> enemigos, Enemigo enemigo) {
+       return this.estadoDeVida.actualizarLista(enemigos,enemigo);
+
     }
 
 }

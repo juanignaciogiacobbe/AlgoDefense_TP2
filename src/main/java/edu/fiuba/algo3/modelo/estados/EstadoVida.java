@@ -13,5 +13,5 @@ public interface EstadoVida {
 
 	int recolectarCreditos(int creditos);
 
-	public void actualizarLista(List<Enemigo> enemigos);
+	public List<Enemigo> actualizarLista(List<Enemigo> enemigos, Enemigo enemigo);
 }

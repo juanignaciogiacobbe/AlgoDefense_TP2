@@ -29,7 +29,9 @@ public class EstadoMuerto implements EstadoVida {
 		return creditos;
 	}
 
-	public void actualizarLista(List<Enemigo> enemigos) {
-		enemigos.remove(this);
+	public List<Enemigo> actualizarLista(List<Enemigo> enemigos, Enemigo enemigo) {
+		List<Enemigo> enemigosActualizado = new ArrayList<>(enemigos);
+		enemigosActualizado.remove(enemigo);
+		return enemigosActualizado;
 	}
 }

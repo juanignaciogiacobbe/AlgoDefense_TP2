@@ -20,6 +20,7 @@ public class NoDaniable implements Daniable {
         return 0;
     }
 
-    public void actualizarLista(List<Enemigo> enemigos) {
+    public List<Enemigo> actualizarLista(List<Enemigo> enemigos, Enemigo enemigo) {
+        return enemigos;
     }
 }

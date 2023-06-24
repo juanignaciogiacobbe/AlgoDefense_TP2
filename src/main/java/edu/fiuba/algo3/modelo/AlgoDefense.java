@@ -173,7 +173,7 @@ public class AlgoDefense implements Observable {
 
 	public void actualizarEnemigos() {
 		for (Enemigo enemigo: this.enemigos) {
-			enemigo.actualizarLista(this.enemigos);
+			this.enemigos = enemigo.actualizarLista(this.enemigos);
 		}
 	}
 

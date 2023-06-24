@@ -1,172 +1,98 @@
 @startuml
-class AlgoDefense {
-  - jugador1: Jugador
+
+class Mapa {
+  - origen: PasarelaLargada
+  - meta: PasarelaMeta
+  - parcelas: List<Parcela>
+
+  -calcularParcelaConDistanciaMinimaALaMeta(List<ParcelaDePasarela> vecinos) : ParcelaDePasarela
+
++obtenerPasarelasEnRango(Parcela parcela, int rango): ParcelaDePasarela
+
++obtenerParcelaConCoordenadas(int absica, int ordenada): Parcela
+
++actualizarMeta(List<Enemigo> enemigos, Jugador jugador1) : List<Enemigo>
+
+}
+
+
+
+abstract class Parcela {
+  - coordenada: Coordenada
   - mapa: Mapa
+  - construible: Construible
+  - movible: Movible
 
-  - calcularDanioTotal(): int
-  + finDelJuego(): String
-  + agregarJugador(String): void
-  + agregarEnemigo(Enemigo): void
-  + moverEnemigos(): void
-  + getMapa(): Mapa
-  + comenzarturno(): void
-  + obtenersizeMeta(): int
-}
-class Arania {
-  + recibirDanio(int): int
-  - obtenerCreditosRandom(): int
-  + mover(): void
-}
-class Coordenada {
-  ~ abscisa: double
-  ~ ordenada: double
-  + getOrdenada(): double
-  + getAbscisa(): double
-}
-class Creditos {
-  - puntosActuales: int
-  + agregarCreditos(int): void
-  + consumirPuntos(int): boolean
-  + getCreditos(): int
-}
-class Defensa {
-  # costoConstruccion: int
-  # danio: int
-  # rangoAtaque: int
-  # turnosRestantesParaDespliegue: int
-  ~ enemigoDentroDeRango(int): boolean
-  + restarTurnoParaDespliegue(): void
-  + estaDesplegada(): boolean
-  + getCostoConstruccion(): int
-  + atacarA(Enemigo): int
-}
-class Enemigo {
+  + construir(defensa: Torre): void
+  + construir(defensa: TrampaArenosa): void
+  + {abstract} mover(distancia: int, mapa: Mapa): ParcelaDePasarela
+  + vecinos(mapa: Mapa, rango: int): List<ParcelaDePasarela>
 
-  # puntosEnergia: int
-  # creditos: int
-  # danio: int
-  # velocidad: int
-  # energia: Vida
-  # fueMovido: boolean
+}
 
-  ~ recibirDanio(int): int
-  + getDanio(): int
-  + vida(): int
-  + estaMuerto(): boolean
-  + getVida(): int
-  + puedeMoverseA(Parcela): boolean
-  + mover(Parcela): void
-  + setFueMovido(boolean): void
-  + isFueMovido(): boolean
+
+
+
+interface Defensa {
+  + atacar(enemigos: List<Enemigo>, parcelaDefensa: Parcela): void
 }
-class Hormiga {
-  + recibirDanio(int): int
-}
+
 class Jugador {
-  - vida: Vida
   - creditos: Creditos
   - nombre: String
+  - defensas: List<ParcelaDeTierra>
+  - estadoDeVida: EstadoVida
 
-  + sobreviveConDanio(int): boolean
-  + getNombre(): String
-  + getVida(): int
-  + construir(int): boolean
-  + agregarCreditos(int): void
-  + getCreditos(): int
-}
-class Mapa {
-  - parcelas: List<Parcela>
-  - origen: Parcela
-  - meta: Parcela
 
-  + getOrigen(): Parcela
-  + getMeta(): Parcela
-  - calcularDistancia(Coordenada, Coordenada): int
-  + reiniciarEnemigosPasarelas(): void
-  + hallarParcelaVecinaCorrecta(Parcela): Parcela
-  + moverEnemigos(Parcela): void
-  + obtenerCantidadEnemigosVivos(): int
-  + obtenerDanioMeta(): int
-}
-class Parcela {
-  # coordenada: Coordenada
-  # enemigos: List<Enemigo>
-  # visitantes: List<Enemigo>
-
-  ~ puedeMoverseAqui(): boolean
-  ~ puedoConstruir(Defensa): boolean
-  + agregarEnemigo(Enemigo): void
-  + eliminarEnemigo(Enemigo): void
-  + getCoordenada(): Coordenada
-  + esVecinaDe(Parcela): boolean
-  + fueVisitado(Enemigo): boolean
-  ~ puedeDefenderse(): boolean
+  + Jugador(nombre: String)
+  + agregarCreditos(creditosRecibidos: int): void
+  + construir(defensa: Torre, parcela: Parcela): void
+  + construir(defensa: TrampaArenosa, parcela: Parcela): void
+  + recibirdanio(danio: int): void
+  + setDefensa(nuevaLista: List<ParcelaDeTierra>): void
+  + atacarEnemigos(enemigos: List<Enemigo>): void
 
 }
-class ParcelaDePasarela {
-  + puedeMoverseAqui(): boolean
-  + puedeDefender(): boolean
-  + puedoConstruir(Defensa): boolean
+
+interface Enemigo {
+  + mover(mapa: Mapa): void
+  + atacar(jugador: Jugador): void
+  + recibirAtaque(parcelaDefensa: Parcela, rangoAtaque: int, danio: int): void
+  + actualizarLista(enemigos: List<Enemigo>): List<Enemigo>
+  + recolectarCreditos(): int
+  + seEncuentraEn(coordenada: Coordenada): boolean
 }
-class ParcelaDeTierra {
-  - defensa: Defensa
-  - defendible: boolean
-  + puedeMoverseAqui(): boolean
-  + puedoConstruir(Defensa): boolean
-  + puedeDefender(): boolean
-  + isDefendible(): boolean
+
+class AlgoDefense {
+
+  - mapa: Mapa
+  - jugador: Jugador
+  - enemigos: List<Enemigo>
+  - turnoActual: int
+  - enemigosPorTurno: Map<Integer, List<Enemigo>>
+
+
+
+  + AlgoDefense()
+  + finDelJuego(): String
+  + moverEnemigos(): void
+  + cargarEnemigos(cantTurnos: int): void
+  + construir(defensa: Torre, parcela: Parcela):
+  + construir(defensa: TrampaArenosa, parcela: Parcela): void
+  + ejecutarTurno(): void
+  + actualizarEnemigos(): void
+
+
 }
-class ParcelaRocosa {
-  + puedoConstruir(Defensa): boolean
-  + puedeMoverseAqui(): boolean
-  + puedeDefender(): boolean
-}
-class Partida
-class PasarelaComun
-class PasarelaLargada
-class PasarelaMeta
-class TorreBlanca {
-  + enemigoDentroDeRango(int): boolean
-}
-class TorrePlateada {
-  + enemigoDentroDeRango(int): boolean
-}
-class Vida {
-  - puntosActuales: int
-  + consumirPuntos(int): void
-  + getVida(): int
-}
-' CAMBIAR 👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇
-Arania             -[#000082,plain]-^  Enemigo           
-Hormiga            -[#000082,plain]-^  Enemigo           
-ParcelaDePasarela  -[#000082,plain]-^  Parcela           
-ParcelaDeTierra    -[#000082,plain]-^  Parcela           
-ParcelaRocosa      -[#000082,plain]-^  Parcela           
-PasarelaComun      -[#000082,plain]-^  ParcelaDePasarela 
-PasarelaLargada    -[#000082,plain]-^  ParcelaDePasarela 
-PasarelaMeta       -[#000082,plain]-^  ParcelaDePasarela 
-TorreBlanca        -[#000082,plain]-^  Defensa           
-TorrePlateada      -[#000082,plain]-^  Defensa
 
-AlgoDefense --> Jugador
-AlgoDefense --> Mapa
-AlgoDefense ...> Enemigo
-
-Defensa ...> Enemigo
-
-Enemigo --> Vida
-Enemigo ..> Parcela
-
-Jugador --> Creditos
-Jugador --> Vida
+Jugador *--AlgoDefense
+Mapa *--AlgoDefense
+Parcela *--Mapa
+Enemigo o--AlgoDefense
+Defensa o--Jugador
 
 
-Mapa -->"*" Parcela
-Mapa ..> Coordenada
 
-Parcela --> Coordenada
-Parcela -->"*" Enemigo
-Parcela ..> Defensa
 
-ParcelaDeTierra --> Defensa
 @enduml
+

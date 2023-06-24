@@ -161,9 +161,10 @@ public class CasosDeUsoTest {
 		algoDefense.moverEnemigos();
 		algoDefense.actualizarEnemigos();
 		algoDefense.pasarTurno();
+		algoDefense.actualizarEnemigos();
 		assertDoesNotThrow(() -> algoDefense.agregarJugador("Mariana"));
 		String ganador = algoDefense.finDelJuego();
-		assertEquals("Mariana", ganador);
+		assertEquals("Mariana", ganador);//Null cambiamos
 	}
 
 	@Test
@@ -322,7 +323,7 @@ public class CasosDeUsoTest {
 			algoDefense.moverEnemigos();
 		}
 
-		
+
 		String ganador = algoDefense.finDelJuego();
 		assertEquals("Computadora", ganador);
 	}

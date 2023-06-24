@@ -28,7 +28,7 @@ public class Lechuza implements Enemigo {
         this.trasladable = new VoladorEnL(5, pasarela);
         this.daniable = new Atacable(5);
         this.logger = CustomLogger.getInstance();
-        this.creditos = 0;
+        this.creditos = 3;
     }
 
     @Override
@@ -69,8 +69,9 @@ public class Lechuza implements Enemigo {
         return this.getPasarelaActual().getCoordenada().equals(coordenada);
     }
 
-    public void actualizarLista(List<Enemigo> enemigos) {
-        this.daniable.actualizarLista(enemigos);
+    public List<Enemigo> actualizarLista(List<Enemigo> enemigos) {
+        this.daniable.actualizarLista(enemigos, this);
+        return enemigos;
     }
 
 
