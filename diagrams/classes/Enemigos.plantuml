@@ -1,0 +1,111 @@
+@startuml
+
+class Arania {
+  - atacante: Atacante
+  - creditos: int
+  - trasladable: Trasladable
+  - daniable: Daniable
+
+  + Arania(pasarela: ParcelaDePasarela)
+  + atacar(jugador: Jugador): void
+  + mover(mapa: Mapa): void
+  + recibirAtaque(parcelaDefensa: Parcela, rangoAtaque: int, danio: int): void
+  + actualizarLista(enemigos: List<Enemigo>): List<Enemigo>
+  + seEncuentraEn(coordenada: Coordenada): boolean
++ recolectarCreditos(creditos: int): int
+}
+class Atacable
+interface Atacante {
+  + atacar(jugador: Jugador): void
+  + getDanio(): int
+}
+class AtacanteDeJugador
+class BajoTierra
+class Caminante
+interface Daniable {
+  + recibirAtaque(parcelaDefensa: Parcela, rangoAtaque: int, danio: int, parcelaActual: Parcela): void
+
+  + actualizarLista(enemigos: List<Enemigo>, enemigo: Enemigo): List<Enemigo>
+  + recolectarCreditos(creditos: int): int
+}
+class DestructorDeDefensas
+interface Enemigo {
+  + mover(mapa: Mapa): void
+  + atacar(jugador: Jugador): void
+  + recibirAtaque(parcelaDefensa: Parcela, rangoAtaque: int, danio: int): void
+  + actualizarLista(enemigos: List<Enemigo>): List<Enemigo>
+  + seEncuentraEn(coordenada: Coordenada): boolean
++ recolectarCreditos(creditos: int): int
+}
+class Hormiga{
+  - atacante: Atacante
+  - creditos: int
+  - trasladable: Trasladable
+  - daniable: Daniable
+
+  + Arania(pasarela: ParcelaDePasarela)
+  + atacar(jugador: Jugador): void
+  + mover(mapa: Mapa): void
+  + recibirAtaque(parcelaDefensa: Parcela, rangoAtaque: int, danio: int): void
+  + actualizarLista(enemigos: List<Enemigo>): List<Enemigo>
+  + seEncuentraEn(coordenada: Coordenada): boolean
++ recolectarCreditos(creditos: int): int
+}
+class Lechuza{
+  - atacante: Atacante
+  - creditos: int
+  - trasladable: Trasladable
+  - daniable: Daniable
+
+  + Arania(pasarela: ParcelaDePasarela)
+  + atacar(jugador: Jugador): void
+  + mover(mapa: Mapa): void
+  + recibirAtaque(parcelaDefensa: Parcela, rangoAtaque: int, danio: int): void
+  + actualizarLista(enemigos: List<Enemigo>): List<Enemigo>
+  + seEncuentraEn(coordenada: Coordenada): boolean
++ recolectarCreditos(creditos: int): int
+}
+class NoDaniable
+class Topo{
+  - atacante: Atacante
+  - creditos: int
+  - trasladable: Trasladable
+  - daniable: Daniable
+
+  + Arania(pasarela: ParcelaDePasarela)
+  + atacar(jugador: Jugador): void
+  + mover(mapa: Mapa): void
+  + recibirAtaque(parcelaDefensa: Parcela, rangoAtaque: int, danio: int): void
+  + actualizarLista(enemigos: List<Enemigo>): List<Enemigo>
+  + seEncuentraEn(coordenada: Coordenada): boolean
++ recolectarCreditos(creditos: int): int
+}
+interface Trasladable {
+  + moverse(mapa: Mapa): Trasladable
+  + getPasarelaActual(): Parcela
+  + setPasarelaActual(pasarela: Parcela): void
+}
+
+class VoladorEnL
+class VoladorEnRecta
+
+Arania                -[dashed]-^  Enemigo
+Atacable              -[dashed]-^  Daniable
+AtacanteDeJugador     -[dashed]-^  Atacante
+BajoTierra            -[dashed]-^  Trasladable
+Caminante             -[dashed]-^  Trasladable
+DestructorDeDefensas  -[dashed]-^  Atacante
+Hormiga               -[dashed]-^  Enemigo
+Lechuza               -[dashed]-^  Enemigo
+NoDaniable            -[dashed]-^  Daniable
+Topo                  -[dashed]-^  Enemigo
+VoladorEnL            -[dashed]-^  Trasladable
+VoladorEnRecta        -[dashed]-^  Trasladable
+
+Enemigo --> Trasladable
+
+Enemigo --> Daniable
+
+Enemigo --> Atacante
+
+@enduml
