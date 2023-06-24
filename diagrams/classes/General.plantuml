@@ -4,40 +4,84 @@ class Mapa {
   - origen: PasarelaLargada
   - meta: PasarelaMeta
   - parcelas: List<Parcela>
+
+  -calcularParcelaConDistanciaMinimaALaMeta(List<ParcelaDePasarela> vecinos) : ParcelaDePasarela
+
++obtenerPasarelasEnRango(Parcela parcela, int rango): ParcelaDePasarela
+
++obtenerParcelaConCoordenadas(int absica, int ordenada): Parcela
+
++actualizarMeta(List<Enemigo> enemigos, Jugador jugador1) : List<Enemigo>
+
 }
+
 
 
 abstract class Parcela {
   - coordenada: Coordenada
   - mapa: Mapa
   - construible: Construible
-  -  movible : Movible
+  - movible: Movible
+
+  + construir(defensa: Torre): void
+  + construir(defensa: TrampaArenosa): void
+  + {abstract} mover(distancia: int, mapa: Mapa): ParcelaDePasarela
+  + vecinos(mapa: Mapa, rango: int): List<ParcelaDePasarela>
 
 }
 
+
+
+
 interface Defensa {
-  - nombre: string
-  - puntosDefensa: int
-  - costo: int
+  + atacar(enemigos: List<Enemigo>, parcelaDefensa: Parcela): void
 }
 
 class Jugador {
-- creditos: Creditos
+  - creditos: Creditos
   - nombre: String
   - defensas: List<ParcelaDeTierra>
   - estadoDeVida: EstadoVida
+
+
+  + Jugador(nombre: String)
+  + agregarCreditos(creditosRecibidos: int): void
+  + construir(defensa: Torre, parcela: Parcela): void
+  + construir(defensa: TrampaArenosa, parcela: Parcela): void
+  + recibirdanio(danio: int): void
+  + setDefensa(nuevaLista: List<ParcelaDeTierra>): void
+  + atacarEnemigos(enemigos: List<Enemigo>): void
+
 }
 
 interface Enemigo {
-
+  + mover(mapa: Mapa): void
+  + atacar(jugador: Jugador): void
+  + recibirAtaque(parcelaDefensa: Parcela, rangoAtaque: int, danio: int): void
+  + actualizarLista(enemigos: List<Enemigo>): List<Enemigo>
+  + recolectarCreditos(): int
+  + seEncuentraEn(coordenada: Coordenada): boolean
 }
 
 class AlgoDefense {
+
   - mapa: Mapa
   - jugador: Jugador
   - enemigos: List<Enemigo>
   - turnoActual: int
   - enemigosPorTurno: Map<Integer, List<Enemigo>>
+
+
+
+  + AlgoDefense()
+  + finDelJuego(): String
+  + moverEnemigos(): void
+  + cargarEnemigos(cantTurnos: int): void
+  + construir(defensa: Torre, parcela: Parcela):
+  + construir(defensa: TrampaArenosa, parcela: Parcela): void
+  + ejecutarTurno(): void
+  + actualizarEnemigos(): void
+
 
 }
 
@@ -51,3 +95,4 @@ Defensa o--Jugador
 
 
 @enduml
+
