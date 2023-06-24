@@ -11,7 +11,6 @@ public interface Defensa {
 
 	public int getCostoConstruccion();
 
-
 	public int getRangoAtaque();
 
 	public void atacar(List<Enemigo> enemigos, Parcela parcelaDefensa) ;
