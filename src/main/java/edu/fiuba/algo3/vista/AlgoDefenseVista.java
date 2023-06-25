@@ -14,6 +14,8 @@ import edu.fiuba.algo3.modelo.mapa.Coordenada;
 import edu.fiuba.algo3.modelo.mapa.Mapa;
 import edu.fiuba.algo3.modelo.parcelas.Parcela;
 import edu.fiuba.algo3.modelo.parcelas.ParcelaDeTierra;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -251,41 +253,35 @@ public class AlgoDefenseVista implements Observer, Vista {
 	}
 
 	private VBox createButtonBox() {
-		Button ejecutarTurnoButton = new Button("Siguiente Turno");
-		ejecutarTurnoButton.getStyleClass().add("botonInGame");
-		ejecutarTurnoButton.setOnAction(new SiguienteTurnoHandler(juego, this));
+		Button siguienteTurnoButton = new Button("Siguiente Turno");
+		siguienteTurnoButton.getStyleClass().add("botonInGame");
+		siguienteTurnoButton.setOnAction(new SiguienteTurnoHandler(juego, this));
 
+		Button tpButton = createDefenseButton("TP.png", new UbicarTorreHandler(juego, this, "p"));
+		Button tbButton = createDefenseButton("TB.png", new UbicarTorreHandler(juego, this, "b"));
+		Button sButton = createDefenseButton("S.png", new UbicarTrampaHandler(juego, this));
 
-		String plateadaPath = "file:" + "src/resources/" + "TP" + ".png";
-		Image imagenPlateada = new Image(plateadaPath);
-		ImageView imageViewPlateada = new ImageView(imagenPlateada);
-		Button boton2 = new Button();
-		boton2.setGraphic(imageViewPlateada);
-		boton2.getStyleClass().add("botonInGame");
-		boton2.setOnAction(new UbicarTorreHandler(juego, this, "p"));
-
-
-		String blancaPath = "file:" + "src/resources/" + "TB" + ".png";
-		Image imagenBlanca = new Image(blancaPath);
-		ImageView imageViewBlanca = new ImageView(imagenBlanca);
-		Button boton3 = new Button();
-		boton3.setGraphic(imageViewBlanca);
-		boton3.getStyleClass().add("botonInGame");
-		boton3.setOnAction(new UbicarTorreHandler(juego, this, "b"));
-
-
-		String arenosaPath = "file:" + "src/resources/" + "S" + ".png";
-		Image imagenArenosa = new Image(arenosaPath);
-		ImageView imageViewArenosa = new ImageView(imagenArenosa);
-		Button boton4 = new Button();
-		boton4.setGraphic(imageViewArenosa);
-		boton4.getStyleClass().add("botonInGame");
-		boton4.setOnAction(new UbicarTrampaHandler(juego, this));
-
-		VBox buttonBox = new VBox(ejecutarTurnoButton, boton2, boton3, boton4);
+		HBox defenseButtonsBox = new HBox(10, tpButton, tbButton, sButton);
+		VBox buttonBox = new VBox(siguienteTurnoButton, defenseButtonsBox);
 		buttonBox.getStyleClass().add("contenedorBotones");
+		buttonBox.setSpacing(10);
+		buttonBox.setAlignment(Pos.CENTER);
 		return buttonBox;
 	}
+
+
+
+	private Button createDefenseButton(String imageName, EventHandler<ActionEvent> handler) {
+		String imagePath = "file:src/resources/" + imageName;
+		Image image = new Image(imagePath);
+		ImageView imageView = new ImageView(image);
+		Button button = new Button();
+		button.setGraphic(imageView);
+		button.getStyleClass().add("botonInGame");
+		button.setOnAction(handler);
+		return button;
+	}
+
 
 	public Parcela getUltimaParcela() {
 		return this.ultimaParcela;
