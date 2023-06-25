@@ -34,6 +34,7 @@ public class Main extends Application {
 		primaryStage.setTitle("AlgoDefense");
 
 
+
 		try {
 			BienvenidoVista bienvenidoVista = new BienvenidoVista();
 			AlgoDefenseVista algoDefenseVista = new AlgoDefenseVista();

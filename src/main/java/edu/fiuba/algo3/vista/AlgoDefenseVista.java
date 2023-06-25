@@ -62,7 +62,6 @@ public class AlgoDefenseVista implements Observer, Vista {
 		this.scene = scene;
 
 		GridPane rootPane = new GridPane();
-		rootPane.setPadding(new Insets(10));
 
 		GridPane gridPane = createGridPane();
 		configureGridConstraints(gridPane);
@@ -70,8 +69,10 @@ public class AlgoDefenseVista implements Observer, Vista {
 
 		rootPane.add(gridPane, 0, 0);
 		VBox rightSidebar = createSidebar();
+		rightSidebar.getStyleClass().add("columnaDerecha");
+
 		rootPane.add(rightSidebar, 1, 0);
-		rootPane.setStyle("-fx-background-color: #FCFCF9; -fx-width: 100%;");
+		rootPane.getStyleClass().add("mainContainer");
 
 		scene.setRoot(rootPane);
 		if (this.juego.finDelJuego() != null) {
@@ -81,8 +82,6 @@ public class AlgoDefenseVista implements Observer, Vista {
 
 	private VBox createSidebar() {
 		VBox sidebar = new VBox();
-		sidebar.setSpacing(10);
-		sidebar.setPadding(new Insets(10));
 
 		VBox buttonBox = createButtonBox();
 		VBox playerInfoBox = createPlayerInfoBox();
@@ -99,16 +98,16 @@ public class AlgoDefenseVista implements Observer, Vista {
 		playerInfoBox.setSpacing(10);
 		playerInfoBox.setPadding(new Insets(10));
 		Jugador jugador = juego.getJugador();
-		Label playerNameLabel = new Label("Jugador: ");
-		Label playerNameValueLabel = new Label(jugador.getNombre());
+		Label playerNameLabel = new Label("Jugador: " + jugador.getNombre());
+		playerNameLabel.getStyleClass().add("infoLabel");
 
-		Label playerCreditsLabel = new Label("Creditos: ");
-		Label playerCreditsValueLabel = new Label(String.valueOf(jugador.getCreditos()));
+		Label playerCreditsLabel = new Label("Creditos restantes: " + String.valueOf(jugador.getCreditos()));
+		playerCreditsLabel.getStyleClass().add("infoLabel");
 
-		Label playerLifeLabel = new Label("Vida: ");
-		Label playerLifeValueLabel = new Label(String.valueOf(jugador.getVida()));
+		Label playerLifeLabel = new Label("Vida: " + String.valueOf(jugador.getVida()));
+		playerLifeLabel.getStyleClass().add("infoLabel");
 
-		playerInfoBox.getChildren().addAll(playerNameLabel, playerNameValueLabel, playerCreditsLabel, playerCreditsValueLabel, playerLifeLabel, playerLifeValueLabel);
+		playerInfoBox.getChildren().addAll(playerNameLabel, playerCreditsLabel, playerLifeLabel);
 
 		return playerInfoBox;
 	}
@@ -224,6 +223,7 @@ public class AlgoDefenseVista implements Observer, Vista {
 
 	private ImageView createDefenseImageView(Defensa defensa) {
 		String imagePath = getImagePath(defensa); // Get the path to the image based on the defense
+
 		Image image = new Image(imagePath, CELL_SIZE, CELL_SIZE, true, true);
 		ImageView imageView = new ImageView(image);
 		imageView.setPreserveRatio(true);
@@ -249,28 +249,41 @@ public class AlgoDefenseVista implements Observer, Vista {
 	}
 
 	private VBox createButtonBox() {
-		Button ejecutarTurnoButton = new Button("Ejecutar Turno IA");
+		Button ejecutarTurnoButton = new Button("Siguiente Turno");
+		ejecutarTurnoButton.getStyleClass().add("botonInGame");
 		ejecutarTurnoButton.setOnAction(new SiguienteTurnoHandler(juego, this));
 
-		Button boton2 = new Button("Torre plateada");
+
+		String plateadaPath = "file:" + "src/resources/" + "TP" + ".png";
+		Image imagenPlateada = new Image(plateadaPath);
+		ImageView imageViewPlateada = new ImageView(imagenPlateada);
+		Button boton2 = new Button();
+		boton2.setGraphic(imageViewPlateada);
+		boton2.getStyleClass().add("botonInGame");
 		boton2.setOnAction(new UbicarTorreHandler(juego, this, "p"));
 
-		Button boton3 = new Button("Torre Blanca");
+
+		String blancaPath = "file:" + "src/resources/" + "TB" + ".png";
+		Image imagenBlanca = new Image(blancaPath);
+		ImageView imageViewBlanca = new ImageView(imagenBlanca);
+		Button boton3 = new Button();
+		boton3.setGraphic(imageViewBlanca);
+		boton3.getStyleClass().add("botonInGame");
 		boton3.setOnAction(new UbicarTorreHandler(juego, this, "b"));
 
-		Button boton4 = new Button("Trampa Arenosa");
+
+		String arenosaPath = "file:" + "src/resources/" + "S" + ".png";
+		Image imagenArenosa = new Image(arenosaPath);
+		ImageView imageViewArenosa = new ImageView(imagenArenosa);
+		Button boton4 = new Button();
+		boton4.setGraphic(imageViewArenosa);
+		boton4.getStyleClass().add("botonInGame");
 		boton4.setOnAction(new UbicarTrampaHandler(juego, this));
 
-		VBox buttonBox = new VBox(10, ejecutarTurnoButton, boton2, boton3, boton4);
-		//buttonBox.setAlignment(Pos.CENTER_LEFT);
+		VBox buttonBox = new VBox( ejecutarTurnoButton, boton2, boton3, boton4);
 		buttonBox.getStyleClass().add("contenedorBotones");
-		BorderPane container = new BorderPane();
-		container.setRight(buttonBox);
-		container.setPadding(new Insets(10));
-		return new VBox(container);
+		return buttonBox;
 	}
-
-	;
 
 	public Parcela getUltimaParcela() {
 		return this.ultimaParcela;

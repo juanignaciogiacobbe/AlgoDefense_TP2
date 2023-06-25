@@ -46,21 +46,18 @@ public class BienvenidoVista implements Vista {
 	@Override
 	public void mostrar(Scene scene) {
 		Label nameLabel = new Label("Ingresa tu nombre:");
+		nameLabel.getStyleClass().add("label");
 		nameField = new TextField();
 		nameField.getStyleClass().add("input");
 		Button loginButton = new Button("Comenzar juego");
 		loginButton.getStyleClass().add("boton");
 
-		VBox vbox = new VBox(nameLabel, nameField, loginButton);
+		VBox vbox = new VBox(createLogoImageView(), nameLabel, nameField, loginButton);
 		vbox.getStyleClass().add("container");
 
 		// Create a StackPane to hold the logo image and input field
 		StackPane stackPane = new StackPane();
-		stackPane.getChildren().addAll(
-				createLogoImageView(), // Add logo image view
-				vbox
-		);
-		StackPane.setMargin(vbox, new Insets(250, 0, 0, 0)); // Adjust margin to position the input field
+		stackPane.getChildren().addAll(vbox);
 
 		loginButton.setOnAction(e -> {
 			try {
@@ -83,7 +80,7 @@ public class BienvenidoVista implements Vista {
 		Image image = new Image(imagePath);
 		ImageView imageView = new ImageView(image);
 		imageView.setPreserveRatio(true);
-		imageView.setFitWidth(500);
+		imageView.setFitWidth(1000);
 		return imageView;
 	}
 
