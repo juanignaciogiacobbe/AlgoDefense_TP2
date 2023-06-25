@@ -26,7 +26,6 @@ import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 
 public class AlgoDefenseVista implements Observer, Vista {
 	private Vista nextVista;
@@ -186,16 +185,30 @@ public class AlgoDefenseVista implements Observer, Vista {
 		return "file:" + basePath + defensa.toString() + ".png";
 	}
 
+	private String getImagePath(Enemigo enemigo) {
+		String basePath = "src/resources/";
+		return "file:" + basePath + enemigo.toString() + ".png";
+	}
+
 	private void displayEnemyInParcela(Parcela parcela, StackPane cellPane) {
 		for (Enemigo enemigo : enemigos) {
 			Parcela pasarelaActual = enemigo.getPasarelaActual();
 			Coordenada coordenada = pasarelaActual.getCoordenada();//
 			//Si esa parcela en el gridpane tiene un enemigo,lo coloco ahi
 			if (parcela.getCoordenada().equals(coordenada)) {
-				Label enemyLabel = createEnemyLabel(enemigo);
-				cellPane.getChildren().add(enemyLabel);
+				ImageView enemyImage = createEnemyImageView(enemigo);
+				cellPane.getChildren().add(enemyImage);
 			}
 		}
+	}
+
+	private ImageView createEnemyImageView(Enemigo enemigo) {
+		String imagePath = getImagePath(enemigo);
+		Image image = new Image(imagePath, 42, 42, true, true);
+		ImageView imageView = new ImageView(image);
+		imageView.setPreserveRatio(true);
+		imageView.setOpacity(0.9);
+		return imageView;
 	}
 
 
@@ -209,17 +222,6 @@ public class AlgoDefenseVista implements Observer, Vista {
 			}
 		}
 	}
-
-	private Label createEnemyLabel(Enemigo enemigo) {
-		Label enemyLabel = new Label(enemigo.toString());
-		if (Objects.equals(enemigo.toString(), "T")) {
-			enemyLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: white");
-			return enemyLabel;
-		}
-		enemyLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: red");
-		return enemyLabel;
-	}
-
 
 	private ImageView createDefenseImageView(Defensa defensa) {
 		String imagePath = getImagePath(defensa); // Get the path to the image based on the defense
@@ -280,7 +282,7 @@ public class AlgoDefenseVista implements Observer, Vista {
 		boton4.getStyleClass().add("botonInGame");
 		boton4.setOnAction(new UbicarTrampaHandler(juego, this));
 
-		VBox buttonBox = new VBox( ejecutarTurnoButton, boton2, boton3, boton4);
+		VBox buttonBox = new VBox(ejecutarTurnoButton, boton2, boton3, boton4);
 		buttonBox.getStyleClass().add("contenedorBotones");
 		return buttonBox;
 	}
