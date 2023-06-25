@@ -1,0 +1,22 @@
+@startuml
+participant Actor
+Actor -> DestructorDeDefensas : atacar
+activate DestructorDeDefensas
+DestructorDeDefensas -> Jugador : destruirSiguienteDefensa
+activate Jugador
+Jugador -> List : get
+activate List
+List --> Jugador
+deactivate List
+Jugador -> ParcelaDeTierra : destruirDefensa
+activate ParcelaDeTierra
+ParcelaDeTierra --> Jugador
+deactivate ParcelaDeTierra
+Jugador -> List : remove
+activate List
+List --> Jugador
+deactivate List
+Jugador --> DestructorDeDefensas
+deactivate Jugador
+return
+@enduml

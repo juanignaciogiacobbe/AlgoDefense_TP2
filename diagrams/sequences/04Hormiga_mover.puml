@@ -1,0 +1,38 @@
+@startuml
+participant Actor
+Actor -> Hormiga : mover
+activate Hormiga
+Hormiga -> Trasladable : moverse
+activate Trasladable
+Trasladable --> Hormiga
+deactivate Trasladable
+Hormiga -> Hormiga : getNombre
+activate Hormiga
+Hormiga --> Hormiga
+deactivate Hormiga
+Hormiga -> Trasladable : getPasarelaActual
+activate Trasladable
+Trasladable --> Hormiga
+deactivate Trasladable
+Hormiga -> Parcela : getCoordenada
+activate Parcela
+Parcela --> Hormiga
+deactivate Parcela
+Hormiga -> Coordenada : getAbscisa
+activate Coordenada
+Coordenada --> Hormiga
+deactivate Coordenada
+Hormiga -> Trasladable : getPasarelaActual
+activate Trasladable
+Trasladable --> Hormiga
+deactivate Trasladable
+Hormiga -> Parcela : getCoordenada
+activate Parcela
+Parcela --> Hormiga
+deactivate Parcela
+Hormiga -> Coordenada : getAbscisa
+activate Coordenada
+Coordenada --> Hormiga
+deactivate Coordenada
+return
+@enduml

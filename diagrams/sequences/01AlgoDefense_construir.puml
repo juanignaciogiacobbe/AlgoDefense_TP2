@@ -1,0 +1,58 @@
+@startuml
+participant Actor
+Actor -> AlgoDefense : construir
+activate AlgoDefense
+AlgoDefense -> Jugador : construir
+activate Jugador
+Jugador -> Torre : getCostoConstruccion
+activate Torre
+Torre --> Jugador
+deactivate Torre
+Jugador -> Creditos : consumirPuntos
+activate Creditos
+Creditos --> Jugador
+deactivate Creditos
+Jugador -> Parcela : construir
+activate Parcela
+Parcela -> Construible : construir
+activate Construible
+Construible --> Parcela
+deactivate Construible
+Parcela --> Jugador
+deactivate Parcela
+Jugador -> CustomLogger : log
+activate CustomLogger
+CustomLogger --> Jugador
+deactivate CustomLogger
+Jugador -> Torre : getNombre
+activate Torre
+Torre --> Jugador
+deactivate Torre
+Jugador -> Parcela : getCoordenada
+activate Parcela
+Parcela --> Jugador
+deactivate Parcela
+Jugador -> Coordenada : getAbscisa
+activate Coordenada
+Coordenada --> Jugador
+deactivate Coordenada
+Jugador -> Parcela : getCoordenada
+activate Parcela
+Parcela --> Jugador
+deactivate Parcela
+Jugador -> Coordenada : getOrdenada
+activate Coordenada
+Coordenada --> Jugador
+deactivate Coordenada
+Jugador -> Torre : getCostoConstruccion
+activate Torre
+Torre --> Jugador
+deactivate Torre
+Jugador -> Creditos : agregarCreditos
+activate Creditos
+Creditos --> Jugador
+deactivate Creditos
+Jugador --> AlgoDefense
+deactivate Jugador
+return
+@enduml

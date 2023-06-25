@@ -1,0 +1,14 @@
+@startuml
+participant Actor
+Actor -> AtacanteDeJugador : atacar
+activate AtacanteDeJugador
+AtacanteDeJugador -> Jugador : recibirdanio
+activate Jugador
+Jugador -> EstadoVida : recibirDanio
+activate EstadoVida
+EstadoVida --> Jugador
+deactivate EstadoVida
+Jugador --> AtacanteDeJugador
+deactivate Jugador
+return
+@enduml

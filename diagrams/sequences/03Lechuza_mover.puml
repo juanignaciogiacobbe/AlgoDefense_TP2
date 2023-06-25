@@ -1,0 +1,38 @@
+@startuml
+participant Actor
+Actor -> Lechuza : mover
+activate Lechuza
+Lechuza -> Trasladable : moverse
+activate Trasladable
+Trasladable --> Lechuza
+deactivate Trasladable
+Lechuza -> Lechuza : getNombre
+activate Lechuza
+Lechuza --> Lechuza
+deactivate Lechuza
+Lechuza -> Trasladable : getPasarelaActual
+activate Trasladable
+Trasladable --> Lechuza
+deactivate Trasladable
+Lechuza -> Parcela : getCoordenada
+activate Parcela
+Parcela --> Lechuza
+deactivate Parcela
+Lechuza -> Coordenada : getAbscisa
+activate Coordenada
+Coordenada --> Lechuza
+deactivate Coordenada
+Lechuza -> Trasladable : getPasarelaActual
+activate Trasladable
+Trasladable --> Lechuza
+deactivate Trasladable
+Lechuza -> Parcela : getCoordenada
+activate Parcela
+Parcela --> Lechuza
+deactivate Parcela
+Lechuza -> Coordenada : getAbscisa
+activate Coordenada
+Coordenada --> Lechuza
+deactivate Coordenada
+return
+@enduml
