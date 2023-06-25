@@ -1,58 +1,41 @@
 @startuml
 participant Actor
-Actor -> AlgoDefense : construir
-activate AlgoDefense
-AlgoDefense -> Jugador : construir
-activate Jugador
-Jugador -> Torre : getCostoConstruccion
+Actor -> "a : AlgoDefense" : construir(d, p)
+activate "a : AlgoDefense"
+"a : AlgoDefense" -> "jugador1 : Jugador" : construir(d, p)
+activate "jugador1 : Jugador"
+"jugador1 : Jugador" -> Torre : getCostoConstruccion()
 activate Torre
-Torre --> Jugador
+Torre --> "jugador1 : Jugador" : costo
 deactivate Torre
-Jugador -> Creditos : consumirPuntos
-activate Creditos
-Creditos --> Jugador
-deactivate Creditos
-Jugador -> Parcela : construir
+
+alt tiene suficientes creditos
+"jugador1 : Jugador" -> "creditos : Creditos" : consumirPuntos(costo)
+activate "creditos : Creditos"
+"creditos : Creditos" --> "jugador1 : Jugador"
+deactivate "creditos : Creditos"
+alt construye
+"jugador1 : Jugador" -> Parcela : construir(defensa)
 activate Parcela
-Parcela -> Construible : construir
-activate Construible
-Construible --> Parcela
-deactivate Construible
-Parcela --> Jugador
+Parcela --> "jugador1 : Jugador"
 deactivate Parcela
-Jugador -> CustomLogger : log
-activate CustomLogger
-CustomLogger --> Jugador
-deactivate CustomLogger
-Jugador -> Torre : getNombre
+"jugador1 : Jugador" --> "a : AlgoDefense"
+
+else TerrenoNoAptoParaConstruir
+"jugador1 : Jugador" -> Torre : getCostoConstruccion()
 activate Torre
-Torre --> Jugador
+Torre --> "jugador1 : Jugador" : costo
 deactivate Torre
-Jugador -> Parcela : getCoordenada
-activate Parcela
-Parcela --> Jugador
-deactivate Parcela
-Jugador -> Coordenada : getAbscisa
-activate Coordenada
-Coordenada --> Jugador
-deactivate Coordenada
-Jugador -> Parcela : getCoordenada
-activate Parcela
-Parcela --> Jugador
-deactivate Parcela
-Jugador -> Coordenada : getOrdenada
-activate Coordenada
-Coordenada --> Jugador
-deactivate Coordenada
-Jugador -> Torre : getCostoConstruccion
-activate Torre
-Torre --> Jugador
-deactivate Torre
-Jugador -> Creditos : agregarCreditos
-activate Creditos
-Creditos --> Jugador
-deactivate Creditos
-Jugador --> AlgoDefense
-deactivate Jugador
-return
+"jugador1 : Jugador" -> "creditos : Creditos" : agregarCreditos(costo)
+activate "creditos : Creditos"
+"creditos : Creditos" --> "jugador1 : Jugador"
+deactivate "creditos : Creditos"
+"jugador1 : Jugador" --> "a : AlgoDefense" : new TerrenoNoAptoParaConstruir()
+deactivate "jugador1 : Jugador"
+end
+else CreditosInsuficientes
+"creditos : Creditos" --> "jugador1 : Jugador" : new CreditosInsuficientes()
+"jugador1 : Jugador" --> "a : AlgoDefense" : new CreditosInsuficientes()
+end
+
 @enduml

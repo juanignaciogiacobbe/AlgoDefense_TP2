@@ -1,0 +1,17 @@
+@startuml
+activate ":TorreBlanca"
+":TorreBlanca" -> "desplegable:NoDesplegado" : atacar(enemigos, p, 3, 1)
+activate "desplegable:NoDesplegado"
+"desplegable:NoDesplegado" -> "desplegable:NoDesplegado": pasarTurno()
+alt turnosRestantesParaDespliegue == 0
+    create "desplegable:Desplegado"
+    "desplegable:NoDesplegado" -> "desplegable:Desplegado": new
+    "desplegable:NoDesplegado" --> ":TorreBlanca" : desplegable
+else turnosRestantesParaDespliegue != 0
+    "desplegable:NoDesplegado" --> ":TorreBlanca" : desplegable
+
+
+    end
+
+deactivate "desplegable:NoDesplegado"
+@enduml

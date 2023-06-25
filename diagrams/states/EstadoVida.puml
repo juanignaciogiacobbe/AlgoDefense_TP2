@@ -1,0 +1,9 @@
+@startuml
+'https://plantuml.com/state-diagram
+
+hide empty description
+[*] --> EstadoVivo
+EstadoVivo -> EstadoMuerto : vida es menor o igual a cero
+EstadoMuerto --> [*]
+
+@enduml

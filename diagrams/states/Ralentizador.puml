@@ -1,0 +1,11 @@
+@startuml
+'https://plantuml.com/state-diagram
+
+hide empty description
+[*] --> NoRalentizador
+NoRalentizador -> TrampaArenosa : construyo trampa
+TrampaArenosa -> NoRalentizador: pasan 3 turnos
+TrampaArenosa-->[*]
+NoRalentizador --> [*]
+
+@enduml

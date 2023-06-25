@@ -1,0 +1,21 @@
+@startuml
+
+activate ":TorreBlanca"
+":TorreBlanca" -> "desplegable:Desplegado" : atacar(enemigos, p, 3, 1)
+activate "desplegable:Desplegado"
+loop e en enemigos
+         alt puede atacarlo
+            "desplegable:Desplegado" -> "e : Enemigo": recibirAtaque(p, 3, 1)
+            "e : Enemigo" --> "desplegable:Desplegado"
+            "desplegable:Desplegado" --> ":TorreBlanca" : desplegable
+
+         else EnemigoFueraDeRango
+         note over "desplegable:Desplegado" : sigue recorriendo la lista de enemigos
+
+        end
+end
+
+"desplegable:Desplegado" --> ":TorreBlanca" : desplegable
+deactivate "desplegable:Desplegado"
+
+@enduml
