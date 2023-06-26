@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.AlgoDefense;
 import edu.fiuba.algo3.modelo.convertidor.FormatoJSONInvalidoException;
 import edu.fiuba.algo3.vista.AlgoDefenseVista;
 import edu.fiuba.algo3.vista.BienvenidoVista;
+import edu.fiuba.algo3.vista.CreditosVista;
 import edu.fiuba.algo3.vista.FinJuegoVista;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -38,8 +39,11 @@ public class Main extends Application {
 		try {
 			BienvenidoVista bienvenidoVista = new BienvenidoVista();
 			AlgoDefenseVista algoDefenseVista = new AlgoDefenseVista();
+            CreditosVista creditosVista =  new CreditosVista();
 			FinJuegoVista finJuegoVista = new FinJuegoVista();
 			bienvenidoVista.setNextVista(algoDefenseVista);
+            bienvenidoVista.setCreditos(creditosVista);
+			creditosVista.setNextVista(bienvenidoVista);
 			algoDefenseVista.setNextVista(finJuegoVista);
 
 			AlgoDefense algoDefense = new AlgoDefense();
