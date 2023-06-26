@@ -261,7 +261,39 @@ public class AlgoDefenseVista implements Observer, Vista {
 		Button tbButton = createDefenseButton("TB.png", new UbicarTorreHandler(juego, this, "b"));
 		Button sButton = createDefenseButton("S.png", new UbicarTrampaHandler(juego, this));
 
-		HBox defenseButtonsBox = new HBox(10, tpButton, tbButton, sButton);
+		VBox infoDefensa = new VBox();
+		Label nombreDefensa = new Label("");
+		Label creditosDefensa = new Label("");
+		Label rangoDefensa = new Label("");
+		Label danioDefensa = new Label("");
+		Label tiempoDespliegue = new Label("");
+
+		infoDefensa.getChildren().addAll(nombreDefensa, creditosDefensa, rangoDefensa, danioDefensa, tiempoDespliegue);
+
+		tpButton.setOnMouseEntered(event -> {
+			nombreDefensa.setText("Torre Plateada");
+			creditosDefensa.setText("Creditos: " + "20");
+			rangoDefensa.setText("Rango: " + "5");
+			danioDefensa.setText("Danio: " + "2");
+			tiempoDespliegue.setText("Tiempo de despliegue: " + "2 turnos");
+
+		});
+		tbButton.setOnMouseEntered(event -> {
+			nombreDefensa.setText("Torre Blanca");
+			creditosDefensa.setText("Creditos: " + "10");
+			rangoDefensa.setText("Rango: " + "3");
+			danioDefensa.setText("Danio: " + "1");
+			tiempoDespliegue.setText("Tiempo de despliegue: " + "1 turno");
+		});
+		sButton.setOnMouseEntered(event -> {
+			nombreDefensa.setText("Trampa Arenosa");
+			creditosDefensa.setText("Creditos: " + "25");
+			rangoDefensa.setText("Rango: " + "1");
+			danioDefensa.setText("Ralentizacion: " + "50%");
+			tiempoDespliegue.setText("Tiempo de despliegue: " + "0 turnos");
+		});
+
+		HBox defenseButtonsBox = new HBox(10, tpButton, tbButton, sButton, infoDefensa);
 		VBox buttonBox = new VBox(siguienteTurnoButton, defenseButtonsBox);
 		buttonBox.getStyleClass().add("contenedorBotones");
 		buttonBox.setSpacing(10);
