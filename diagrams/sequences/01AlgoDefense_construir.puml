@@ -9,14 +9,16 @@ activate Torre
 Torre --> "jugador1 : Jugador" : costo
 deactivate Torre
 
-alt tiene suficientes creditos
+
 "jugador1 : Jugador" -> "creditos : Creditos" : consumirPuntos(costo)
 activate "creditos : Creditos"
+alt tiene suficientes creditos
 "creditos : Creditos" --> "jugador1 : Jugador"
 deactivate "creditos : Creditos"
-alt construye
+
 "jugador1 : Jugador" -> Parcela : construir(defensa)
 activate Parcela
+alt construye
 Parcela --> "jugador1 : Jugador"
 deactivate Parcela
 "jugador1 : Jugador" --> "a : AlgoDefense"

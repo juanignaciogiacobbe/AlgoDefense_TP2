@@ -1,0 +1,20 @@
+@startuml
+participant Actor
+Actor -> ":Lechuza" : mover(mapa)
+activate ":Lechuza"
+":Lechuza" -> "trasladable : VoladorEnRecta" : moverse(mapa)
+activate "trasladable : VoladorEnRecta"
+"trasladable : VoladorEnRecta" -> "trasladable : VoladorEnRecta" : volarEnLineaRecta(mapa)
+activate "trasladable : VoladorEnRecta"
+"trasladable : VoladorEnRecta" -> "mapa : Mapa" : obtenerParcelaConCoordenadas(x, y)
+"mapa : Mapa" -->  "trasladable : VoladorEnRecta"  : parcela
+deactivate "trasladable : VoladorEnRecta"
+
+"trasladable : VoladorEnRecta" ->  "trasladable : VoladorEnRecta" : setPasarelaActual(parcela)
+activate "trasladable : VoladorEnRecta"
+deactivate "trasladable : VoladorEnRecta"
+"trasladable : VoladorEnRecta" --> ":Lechuza": trasladable
+deactivate "trasladable : VoladorEnRecta"
+
+return
+@enduml

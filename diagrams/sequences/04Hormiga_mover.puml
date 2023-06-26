@@ -1,38 +1,16 @@
 @startuml
 participant Actor
-Actor -> Hormiga : mover
-activate Hormiga
-Hormiga -> Trasladable : moverse
-activate Trasladable
-Trasladable --> Hormiga
-deactivate Trasladable
-Hormiga -> Hormiga : getNombre
-activate Hormiga
-Hormiga --> Hormiga
-deactivate Hormiga
-Hormiga -> Trasladable : getPasarelaActual
-activate Trasladable
-Trasladable --> Hormiga
-deactivate Trasladable
-Hormiga -> Parcela : getCoordenada
-activate Parcela
-Parcela --> Hormiga
-deactivate Parcela
-Hormiga -> Coordenada : getAbscisa
-activate Coordenada
-Coordenada --> Hormiga
-deactivate Coordenada
-Hormiga -> Trasladable : getPasarelaActual
-activate Trasladable
-Trasladable --> Hormiga
-deactivate Trasladable
-Hormiga -> Parcela : getCoordenada
-activate Parcela
-Parcela --> Hormiga
-deactivate Parcela
-Hormiga -> Coordenada : getAbscisa
-activate Coordenada
-Coordenada --> Hormiga
-deactivate Coordenada
-return
+Actor -> ":Hormiga" : mover(mapa)
+activate ":Hormiga"
+":Hormiga" -> "trasladable : Caminante" : moverse(mapa)
+activate "trasladable : Caminante"
+"trasladable : Caminante" -> ParcelaDePasarela: mover(velocidad, mapa)
+activate ParcelaDePasarela
+ParcelaDePasarela --> "trasladable : Caminante" : pasarela
+deactivate ParcelaDePasarela
+"trasladable : Caminante" -> "trasladable : Caminante" : setPasarelaActual(pasarela)
+activate "trasladable : Caminante"
+deactivate "trasladable : Caminante"
+"trasladable : Caminante" --> ":Hormiga" : trasladable
+deactivate "trasladable : Caminante"
 @enduml
