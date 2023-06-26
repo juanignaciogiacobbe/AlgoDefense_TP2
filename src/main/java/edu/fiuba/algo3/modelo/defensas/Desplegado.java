@@ -11,33 +11,32 @@ import java.util.List;
 
 public class Desplegado implements Desplegable {
 
-	private CustomLogger logger;
+    private CustomLogger logger;
 
 
-	public Desplegado() {
-		this.logger = CustomLogger.getInstance();
-	}
+    public Desplegado() {
+        this.logger = CustomLogger.getInstance();
+    }
 
-		public Desplegable atacar(List<Enemigo> enemigos, Parcela parcelaDefensa, int rangoAtaque, int danio) {
-		for (Enemigo enemigo : enemigos) {
-			try {
-				enemigo.recibirAtaque(parcelaDefensa, rangoAtaque, danio);
-				logger.log("La torre ataco a una " + enemigo.getNombre() + " en la posicion ("+ enemigo.getPasarelaActual().getCoordenada().getAbscisa()
-				 + "," + enemigo.getPasarelaActual().getCoordenada().getAbscisa() + ")");
-				return this.pasarTurno();
-			} catch (EnemigoFueraDeRango e) {
-			} catch (EnemigoNoDaniable e) {
-				throw new RuntimeException(e);
-			}
-		}
+    public Desplegable atacar(List<Enemigo> enemigos, Parcela parcelaDefensa, int rangoAtaque, int danio) {
+        for (Enemigo enemigo : enemigos) {
+            try {
+                enemigo.recibirAtaque(parcelaDefensa, rangoAtaque, danio);
+                logger.log("La torre ataco a una " + enemigo.getNombre() + " en la posicion (" + enemigo.getPasarelaActual().getCoordenada().getAbscisa()
+                        + "," + enemigo.getPasarelaActual().getCoordenada().getAbscisa() + ")");
+                return this.pasarTurno();
+            } catch (EnemigoFueraDeRango e) {
+            } catch (EnemigoNoDaniable e) {
+                logger.log("La torre intento atacar a una " + enemigo.getNombre() + "y no lo logro");
+            }
+        }
 
-		//throw new EnemigosFueraDeRango();
-		return this.pasarTurno();
+        return this.pasarTurno();
 
-	}
+    }
 
-	public Desplegable pasarTurno() {
-		return this;
-	}
+    public Desplegable pasarTurno() {
+        return this;
+    }
 }
 

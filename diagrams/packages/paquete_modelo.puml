@@ -1,0 +1,38 @@
+@startuml
+package "Modelo" {
+  package "Parcelas"{
+  class Parcela
+  class ParcelaDeTierra
+  class ParcelaDePasarela
+  class ParcelaRocosa
+
+
+}
+package "Enemigos"{
+  class Arania
+  class Lechuza
+  class Hormiga
+  class Topo
+
+}
+
+package "Mapa"{
+  class Coordenada
+  class Mapa
+
+}
+package "Defensas"{
+  class TorreBlanca
+  class TorrePlateada
+  class TrampaArenosa
+
+
+}
+package "Jugador"{
+  class Jugador
+  class Creditos
+
+}
+
+}
+@enduml

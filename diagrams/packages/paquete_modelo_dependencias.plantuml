@@ -1,17 +1,41 @@
 @startuml
+package "Modelo" {
+  package "Parcelas"{
 
-!include ../classes/herencia.plantuml!WITHOUTNOTES
-
-package JUnit {
-        class Test
 }
 
-package java.lang {
-        class String
+package "Mapa"{
+
+
+}
+package "Defensas"{
+
+
+}
+package "Jugador"{
+
 }
 
-Test --> Localize: "<<instantiate>>"
-Localize -> String: " # esContent"
-Localize -> String: " # usContent"
+}
 
+package "Vista" {
+  class AlertBox
+  class AlgoDefenseVista
+  class BienvenidoVista
+  class FinJuegoVista
+}
+
+package "Controlador" {
+  class SiguienteTurnoHandler
+  class UbicarTorreHandler
+  class UbicarTrampaHandler
+}
+
+Controlador --> Modelo
+
+Vista --> Controlador
+
+Modelo -> Vista
+
+Controlador --> Vista
 @enduml
