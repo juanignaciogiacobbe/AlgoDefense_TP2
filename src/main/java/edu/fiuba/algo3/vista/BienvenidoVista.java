@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.json.simple.parser.ParseException;
@@ -25,6 +26,8 @@ public class BienvenidoVista implements Vista {
 
     private Vista creditos;
 
+    private Vista comoJugarPrincipal;
+
     @Override
     public void setNextVista(Vista nextVista) {
         this.nextVista = nextVista;
@@ -32,6 +35,10 @@ public class BienvenidoVista implements Vista {
 
     public void setCreditos(Vista creditosVista){
         this.creditos = creditosVista;
+    }
+
+    public void setComoJugarPrincipal(Vista comoJugarPrincipal) {
+        this.comoJugarPrincipal = comoJugarPrincipal;
     }
 
     private void validateAndHandleInput(Scene scene) throws FormatoJSONInvalidoException, IOException, ParseException, NombreInvalido {
@@ -64,8 +71,15 @@ public class BienvenidoVista implements Vista {
         vbox.getStyleClass().add("container");
 
         Button creditosBoton = new Button("Creditos");
-        StackPane.setAlignment(creditosBoton, Pos.TOP_RIGHT);
-        StackPane.setMargin(creditosBoton, new Insets(10));
+        Button howToPlayButton = new Button("Como jugar");
+
+        creditosBoton.getStyleClass().add("boton");
+        howToPlayButton.getStyleClass().add("boton");
+
+        StackPane.setAlignment(creditosBoton, Pos.TOP_CENTER);
+        StackPane.setAlignment(howToPlayButton, Pos.TOP_CENTER);
+
+        StackPane.setMargin(creditosBoton, new Insets(50));
 
           creditosBoton.setOnAction(e -> {
             if (nextVista != null) {
@@ -73,11 +87,17 @@ public class BienvenidoVista implements Vista {
             }
         });
 
+        howToPlayButton.setOnAction(e -> {
+            if (nextVista != null) {
+                comoJugarPrincipal.mostrar(scene);
+            }
+        });
+
 
         // Create a StackPane to hold the logo image and input field
         StackPane stackPane = new StackPane();
         stackPane.getChildren().addAll(vbox);
-        stackPane.getChildren().add(creditosBoton);
+        stackPane.getChildren().addAll(creditosBoton, howToPlayButton);
 
         loginButton.setOnAction(e -> {
             try {

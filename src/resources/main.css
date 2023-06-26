@@ -19,6 +19,8 @@
 }
 
 .label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
     -fx-text-fill: white;
 }
 
@@ -26,6 +28,8 @@
     -fx-background-color: #8ab8f5;
     -fx-text-fill: white;
     -fx-cursor: hand;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
 }
 
 .boton: hover {
@@ -85,4 +89,18 @@
 .botonInGame: hover {
     -fx-text-fill: white;
     -fx-background-color: #3d1a07;
+}
+
+.texto-creditos {
+    -fx-spacing: 10px;
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-spacing: 10px;
+}
+
+.howToPlayCard {
+    -fx-alignment: center;
+    -fx-padding: 20px;
+    -fx-background-color: #171616;
+    -fx-spacing: 20px;
 }

@@ -24,18 +24,20 @@ public class CreditosVista implements Vista {
         vbox.getStyleClass().add("container");
 
         Label titleLabel = new Label("Créditos");
+        titleLabel.getStyleClass().add("texto-creditos");
         titleLabel.getStyleClass().add("titulo");
 
         Label creditsLabel = new Label("Desarrollado por:\n" +
-                "- Giacobbe, Juan Ignacio\n" +
-                "- Fernandez Boch, Valeria\n" +
-                "- Olaran, Sebastian\n" +
-                "- Cusihuaman Altagracia, Luis Eduardo\n" +
-                "Algoritmos y Programación III");
+                "Cusihuaman Altagracia, Luis Eduardo\n" +
+                "Fernandez Boch, Valeria\n" +
+                "Giacobbe, Juan Ignacio\n" +
+                "Olaran, Sebastian\n" +
+                "Grupo 2 - Algoritmos y Programación III");
 
         creditsLabel.getStyleClass().add("texto-creditos");
 
         Button backButton = new Button("Volver");
+        backButton.getStyleClass().add("boton");
         backButton.getStyleClass().add("boton-volver");
 
         backButton.setOnAction(e -> {
@@ -46,8 +48,6 @@ public class CreditosVista implements Vista {
         vbox.getChildren().addAll(titleLabel, creditsLabel, backButton);
 
         scene.setRoot(vbox);
-
-
     }
 
 }
