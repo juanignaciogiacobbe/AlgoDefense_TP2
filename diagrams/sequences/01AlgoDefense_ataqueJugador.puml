@@ -11,10 +11,10 @@ loop d en defensas
             "p : ParcelaDeTierra" -> Defensa : atacar(enemigos, p)
             activate Defensa
             Defensa --> "p : ParcelaDeTierra"
-            Defensa -> ":Desplegable" : atacar(enemigos, p, rangoAtaque, danio)
-            activate ":Desplegable"
-            ":Desplegable" --> Defensa
-            deactivate ":Desplegable"
+            Defensa -> Desplegable : atacar(enemigos, p, rangoAtaque, danio)
+            activate Desplegable
+            Desplegable --> Defensa
+            deactivate Desplegable
             deactivate Defensa
 
             "p : ParcelaDeTierra" --> "jugador1 : Jugador"

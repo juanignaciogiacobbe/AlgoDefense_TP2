@@ -1,22 +1,14 @@
 @startuml
-participant Actor
-Actor -> DestructorDeDefensas : atacar
-activate DestructorDeDefensas
-DestructorDeDefensas -> Jugador : destruirSiguienteDefensa
-activate Jugador
-Jugador -> List : get
-activate List
-List --> Jugador
-deactivate List
-Jugador -> ParcelaDeTierra : destruirDefensa
-activate ParcelaDeTierra
-ParcelaDeTierra --> Jugador
-deactivate ParcelaDeTierra
-Jugador -> List : remove
-activate List
-List --> Jugador
-deactivate List
-Jugador --> DestructorDeDefensas
-deactivate Jugador
-return
+ "mapa : Mapa" -> ":Lechuza": atacar(jugador1)
+        activate ":Lechuza"
+        ":Lechuza" -> "atacante : DestructorDeDefensas" : atacar(jugador1)
+        activate "atacante : DestructorDeDefensas"
+        "atacante : DestructorDeDefensas" -> "jugador1 : Jugador" : destruirSiguienteDefensa()
+        activate "jugador1 : Jugador"
+        "jugador1 : Jugador" --> "atacante : DestructorDeDefensas"
+        deactivate "jugador1 : Jugador"
+        "atacante : DestructorDeDefensas" --> ":Lechuza"
+        deactivate "atacante : DestructorDeDefensas"
+        ":Lechuza" --> "mapa : Mapa"
+        deactivate ":Lechuza"
 @enduml
