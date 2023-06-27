@@ -16,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -157,6 +158,10 @@ public class AlgoDefenseVista implements Observer, Vista {
 		ImageView imageView = createParcelaImageView(parcela);
 		imageView.setOnMouseClicked(
 				e -> {
+					if (this.ultimaParcela != null) {
+						StackPane lastCellPane = findCellPane(this.ultimaParcela);
+						lastCellPane.getStyleClass().remove("vistaParcelaSeleccionada");
+					}
 					this.ultimaParcela = parcela;
 					cellPane.getStyleClass().add("vistaParcelaSeleccionada");
 				});
@@ -164,6 +169,17 @@ public class AlgoDefenseVista implements Observer, Vista {
 		cellPane.getStyleClass().add("vistaParcela");
 
 		return cellPane;
+	}
+
+	private StackPane findCellPane(Parcela parcela) {
+		GridPane gridPane = (GridPane) scene.getRoot().lookup(".tablero");
+		for (Node node : gridPane.getChildren()) {
+			if (GridPane.getColumnIndex(node) == parcela.getCoordenada().getAbscisa() &&
+					GridPane.getRowIndex(node) == parcela.getCoordenada().getOrdenada()) {
+				return (StackPane) node;
+			}
+		}
+		return null;
 	}
 
 	private ImageView createParcelaImageView(Parcela parcela) {
@@ -280,7 +296,6 @@ public class AlgoDefenseVista implements Observer, Vista {
 		buttonBox.setAlignment(Pos.CENTER);
 		return buttonBox;
 	}
-
 
 
 	private Button createDefenseButton(String imageName, EventHandler<ActionEvent> handler) {
