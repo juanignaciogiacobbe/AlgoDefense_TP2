@@ -37,13 +37,12 @@ public class Main extends Application {
 			BienvenidoVista bienvenidoVista = new BienvenidoVista();
 			AlgoDefenseVista algoDefenseVista = new AlgoDefenseVista();
             CreditosVista creditosVista =  new CreditosVista();
-			ComoJugarVistaPrincipal comoJugarVistaPrincipal = new ComoJugarVistaPrincipal();
 			FinJuegoVista finJuegoVista = new FinJuegoVista();
+			ComoJugarVistaPrincipal comoJugarVistaPrincipal = new ComoJugarVistaPrincipal(bienvenidoVista);
+			bienvenidoVista.setComoJugarPrincipal(comoJugarVistaPrincipal);
 			bienvenidoVista.setNextVista(algoDefenseVista);
             bienvenidoVista.setCreditos(creditosVista);
-			bienvenidoVista.setComoJugarPrincipal(comoJugarVistaPrincipal);
 			creditosVista.setNextVista(bienvenidoVista);
-			comoJugarVistaPrincipal.setNextVista(bienvenidoVista);
 			algoDefenseVista.setNextVista(finJuegoVista);
 
 			AlgoDefense algoDefense = new AlgoDefense();

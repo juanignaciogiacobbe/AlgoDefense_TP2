@@ -1,24 +1,27 @@
+
+
 package edu.fiuba.algo3.vista;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
-public class ComoJugarVistaPrincipal implements Vista {
+public class ComoJugarEnemigosVista implements Vista {
 
-    private Vista menu;
+
+    private  Vista anteriorVista;
+    private  Vista menu;
     private Vista nextVista;
 
-
-    public ComoJugarVistaPrincipal(Vista menu) {
+    public ComoJugarEnemigosVista(Vista anteriorVista, Vista menu) {
+        this.anteriorVista = anteriorVista;
+        this.setNextVista(new ComoJugarParcelaVista(this,menu));
         this.menu = menu;
-        this.nextVista= new ComoJugarEnemigosVista(this,menu);
-
     }
+
     @Override
     public void setNextVista(Vista nextVista) {
         this.nextVista = nextVista;
@@ -26,19 +29,20 @@ public class ComoJugarVistaPrincipal implements Vista {
 
     @Override
     public void mostrar(Scene scene) {
-
-
         VBox vbox = new VBox();
         vbox.getStyleClass().add("howToPlayCard");
+
         Button backButton = new Button("Volver al menu principal");
 
-        String imagePath = "file:" + "src/resources/" + "howtoplay1" + ".png";
+        String imagePath = "file:" + "src/resources/" + "H" + ".png";
         Image image = new Image(imagePath, 500, 500, true, true);
         ImageView imageView = new ImageView(image);
-        Label labelHowToPlay = new Label("\"¡Bienvenido a nuestro  juego de Tower Defense! Tu misión es defenderte  de las hordas de enemigos que intentan atacarte. Debes construir y ubicar estratégicamente torres defensivas a lo largo del camino enemigo para detener su avance");
+        Label labelHowToPlay = new Label("\"Texto enemigos");
         Button nextButton = new Button("Siguiente vista");
+        Button backVistaButton = new Button("Anterior vista");
         nextButton.getStyleClass().add("boton");
         backButton.getStyleClass().add("boton");
+        backVistaButton.getStyleClass().add("boton");
 
         nextButton.setOnAction(e -> {
             if (nextVista != null) {
@@ -46,15 +50,19 @@ public class ComoJugarVistaPrincipal implements Vista {
             }
         });
 
+        backVistaButton.setOnAction(e -> {
+            if (anteriorVista != null) {
+                anteriorVista.mostrar(scene);
+            }
+        });
+
         backButton.setOnAction(e -> {
-            if (nextVista != null) {
+            if (menu!= null) {
                 menu.mostrar(scene);
             }
         });
 
-
-
-        vbox.getChildren().addAll(backButton, imageView, labelHowToPlay, nextButton);
+        vbox.getChildren().addAll(backButton, imageView, labelHowToPlay, nextButton,backVistaButton);
 
         scene.setRoot(vbox);
     }
@@ -62,4 +70,5 @@ public class ComoJugarVistaPrincipal implements Vista {
 
 
 }
+
 

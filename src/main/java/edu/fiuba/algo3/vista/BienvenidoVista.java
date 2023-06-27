@@ -21,12 +21,17 @@ import java.io.IOException;
 
 public class BienvenidoVista implements Vista {
     private Vista nextVista;
+
     private TextField nameField;
+
     private AlgoDefense juego;
 
     private Vista creditos;
 
     private Vista comoJugarPrincipal;
+
+
+
 
     @Override
     public void setNextVista(Vista nextVista) {
