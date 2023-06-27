@@ -84,19 +84,18 @@ public class AlgoDefenseVista implements Observer, Vista {
 		VBox sidebar = new VBox();
 
 		VBox buttonBox = createButtonBox();
-		VBox playerInfoBox = createPlayerInfoBox();
+		HBox playerInfoBox = createPlayerInfoBox();
 		VBox sidebarContent = new VBox();
 		sidebarContent.getChildren().addAll(playerInfoBox, buttonBox);
+		sidebarContent.setSpacing(10);
 
 		sidebar.getChildren().add(sidebarContent);
-
 		return sidebar;
 	}
 
-	private VBox createPlayerInfoBox() {
-		VBox playerInfoBox = new VBox();
-		playerInfoBox.setSpacing(10);
-		playerInfoBox.setPadding(new Insets(10));
+	private HBox createPlayerInfoBox() {
+		HBox playerInfoBox = new HBox();
+		playerInfoBox.getStyleClass().add("playerInfoBox");
 		Jugador jugador = juego.getJugador();
 		Label playerNameLabel = new Label("Jugador: " + jugador.getNombre());
 		playerNameLabel.getStyleClass().add("infoLabel");
@@ -273,7 +272,7 @@ public class AlgoDefenseVista implements Observer, Vista {
 
 	private VBox createButtonBox() {
 		Button siguienteTurnoButton = new Button("Siguiente Turno");
-		siguienteTurnoButton.getStyleClass().add("botonInGame");
+		siguienteTurnoButton.getStyleClass().add("boton");
 		siguienteTurnoButton.setOnAction(new SiguienteTurnoHandler(juego, this));
 
 		Button tpButton = createDefenseButton("TP.png", new UbicarTorreHandler(juego, this, "p"));

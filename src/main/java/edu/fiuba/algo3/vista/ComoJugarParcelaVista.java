@@ -35,7 +35,8 @@ public class ComoJugarParcelaVista implements Vista{
         String imagePath = "file:" + "src/resources/" + "meta" + ".png";
         Image image = new Image(imagePath, 500, 500, true, true);
         ImageView imageView = new ImageView(image);
-        Label labelHowToPlay = new Label("\"Ya conocise todas nuestras parcelas,ahora queda algo muy importante,las defensas.");
+        Label labelHowToPlay = new Label("\"Ya conoces todas nuestras parcelas, \n" +
+                                                "ahora queda algo muy importante,las defensas.");
         Button nextButton = new Button("Siguiente vista");
         Button backVistaButton = new Button("Anterior vista");
         nextButton.getStyleClass().add("boton");

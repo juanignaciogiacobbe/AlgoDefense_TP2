@@ -20,6 +20,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
+
 		String cssFile = new File("src/resources/styles.css").toURI().toString();
 		String mainCss = new File("src/resources/main.css").toURI().toString();
 

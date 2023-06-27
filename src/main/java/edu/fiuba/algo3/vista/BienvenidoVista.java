@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.json.simple.parser.ParseException;
@@ -19,12 +20,8 @@ import org.json.simple.parser.ParseException;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-
-
-
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 public class BienvenidoVista implements Vista {
     private Vista nextVista;
@@ -74,7 +71,7 @@ public class BienvenidoVista implements Vista {
 
     @Override
     public void mostrar(Scene scene) {
-        initMusicaInicio();
+        //initMusicaInicio();
         Label nameLabel = new Label("Ingresa tu nombre:");
         nameLabel.getStyleClass().add("label");
         nameField = new TextField();
@@ -127,6 +124,23 @@ public class BienvenidoVista implements Vista {
                 throw new RuntimeException(ex);
             }
         });
+
+        nameField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                try {
+                    validateAndHandleInput(scene);
+                } catch (FormatoJSONInvalidoException ex) {
+                    throw new RuntimeException(ex);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                } catch (ParseException ex) {
+                    throw new RuntimeException(ex);
+                } catch (NombreInvalido ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+
         scene.setRoot(stackPane);
     }
 

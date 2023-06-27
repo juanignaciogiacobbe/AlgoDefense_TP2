@@ -35,7 +35,10 @@ public class ComoJugarVistaPrincipal implements Vista {
         String imagePath = "file:" + "src/resources/" + "howtoplay1" + ".png";
         Image image = new Image(imagePath, 500, 500, true, true);
         ImageView imageView = new ImageView(image);
-        Label labelHowToPlay = new Label("\"¡Bienvenido a nuestro  juego de Tower Defense! Tu misión es defenderte  de las hordas de enemigos que intentan atacarte. Debes construir y ubicar estratégicamente torres defensivas a lo largo del camino enemigo para detener su avance");
+        Label labelHowToPlay = new Label("\"¡Bienvenido Algo Defense! Tu misión es defenderte  \n" +
+                                                "de las hordas de enemigos que intentan atacarte. Debes\n" +
+                                                " construir y ubicar estratégicamente torres defensivas \n" +
+                                                "a lo largo del camino enemigo para detener su avance");
         Button nextButton = new Button("Siguiente vista");
         nextButton.getStyleClass().add("boton");
         backButton.getStyleClass().add("boton");
