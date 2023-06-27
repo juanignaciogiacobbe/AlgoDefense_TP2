@@ -168,6 +168,11 @@ public class AlgoDefenseVista implements Observer, Vista {
 		cellPane.getChildren().add(imageView);
 		cellPane.getStyleClass().add("vistaParcela");
 
+		// Check if this cell represents the last selected parcela
+		if (parcela.equals(this.ultimaParcela)) {
+			cellPane.getStyleClass().add("vistaParcelaSeleccionada");
+		}
+
 		return cellPane;
 	}
 
