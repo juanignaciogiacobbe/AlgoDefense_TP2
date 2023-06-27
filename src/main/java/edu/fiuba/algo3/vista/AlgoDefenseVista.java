@@ -83,7 +83,7 @@ public class AlgoDefenseVista implements Observer, Vista {
 		VBox sidebar = new VBox();
 
 		VBox buttonBox = createButtonBox();
-		HBox playerInfoBox = createPlayerInfoBox();
+		VBox playerInfoBox = createPlayerInfoBox();
 		VBox sidebarContent = new VBox();
 		sidebarContent.getChildren().addAll(playerInfoBox, buttonBox);
 		sidebarContent.setSpacing(10);
@@ -92,8 +92,8 @@ public class AlgoDefenseVista implements Observer, Vista {
 		return sidebar;
 	}
 
-	private HBox createPlayerInfoBox() {
-		HBox playerInfoBox = new HBox();
+	private VBox createPlayerInfoBox() {
+		VBox playerInfoBox = new VBox();
 		playerInfoBox.getStyleClass().add("playerInfoBox");
 		Jugador jugador = juego.getJugador();
 		Label playerNameLabel = new Label("Jugador: " + jugador.getNombre());
