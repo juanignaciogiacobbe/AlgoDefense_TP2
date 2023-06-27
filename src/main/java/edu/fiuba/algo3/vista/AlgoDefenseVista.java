@@ -22,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
@@ -145,9 +146,25 @@ public class AlgoDefenseVista implements Observer, Vista {
 			int y = parcela.getCoordenada().getOrdenada();
 
 			gridPane.add(cellPane, x, y);
+			displaySpecialParcelas(parcela, cellPane);
 			displayEnemyInParcela(parcela, cellPane);
 			displayDefenseInParcela(parcela, cellPane);
 		}
+	}
+
+	private void displaySpecialParcelas(Parcela parcela, StackPane cellPane) {
+		Text flagEmoji = new Text();
+		if (parcela.getCoordenada().equals(mapa.getOrigen().getCoordenada())) {
+			flagEmoji.setText("I");
+			flagEmoji.setStyle("-fx-fill: white; -fx-font-weight: bold;");
+		} else if (parcela.getCoordenada().equals(mapa.getMeta().getCoordenada())) {
+			flagEmoji.setText("M");
+			flagEmoji.setStyle("-fx-fill: white; -fx-font-weight: bold;");
+		} else {
+			return;
+		}
+		StackPane.setAlignment(flagEmoji, Pos.CENTER);
+		cellPane.getChildren().add(flagEmoji);
 	}
 
 
