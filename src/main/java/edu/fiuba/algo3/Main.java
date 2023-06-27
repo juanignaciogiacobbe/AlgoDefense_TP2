@@ -26,7 +26,6 @@ public class Main extends Application {
 		Scene scene = new Scene(new StackPane(), 640, 480);
 		scene.getStylesheets().add(cssFile);
 		scene.getStylesheets().add(mainCss);
-
 		primaryStage.setMaximized(true);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("AlgoDefense");

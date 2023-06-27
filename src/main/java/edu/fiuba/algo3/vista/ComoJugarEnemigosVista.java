@@ -37,7 +37,7 @@ public class ComoJugarEnemigosVista implements Vista {
         String imagePath = "file:" + "src/resources/" + "H" + ".png";
         Image image = new Image(imagePath, 500, 500, true, true);
         ImageView imageView = new ImageView(image);
-        Label labelHowToPlay = new Label("\"Texto enemigos");
+        Label labelHowToPlay = new Label("\"Te enfrentarás a una variedad de enemigos con habilidades únicas y letales, cada uno con su propio estilo de ataque y movimiento distintivo. Prepárate para poner a prueba tus habilidades mientras te enfrentas a estos enemigos despiadados. ");
         Button nextButton = new Button("Siguiente vista");
         Button backVistaButton = new Button("Anterior vista");
         nextButton.getStyleClass().add("boton");

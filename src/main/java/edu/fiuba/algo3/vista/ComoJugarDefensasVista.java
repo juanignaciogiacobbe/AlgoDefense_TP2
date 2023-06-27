@@ -32,7 +32,7 @@ public class ComoJugarDefensasVista implements Vista{
         String imagePath = "file:" + "src/resources/" + "TB" + ".png";
         Image image = new Image(imagePath, 500, 500, true, true);
         ImageView imageView = new ImageView(image);
-        Label labelHowToPlay = new Label("\"Texto enemigos");
+        Label labelHowToPlay = new Label("\"Recuerda que la clave para alcanzar la victoria está en la planificación táctica y en el despliegue estratégico de tus defensas");
         Button backVistaButton = new Button("Anterior vista");
         backButton.getStyleClass().add("boton");
         backVistaButton.getStyleClass().add("boton");

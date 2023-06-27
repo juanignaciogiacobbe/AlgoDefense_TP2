@@ -1,8 +1,6 @@
 package edu.fiuba.algo3.vista;
 
-import edu.fiuba.algo3.controladores.SiguienteTurnoHandler;
-import edu.fiuba.algo3.controladores.UbicarTorreHandler;
-import edu.fiuba.algo3.controladores.UbicarTrampaHandler;
+import edu.fiuba.algo3.controladores.*;
 import edu.fiuba.algo3.modelo.AlgoDefense;
 import edu.fiuba.algo3.modelo.Observer;
 import edu.fiuba.algo3.modelo.convertidor.FormatoJSONInvalidoException;
@@ -270,28 +268,10 @@ public class AlgoDefenseVista implements Observer, Vista {
 
 		infoDefensa.getChildren().addAll(nombreDefensa, creditosDefensa, rangoDefensa, danioDefensa, tiempoDespliegue);
 
-		tpButton.setOnMouseEntered(event -> {
-			nombreDefensa.setText("Torre Plateada");
-			creditosDefensa.setText("Creditos: " + "20");
-			rangoDefensa.setText("Rango: " + "5");
-			danioDefensa.setText("Danio: " + "2");
-			tiempoDespliegue.setText("Tiempo de despliegue: " + "2 turnos");
+		tpButton.setOnMouseEntered(event -> new InformacionTorrePlateadaHandler());
 
-		});
-		tbButton.setOnMouseEntered(event -> {
-			nombreDefensa.setText("Torre Blanca");
-			creditosDefensa.setText("Creditos: " + "10");
-			rangoDefensa.setText("Rango: " + "3");
-			danioDefensa.setText("Danio: " + "1");
-			tiempoDespliegue.setText("Tiempo de despliegue: " + "1 turno");
-		});
-		sButton.setOnMouseEntered(event -> {
-			nombreDefensa.setText("Trampa Arenosa");
-			creditosDefensa.setText("Creditos: " + "25");
-			rangoDefensa.setText("Rango: " + "1");
-			danioDefensa.setText("Ralentizacion: " + "50%");
-			tiempoDespliegue.setText("Tiempo de despliegue: " + "0 turnos");
-		});
+		tbButton.setOnMouseEntered(event -> new InformacionTorreBlanca());
+		sButton.setOnMouseEntered(event -> new InformacionTrampaArenosa());
 
 		HBox defenseButtonsBox = new HBox(10, tpButton, tbButton, sButton, infoDefensa);
 		VBox buttonBox = new VBox(siguienteTurnoButton, defenseButtonsBox);
