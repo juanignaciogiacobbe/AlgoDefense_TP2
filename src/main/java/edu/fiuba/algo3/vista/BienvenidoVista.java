@@ -12,12 +12,19 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.json.simple.parser.ParseException;
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
+
+
+
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 public class BienvenidoVista implements Vista {
     private Vista nextVista;
@@ -29,6 +36,8 @@ public class BienvenidoVista implements Vista {
     private Vista creditos;
 
     private Vista comoJugarPrincipal;
+
+    private MediaPlayer mediaPlayer;
 
 
 
@@ -65,6 +74,7 @@ public class BienvenidoVista implements Vista {
 
     @Override
     public void mostrar(Scene scene) {
+        initMusicaInicio();
         Label nameLabel = new Label("Ingresa tu nombre:");
         nameLabel.getStyleClass().add("label");
         nameField = new TextField();
@@ -130,9 +140,14 @@ public class BienvenidoVista implements Vista {
     }
 
     public void setAlgoDefense(AlgoDefense algoDefense) {
-
         this.juego = algoDefense;
+    }
 
+    private void initMusicaInicio() {
+        Media media = new Media(new File("src/resources/musica-inicio.mp3").toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Repetir la música indefinidamente
+        mediaPlayer.play(); // Reproducir la música
     }
 }
 
