@@ -34,7 +34,7 @@ public class BienvenidoVista implements Vista {
 
     private Vista comoJugarPrincipal;
 
-    private MediaPlayer mediaPlayer;
+
 
 
 
@@ -160,7 +160,7 @@ public class BienvenidoVista implements Vista {
     private void initMusicaInicio() {
         Media media = new Media(new File("src/resources/musica-inicio.mp3").toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Repetir la música indefinidamente
+        mediaPlayer.setCycleCount(1); // Repetir la música indefinidamente
         mediaPlayer.play(); // Reproducir la música
     }
 }

@@ -14,7 +14,6 @@ import edu.fiuba.algo3.modelo.parcelas.Parcela;
 import edu.fiuba.algo3.modelo.parcelas.ParcelaDeTierra;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -288,10 +287,15 @@ public class AlgoDefenseVista implements Observer, Vista {
 
 		infoDefensa.getChildren().addAll(nombreDefensa, creditosDefensa, rangoDefensa, danioDefensa, tiempoDespliegue);
 
-		tpButton.setOnMouseEntered(event -> new InformacionTorrePlateadaHandler());
+		InformacionTorrePlateadaHandler torrePlateadaHandler = new InformacionTorrePlateadaHandler(nombreDefensa, creditosDefensa, rangoDefensa, danioDefensa, tiempoDespliegue);
+		tpButton.setOnMouseEntered(torrePlateadaHandler);
 
-		tbButton.setOnMouseEntered(event -> new InformacionTorreBlanca());
-		sButton.setOnMouseEntered(event -> new InformacionTrampaArenosa());
+		InformacionTorreBlancaHandler torreBlancaHandler = new InformacionTorreBlancaHandler(nombreDefensa, creditosDefensa, rangoDefensa, danioDefensa, tiempoDespliegue);
+		tbButton.setOnMouseEntered(torreBlancaHandler);
+
+		InformacionTrampaArenosaHandler trampaArenosaHandler = new InformacionTrampaArenosaHandler(nombreDefensa, creditosDefensa, rangoDefensa, danioDefensa, tiempoDespliegue);
+		sButton.setOnMouseEntered(trampaArenosaHandler);
+
 
 		HBox defenseButtonsBox = new HBox(10, tpButton, tbButton, sButton, infoDefensa);
 		VBox buttonBox = new VBox(siguienteTurnoButton, defenseButtonsBox);

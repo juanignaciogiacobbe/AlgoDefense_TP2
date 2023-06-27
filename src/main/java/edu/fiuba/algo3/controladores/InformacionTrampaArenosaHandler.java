@@ -3,7 +3,8 @@ package edu.fiuba.algo3.controladores;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-public class InformacionTorrePlateadaHandler implements EventHandler<MouseEvent> {
+
+public class InformacionTrampaArenosaHandler implements EventHandler<MouseEvent> {
 
     private Label nombreDefensa;
     private Label creditosDefensa;
@@ -11,9 +12,7 @@ public class InformacionTorrePlateadaHandler implements EventHandler<MouseEvent>
     private Label danioDefensa;
     private Label tiempoDespliegue;
 
-
-
-    public InformacionTorrePlateadaHandler(Label nombreDefensa, Label creditosDefensa, Label rangoDefensa, Label danioDefensa, Label tiempoDespliegue) {
+    public InformacionTrampaArenosaHandler(Label nombreDefensa, Label creditosDefensa, Label rangoDefensa, Label danioDefensa, Label tiempoDespliegue) {
         this.nombreDefensa = nombreDefensa;
         this.creditosDefensa = creditosDefensa;
         this.rangoDefensa = rangoDefensa;
@@ -21,16 +20,12 @@ public class InformacionTorrePlateadaHandler implements EventHandler<MouseEvent>
         this.tiempoDespliegue = tiempoDespliegue;
     }
 
-
     @Override
     public void handle(MouseEvent event) {
-        nombreDefensa.setText("Torre Plateada");
-        creditosDefensa.setText("Créditos: 20");
-        rangoDefensa.setText("Rango: 5");
-        danioDefensa.setText("Daño: 2");
-        tiempoDespliegue.setText("Tiempo de despliegue: 2 turnos");
+        nombreDefensa.setText("Trampa Arenosa");
+        creditosDefensa.setText("Créditos: 25");
+        rangoDefensa.setText("Rango: 1");
+        danioDefensa.setText("Ralentización: 50%");
+        tiempoDespliegue.setText("Tiempo de despliegue: 0 turnos");
     }
-
-
-
 }
