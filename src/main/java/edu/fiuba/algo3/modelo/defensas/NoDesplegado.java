@@ -31,4 +31,9 @@ public class NoDesplegado implements Desplegable {
 		}
 		return this;
 	}
+
+	@Override
+	public String toString() {
+		return "ND";
+	}
 }

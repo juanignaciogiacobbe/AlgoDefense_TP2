@@ -21,6 +21,6 @@ public class TorrePlateada extends Torre {
 
 	@Override
 	public String toString() {
-		return "TP";
-	}
+		return "TP" + desplegable.toString();
+}
 }

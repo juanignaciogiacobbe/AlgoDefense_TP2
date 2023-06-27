@@ -35,6 +35,11 @@ public class Desplegado implements Desplegable {
 
     }
 
+    @Override
+    public String toString() {
+        return "D";
+    }
+
     public Desplegable pasarTurno() {
         return this;
     }
