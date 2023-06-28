@@ -1,4 +1,3 @@
-
 package edu.fiuba.algo3.vista;
 
 import javafx.scene.Scene;
@@ -8,15 +7,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
-public class ComoJugarParcelaVista implements Vista{
+public class EjecutarTurnoVista implements Vista{
     private final Vista anteriorVista;
 
     private final Vista menu;
     private Vista nextVista;
 
-    public ComoJugarParcelaVista(Vista anteriorVista, Vista menu) {
+    public EjecutarTurnoVista(Vista anteriorVista, Vista menu) {
         this.anteriorVista = anteriorVista;
-        this.setNext(new ColocarDefensaVista(this,menu));
+        this.setNext(new ComoJugarDefensasVista(this,menu));
         this.menu = menu;
     }
 
@@ -32,11 +31,11 @@ public class ComoJugarParcelaVista implements Vista{
 
         Button backButton = new Button("Volver al menu principal");
 
-        String imagePath = "file:" + "src/resources/" + "defensas" + ".png";
+        String imagePath = "file:" + "src/resources/" + "TurnoBoton" + ".png";
         Image image = new Image(imagePath, 900, 500, true, true);
         ImageView imageView = new ImageView(image);
-        Label labelHowToPlay = new Label("\"Ya conoces todas nuestras parcelas, \n" +
-                                                "ahora queda algo muy importante,las defensas.");
+        Label labelHowToPlay = new Label("Al presionar \"Siguiente Turno\", se desatará una nueva oleada de enemigos, mientras que los enemigos anteriores se moverán siguiendo su estrategia.\n\n"
+                + "Sin embargo, ¡no hay motivo de preocupación! Tus defensas desplegadas se mantendrán firmes y listas para atacar a los invasores.");
         Button nextButton = new Button("Siguiente vista");
         Button backVistaButton = new Button("Anterior vista");
         nextButton.getStyleClass().add("boton");
@@ -71,8 +70,4 @@ public class ComoJugarParcelaVista implements Vista{
 
     }
 
-
 }
-
-
-
