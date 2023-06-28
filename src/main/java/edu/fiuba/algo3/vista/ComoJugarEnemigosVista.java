@@ -34,7 +34,7 @@ public class ComoJugarEnemigosVista implements Vista {
 
         Button backButton = new Button("Volver al menu principal");
 
-        String imagePath = "file:" + "src/resources/" + "H" + ".png";
+        String imagePath = "file:" + "src/resources/" + "enemigos" + ".png";
         Image image = new Image(imagePath, 500, 500, true, true);
         ImageView imageView = new ImageView(image);
         Label labelHowToPlay = new Label("\"Te enfrentarás a una variedad de enemigos \n" +
