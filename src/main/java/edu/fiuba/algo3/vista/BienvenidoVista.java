@@ -33,11 +33,7 @@ public class BienvenidoVista implements Vista {
     private Vista creditos;
 
     private Vista comoJugarPrincipal;
-
-
-
-
-
+    private MediaPlayer mediaPlayer;
 
     @Override
     public void setNextVista(Vista nextVista) {
@@ -71,7 +67,7 @@ public class BienvenidoVista implements Vista {
 
     @Override
     public void mostrar(Scene scene) {
-        //initMusicaInicio();
+        initMusicaInicio();
         Label nameLabel = new Label("Ingresa tu nombre:");
         nameLabel.getStyleClass().add("label");
         nameField = new TextField();
@@ -114,6 +110,7 @@ public class BienvenidoVista implements Vista {
         loginButton.setOnAction(e -> {
             try {
                 validateAndHandleInput(scene);
+                stopMusic();
             } catch (FormatoJSONInvalidoException ex) {
                 throw new RuntimeException(ex);
             } catch (IOException ex) {
@@ -159,9 +156,18 @@ public class BienvenidoVista implements Vista {
 
     private void initMusicaInicio() {
         Media media = new Media(new File("src/resources/musica-inicio.mp3").toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setCycleCount(1); // Repetir la música indefinidamente
+        this.mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Repetir la música indefinidamente
+        mediaPlayer.setVolume(0.5);
         mediaPlayer.play(); // Reproducir la música
+    }
+
+    private void stopMusic() {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.dispose();
+            mediaPlayer = null;
+        }
     }
 }
 

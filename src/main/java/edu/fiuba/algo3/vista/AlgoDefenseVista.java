@@ -22,9 +22,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import org.json.simple.parser.ParseException;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -38,6 +41,8 @@ public class AlgoDefenseVista implements Observer, Vista {
 
 	private AlgoDefense juego;
 	private Parcela ultimaParcela;
+
+	private MediaPlayer mediaPlayer;
 
 
 	@Override
@@ -60,7 +65,7 @@ public class AlgoDefenseVista implements Observer, Vista {
 	@Override
 	public void mostrar(Scene scene) {
 		this.scene = scene;
-
+        initMusicaInicio();
 		GridPane rootPane = new GridPane();
 
 		GridPane gridPane = createGridPane();
@@ -76,6 +81,7 @@ public class AlgoDefenseVista implements Observer, Vista {
 
 		scene.setRoot(rootPane);
 		if (this.juego.finDelJuego() != null) {
+			stopMusic();
 			this.nextVista.mostrar(scene);
 		}
 	}
@@ -339,5 +345,20 @@ public class AlgoDefenseVista implements Observer, Vista {
 		return this.ultimaParcela;
 	}
 
+	private void initMusicaInicio() {
+		Media media = new Media(new File("src/resources/sonido-juego.mp3").toURI().toString());
+		this.mediaPlayer = new MediaPlayer(media);
+		mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Repetir la música indefinidamente
+		mediaPlayer.setVolume(0.5);
+		mediaPlayer.play(); // Reproducir la música
+	}
+
+	private void stopMusic() {
+		if (mediaPlayer != null) {
+			mediaPlayer.stop();
+			mediaPlayer.dispose();
+			mediaPlayer = null;
+		}
+	}
 
 }
