@@ -17,15 +17,16 @@ public class FinJuegoVista implements Vista {
 
 	@Override
 	public void show(Scene scene) {
-		Label celebratoryLabel = new Label("El ganador es: " + this.algoDefense.finDelJuego() );
-		celebratoryLabel.setStyle("-fx-font-size: 60px;");
+		Label celebratoryLabel = new Label("El ganador es: " + this.algoDefense.finDelJuego());
+		celebratoryLabel.getStyleClass().add("titulo");
 
 		Button finishButton = new Button();
 		finishButton.setGraphic(celebratoryLabel);
-		finishButton.setStyle("-fx-background-color: transparent;");
+		finishButton.setStyle("-fx-background-color: black;");
 
 		StackPane stackPane = new StackPane(finishButton);
 		stackPane.setAlignment(Pos.CENTER);
+		stackPane.setStyle("-fx-background-color: black;");
 
 		scene.setRoot(stackPane);
 
@@ -34,6 +35,7 @@ public class FinJuegoVista implements Vista {
 			stage.close();
 		});
 	}
+
 
 	@Override
 	public void playMusic() {
