@@ -18,17 +18,17 @@ public class ComoJugarEnemigosVista implements Vista {
 
     public ComoJugarEnemigosVista(Vista anteriorVista, Vista menu) {
         this.anteriorVista = anteriorVista;
-        this.setNextVista(new ComoJugarParcelaVista(this,menu));
+        this.setNext(new ComoJugarParcelaVista(this,menu));
         this.menu = menu;
     }
 
     @Override
-    public void setNextVista(Vista nextVista) {
+    public void setNext(Vista nextVista) {
         this.nextVista = nextVista;
     }
 
     @Override
-    public void mostrar(Scene scene) {
+    public void show(Scene scene) {
         VBox vbox = new VBox();
         vbox.getStyleClass().add("howToPlayCard");
 
@@ -50,19 +50,19 @@ public class ComoJugarEnemigosVista implements Vista {
 
         nextButton.setOnAction(e -> {
             if (nextVista != null) {
-                nextVista.mostrar(scene);
+                nextVista.show(scene);
             }
         });
 
         backVistaButton.setOnAction(e -> {
             if (anteriorVista != null) {
-                anteriorVista.mostrar(scene);
+                anteriorVista.show(scene);
             }
         });
 
         backButton.setOnAction(e -> {
             if (menu!= null) {
-                menu.mostrar(scene);
+                menu.show(scene);
             }
         });
 
@@ -71,6 +71,10 @@ public class ComoJugarEnemigosVista implements Vista {
         scene.setRoot(vbox);
     }
 
+    @Override
+    public void playMusic() {
+
+    }
 
 
 }

@@ -12,11 +12,11 @@ public class FinJuegoVista implements Vista {
 
 	private AlgoDefense algoDefense;
 	@Override
-	public void setNextVista(Vista nextVista) {
+	public void setNext(Vista nextVista) {
 	}
 
 	@Override
-	public void mostrar(Scene scene) {
+	public void show(Scene scene) {
 		Label celebratoryLabel = new Label("El ganador es: " + this.algoDefense.finDelJuego() );
 		celebratoryLabel.setStyle("-fx-font-size: 60px;");
 
@@ -33,6 +33,11 @@ public class FinJuegoVista implements Vista {
 			Stage stage = (Stage) scene.getWindow();
 			stage.close();
 		});
+	}
+
+	@Override
+	public void playMusic() {
+
 	}
 
 	public void setAlgoDefense(AlgoDefense algoDefense) {

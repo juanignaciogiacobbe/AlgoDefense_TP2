@@ -40,10 +40,10 @@ public class Main extends Application {
 			FinJuegoVista finJuegoVista = new FinJuegoVista();
 			ComoJugarVistaPrincipal comoJugarVistaPrincipal = new ComoJugarVistaPrincipal(bienvenidoVista);
 			bienvenidoVista.setComoJugarPrincipal(comoJugarVistaPrincipal);
-			bienvenidoVista.setNextVista(algoDefenseVista);
+			bienvenidoVista.setNext(algoDefenseVista);
             bienvenidoVista.setCreditos(creditosVista);
-			creditosVista.setNextVista(bienvenidoVista);
-			algoDefenseVista.setNextVista(finJuegoVista);
+			creditosVista.setNext(bienvenidoVista);
+			algoDefenseVista.setNext(finJuegoVista);
 
 			AlgoDefense algoDefense = new AlgoDefense();
 			algoDefense.addObserver(algoDefenseVista);
@@ -51,7 +51,8 @@ public class Main extends Application {
 			algoDefenseVista.setAlgoDefense(algoDefense);
 			finJuegoVista.setAlgoDefense(algoDefense);
 
-			bienvenidoVista.mostrar(scene);
+			bienvenidoVista.playMusic();
+			bienvenidoVista.show(scene);
 			primaryStage.show();
 		} catch (Exception | FormatoJSONInvalidoException e) {
 			e.printStackTrace();

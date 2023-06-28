@@ -5,7 +5,6 @@ import edu.fiuba.algo3.modelo.convertidor.FormatoJSONInvalidoException;
 import edu.fiuba.algo3.modelo.juego.NombreInvalido;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -36,7 +35,7 @@ public class BienvenidoVista implements Vista {
     private MediaPlayer mediaPlayer;
 
     @Override
-    public void setNextVista(Vista nextVista) {
+    public void setNext(Vista nextVista) {
         this.nextVista = nextVista;
     }
 
@@ -57,7 +56,8 @@ public class BienvenidoVista implements Vista {
         this.juego.agregarJugador(playerName);
         System.out.println(playerName + ", bienvenido a AlgoDefense");
         if (nextVista != null) {
-            nextVista.mostrar(scene);
+            nextVista.playMusic();
+            nextVista.show(scene);
         }
     }
 
@@ -66,8 +66,7 @@ public class BienvenidoVista implements Vista {
     }
 
     @Override
-    public void mostrar(Scene scene) {
-        initMusicaInicio();
+    public void show(Scene scene) {
         Label nameLabel = new Label("Ingresa tu nombre:");
         nameLabel.getStyleClass().add("label");
         nameField = new TextField();
@@ -91,15 +90,13 @@ public class BienvenidoVista implements Vista {
 
           creditosBoton.setOnAction(e -> {
             if (nextVista != null) {
-                stopMusic();
-                creditos.mostrar(scene);
+                creditos.show(scene);
             }
         });
 
         howToPlayButton.setOnAction(e -> {
             if (nextVista != null) {
-                stopMusic();
-                comoJugarPrincipal.mostrar(scene);
+                comoJugarPrincipal.show(scene);
             }
         });
 
@@ -156,7 +153,8 @@ public class BienvenidoVista implements Vista {
         this.juego = algoDefense;
     }
 
-    private void initMusicaInicio() {
+    @Override
+    public void playMusic() {
         Media media = new Media(new File("src/resources/musica-inicio.mp3").toURI().toString());
         this.mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Repetir la música indefinidamente

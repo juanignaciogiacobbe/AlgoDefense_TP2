@@ -1,11 +1,8 @@
 package edu.fiuba.algo3.vista;
 
-import edu.fiuba.algo3.modelo.AlgoDefense;
-
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 
 import javafx.scene.layout.VBox;
 
@@ -14,12 +11,12 @@ public class CreditosVista implements Vista {
     private Vista nextVista;
 
     @Override
-    public void setNextVista(Vista nextVista) {
+    public void setNext(Vista nextVista) {
         this.nextVista = nextVista;
     }
 
     @Override
-    public void mostrar(Scene scene) {
+    public void show(Scene scene) {
         VBox vbox = new VBox();
         vbox.getStyleClass().add("container");
 
@@ -42,12 +39,17 @@ public class CreditosVista implements Vista {
 
         backButton.setOnAction(e -> {
             if (nextVista != null) {
-                nextVista.mostrar(scene);
+                nextVista.show(scene);
             }
         });
         vbox.getChildren().addAll(titleLabel, creditsLabel, backButton);
 
         scene.setRoot(vbox);
+    }
+
+    @Override
+    public void playMusic() {
+
     }
 
 }

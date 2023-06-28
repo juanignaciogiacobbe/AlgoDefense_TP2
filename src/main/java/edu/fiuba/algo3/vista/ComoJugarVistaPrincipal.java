@@ -20,12 +20,12 @@ public class ComoJugarVistaPrincipal implements Vista {
 
     }
     @Override
-    public void setNextVista(Vista nextVista) {
+    public void setNext(Vista nextVista) {
         this.nextVista = nextVista;
     }
 
     @Override
-    public void mostrar(Scene scene) {
+    public void show(Scene scene) {
 
 
         VBox vbox = new VBox();
@@ -45,13 +45,13 @@ public class ComoJugarVistaPrincipal implements Vista {
 
         nextButton.setOnAction(e -> {
             if (nextVista != null) {
-                nextVista.mostrar(scene);
+                nextVista.show(scene);
             }
         });
 
         backButton.setOnAction(e -> {
             if (nextVista != null) {
-                menu.mostrar(scene);
+                menu.show(scene);
             }
         });
 
@@ -62,6 +62,10 @@ public class ComoJugarVistaPrincipal implements Vista {
         scene.setRoot(vbox);
     }
 
+    @Override
+    public void playMusic() {
+
+    }
 
 
 }

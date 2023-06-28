@@ -50,22 +50,21 @@ public class AlgoDefenseVista implements Observer, Vista {
 		if (scene != null) {
 			this.enemigos = juego.getEnemigos();
 			this.mapa = juego.getMapa();
-			mostrar(scene);
+			show(scene);
 		}
 	}
 
 	@Override
-	public void setNextVista(Vista nextVista) {
+	public void setNext(Vista nextVista) {
 		this.nextVista = nextVista;
 		if (scene != null) {
-			mostrar(scene);
+			show(scene);
 		}
 	}
 
 	@Override
-	public void mostrar(Scene scene) {
+	public void show(Scene scene) {
 		this.scene = scene;
-        initMusicaInicio();
 		GridPane rootPane = new GridPane();
 
 		GridPane gridPane = createGridPane();
@@ -82,7 +81,7 @@ public class AlgoDefenseVista implements Observer, Vista {
 		scene.setRoot(rootPane);
 		if (this.juego.finDelJuego() != null) {
 			stopMusic();
-			this.nextVista.mostrar(scene);
+			this.nextVista.show(scene);
 		}
 	}
 
@@ -345,7 +344,8 @@ public class AlgoDefenseVista implements Observer, Vista {
 		return this.ultimaParcela;
 	}
 
-	private void initMusicaInicio() {
+	@Override
+	public void playMusic() {
 		Media media = new Media(new File("src/resources/sonido-juego.mp3").toURI().toString());
 		this.mediaPlayer = new MediaPlayer(media);
 		mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Repetir la música indefinidamente

@@ -18,12 +18,12 @@ public class ComoJugarDefensasVista implements Vista{
     }
 
     @Override
-    public void setNextVista(Vista nextVista) {
+    public void setNext(Vista nextVista) {
 
     }
 
     @Override
-    public void mostrar(Scene scene) {
+    public void show(Scene scene) {
         VBox vbox = new VBox();
         vbox.getStyleClass().add("howToPlayCard");
 
@@ -43,19 +43,24 @@ public class ComoJugarDefensasVista implements Vista{
 
         backVistaButton.setOnAction(e -> {
             if (anteriorVista != null) {
-                anteriorVista.mostrar(scene);
+                anteriorVista.show(scene);
             }
         });
 
         backButton.setOnAction(e -> {
             if (menu!= null) {
-                menu.mostrar(scene);
+                menu.show(scene);
             }
         });
 
         vbox.getChildren().addAll(backButton, imageView, labelHowToPlay,backVistaButton);
 
         scene.setRoot(vbox);
+    }
+
+    @Override
+    public void playMusic() {
+
     }
 
 }

@@ -16,17 +16,17 @@ public class ComoJugarParcelaVista implements Vista{
 
     public ComoJugarParcelaVista(Vista anteriorVista, Vista menu) {
         this.anteriorVista = anteriorVista;
-        this.setNextVista(new ComoJugarDefensasVista(this,menu));
+        this.setNext(new ComoJugarDefensasVista(this,menu));
         this.menu = menu;
     }
 
     @Override
-    public void setNextVista(Vista nextVista) {
+    public void setNext(Vista nextVista) {
         this.nextVista = nextVista;
     }
 
     @Override
-    public void mostrar(Scene scene) {
+    public void show(Scene scene) {
         VBox vbox = new VBox();
         vbox.getStyleClass().add("howToPlayCard");
 
@@ -45,25 +45,30 @@ public class ComoJugarParcelaVista implements Vista{
 
         nextButton.setOnAction(e -> {
             if (nextVista != null) {
-                nextVista.mostrar(scene);
+                nextVista.show(scene);
             }
         });
 
         backVistaButton.setOnAction(e -> {
             if (anteriorVista != null) {
-                anteriorVista.mostrar(scene);
+                anteriorVista.show(scene);
             }
         });
 
         backButton.setOnAction(e -> {
             if (menu!= null) {
-                menu.mostrar(scene);
+                menu.show(scene);
             }
         });
 
         vbox.getChildren().addAll(backButton, imageView, labelHowToPlay, nextButton,backVistaButton);
 
         scene.setRoot(vbox);
+    }
+
+    @Override
+    public void playMusic() {
+
     }
 
 
