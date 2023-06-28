@@ -91,12 +91,14 @@ public class BienvenidoVista implements Vista {
 
           creditosBoton.setOnAction(e -> {
             if (nextVista != null) {
+                stopMusic();
                 creditos.mostrar(scene);
             }
         });
 
         howToPlayButton.setOnAction(e -> {
             if (nextVista != null) {
+                stopMusic();
                 comoJugarPrincipal.mostrar(scene);
             }
         });
@@ -163,11 +165,10 @@ public class BienvenidoVista implements Vista {
     }
 
     private void stopMusic() {
-        if (mediaPlayer != null) {
             mediaPlayer.stop();
             mediaPlayer.dispose();
             mediaPlayer = null;
-        }
+
     }
 }
 
