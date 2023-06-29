@@ -6,6 +6,7 @@ import edu.fiuba.algo3.modelo.enemigos.EnemigoFueraDeRango;
 import edu.fiuba.algo3.modelo.enemigos.EnemigoNoDaniable;
 import edu.fiuba.algo3.modelo.enemigos.EnemigosFueraDeRango;
 import edu.fiuba.algo3.modelo.parcelas.Parcela;
+import javafx.application.Platform;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -26,22 +27,24 @@ public class Desplegado implements Desplegable {
             try {
                 enemigo.recibirAtaque(parcelaDefensa, rangoAtaque, danio);
                 logger.log("La torre ataco a una " + enemigo.getNombre() + " en la posicion (" + enemigo.getPasarelaActual().getCoordenada().getAbscisa()
-                        + "," + enemigo.getPasarelaActual().getCoordenada().getAbscisa() + ")");
-                Media media = new Media(new File("src/resources/sonido-disparo.mp3").toURI().toString());
-                MediaPlayer mediaPlayer = new MediaPlayer(media);
-                mediaPlayer.setCycleCount(1); // Repetir la música indefinidamente
-                mediaPlayer.play(); // Reproducir la música
+                    + "," + enemigo.getPasarelaActual().getCoordenada().getAbscisa() + ")");
+                if (Platform.isFxApplicationThread()) {
+                    playSound();
+                }
                 return this.pasarTurno();
-            } catch (EnemigoFueraDeRango e) {
+            } catch (EnemigoFueraDeRango ignored) {
             } catch (EnemigoNoDaniable e) {
-                logger.log("La torre intento atacar a una " + enemigo.getNombre() + "y no lo logro");
+                logger.log("La torre intento atacar a una " + enemigo.getNombre() + " y no lo logro");
             }
         }
-
         return this.pasarTurno();
-
     }
-
+    private void playSound() {
+        Media media = new Media(new File("src/resources/sonido-disparo.mp3").toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setCycleCount(1);
+        mediaPlayer.play();
+    }
     @Override
     public String toString() {
         return "D";
