@@ -285,17 +285,7 @@ public class AlgoDefenseVista implements Observer, Vista {
 		this.enemigos = algoDefense.getEnemigos();
 		this.mapa = algoDefense.getMapa();
 		this.juego = algoDefense;
-		try {
-			this.juego.agregarJugador("pepito");
-		} catch (NombreInvalido e) {
-			throw new RuntimeException(e);
-		} catch (FormatoJSONInvalidoException e) {
-			throw new RuntimeException(e);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		} catch (ParseException e) {
-			throw new RuntimeException(e);
-		}
+
 	}
 
 	private VBox createButtonBox() {
