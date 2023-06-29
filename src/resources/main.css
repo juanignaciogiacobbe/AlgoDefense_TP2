@@ -109,3 +109,8 @@
 .playerInfoBox {
     -fx-spacing: 10px;
 }
+
+.game-background {
+    -fx-background-color: #171616;
+    -fx-margin: 10px;
+}

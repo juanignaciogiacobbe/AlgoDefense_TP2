@@ -12,8 +12,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import org.json.simple.parser.ParseException;
 
 import javafx.scene.media.Media;
@@ -77,16 +79,35 @@ public class BienvenidoVista implements Vista {
         VBox vbox = new VBox(createLogoImageView(), nameLabel, nameField, loginButton);
         vbox.getStyleClass().add("container");
 
-        Button creditosBoton = new Button("Creditos");
-        Button howToPlayButton = new Button("Como jugar");
+        Button creditosBoton = new Button("Créditos");
+        Button howToPlayButton = new Button("Cómo jugar");
+        Button salirBoton = new Button("Salir");
+
 
         creditosBoton.getStyleClass().add("boton");
         howToPlayButton.getStyleClass().add("boton");
+        salirBoton.getStyleClass().add("boton");
 
-        StackPane.setAlignment(creditosBoton, Pos.TOP_CENTER);
-        StackPane.setAlignment(howToPlayButton, Pos.TOP_CENTER);
 
-        StackPane.setMargin(creditosBoton, new Insets(50));
+        GridPane gridPane = new GridPane();
+        gridPane.setAlignment(Pos.TOP_CENTER);
+        gridPane.setHgap(20); // Espacio horizontal entre columnas
+
+        // Establecer márgenes para los botones en el GridPane
+        GridPane.setMargin(creditosBoton, new Insets(25, 25, 0, 0)); // Margen derecho para "Créditos"
+        GridPane.setMargin(howToPlayButton, new Insets(25, 12.5, 0, 12.5)); // Margen izquierdo para "Cómo jugar"
+        GridPane.setMargin(salirBoton, new Insets(25, 0, 0, 25)); // Margen izquierdo para "Cómo jugar"
+
+        // Añadir los botones al gridPane
+        gridPane.add(creditosBoton, 0, 0);
+        gridPane.add(howToPlayButton, 1, 0);
+        gridPane.add(salirBoton, 2, 0);
+
+
+        VBox mainContainer = new VBox(gridPane, vbox);
+        mainContainer.setAlignment(Pos.TOP_CENTER);
+        mainContainer.setSpacing(50); // Espacio vertical entre elementos
+        mainContainer.getStyleClass().add("game-background"); // Agregar clase CSS para el fondo
 
           creditosBoton.setOnAction(e -> {
             if (nextVista != null) {
@@ -99,12 +120,6 @@ public class BienvenidoVista implements Vista {
                 comoJugarPrincipal.show(scene);
             }
         });
-
-
-        // Create a StackPane to hold the logo image and input field
-        StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(vbox);
-        stackPane.getChildren().addAll(creditosBoton, howToPlayButton);
 
         loginButton.setOnAction(e -> {
             try {
@@ -137,7 +152,7 @@ public class BienvenidoVista implements Vista {
             }
         });
 
-        scene.setRoot(stackPane);
+        scene.setRoot(mainContainer);
     }
 
     private ImageView createLogoImageView() {
