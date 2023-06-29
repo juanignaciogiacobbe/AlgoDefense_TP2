@@ -14,12 +14,14 @@ import edu.fiuba.algo3.modelo.parcelas.Parcela;
 import edu.fiuba.algo3.modelo.parcelas.ParcelaDeTierra;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
@@ -77,6 +79,11 @@ public class AlgoDefenseVista implements Observer, Vista {
 
 		rootPane.add(rightSidebar, 1, 0);
 		rootPane.getStyleClass().add("mainContainer");
+
+		// Create finish game button
+
+
+
 
 		scene.setRoot(rootPane);
 		if (this.juego.finDelJuego() != null) {
@@ -320,10 +327,18 @@ public class AlgoDefenseVista implements Observer, Vista {
 
 
 		HBox defenseButtonsBox = new HBox(10, tpButton, tbButton, sButton, infoDefensa);
-		VBox buttonBox = new VBox(siguienteTurnoButton, defenseButtonsBox);
+
+		Button finishGameButton = new Button("Finish Game");
+		finishGameButton.setOnAction(e -> {
+			Stage stage = (Stage) finishGameButton.getScene().getWindow();
+			stage.close();
+		});
+		finishGameButton.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-font-weight: bold;");
+		VBox buttonBox = new VBox(siguienteTurnoButton, defenseButtonsBox, finishGameButton);
 		buttonBox.getStyleClass().add("contenedorBotones");
 		buttonBox.setSpacing(10);
 		buttonBox.setAlignment(Pos.CENTER);
+
 		return buttonBox;
 	}
 

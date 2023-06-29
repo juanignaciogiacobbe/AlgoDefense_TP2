@@ -16,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import org.json.simple.parser.ParseException;
 
 import javafx.scene.media.Media;
@@ -86,7 +87,11 @@ public class BienvenidoVista implements Vista {
 
         creditosBoton.getStyleClass().add("boton");
         howToPlayButton.getStyleClass().add("boton");
-        salirBoton.getStyleClass().add("boton");
+        salirBoton.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-font-weight: bold;");
+        salirBoton.setOnAction(e -> {
+            Stage stage = (Stage) salirBoton.getScene().getWindow();
+            stage.close();
+        });
 
 
         GridPane gridPane = new GridPane();

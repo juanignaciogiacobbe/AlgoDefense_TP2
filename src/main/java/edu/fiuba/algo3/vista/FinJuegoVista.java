@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.vista;
 
 import edu.fiuba.algo3.modelo.AlgoDefense;
-import edu.fiuba.algo3.modelo.Observer;
 import edu.fiuba.algo3.modelo.convertidor.FormatoJSONInvalidoException;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -9,6 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import org.json.simple.parser.ParseException;
 
@@ -26,12 +28,19 @@ public class FinJuegoVista implements Vista {
 
 	@Override
 	public void show(Scene scene) {
-		Label celebratoryLabel = new Label("El ganador es: " + this.algoDefense.finDelJuego());
-		celebratoryLabel.getStyleClass().add("titulo");
+		String ganador = this.algoDefense.finDelJuego();
 
-		Button finishButton = new Button();
-		finishButton.setGraphic(celebratoryLabel);
-		finishButton.setStyle("-fx-background-color: black;");
+		Label celebratoryLabel = new Label("El ganador es: " + ganador);
+		celebratoryLabel.getStyleClass().add("titulo");
+		celebratoryLabel.setFont(Font.font("Arial", FontWeight.BOLD, 36));
+		celebratoryLabel.setTextFill(Color.WHITE);
+
+		Button finishButton = new Button("Finish Game");
+		finishButton.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-font-weight: bold;");
+		finishButton.setOnAction(e -> {
+			Stage stage = (Stage) scene.getWindow();
+			stage.close();
+		});
 
 		Button playAgainButton = new Button("Jugar de nuevo");
 		playAgainButton.setOnAction(e -> {
@@ -47,21 +56,12 @@ public class FinJuegoVista implements Vista {
 		StackPane stackPane = new StackPane();
 		stackPane.setAlignment(Pos.CENTER);
 		stackPane.setStyle("-fx-background-color: black;");
-		// Add spacing between the buttons
-		StackPane.setMargin(finishButton, new Insets(0, 0, 20, 0));
-		StackPane.setMargin(playAgainButton, new Insets(60, 0, 0, 0));
-		stackPane.getChildren().addAll(finishButton, playAgainButton);
+		StackPane.setMargin(finishButton, new Insets(0, 0, 90, 0));
+		StackPane.setMargin(playAgainButton, new Insets(220, 0, 0, 0));
+		stackPane.getChildren().addAll(finishButton, playAgainButton, celebratoryLabel);
 
 		scene.setRoot(stackPane);
-
-		finishButton.setOnAction(e -> {
-			Stage stage = (Stage) scene.getWindow();
-			stage.close();
-		});
 	}
-
-
-
 
 	@Override
 	public void playMusic() {
