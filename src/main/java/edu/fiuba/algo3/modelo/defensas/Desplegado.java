@@ -29,7 +29,15 @@ public class Desplegado implements Desplegable {
                 logger.log("La torre ataco a una " + enemigo.getNombre() + " en la posicion (" + enemigo.getPasarelaActual().getCoordenada().getAbscisa()
                     + "," + enemigo.getPasarelaActual().getCoordenada().getAbscisa() + ")");
                 if (Platform.isFxApplicationThread()) {
-                    playSound();
+	                new Thread(() -> {
+		                try {
+			                int random = (int) (Math.random() * 8 + 2);
+			                Thread.sleep(random * 100);
+		                } catch (InterruptedException e) {
+			                throw new RuntimeException(e);
+		                }
+		                playSound();
+	                }).start();
                 }
                 return this.pasarTurno();
             } catch (EnemigoFueraDeRango ignored) {

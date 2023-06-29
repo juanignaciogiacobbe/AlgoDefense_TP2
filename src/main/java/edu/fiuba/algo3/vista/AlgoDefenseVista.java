@@ -88,6 +88,7 @@ public class AlgoDefenseVista implements Observer, Vista {
 		scene.setRoot(rootPane);
 		if (this.juego.finDelJuego() != null) {
 			stopMusic();
+			this.nextVista.playMusic();
 			this.nextVista.show(scene);
 		}
 	}
@@ -333,6 +334,7 @@ public class AlgoDefenseVista implements Observer, Vista {
 		});
 		finishGameButton.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;");
 		VBox buttonBox = new VBox(siguienteTurnoButton, defenseButtonsBox, finishGameButton);
+		VBox.setMargin(finishGameButton, new Insets(580, 0, 0, 0));
 		buttonBox.getStyleClass().add("contenedorBotones");
 		buttonBox.setSpacing(10);
 		buttonBox.setAlignment(Pos.CENTER);
