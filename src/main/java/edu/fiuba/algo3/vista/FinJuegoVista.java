@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.vista;
 
+import edu.fiuba.algo3.controladores.PlayAgainControlador;
 import edu.fiuba.algo3.modelo.AlgoDefense;
-import edu.fiuba.algo3.modelo.convertidor.FormatoJSONInvalidoException;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,9 +12,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import org.json.simple.parser.ParseException;
-
-import java.io.IOException;
 
 public class FinJuegoVista implements Vista {
 
@@ -43,15 +40,9 @@ public class FinJuegoVista implements Vista {
 		});
 
 		Button playAgainButton = new Button("Jugar de nuevo");
-		playAgainButton.setOnAction(e -> {
-			try {
-				this.algoDefense.reiniciarJuego();
-			} catch (IOException | ParseException | FormatoJSONInvalidoException ex) {
-				throw new RuntimeException(ex);
-			}
-			this.nextVista.playMusic();
-			this.nextVista.show(scene);
-		});
+		PlayAgainControlador playAgainController = new PlayAgainControlador(algoDefense, nextVista, scene);
+		playAgainButton.setOnAction(playAgainController);
+
 
 		StackPane stackPane = new StackPane();
 		stackPane.setAlignment(Pos.CENTER);

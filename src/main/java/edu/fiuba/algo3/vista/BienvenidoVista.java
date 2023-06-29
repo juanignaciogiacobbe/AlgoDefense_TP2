@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vista;
 
+import edu.fiuba.algo3.controladores.LoginBotonControlador;
 import edu.fiuba.algo3.modelo.AlgoDefense;
 import edu.fiuba.algo3.modelo.convertidor.FormatoJSONInvalidoException;
 import edu.fiuba.algo3.modelo.juego.NombreInvalido;
@@ -42,7 +43,7 @@ public class BienvenidoVista implements Vista {
         this.nextVista = nextVista;
     }
 
-    public void setCreditos(Vista creditosVista){
+    public void setCreditos(Vista creditosVista) {
         this.creditos = creditosVista;
     }
 
@@ -114,7 +115,7 @@ public class BienvenidoVista implements Vista {
         mainContainer.setSpacing(50); // Espacio vertical entre elementos
         mainContainer.getStyleClass().add("game-background"); // Agregar clase CSS para el fondo
 
-          creditosBoton.setOnAction(e -> {
+        creditosBoton.setOnAction(e -> {
             if (nextVista != null) {
                 creditos.show(scene);
             }
@@ -126,36 +127,15 @@ public class BienvenidoVista implements Vista {
             }
         });
 
-        loginButton.setOnAction(e -> {
-            try {
-                validateAndHandleInput(scene);
-                stopMusic();
-            } catch (FormatoJSONInvalidoException ex) {
-                throw new RuntimeException(ex);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            } catch (ParseException ex) {
-                throw new RuntimeException(ex);
-            } catch (NombreInvalido ex) {
-                throw new RuntimeException(ex);
-            }
-        });
+        LoginBotonControlador controller = new LoginBotonControlador(nameField,nextVista,juego,scene,mediaPlayer);
+        loginButton.setOnAction(controller);
 
         nameField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                try {
-                    validateAndHandleInput(scene);
-                } catch (FormatoJSONInvalidoException ex) {
-                    throw new RuntimeException(ex);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                } catch (ParseException ex) {
-                    throw new RuntimeException(ex);
-                } catch (NombreInvalido ex) {
-                    throw new RuntimeException(ex);
-                }
+                nameField.setOnAction(controller);
             }
         });
+
 
         scene.setRoot(mainContainer);
     }
@@ -182,11 +162,5 @@ public class BienvenidoVista implements Vista {
         mediaPlayer.play(); // Reproducir la música
     }
 
-    private void stopMusic() {
-            mediaPlayer.stop();
-            mediaPlayer.dispose();
-            mediaPlayer = null;
 
-    }
 }
-
