@@ -293,6 +293,7 @@ public class AlgoDefenseVista implements Observer, Vista {
 		this.enemigos = algoDefense.getEnemigos();
 		this.mapa = algoDefense.getMapa();
 		this.juego = algoDefense;
+
 	}
 
 	private VBox createButtonBox() {
