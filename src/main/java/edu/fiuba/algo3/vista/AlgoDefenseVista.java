@@ -167,16 +167,24 @@ public class AlgoDefenseVista implements Observer, Vista {
 	private void displaySpecialParcelas(Parcela parcela, StackPane cellPane) {
 		Text flagEmoji = new Text();
 		if (parcela.getCoordenada().equals(mapa.getOrigen().getCoordenada())) {
-			flagEmoji.setText("I");
-			flagEmoji.setStyle("-fx-fill: white; -fx-font-weight: bold;");
+			ImageView imageView = createSpecialImageView("salida");
+			cellPane.getChildren().add(imageView);
 		} else if (parcela.getCoordenada().equals(mapa.getMeta().getCoordenada())) {
-			flagEmoji.setText("M");
-			flagEmoji.setStyle("-fx-fill: white; -fx-font-weight: bold;");
+			ImageView imageView = createSpecialImageView("meta");
+			cellPane.getChildren().add(imageView);
 		} else {
 			return;
 		}
 		StackPane.setAlignment(flagEmoji, Pos.CENTER);
 		cellPane.getChildren().add(flagEmoji);
+	}
+
+	private ImageView createSpecialImageView(String nombre) {
+		Image image = new Image("file:src/resources/"+ nombre +".png", CELL_SIZE, CELL_SIZE, true, true);
+		ImageView imageView = new ImageView(image);
+		imageView.setPreserveRatio(true);
+		imageView.setOpacity(0.9);
+		return imageView;
 	}
 
 
@@ -285,17 +293,6 @@ public class AlgoDefenseVista implements Observer, Vista {
 		this.enemigos = algoDefense.getEnemigos();
 		this.mapa = algoDefense.getMapa();
 		this.juego = algoDefense;
-		try {
-			this.juego.agregarJugador("pepito");
-		} catch (NombreInvalido e) {
-			throw new RuntimeException(e);
-		} catch (FormatoJSONInvalidoException e) {
-			throw new RuntimeException(e);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		} catch (ParseException e) {
-			throw new RuntimeException(e);
-		}
 	}
 
 	private VBox createButtonBox() {
