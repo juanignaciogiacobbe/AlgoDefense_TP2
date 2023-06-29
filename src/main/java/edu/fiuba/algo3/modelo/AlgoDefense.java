@@ -3,7 +3,6 @@ package edu.fiuba.algo3.modelo;
 import edu.fiuba.algo3.modelo.convertidor.*;
 import edu.fiuba.algo3.modelo.defensas.*;
 import edu.fiuba.algo3.modelo.enemigos.Enemigo;
-import edu.fiuba.algo3.modelo.enemigos.EnemigosFueraDeRango;
 import edu.fiuba.algo3.modelo.juego.CreditosInsuficientes;
 import edu.fiuba.algo3.modelo.juego.Jugador;
 import edu.fiuba.algo3.modelo.juego.NombreInvalido;
@@ -16,14 +15,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 
 public class AlgoDefense implements Observable {
 
-	private final Mapa mapa;
+	private Mapa mapa;
 	private Map<Integer, List<Enemigo>> enemigosTurno;
 
 	private Jugador jugador1;
@@ -46,11 +44,11 @@ public class AlgoDefense implements Observable {
 	}
 
 	public AlgoDefense() throws IOException, ParseException, FormatoJSONInvalidoException {
-		String PATH_MAPA = "src/resources/mapa.json";
-		File file = new File(PATH_MAPA);
-		FileReader reader = new FileReader(file);
-		ConvertidorMapa convertidor = new ConvertidorMapaImplementacion(reader);
-		this.mapa = convertidor.cargarMapa();
+		this.reiniciarJuego();
+	}
+
+	public void reiniciarJuego() throws IOException, ParseException, FormatoJSONInvalidoException {
+		this.cargarMapa();
 		this.enemigos = new ArrayList<>();
 		this.cargarMapaEnemigosPorTurno();
 		this.turno = 1;
@@ -58,13 +56,23 @@ public class AlgoDefense implements Observable {
 		this.logger =  CustomLogger.getInstance();
 	}
 
+
+
 	public AlgoDefense(Mapa mapa) {
 		this.mapa = mapa;
 		this.enemigos = new ArrayList<>();
 		this.enemigosTurno = null;
 	}
 
-	private void cargarMapaEnemigosPorTurno() throws FormatoJSONInvalidoException, ParseException, FileNotFoundException {
+	public void cargarMapa() throws ParseException, IOException, FormatoJSONInvalidoException {
+		String PATH_MAPA = "src/resources/mapa.json";
+		File file = new File(PATH_MAPA);
+		FileReader reader = new FileReader(file);
+		ConvertidorMapa convertidor = new ConvertidorMapaImplementacion(reader);
+		this.mapa = convertidor.cargarMapa();
+	}
+
+	public void cargarMapaEnemigosPorTurno() throws FormatoJSONInvalidoException, ParseException, FileNotFoundException {
 		String PATH_ENEMIGO = "src/resources/enemigos.json";
 		FileReader readerEnemigos = new FileReader(PATH_ENEMIGO);
 		ConvertidorEnemigos convertidorEnemigos = new ConvertidorEnemigosImplementacion(readerEnemigos,mapa.getOrigen());

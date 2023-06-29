@@ -41,10 +41,10 @@ public class Main extends Application {
 			ComoJugarVistaPrincipal comoJugarVistaPrincipal = new ComoJugarVistaPrincipal(bienvenidoVista);
 			bienvenidoVista.setComoJugarPrincipal(comoJugarVistaPrincipal);
 			bienvenidoVista.setNext(algoDefenseVista);
-            bienvenidoVista.setCreditos(creditosVista);
+			bienvenidoVista.setCreditos(creditosVista);
 			creditosVista.setNext(bienvenidoVista);
 			algoDefenseVista.setNext(finJuegoVista);
-
+			finJuegoVista.setNext(bienvenidoVista);
 			AlgoDefense algoDefense = new AlgoDefense();
 			algoDefense.addObserver(algoDefenseVista);
 			bienvenidoVista.setAlgoDefense(algoDefense);
