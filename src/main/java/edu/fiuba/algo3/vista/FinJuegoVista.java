@@ -47,7 +47,7 @@ public class FinJuegoVista implements Vista {
 		Button playAgainButton = new Button("Jugar de nuevo");
 		PlayAgainControlador playAgainController = new PlayAgainControlador(algoDefense, nextVista, scene, mediaPlayer);
 		playAgainButton.setOnAction(playAgainController);
-		playAgainButton.setStyle("-fx-background-color: red; -fx-text-fill: black; -fx-font-weight: bold; -fx-cursor: hand;");
+		playAgainButton.setStyle("-fx-text-fill: black; -fx-font-weight: bold; -fx-cursor: hand;");
 
 		StackPane stackPane = new StackPane();
 		stackPane.setAlignment(Pos.CENTER);
