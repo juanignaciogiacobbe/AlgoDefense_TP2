@@ -52,9 +52,11 @@ public class UbicarTorreHandler implements EventHandler<ActionEvent> {
         try {
             try {
                 if (parcela == null) {
-                    throw new TerrenoNoAptoParaConstruir();
+                    AlertBox.display("Atención", "Debe seleccionar una parcela para construir");
+                    return;
                 }
                 this.juego.construir(this.torre, parcela);
+                vista.setUltimaParcela(null);
                 Media media = new Media(new File("src/resources/sonido-construccion.mp3").toURI().toString());
                 MediaPlayer mediaPlayer = new MediaPlayer(media);
                 mediaPlayer.setCycleCount(1); // Repetir la música indefinidamente

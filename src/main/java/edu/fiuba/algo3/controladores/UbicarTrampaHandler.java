@@ -32,7 +32,12 @@ public class UbicarTrampaHandler implements EventHandler<ActionEvent> {
         Parcela parcela = this.vista.getUltimaParcela();
         TrampaArenosa trampaArenosa = new TrampaArenosa();
         try {
+            if (parcela == null) {
+                AlertBox.display("Atención", "Debe seleccionar una parcela para construir");
+                return;
+            }
             this.juego.construir(trampaArenosa, parcela);
+            vista.setUltimaParcela(null);
         } catch (TerrenoNoAptoParaConstruir e) {
             AlertBox.display("Atención", "El terreno no es apto para construir esta defensa");
             throw new RuntimeException(e);

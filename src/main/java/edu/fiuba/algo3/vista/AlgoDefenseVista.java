@@ -326,12 +326,12 @@ public class AlgoDefenseVista implements Observer, Vista {
 
 		HBox defenseButtonsBox = new HBox(10, tpButton, tbButton, sButton, infoDefensa);
 
-		Button finishGameButton = new Button("Finish Game");
+		Button finishGameButton = new Button("Salir");
 		finishGameButton.setOnAction(e -> {
 			Stage stage = (Stage) finishGameButton.getScene().getWindow();
 			stage.close();
 		});
-		finishGameButton.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-font-weight: bold;");
+		finishGameButton.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;");
 		VBox buttonBox = new VBox(siguienteTurnoButton, defenseButtonsBox, finishGameButton);
 		buttonBox.getStyleClass().add("contenedorBotones");
 		buttonBox.setSpacing(10);
@@ -355,6 +355,9 @@ public class AlgoDefenseVista implements Observer, Vista {
 
 	public Parcela getUltimaParcela() {
 		return this.ultimaParcela;
+	}
+	public void setUltimaParcela(Parcela parcela) {
+		this.ultimaParcela = parcela;
 	}
 
 	@Override

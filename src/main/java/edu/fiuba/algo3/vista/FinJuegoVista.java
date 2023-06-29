@@ -32,8 +32,8 @@ public class FinJuegoVista implements Vista {
 		celebratoryLabel.setFont(Font.font("Arial", FontWeight.BOLD, 36));
 		celebratoryLabel.setTextFill(Color.WHITE);
 
-		Button finishButton = new Button("Finish Game");
-		finishButton.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-font-weight: bold;");
+		Button finishButton = new Button("Salir");
+		finishButton.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;");
 		finishButton.setOnAction(e -> {
 			Stage stage = (Stage) scene.getWindow();
 			stage.close();

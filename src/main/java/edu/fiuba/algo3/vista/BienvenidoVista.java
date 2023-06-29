@@ -88,7 +88,7 @@ public class BienvenidoVista implements Vista {
 
         creditosBoton.getStyleClass().add("boton");
         howToPlayButton.getStyleClass().add("boton");
-        salirBoton.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-font-weight: bold;");
+        salirBoton.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;");
         salirBoton.setOnAction(e -> {
             Stage stage = (Stage) salirBoton.getScene().getWindow();
             stage.close();
