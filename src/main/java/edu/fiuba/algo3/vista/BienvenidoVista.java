@@ -128,14 +128,8 @@ public class BienvenidoVista implements Vista {
         });
 
         LoginBotonControlador controller = new LoginBotonControlador(nameField,nextVista,juego,scene,mediaPlayer);
+        nameField.setOnAction(controller);
         loginButton.setOnAction(controller);
-
-        nameField.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                nameField.setOnAction(controller);
-            }
-        });
-
 
         scene.setRoot(mainContainer);
     }
