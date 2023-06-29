@@ -51,6 +51,9 @@ public class UbicarTorreHandler implements EventHandler<ActionEvent> {
         Parcela parcela = vista.getUltimaParcela();
         try {
             try {
+                if (parcela == null) {
+                    throw new TerrenoNoAptoParaConstruir();
+                }
                 this.juego.construir(this.torre, parcela);
                 Media media = new Media(new File("src/resources/sonido-construccion.mp3").toURI().toString());
                 MediaPlayer mediaPlayer = new MediaPlayer(media);
