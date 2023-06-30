@@ -1,0 +1,16 @@
+@startuml
+participant Actor
+Actor -> ":Hormiga" : mover(mapa)
+activate ":Hormiga"
+":Hormiga" -> "trasladable : Caminante" : moverse(mapa)
+activate "trasladable : Caminante"
+"trasladable : Caminante" -> ParcelaDePasarela: mover(velocidad, mapa)
+activate ParcelaDePasarela
+ParcelaDePasarela --> "trasladable : Caminante" : pasarela
+deactivate ParcelaDePasarela
+"trasladable : Caminante" -> "trasladable : Caminante" : setPasarelaActual(pasarela)
+activate "trasladable : Caminante"
+deactivate "trasladable : Caminante"
+"trasladable : Caminante" --> ":Hormiga" : trasladable
+deactivate "trasladable : Caminante"
+@enduml

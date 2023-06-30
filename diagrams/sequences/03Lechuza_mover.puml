@@ -1,0 +1,11 @@
+@startuml
+participant Actor
+Actor -> ":Lechuza" : mover(mapa)
+activate ":Lechuza"
+":Lechuza" -> Trasladable : moverse(mapa)
+activate Trasladable
+Trasladable --> ":Lechuza": trasladable
+deactivate Trasladable
+
+return
+@enduml

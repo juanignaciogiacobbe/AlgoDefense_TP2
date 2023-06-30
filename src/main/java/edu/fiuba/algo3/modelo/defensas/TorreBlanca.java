@@ -22,7 +22,7 @@ public class TorreBlanca extends Torre {
 
     @Override
     public String toString() {
-        return "TB";
+       return "TB" + desplegable.toString();
     }
 }
 

@@ -1,0 +1,18 @@
+@startuml
+ "mapa : Mapa" -> ":Topo": atacar(jugador1)
+        activate ":Topo"
+        ":Topo" -> "atacante : AtacanteDeJugador" : atacar(jugador1)
+        activate "atacante : AtacanteDeJugador"
+        "atacante : AtacanteDeJugador" -> "jugador1 : Jugador" : recibirDanio(danio)
+        activate "jugador1 : Jugador"
+        "jugador1 : Jugador" -> EstadoDeVida : recibirDanio(danio)
+        activate EstadoDeVida
+        EstadoDeVida --> "jugador1 : Jugador" : estadoDeVida
+        deactivate EstadoDeVida
+        "jugador1 : Jugador" --> "atacante : AtacanteDeJugador"
+        deactivate "jugador1 : Jugador"
+        "atacante : AtacanteDeJugador" --> ":Topo"
+        deactivate "atacante : AtacanteDeJugador"
+        ":Topo" --> "mapa : Mapa"
+        deactivate ":Topo"
+@enduml

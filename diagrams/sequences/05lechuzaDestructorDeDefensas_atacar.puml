@@ -1,0 +1,14 @@
+@startuml
+ "mapa : Mapa" -> ":Lechuza": atacar(jugador1)
+        activate ":Lechuza"
+        ":Lechuza" -> "atacante : DestructorDeDefensas" : atacar(jugador1)
+        activate "atacante : DestructorDeDefensas"
+        "atacante : DestructorDeDefensas" -> "jugador1 : Jugador" : destruirSiguienteDefensa()
+        activate "jugador1 : Jugador"
+        "jugador1 : Jugador" --> "atacante : DestructorDeDefensas"
+        deactivate "jugador1 : Jugador"
+        "atacante : DestructorDeDefensas" --> ":Lechuza"
+        deactivate "atacante : DestructorDeDefensas"
+        ":Lechuza" --> "mapa : Mapa"
+        deactivate ":Lechuza"
+@enduml

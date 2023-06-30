@@ -1,0 +1,62 @@
+@startuml
+
+interface Defensa {
+  + atacar(enemigos: List<Enemigo>, parcelaDefensa: Parcela): void
+}
+
+interface Desplegable {
+  + atacar(enemigos: List<Enemigo>, parcelaDefensa: Parcela, rangoAtaque: int, danio: int): Desplegable
+  + pasarTurno(): Desplegable
+}
+
+class Desplegado
+class NoDesplegado
+class NoRalentizador
+interface Ralentizador {
+  + ralentizar(distancia: int, mapa: Mapa, pasarela: PasarelaComun): ParcelaDePasarela
+  + pasarTurno(): Ralentizador
+}
+
+
+abstract class Torre {
+  # costoConstruccion: int
+  # danio: int
+  # rangoAtaque: int
+  # turnosRestantesParaDespliegue: int
+  # nombre: String
+  # desplegable: Desplegable
+  + atacar(enemigos: List<Enemigo>, parcelaDefensa: Parcela): void
+  + pasarTurno(): void
+
+}
+
+class TorreBlanca {
+  + TorreBlanca()
+ }
+
+class TorrePlateada{
+   + TorrePlateada()
+}
+class TrampaArenosa  {
+  - costoConstruccion: int
+  - tiempoDeActividadRestante: int
+  + TrampaArenosa()
+  + pasarTurno(): Ralentizador
+  + ralentizar(distancia: int, mapa: Mapa, pasarela: PasarelaComun): ParcelaDePasarela
+}
+
+
+Desplegado                -[dashed]-^  Desplegable
+NoDesplegado              -[dashed]-^  Desplegable
+NoRalentizador            -[dashed]-^  Ralentizador
+Torre                     -[dashed]-^  Defensa
+TorreBlanca               -[plain]-^  Torre
+TorrePlateada             -[plain]-^  Torre
+TrampaArenosa             -[dashed]-^  Defensa
+TrampaArenosa             -[dashed]-^  Ralentizador
+
+
+Defensa --> Desplegable
+
+
+@enduml

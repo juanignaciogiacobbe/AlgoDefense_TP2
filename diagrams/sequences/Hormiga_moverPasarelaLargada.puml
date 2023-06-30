@@ -1,0 +1,26 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+":Hormiga" -> "trasladable : Caminante" : moverse(mapa)
+activate "trasladable : Caminante"
+"trasladable : Caminante" -> "p : PasarelaLargada": mover(velocidad, mapa)
+activate "p : PasarelaLargada"
+"p : PasarelaLargada" -> "mapa : Mapa" : obtenerPasarelasEnRango(p, velocidad)
+activate "mapa : Mapa"
+"mapa : Mapa" -> "p : PasarelaLargada" : vecinos(mapa, velocidad)
+activate "p : PasarelaLargada"
+"p : PasarelaLargada" --> "mapa : Mapa" : vecinos
+deactivate "p : PasarelaLargada"
+"mapa : Mapa" -> "mapa : Mapa": calcularParcelaConDistanciaMinimaALaMeta(vecinos)
+activate "mapa : Mapa"
+"mapa : Mapa" --> "mapa : Mapa": pasarela
+deactivate "mapa : Mapa"
+"mapa : Mapa" --> "p : PasarelaLargada" : pasarela
+"p : PasarelaLargada" --> "trasladable : Caminante" : pasarela
+
+deactivate "p : PasarelaLargada"
+"trasladable : Caminante" -> "trasladable : Caminante" : setPasarelaActual(pasarela)
+activate "trasladable : Caminante"
+deactivate "trasladable : Caminante"
+"trasladable : Caminante" --> ":Hormiga" : trasladable
+deactivate "trasladable : Caminante"
+@enduml

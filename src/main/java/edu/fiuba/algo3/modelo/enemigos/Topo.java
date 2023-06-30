@@ -89,6 +89,6 @@ public class Topo implements Enemigo {
 
     @Override
     public String toString() {
-        return "T";
+        return "TO";
     }
 }

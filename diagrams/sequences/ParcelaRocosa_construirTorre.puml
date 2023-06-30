@@ -1,0 +1,13 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+"jugador1 : Jugador" -> "p : ParcelaRocosa" : construir(defensa)
+activate "p : ParcelaRocosa"
+"p : ParcelaRocosa" -> "construible : NoConstruible" : construir(defensa, p)
+activate "construible : NoConstruible"
+"construible : NoConstruible" -> "p : ParcelaRocosa" : new TerrenoNoAptoParaConstruir()
+
+deactivate "construible : NoConstruible"
+"p : ParcelaRocosa" --> "jugador1 : Jugador" : TerrenoNoAptoParaConstruir()
+
+@enduml

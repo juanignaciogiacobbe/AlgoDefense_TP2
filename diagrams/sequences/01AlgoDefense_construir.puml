@@ -1,0 +1,43 @@
+@startuml
+participant Actor
+Actor -> "a : AlgoDefense" : construir(d, p)
+activate "a : AlgoDefense"
+"a : AlgoDefense" -> "jugador1 : Jugador" : construir(d, p)
+activate "jugador1 : Jugador"
+"jugador1 : Jugador" -> Torre : getCostoConstruccion()
+activate Torre
+Torre --> "jugador1 : Jugador" : costo
+deactivate Torre
+
+
+"jugador1 : Jugador" -> "creditos : Creditos" : consumirPuntos(costo)
+activate "creditos : Creditos"
+alt tiene suficientes creditos
+"creditos : Creditos" --> "jugador1 : Jugador"
+deactivate "creditos : Creditos"
+
+"jugador1 : Jugador" -> Parcela : construir(defensa)
+activate Parcela
+alt construye
+Parcela --> "jugador1 : Jugador"
+deactivate Parcela
+"jugador1 : Jugador" --> "a : AlgoDefense"
+
+else TerrenoNoAptoParaConstruir
+"jugador1 : Jugador" -> Torre : getCostoConstruccion()
+activate Torre
+Torre --> "jugador1 : Jugador" : costo
+deactivate Torre
+"jugador1 : Jugador" -> "creditos : Creditos" : agregarCreditos(costo)
+activate "creditos : Creditos"
+"creditos : Creditos" --> "jugador1 : Jugador"
+deactivate "creditos : Creditos"
+"jugador1 : Jugador" --> "a : AlgoDefense" : new TerrenoNoAptoParaConstruir()
+deactivate "jugador1 : Jugador"
+end
+else CreditosInsuficientes
+"creditos : Creditos" --> "jugador1 : Jugador" : new CreditosInsuficientes()
+"jugador1 : Jugador" --> "a : AlgoDefense" : new CreditosInsuficientes()
+end
+
+@enduml

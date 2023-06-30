@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+"jugador1 : Jugador" -> "p : ParcelaDeTierra" : construir(defensa)
+activate "p : ParcelaDeTierra"
+"p : ParcelaDeTierra" -> "construible : Edificable" : construir(defensa, p)
+activate "construible : Edificable"
+"construible : Edificable" -> "p : ParcelaDeTierra" : setDefensa(defensa)
+activate "p : ParcelaDeTierra"
+"p : ParcelaDeTierra" --> "construible : Edificable"
+deactivate "p : ParcelaDeTierra"
+"construible : Edificable" --> "p : ParcelaDeTierra"
+deactivate "construible : Edificable"
+"p : ParcelaDeTierra" --> "jugador1 : Jugador"
+
+
+@enduml

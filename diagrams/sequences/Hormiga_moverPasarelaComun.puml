@@ -1,0 +1,19 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+":Hormiga" -> "trasladable : Caminante" : moverse(mapa)
+activate "trasladable : Caminante"
+"trasladable : Caminante" -> "p : PasarelaComun": mover(velocidad, mapa)
+activate "p : PasarelaComun"
+"p : PasarelaComun" -> Ralentizador : ralentizar(velocidad, mapa, p)
+activate Ralentizador
+Ralentizador --> "p : PasarelaComun" : pasarela
+deactivate Ralentizador
+"p : PasarelaComun" --> "trasladable : Caminante" : pasarela
+deactivate "p : PasarelaComun"
+"trasladable : Caminante" -> "trasladable : Caminante" : setPasarelaActual(pasarela)
+activate "trasladable : Caminante"
+deactivate "trasladable : Caminante"
+"trasladable : Caminante" --> ":Hormiga" : trasladable
+deactivate "trasladable : Caminante"
+@enduml

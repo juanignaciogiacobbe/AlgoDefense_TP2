@@ -1,17 +1,35 @@
 .root {
     -fx-font-family: "Monospace", sans-serif;
+    -fx-text-fill: white;
 }
 
 .container {
     -fx-alignment: center;
     -fx-spacing: 10px;
     -fx-padding: 200px;
+    -fx-background-color: #171616;
+}
+
+.mainContainer {
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+    -fx-background-color: #171616;
+    -fx-width: 100%;
+    -fx-padding: 10px;
+}
+
+.label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
 }
 
 .boton {
     -fx-background-color: #8ab8f5;
     -fx-text-fill: white;
     -fx-cursor: hand;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
 }
 
 .boton: hover {
@@ -43,5 +61,56 @@
 }
 
 .contenedorBotones {
-    -fx-alignment: center-right;
+    -fx-alignment: top-left;
+    -fx-spacing: 10px;
+}
+
+.columnaDerecha {
+    -fx-alignment: center;
+    -fx-percent-width: 50%;
+    -fx-spacing: 10px;
+    -fx-padding: 10px;
+}
+
+.infoLabel {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px;
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+}
+
+.botonInGame {
+    -fx-background-color: brown;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+    -fx-pref-height: 150px;
+}
+
+.botonInGame: hover {
+    -fx-text-fill: white;
+    -fx-background-color: #3d1a07;
+}
+
+.texto-creditos {
+    -fx-spacing: 10px;
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-spacing: 10px;
+}
+
+.howToPlayCard {
+    -fx-alignment: center;
+    -fx-padding: 20px;
+    -fx-background-color: #171616;
+    -fx-spacing: 20px;
+}
+
+.playerInfoBox {
+    -fx-spacing: 10px;
+}
+
+.game-background {
+    -fx-background-color: #171616;
+    -fx-margin: 10px;
 }

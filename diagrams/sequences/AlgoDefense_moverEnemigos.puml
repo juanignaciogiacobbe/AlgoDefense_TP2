@@ -1,0 +1,32 @@
+@startuml
+participant Actor
+Actor -> "a : AlgoDefense" : moverEnemigos()
+activate "a : AlgoDefense"
+loop e en enemigos
+    "a : AlgoDefense" -> Enemigo: mover(mapa)
+    activate Enemigo
+    Enemigo --> "a : AlgoDefense"
+    deactivate Enemigo
+end
+"a : AlgoDefense" -> "mapa : Mapa" : actualizarMeta(enemigos, jugador1)
+activate "mapa : Mapa"
+create "nuevaLista : ArrayList"
+"mapa : Mapa" -> "nuevaLista : ArrayList": new
+loop enemigo en enemigos
+    alt enemigo no se encuentra en la meta
+        "mapa : Mapa" -> "nuevaLista : ArrayList" : add(enemigo)
+    else enemigo se encuentra en la meta
+        "mapa : Mapa" -> Enemigo: atacar(jugador1)
+        activate Enemigo
+        Enemigo --> "mapa : Mapa"
+        deactivate Enemigo
+
+end
+"mapa : Mapa" --> "a : AlgoDefense" : nuevaLista
+deactivate "mapa : Mapa"
+"a : AlgoDefense" -> "mapa : Mapa" : pasarTurno()
+activate "mapa : Mapa"
+"mapa : Mapa" --> "a : AlgoDefense"
+deactivate "mapa : Mapa"
+return
+@enduml

@@ -2614,6 +2614,10 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 .label:success {
     -fx-text-fill: -color-success-emphasis;
 }
+.boton-fin-juego {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
 .label:success .font-icon, .label:success .ikonli-font-icon {
     -fx-icon-color: -color-success-fg;
     -fx-fill: -color-success-fg;

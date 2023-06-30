@@ -13,6 +13,7 @@ public abstract class Parcela {
 	protected Coordenada coordenada;
 
 	protected Mapa mapa;
+
 	protected Construible construible;
 	protected Movible movible;
 

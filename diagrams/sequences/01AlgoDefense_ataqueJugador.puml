@@ -1,0 +1,38 @@
+@startuml
+participant Actor
+Actor -> "a : AlgoDefense" : ataqueJugador()
+activate "a : AlgoDefense"
+"a : AlgoDefense" -> "jugador1 : Jugador" : atacarEnemigos(enemigos)
+activate "jugador1 : Jugador"
+
+loop d en defensas
+            "jugador1 : Jugador" -> "p : ParcelaDeTierra" : atacar(enemigos)
+            activate "p : ParcelaDeTierra"
+            "p : ParcelaDeTierra" -> Defensa : atacar(enemigos, p)
+            activate Defensa
+            Defensa --> "p : ParcelaDeTierra"
+            Defensa -> Desplegable : atacar(enemigos, p, rangoAtaque, danio)
+            activate Desplegable
+            Desplegable --> Defensa
+            deactivate Desplegable
+            deactivate Defensa
+
+            "p : ParcelaDeTierra" --> "jugador1 : Jugador"
+            deactivate "p : ParcelaDeTierra"
+        end
+
+loop e en enemigos
+          "jugador1 : Jugador" -> "e : Enemigo" : recolectarCreditos()
+          activate "e : Enemigo"
+          "e : Enemigo" --> "jugador1 : Jugador" : c
+          deactivate "e : Enemigo"
+          "jugador1 : Jugador" -> "creditos : Creditos" : agregarCreditos(c)
+          activate "creditos : Creditos"
+          "creditos : Creditos" --> "jugador1 : Jugador"
+          deactivate "creditos : Creditos"
+        end
+
+"jugador1 : Jugador" --> "a : AlgoDefense"
+deactivate "jugador1 : Jugador"
+return
+@enduml
